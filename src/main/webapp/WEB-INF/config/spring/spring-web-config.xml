@@ -12,6 +12,7 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
     <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="defaultEncoding" value="UTF-8"/>
         <property name="templateLoaderPath" value="/WEB-INF/views/ftl"/>
     </bean>
 
@@ -19,6 +20,9 @@
         <property name="cache" value="true"/>
         <property name="prefix" value=""/>
         <property name="suffix" value=".ftl"/>
+        <property name="contentType" value="text/html; charset=UTF-8"/>
+        <property name="requestContextAttribute" value="rc"/>
+        <property name="order" value="1"/>
     </bean>
 
     <context:component-scan base-package="ru.kolaer.permit.controller" />
