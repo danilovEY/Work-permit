@@ -29,11 +29,16 @@
             <#include "header.ftl"/>
         </div>
 
-        <div class="content">
-            <@block "body" />
+        <div id="wrap">
+            <div class="container">
+                <div class="page-header">
+                    <@block "body" />
+
+                </div>
+            </div>
         </div>
 
-        <div class="footer">
+        <div id="footer">
             <#include "footer.ftl">
         </div>
     </div>
