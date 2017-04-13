@@ -1,5 +1,6 @@
 package ru.kolaer.permit.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,8 @@ import java.util.Optional;
  * Created by danilovey on 13.04.2017.
  */
 @Controller
-@RequestMapping()
+@RequestMapping
+@Slf4j
 public class AuthController {
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
