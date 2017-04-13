@@ -1,13 +1,7 @@
-<!DOCTYPE html>
+<#import "layout/baseTemplate.ftl" as base>
 
-<html lang="ru">
+<@base.override "body">
+    <h1>INDEX</h1>
+</@base.override>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Наряд-допуск</title>
-</head>
-
-<body>
-
-</body>
-</html>
+<@base.template/>

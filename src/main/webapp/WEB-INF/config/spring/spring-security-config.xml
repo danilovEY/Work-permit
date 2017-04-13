@@ -11,8 +11,19 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd ">
 
-    <security:http auto-config="true">
-        <security:intercept-url pattern="/admin" access="ROLE_USER"/>
+    <security:http auto-config="true" use-expressions="true">
+        <security:intercept-url pattern="/" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/login" access="permitAll()"/>
+        <security:intercept-url pattern="/logout" access="isAuthenticated()"/>
+
+        <security:form-login login-page="/login"
+                             default-target-url="/"
+                             authentication-failure-url="/login?error=true&amp;access=true"
+                             always-use-default-target="true"/>
+        <security:remember-me key="remember" token-validity-seconds="1209600"/>
+
+        <security:csrf disabled="true"/>
+        <security:http-basic />
     </security:http>
 
     <security:authentication-manager>
