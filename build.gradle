@@ -29,6 +29,7 @@ dependencies {
     compile 'org.springframework.security:spring-security-web:4.2.2.RELEASE'
     compile 'org.springframework.security:spring-security-config:4.2.2.RELEASE'
     compile 'org.springframework.security:spring-security-taglibs:4.2.2.RELEASE'
+    compile 'org.springframework:spring-orm:4.3.7.RELEASE'
 
     compile 'org.hibernate:hibernate-core:5.2.9.Final'
     compile 'mysql:mysql-connector-java:5.1.38'
