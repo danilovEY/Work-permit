@@ -42,7 +42,7 @@ public final class EmptyObjects {
     };
 
     public static final EmployeeEntity DEFAULT_EMPLOYEE = new EmployeeEntity(-1, "initials",
-            new Date(0), -1, DEFAULT_DEPARTMENT, DEFAULT_POST){
+            new Date(0), -1, "", "", DEFAULT_DEPARTMENT, DEFAULT_POST){
         @Override
         public void setId(Integer id) {throw new UnsupportedOperationException();}
         @Override

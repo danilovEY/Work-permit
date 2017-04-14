@@ -32,6 +32,12 @@ public class EmployeeEntity {
     @Column(name = "personal_number", length = 10)
     private Integer personalNumber;
 
+    @Column(name = "email", length = 100)
+    private String email;
+
+    @Column(name = "work_home", length = 100)
+    private String workPhone;
+
     @ManyToOne
     @JoinColumn(name = "department_id", nullable = false)
     private DepartmentEntity department;
