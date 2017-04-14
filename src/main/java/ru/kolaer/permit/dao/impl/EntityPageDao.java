@@ -1,8 +1,6 @@
 package ru.kolaer.permit.dao.impl;
 
 import lombok.NonNull;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -15,12 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.Root;
 import java.util.List;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
 /**
  * Created by danilovey on 14.04.2017.
@@ -55,8 +48,7 @@ public class EntityPageDao implements EmployeePageDao {
     @Override
     @Transactional
     public EmployeeEntity update(@NonNull EmployeeEntity entity) {
-        this.entityManagerFactory.createEntityManager().merge(entity);
-        return entity;
+        return this.entityManagerFactory.createEntityManager().merge(entity);
     }
 
     @Override
