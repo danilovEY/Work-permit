@@ -1,11 +1,9 @@
 package ru.kolaer.permit.component;
 
-import org.springframework.stereotype.Component;
 import ru.kolaer.permit.entity.DepartmentEntity;
 import ru.kolaer.permit.entity.EmployeeEntity;
 import ru.kolaer.permit.entity.PostEntity;
 
-import javax.annotation.PostConstruct;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +11,6 @@ import java.util.List;
 /**
  * Created by danilovey on 14.04.2017.
  */
-@Component
 public final class EmptyObjects {
 
     public static final PostEntity DEFAULT_POST = new PostEntity(-1, "default_post",
