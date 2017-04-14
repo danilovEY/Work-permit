@@ -1,6 +1,8 @@
 package ru.kolaer.permit.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,6 +13,8 @@ import java.util.List;
 @Entity
 @Table(name = "departments")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class DepartmentEntity {
 
     @Id
