@@ -4,10 +4,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
+import ru.kolaer.permit.dao.EmployeePageDao;
+import ru.kolaer.permit.dto.Page;
 import ru.kolaer.permit.entity.DepartmentEntity;
 import ru.kolaer.permit.entity.EmployeeEntity;
 import ru.kolaer.permit.entity.PostEntity;
@@ -63,6 +66,13 @@ public class HibernateTest {
         transaction.commit();
 
         session.close();
+    }
+
+    @Test
+    public void testGetAllEmployee() {
+        final EmployeePageDao bean = this.fileSystemXmlApplicationContext.getBean(EmployeePageDao.class);
+        final Page<EmployeeEntity> all = bean.findAll(1, 15);
+        Assert.assertTrue(all.getData().size() > 0);
     }
 
 }
