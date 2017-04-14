@@ -11,10 +11,9 @@ import org.junit.Test;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import ru.kolaer.permit.dao.EmployeePageDao;
 import ru.kolaer.permit.dto.Page;
-import ru.kolaer.permit.entity.DepartmentEntity;
-import ru.kolaer.permit.entity.EmployeeEntity;
-import ru.kolaer.permit.entity.PostEntity;
+import ru.kolaer.permit.entity.*;
 
+import java.util.Collections;
 import java.util.Date;
 
 /**
@@ -48,21 +47,32 @@ public class HibernateTest {
         departmentEntity.setName("абабабаб");
 
         final PostEntity postEntity = new PostEntity();
+        postEntity.setId(1);
         postEntity.setAbbreviatedName("123");
         postEntity.setName("3333");
         postEntity.setRang(1);
         postEntity.setTypeRang("");
 
         final EmployeeEntity employeeEntity = new EmployeeEntity();
+        employeeEntity.setId(1);
         employeeEntity.setDepartment(departmentEntity);
         employeeEntity.setPost(postEntity);
         employeeEntity.setInitials("123 123 123");
         employeeEntity.setBirthday(new Date());
         employeeEntity.setPersonalNumber(123);
 
+        final RoleEntity roleEntity = new RoleEntity();
+        roleEntity.setRole("ROLE_USER");
+
+        final AccountEntity accountEntity = new AccountEntity();
+        accountEntity.setEmployee(employeeEntity);
+        accountEntity.setUsername("username");
+        accountEntity.setPassword("password");
+        accountEntity.setRoles(Collections.singletonList(roleEntity));
+
         transaction.begin();
-        session.persist(postEntity);
-        session.persist(employeeEntity);
+        session.persist(roleEntity);
+        session.persist(accountEntity);
         transaction.commit();
 
         session.close();
