@@ -49,7 +49,7 @@ public class EntityPageDao implements EmployeePageDao {
     @Transactional
     public List<EmployeeEntity> persistAll(@NonNull List<EmployeeEntity> entity) {
         final EntityManager entityManager = this.entityManagerFactory.createEntityManager();
-        return this.batchForeach(entity, entityManager, entityManager::persist);
+        return this.batchForeach(entity, batchSize, entityManager, entityManager::persist);
     }
 
     @Override
@@ -63,20 +63,7 @@ public class EntityPageDao implements EmployeePageDao {
     @Transactional
     public List<EmployeeEntity> updateAll(@NonNull List<EmployeeEntity> entity) {
         final EntityManager entityManager = this.entityManagerFactory.createEntityManager();
-        return this.batchForeach(entity, entityManager, entityManager::merge);
-    }
-
-    private List<EmployeeEntity> batchForeach(List<EmployeeEntity> entities,
-                                              EntityManager entityManager,
-                                              Consumer<Object> consumer) {
-        for (int i=0; i < entities.size(); i++) {
-            consumer.accept(entities.get(i));
-            if(i % this.batchSize == 0){
-                entityManager.flush();
-                entityManager.clear();
-            }
-        }
-        return entities;
+        return this.batchForeach(entity, batchSize, entityManager, entityManager::merge);
     }
 
     @Override

@@ -2,7 +2,9 @@ package ru.kolaer.permit.dao;
 
 import lombok.NonNull;
 
+import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Created by danilovey on 14.04.2017.
@@ -16,4 +18,18 @@ public interface BaseDao<T> {
 
     List<T> findAll();
     T findById(@NonNull Integer id);
+
+    default List<T> batchForeach(List<T> entities,
+                                              int batchSize,
+                                              EntityManager entityManager,
+                                              Consumer<Object> consumer) {
+        for (int i=0; i < entities.size(); i++) {
+            consumer.accept(entities.get(i));
+            if(i % batchSize == 0){
+                entityManager.flush();
+                entityManager.clear();
+            }
+        }
+        return entities;
+    }
 }
