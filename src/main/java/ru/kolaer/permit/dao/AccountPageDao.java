@@ -5,6 +5,6 @@ import ru.kolaer.permit.entity.AccountEntity;
 /**
  * Created by danilovey on 14.04.2017.
  */
-public interface AccountDao extends BasePageDao<AccountEntity> {
+public interface AccountPageDao extends BasePageDao<AccountEntity> {
 
 }

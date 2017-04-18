@@ -1,12 +1,10 @@
 package ru.kolaer.permit.dao.impl;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.github.springtestdbunit.annotation.DatabaseTearDown;
-import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.kolaer.permit.dao.AccountDao;
+import ru.kolaer.permit.dao.AccountPageDao;
 import ru.kolaer.permit.dao.BaseTestDao;
 import ru.kolaer.permit.dto.Page;
 import ru.kolaer.permit.entity.AccountEntity;
@@ -26,7 +24,7 @@ public class UniformDaoTestByAccount extends BaseTestDao {
     private static final int DEFAULT_ENTITY_IN_BASE = 1;
 
     @Autowired
-    private AccountDao accountDao;
+    private AccountPageDao accountPageDao;
 
     @Test
     public void persist() {
@@ -34,14 +32,14 @@ public class UniformDaoTestByAccount extends BaseTestDao {
         accountEntity.setPassword("password1");
         accountEntity.setUsername("user1");
 
-        final AccountEntity persist = this.accountDao.persist(accountEntity);
+        final AccountEntity persist = this.accountPageDao.persist(accountEntity);
         assertNotNull(persist);
         assertNotNull(persist.getId());
     }
 
     @Test
     public void findAll() {
-        final List<AccountEntity> all = this.accountDao.findAll();
+        final List<AccountEntity> all = this.accountPageDao.findAll();
         assertNotNull(all);
         assertTrue(all.size() > 0);
     }
@@ -57,7 +55,7 @@ public class UniformDaoTestByAccount extends BaseTestDao {
         accountEntity2.setUsername("user2");
 
         final List<AccountEntity> persistList =
-                this.accountDao.persistAll(Arrays.asList(accountEntity, accountEntity2));
+                this.accountPageDao.persistAll(Arrays.asList(accountEntity, accountEntity2));
 
         assertNotNull(persistList);
         assertTrue(persistList.size() > DEFAULT_ENTITY_IN_BASE);
@@ -68,25 +66,25 @@ public class UniformDaoTestByAccount extends BaseTestDao {
 
     @Test
     public void findById() throws Exception {
-        final AccountEntity entity = this.accountDao.findById(DEFAULT_ENTITY_IN_BASE);
+        final AccountEntity entity = this.accountPageDao.findById(DEFAULT_ENTITY_IN_BASE);
         assertNotNull(entity);
     }
 
     @Test
     public void update() throws Exception {
-        final AccountEntity entity = this.accountDao.findById(DEFAULT_ENTITY_IN_BASE);
+        final AccountEntity entity = this.accountPageDao.findById(DEFAULT_ENTITY_IN_BASE);
 
         assertNotNull(entity);
 
         entity.setPassword("123");
         entity.setUsername("321");
 
-        assertNotNull(this.accountDao.update(entity));
+        assertNotNull(this.accountPageDao.update(entity));
     }
 
     @Test
     public void updateAll() throws Exception {
-        final Page<AccountEntity> entityPage = this.accountDao.findAll(1, 3);
+        final Page<AccountEntity> entityPage = this.accountPageDao.findAll(1, 3);
 
         assertNotNull(entityPage);
         assertNotNull(entityPage.getData());
@@ -99,7 +97,7 @@ public class UniformDaoTestByAccount extends BaseTestDao {
             return acc;
         }).collect(Collectors.toList());
 
-        assertEquals(this.accountDao.updateAll(entitiesToUpdate).size(), entitiesToUpdate.size());
+        assertEquals(this.accountPageDao.updateAll(entitiesToUpdate).size(), entitiesToUpdate.size());
     }
 
 }

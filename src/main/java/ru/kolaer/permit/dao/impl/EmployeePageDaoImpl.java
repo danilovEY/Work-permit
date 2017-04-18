@@ -10,9 +10,9 @@ import ru.kolaer.permit.entity.EmployeeEntity;
  * Created by danilovey on 14.04.2017.
  */
 @Repository
-public class EntityPageDao extends BasePageDaoAbstract<EmployeeEntity> implements EmployeePageDao {
+public class EmployeePageDaoImpl extends BasePageDaoAbstract<EmployeeEntity> implements EmployeePageDao {
 
-    public EntityPageDao(SessionFactory sessionFactory) {
+    public EmployeePageDaoImpl(SessionFactory sessionFactory) {
         super(sessionFactory);
     }
 

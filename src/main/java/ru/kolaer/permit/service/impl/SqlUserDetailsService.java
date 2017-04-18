@@ -6,8 +6,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
-import ru.kolaer.permit.dao.AccountDao;
+import ru.kolaer.permit.dao.AccountPageDao;
 
 import java.util.Collections;
 
@@ -16,11 +15,11 @@ import java.util.Collections;
  */
 public class SqlUserDetailsService implements UserDetailsService {
 
-    private final AccountDao accountDao;
+    private final AccountPageDao accountPageDao;
 
     @Autowired
-    public SqlUserDetailsService(AccountDao accountDao) {
-        this.accountDao = accountDao;
+    public SqlUserDetailsService(AccountPageDao accountPageDao) {
+        this.accountPageDao = accountPageDao;
     }
 
     @Override
