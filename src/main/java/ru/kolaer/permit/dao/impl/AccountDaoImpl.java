@@ -9,6 +9,7 @@ import ru.kolaer.permit.entity.AccountEntity;
 /**
  * Created by danilovey on 14.04.2017.
  */
+@Repository
 public class AccountDaoImpl extends BasePageDaoAbstract<AccountEntity> implements AccountDao {
 
     public AccountDaoImpl(SessionFactory sessionFactory) {

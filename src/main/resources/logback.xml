@@ -7,11 +7,8 @@
     </appender>
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <!-- <file>${jetty.home}/logs/webportal.log</file> -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- daily rollover -->
             <fileNamePattern>logs/%d{yyyy-MM-dd}_debug_permit.log</fileNamePattern>
-
             <maxHistory>15</maxHistory>
         </rollingPolicy>
 
