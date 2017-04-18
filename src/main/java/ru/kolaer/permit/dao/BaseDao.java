@@ -19,6 +19,8 @@ public interface BaseDao<T> {
     List<T> findAll();
     T findById(@NonNull Integer id);
 
+    Class<T> getEntityClass();
+
     default List<T> batchForeach(List<T> entities,
                                               int batchSize,
                                               EntityManager entityManager,
