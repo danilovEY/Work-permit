@@ -44,7 +44,7 @@ public abstract class BasePageServiceAbstract<T extends BaseEntity> implements B
 
         final long countIdNulls = entity.stream()
                 .map(T::getId)
-                .filter(Objects::isNull)
+                .filter(Objects::nonNull)
                 .count();
 
         if(countIdNulls > 0)
@@ -83,9 +83,9 @@ public abstract class BasePageServiceAbstract<T extends BaseEntity> implements B
 
     @Override
     public T update(@NonNull T entity) {
-        if(entity.getId() == null)
+        if(entity.getId() == null && entity.getId() < 1)
             throw new IllegalArgumentException(this.dao.getEntityClass().getName() +
-                    " - ID не должен быть пустым!");
+                    " - ID не должен быть пустым или меньше 1!");
 
         return this.dao.update(entity);
     }
@@ -97,12 +97,12 @@ public abstract class BasePageServiceAbstract<T extends BaseEntity> implements B
 
         final long countIdNulls = entity.stream()
                 .map(T::getId)
-                .filter(Objects::isNull)
+                .filter(id -> id == null || id < 1)
                 .count();
 
         if(countIdNulls > 0)
             throw new IllegalArgumentException(this.dao.getEntityClass().getName() +
-                    " - ID должены быть пустыми!");
+                    " - ID должены быть пустыми или больше 1!");
 
         return this.dao.updateAll(entity);
     }
@@ -114,7 +114,7 @@ public abstract class BasePageServiceAbstract<T extends BaseEntity> implements B
 
     @Override
     public T getById(@NonNull Integer id) {
-        return id < 0
+        return id < 1
                 ? this.dao.getEmptyEntity()
                 : this.dao.findById(id);
     }

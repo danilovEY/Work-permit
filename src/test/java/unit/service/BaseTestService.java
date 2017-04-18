@@ -14,12 +14,8 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
  */
 @RunWith(SpringRunner.class)
 @ContextHierarchy({
+        @ContextConfiguration(classes = {AccountPageServiceConfig.class}),
         @ContextConfiguration({"/test-config/spring/test-spring-core-config.xml"})
-})
-@TestExecutionListeners({
-        TransactionalTestExecutionListener.class,
-        DependencyInjectionTestExecutionListener.class,
-        DbUnitTestExecutionListener.class
 })
 public abstract class BaseTestService {
 }

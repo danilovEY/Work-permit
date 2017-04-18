@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kolaer.permit.dto.Page;
+import ru.kolaer.permit.entity.BaseEntity;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -20,7 +21,7 @@ import java.util.Optional;
  * Created by danilovey on 18.04.2017.
  */
 @Repository
-public abstract class BasePageDaoAbstract<T> implements BasePageDao<T> {
+public abstract class BasePageDaoAbstract<T extends BaseEntity> implements BasePageDao<T> {
     @Value("${hibernate.batch.size}")
     private Integer batchSize;
 
