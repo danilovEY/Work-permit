@@ -35,6 +35,8 @@
         <property name="sessionFactory" ref="localSessionFactory"/>
     </bean>
 
+    <context:component-scan base-package="ru.kolaer.permit.dao.impl"/>
+
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <context:property-placeholder location="file:${permit.home}etc/database.properties"/>

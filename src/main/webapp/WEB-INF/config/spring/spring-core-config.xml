@@ -12,7 +12,6 @@
     <import resource="spring-db-config.xml"/>
 
     <context:component-scan base-package="ru.kolaer.permit.component"/>
-    <context:component-scan base-package="ru.kolaer.permit.dao.impl"/>
     <context:component-scan base-package="ru.kolaer.permit.service.impl"/>
 
 </beans>
