@@ -4,14 +4,14 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.kolaer.permit.dao.AccountPageDao;
-import unit.dao.BaseTestDao;
 import ru.kolaer.permit.entity.AccountEntity;
 import ru.kolaer.permit.entity.EmployeeEntity;
 import ru.kolaer.permit.entity.RoleEntity;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by danilovey on 18.04.2017.

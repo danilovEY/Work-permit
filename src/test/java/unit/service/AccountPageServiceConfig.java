@@ -4,9 +4,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ru.kolaer.permit.component.EmptyObjects;
 import ru.kolaer.permit.dao.AccountPageDao;
-import ru.kolaer.permit.entity.AccountEntity;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by danilovey on 18.04.2017.

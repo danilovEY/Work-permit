@@ -2,8 +2,6 @@ package ru.kolaer.permit.component;
 
 import ru.kolaer.permit.entity.*;
 
-import javax.annotation.PostConstruct;
-import java.io.File;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;

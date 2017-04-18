@@ -4,7 +4,6 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.kolaer.permit.dao.AccountPageDao;
-import unit.dao.BaseTestDao;
 import ru.kolaer.permit.dto.Page;
 import ru.kolaer.permit.entity.AccountEntity;
 

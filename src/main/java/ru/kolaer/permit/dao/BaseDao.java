@@ -1,7 +1,6 @@
 package ru.kolaer.permit.dao;
 
 import lombok.NonNull;
-import ru.kolaer.permit.component.EmptyObjects;
 import ru.kolaer.permit.entity.BaseEntity;
 
 import javax.persistence.EntityManager;

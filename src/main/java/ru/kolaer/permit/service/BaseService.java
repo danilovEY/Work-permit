@@ -3,7 +3,6 @@ package ru.kolaer.permit.service;
 import lombok.NonNull;
 import ru.kolaer.permit.entity.BaseEntity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

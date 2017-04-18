@@ -1,15 +1,14 @@
 package unit.service;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.kolaer.permit.component.EmptyObjects;
 import ru.kolaer.permit.dao.AccountPageDao;
 import ru.kolaer.permit.entity.AccountEntity;
 import ru.kolaer.permit.service.AccountPageService;
-import unit.service.BaseTestService;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.mockito.Mockito.when;
 
 /**
