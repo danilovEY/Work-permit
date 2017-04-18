@@ -28,16 +28,13 @@ public class AccountPageDaoImpl extends BasePageDaoAbstract<AccountEntity> imple
     @Override
     @Transactional(readOnly = true)
     public EmployeeEntity findEmployeeByIdAccount(Integer id) {
-        final AccountEntity accountEntity = (AccountEntity) this.sessionFactory.getCurrentSession()
-                .createQuery("SELECT a.emplotee FROM AccountEntity a JOIN FETCH a.employee WHERE a.id = :id")
+        final EmployeeEntity employeeEntity = (EmployeeEntity) this.sessionFactory.getCurrentSession()
+                .createQuery("SELECT emp FROM AccountEntity a JOIN a.employee as emp WHERE a.id = :id")
                 .setParameter("id", id)
                 .uniqueResult();
 
         return Optional
-                .ofNullable(accountEntity)
-                .orElse(this.getEmptyEntity())
-                .getEmployee();
+                .ofNullable(employeeEntity)
+                .orElse(this.getEmptyEntity().getEmployee());
     }
-
-
 }

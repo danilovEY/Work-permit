@@ -11,7 +11,6 @@ import ru.kolaer.permit.entity.AccountEntity;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
@@ -33,15 +32,14 @@ public class UniformDaoTestByAccount extends BaseTestDao {
         accountEntity.setUsername("user1");
 
         final AccountEntity persist = this.accountPageDao.persist(accountEntity);
-        assertNotNull(persist);
         assertNotNull(persist.getId());
+        assertTrue(persist.getId() > 0);
     }
 
     @Test
     public void findAll() {
         final List<AccountEntity> all = this.accountPageDao.findAll();
-        assertNotNull(all);
-        assertTrue(all.size() > 0);
+        assertFalse(all.isEmpty());
     }
 
     @Test
@@ -57,43 +55,38 @@ public class UniformDaoTestByAccount extends BaseTestDao {
         final List<AccountEntity> persistList =
                 this.accountPageDao.persistAll(Arrays.asList(accountEntity, accountEntity2));
 
-        assertNotNull(persistList);
         assertTrue(persistList.size() > DEFAULT_ENTITY_IN_BASE);
         persistList.stream()
                 .map(AccountEntity::getId)
-                .forEach(Assert::assertNotNull);
+                .forEach(accId -> assertTrue(accId > 0));
     }
 
     @Test
     public void findById() throws Exception {
         final AccountEntity entity = this.accountPageDao.findById(DEFAULT_ENTITY_IN_BASE);
-        assertNotNull(entity);
+        assertTrue(entity.getId() > 0);
     }
 
     @Test
     public void update() throws Exception {
         final AccountEntity entity = this.accountPageDao.findById(DEFAULT_ENTITY_IN_BASE);
 
-        assertNotNull(entity);
+        assertTrue(entity.getId() > 0);
 
         entity.setPassword("123");
         entity.setUsername("321");
 
-        assertNotNull(this.accountPageDao.update(entity));
+        assertEquals(this.accountPageDao.update(entity), entity);
     }
 
     @Test
     public void updateAll() throws Exception {
         final Page<AccountEntity> entityPage = this.accountPageDao.findAll(1, 3);
 
-        assertNotNull(entityPage);
-        assertNotNull(entityPage.getData());
-        assertTrue(entityPage.getNumber().equals(1)
-                && entityPage.getPageSize().equals(3));
-
+        assertFalse(entityPage.getData().isEmpty());
 
         final List<AccountEntity> entitiesToUpdate = entityPage.getData().stream().map(acc -> {
-            acc.setPassword(UUID.randomUUID().toString());
+            acc.setPassword("");
             return acc;
         }).collect(Collectors.toList());
 
