@@ -93,4 +93,10 @@ public class UniformDaoTestByAccount extends BaseTestDao {
         assertEquals(this.accountPageDao.updateAll(entitiesToUpdate).size(), entitiesToUpdate.size());
     }
 
+    @Test(expected = NullPointerException.class)
+    public void throwIfIdNull() {
+        final AccountEntity accountEntity = this.accountPageDao.findById(null);
+        assertNull(accountEntity);
+    }
+
 }
