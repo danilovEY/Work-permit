@@ -1,6 +1,8 @@
 package ru.kolaer.permit.dao.impl;
 
 import lombok.NonNull;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -25,70 +27,71 @@ public class AccountDaoImpl implements AccountDao {
     @Value("${hibernate.batch.size}")
     private Integer batchSize;
 
-    private final EntityManagerFactory entityManagerFactory;
+    private final SessionFactory sessionFactory;
 
     @Autowired
-    public AccountDaoImpl(EntityManagerFactory entityManagerFactory) {
-        this.entityManagerFactory = entityManagerFactory;
+    public AccountDaoImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     @Override
     @Transactional
     public AccountEntity persist(@NonNull AccountEntity entity) {
-        this.entityManagerFactory.createEntityManager().persist(entity);
+        this.sessionFactory.getCurrentSession().persist(entity);
         return entity;
     }
 
     @Override
     @Transactional
     public List<AccountEntity> persistAll(@NonNull List<AccountEntity> entity) {
-        final EntityManager entityManager = this.entityManagerFactory.createEntityManager();
-        return this.batchForeach(entity, this.batchSize, entityManager, entityManager::persist);
+        final Session currentSession = this.sessionFactory.getCurrentSession();
+        return this.batchForeach(entity, this.batchSize, currentSession, currentSession::persist);
     }
 
     @Override
     @Transactional
     public AccountEntity update(@NonNull AccountEntity entity) {
-        return this.entityManagerFactory.createEntityManager().merge(entity);
+        this.sessionFactory.getCurrentSession().update(entity);
+        return entity;
     }
 
     @Override
     @Transactional
     public List<AccountEntity> updateAll(@NonNull List<AccountEntity> entity) {
-        final EntityManager entityManager = this.entityManagerFactory.createEntityManager();
-        return this.batchForeach(entity, this.batchSize, entityManager, entityManager::merge);
+        final Session currentSession = this.sessionFactory.getCurrentSession();
+        return this.batchForeach(entity, this.batchSize, currentSession, currentSession::update);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<AccountEntity> findAll() {
-        final EntityManager entityManager = this.entityManagerFactory.createEntityManager();
-        final CriteriaQuery<AccountEntity> query = entityManager.getCriteriaBuilder()
+        final Session currentSession = this.sessionFactory.getCurrentSession();
+        final CriteriaQuery<AccountEntity> query = currentSession.getCriteriaBuilder()
                 .createQuery(AccountEntity.class);
 
-        return entityManager.createQuery(query.select(query.from(AccountEntity.class))).getResultList();
+        return currentSession.createQuery(query.select(query.from(AccountEntity.class))).getResultList();
     }
 
     @Override
     @Transactional(readOnly = true)
     public AccountEntity findById(@NonNull Integer id) {
-        return this.entityManagerFactory.createEntityManager().find(AccountEntity.class, id);
+        return this.sessionFactory.getCurrentSession().find(AccountEntity.class, id);
     }
 
     @Override
     @Transactional(readOnly = true)
     public Page<AccountEntity> findAll(@NonNull Integer number, @NonNull Integer pageSize) {
-        final EntityManager entityManager = this.entityManagerFactory.createEntityManager();
-        final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        final Session currentSession = this.sessionFactory.getCurrentSession();
+        final CriteriaBuilder criteriaBuilder = currentSession.getCriteriaBuilder();
         final CriteriaQuery<Long> countQuery = criteriaBuilder.createQuery(Long.class);
 
-        final Long count = entityManager
+        final Long count = currentSession
                 .createQuery(countQuery.select(criteriaBuilder.count(countQuery.from(AccountEntity.class).get("id"))))
                 .getSingleResult();
 
         final CriteriaQuery<AccountEntity> selectQuery = criteriaBuilder.createQuery(AccountEntity.class);
 
-        TypedQuery<AccountEntity> accountEntityTypedQuery = entityManager
+        TypedQuery<AccountEntity> accountEntityTypedQuery = currentSession
                 .createQuery(selectQuery.select(selectQuery.from(AccountEntity.class)));
 
         if(number > 0) {
