@@ -1,6 +1,7 @@
 package ru.kolaer.permit.dao;
 
 import lombok.NonNull;
+import ru.kolaer.permit.component.EmptyObjects;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -20,6 +21,8 @@ public interface BaseDao<T> {
     T findById(@NonNull Integer id);
 
     Class<T> getEntityClass();
+
+    T getEmptyEntity();
 
     default List<T> batchForeach(List<T> entities,
                                               int batchSize,

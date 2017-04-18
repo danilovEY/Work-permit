@@ -1,9 +1,13 @@
 <dataset>
-    <Accounts id="1" username="user" password="password"/>
+    <Roles id="1" role="ROLE_ADMIN"/>
 
     <Departments id="1" name="department" abbreviated_name="dep"/>
 
     <Posts id="1" name="post" abbreviated_name="p" rang="1" type_rang="Группа"/>
 
     <Employees id="1" initials="TEST" birthday="2017-01-01" personnel_number="17241111" department_id="1" post_id="1"/>
+
+    <Accounts id="1" username="user" password="password" employee_id="1"/>
+
+    <account_role role_id="1" account_id="1"/>
 </dataset>

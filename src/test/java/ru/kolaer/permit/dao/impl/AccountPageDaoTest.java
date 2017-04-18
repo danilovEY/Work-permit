@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ru.kolaer.permit.dao.AccountPageDao;
 import ru.kolaer.permit.dao.BaseTestDao;
 import ru.kolaer.permit.entity.AccountEntity;
+import ru.kolaer.permit.entity.EmployeeEntity;
 
 import static org.junit.Assert.*;
 
@@ -19,12 +20,13 @@ public class AccountPageDaoTest extends BaseTestDao {
     private AccountPageDao accountPageDao;
 
     @Test
-    public void findFirstAccountWithAllJoin(){
+    public void findFirstAccountWithEmployee(){
         final AccountEntity account = accountPageDao.findById(1);
         assertNotNull(account);
 
-        System.out.println(account.getEmployee().getBirthday());
-
+        final EmployeeEntity employeeEntity = this.accountPageDao.findEmployeeByIdAccount(account.getId());
+        assertNotNull(employeeEntity);
+        System.out.println(employeeEntity.getBirthday());
     }
 
 }

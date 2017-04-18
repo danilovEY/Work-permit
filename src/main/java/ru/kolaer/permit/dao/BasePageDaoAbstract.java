@@ -22,7 +22,7 @@ public abstract class BasePageDaoAbstract<T> implements BasePageDao<T> {
     @Value("${hibernate.batch.size}")
     private Integer batchSize;
 
-    private final SessionFactory sessionFactory;
+    protected final SessionFactory sessionFactory;
 
     @Autowired
     public BasePageDaoAbstract(SessionFactory sessionFactory) {
