@@ -1,10 +1,10 @@
-package ru.kolaer.permit.dao.impl;
+package unit.dao;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.kolaer.permit.dao.AccountPageDao;
-import ru.kolaer.permit.dao.BaseTestDao;
+import unit.dao.BaseTestDao;
 import ru.kolaer.permit.entity.AccountEntity;
 import ru.kolaer.permit.entity.EmployeeEntity;
 import ru.kolaer.permit.entity.RoleEntity;

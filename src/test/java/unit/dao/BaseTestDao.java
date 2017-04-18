@@ -1,4 +1,4 @@
-package ru.kolaer.permit.dao;
+package unit.dao;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import org.junit.runner.RunWith;

@@ -1,4 +1,4 @@
-package ru.kolaer.permit.service;
+package unit.service;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import org.junit.runner.RunWith;
