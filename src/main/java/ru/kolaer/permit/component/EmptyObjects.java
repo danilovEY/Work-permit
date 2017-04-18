@@ -52,7 +52,7 @@ public final class EmptyObjects {
         @Override
         public void setBirthday(Date birthday) {throw new UnsupportedOperationException();}
         @Override
-        public void setPersonalNumber(Integer personalNumber) {throw new UnsupportedOperationException();}
+        public void setPersonnelNumber(Integer personnelNumber) {throw new UnsupportedOperationException();}
         @Override
         public void setDepartment(DepartmentEntity department) {throw new UnsupportedOperationException();}
         @Override

@@ -29,8 +29,8 @@ public class EmployeeEntity {
     @Column(name = "birthday", nullable = false)
     private Date birthday;
 
-    @Column(name = "personal_number", length = 10)
-    private Integer personalNumber;
+    @Column(name = "personnel_number", length = 10, unique = true)
+    private Integer personnelNumber;
 
     @Column(name = "email", length = 100)
     private String email;

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,10 +24,10 @@ public class PostEntity {
     private Integer id;
 
     @Column(name = "name", nullable = false)
-    private String name;
+    private String name = "";
 
     @Column(name = "abbreviated_name", length = 100)
-    private String abbreviatedName;
+    private String abbreviatedName = "";
 
     @Column(name = "rang")
     private Integer rang;
@@ -35,5 +36,5 @@ public class PostEntity {
     private String typeRang;
 
     @OneToMany(mappedBy = "post")
-    private List<EmployeeEntity> employees;
+    private List<EmployeeEntity> employees = new ArrayList<>();
 }

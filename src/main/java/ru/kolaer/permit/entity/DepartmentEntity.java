@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,13 +23,13 @@ public class DepartmentEntity {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "name", nullable = false, unique = true)
+    private String name = "";
 
     @Column(name = "abbreviated_name", length = 100)
-    private String abbreviatedName;
+    private String abbreviatedName = "";
 
     @OneToMany(mappedBy = "department")
-    private List<EmployeeEntity> employees;
+    private List<EmployeeEntity> employees = new ArrayList<>();
 
 }
