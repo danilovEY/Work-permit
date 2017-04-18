@@ -1,8 +1,6 @@
 package ru.kolaer.permit.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -11,14 +9,11 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "roles")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RoleEntity {
-    @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class RoleEntity extends BaseEntity {
 
     @Column(name = "role", length = 20, unique = true)
     private String role;

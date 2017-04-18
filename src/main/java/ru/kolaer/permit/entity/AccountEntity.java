@@ -1,8 +1,6 @@
 package ru.kolaer.permit.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,15 +11,11 @@ import java.util.List;
  */
 @Entity
 @Table(name = "accounts")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AccountEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, unique = true)
-    private Integer id;
+public class AccountEntity extends BaseEntity {
 
     @Column(name = "username", nullable = false, length = 50, unique = true)
     private String username = "";

@@ -1,8 +1,6 @@
 package ru.kolaer.permit.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,15 +10,11 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "employees")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class EmployeeEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
+public class EmployeeEntity extends BaseEntity {
 
     @Column(name = "initials", length = 100, nullable = false)
     private String initials;
