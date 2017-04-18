@@ -12,7 +12,9 @@ import ru.kolaer.permit.dto.Page;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by danilovey on 18.04.2017.
@@ -64,13 +66,19 @@ public abstract class BasePageDaoAbstract<T> implements BasePageDao<T> {
         final CriteriaQuery<T> query = currentSession.getCriteriaBuilder()
                 .createQuery(this.getEntityClass());
 
-        return currentSession.createQuery(query.select(query.from(this.getEntityClass()))).getResultList();
+        final List<T> resultList = currentSession
+                .createQuery(query.select(query.from(this.getEntityClass())))
+                .getResultList();
+
+        return Optional.ofNullable(resultList).orElse(Collections.emptyList());
     }
 
     @Override
     @Transactional(readOnly = true)
     public T findById(@NonNull Integer id) {
-        return this.sessionFactory.getCurrentSession().find(this.getEntityClass(), id);
+        return Optional
+                .ofNullable(this.sessionFactory.getCurrentSession().find(this.getEntityClass(), id))
+                .orElse(this.getEmptyEntity());
     }
 
     @Override
@@ -86,17 +94,20 @@ public abstract class BasePageDaoAbstract<T> implements BasePageDao<T> {
 
         final CriteriaQuery<T> selectQuery = criteriaBuilder.createQuery(this.getEntityClass());
 
-        TypedQuery<T> TTypedQuery = currentSession
+        TypedQuery<T> typedQuery = currentSession
                 .createQuery(selectQuery.select(selectQuery.from(this.getEntityClass())));
 
         if(number > 0) {
-            TTypedQuery = TTypedQuery
+            typedQuery = typedQuery
                     .setFirstResult((number - 1) * pageSize)
                     .setMaxResults(pageSize);
         }
 
-        final List<T> resultList = TTypedQuery.getResultList();
+        final List<T> resultList = typedQuery.getResultList();
 
-        return new Page<>(number, count, pageSize, resultList);
+        return new Page<>(number,
+                count,
+                pageSize,
+                Optional.ofNullable(resultList).orElse(Collections.emptyList()));
     }
 }
