@@ -7,6 +7,9 @@ import ru.kolaer.permit.dao.AccountPageDao;
 import ru.kolaer.permit.dao.BaseTestDao;
 import ru.kolaer.permit.entity.AccountEntity;
 import ru.kolaer.permit.entity.EmployeeEntity;
+import ru.kolaer.permit.entity.RoleEntity;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -22,11 +25,20 @@ public class AccountPageDaoTest extends BaseTestDao {
     @Test
     public void findFirstAccountWithEmployee(){
         final AccountEntity account = accountPageDao.findById(1);
-        assertNotNull(account);
+        assertTrue(account.getId() > 0);
 
         final EmployeeEntity employeeEntity = this.accountPageDao.findEmployeeByIdAccount(account.getId());
-        assertNotNull(employeeEntity);
+        assertTrue(employeeEntity.getId() > 0);
         System.out.println(employeeEntity.getBirthday());
+    }
+
+    @Test
+    public void findFirstAccountWithRoles(){
+        final AccountEntity account = accountPageDao.findById(1);
+        assertTrue(account.getId() > 0);
+
+        final List<RoleEntity> roles = this.accountPageDao.findRoleByIdAccount(account.getId());
+        assertFalse(roles.isEmpty());
     }
 
 }
