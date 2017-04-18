@@ -10,11 +10,23 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "employees")
-@Getter
 @Setter
-@AllArgsConstructor
+@Getter
 @NoArgsConstructor
 public class EmployeeEntity extends BaseEntity {
+
+    public EmployeeEntity(Integer id, String initials, Date birthday, Integer personnelNumber,
+                          String email, String workPhone, DepartmentEntity department,
+                          PostEntity post) {
+        this.id = id;
+        this.initials = initials;
+        this.birthday = birthday;
+        this.personnelNumber = personnelNumber;
+        this.email = email;
+        this.workPhone = workPhone;
+        this.department = department;
+        this.post = post;
+    }
 
     @Column(name = "initials", length = 100, nullable = false)
     private String initials;

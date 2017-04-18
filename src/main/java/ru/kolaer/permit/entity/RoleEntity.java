@@ -11,9 +11,13 @@ import javax.persistence.*;
 @Table(name = "roles")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class RoleEntity extends BaseEntity {
+
+    public RoleEntity(Integer id, String role) {
+        this.id = id;
+        this.role = role;
+    }
 
     @Column(name = "role", length = 20, unique = true)
     private String role;

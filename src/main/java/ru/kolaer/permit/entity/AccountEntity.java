@@ -13,9 +13,16 @@ import java.util.List;
 @Table(name = "accounts")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class AccountEntity extends BaseEntity {
+
+    public AccountEntity(Integer id, String username, String password, List<RoleEntity> roles, EmployeeEntity employee) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
+        this.employee = employee;
+    }
 
     @Column(name = "username", nullable = false, length = 50, unique = true)
     private String username = "";

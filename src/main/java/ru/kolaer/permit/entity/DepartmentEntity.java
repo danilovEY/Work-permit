@@ -13,9 +13,15 @@ import java.util.List;
 @Table(name = "departments")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class DepartmentEntity extends BaseEntity {
+
+    public DepartmentEntity(Integer id, String name, String abbreviatedName, List<EmployeeEntity> employees) {
+        this.id = id;
+        this.name = name;
+        this.abbreviatedName = abbreviatedName;
+        this.employees = employees;
+    }
 
     @Column(name = "name", nullable = false, unique = true)
     private String name = "";

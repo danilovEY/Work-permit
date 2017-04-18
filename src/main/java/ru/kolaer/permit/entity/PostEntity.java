@@ -13,9 +13,17 @@ import java.util.List;
 @Table(name = "posts")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class PostEntity extends BaseEntity {
+
+    public PostEntity(Integer id, String name, String abbreviatedName, Integer rang, String typeRang, List<EmployeeEntity> employees) {
+        this.id = id;
+        this.name = name;
+        this.abbreviatedName = abbreviatedName;
+        this.rang = rang;
+        this.typeRang = typeRang;
+        this.employees = employees;
+    }
 
     @Column(name = "name", nullable = false)
     private String name = "";
