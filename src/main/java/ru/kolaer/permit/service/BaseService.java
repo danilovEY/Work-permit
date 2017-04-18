@@ -1,13 +1,17 @@
 package ru.kolaer.permit.service;
 
 import lombok.NonNull;
+import ru.kolaer.permit.entity.BaseEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by danilovey on 14.04.2017.
  */
-public interface BaseService<T> {
+public interface BaseService<T extends BaseEntity> {
+    List<Exception> getExceptions();
+
     T add(@NonNull T entity);
     List<T> addAll(@NonNull List<T> entity);
 
@@ -19,4 +23,5 @@ public interface BaseService<T> {
 
     List<T> getAll();
     T getById(@NonNull Integer id);
+
 }
