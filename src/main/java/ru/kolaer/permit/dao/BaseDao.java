@@ -2,6 +2,7 @@ package ru.kolaer.permit.dao;
 
 import lombok.NonNull;
 import ru.kolaer.permit.component.EmptyObjects;
+import ru.kolaer.permit.entity.BaseEntity;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.function.Consumer;
 /**
  * Created by danilovey on 14.04.2017.
  */
-public interface BaseDao<T> {
+public interface BaseDao<T extends BaseEntity> {
     T persist(@NonNull T entity);
     List<T> persistAll(@NonNull List<T> entity);
 
