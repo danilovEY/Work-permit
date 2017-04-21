@@ -37,7 +37,8 @@ public class EmployeeEntity extends BaseEntity {
     @Column(name = "birthday", nullable = false)
     private Date birthday;
 
-    @Column(name = "personnel_number", length = 10, unique = true)
+    @Column(name = "personnel_number", length = 10,
+            unique = true, nullable = false)
     private Integer personnelNumber;
 
     @Column(name = "email", length = 100)
