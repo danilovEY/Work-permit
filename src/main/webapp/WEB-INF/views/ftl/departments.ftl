@@ -6,7 +6,7 @@
 
 <@base.override "body">
 
-<div class="row-fluid sortable ui-sortable">
+<div class="row-fluid">
     <div class="box span12">
         <div class="box-header" data-original-title="">
             <h2><i class="halflings-icon white th-large"></i><span class="break"></span>Список подразделений</h2>
@@ -92,7 +92,7 @@
         </div>
     </div><!--/span-->
 </div>
-<div class="row-fluid sortable ui-sortable">
+<div class="row-fluid">
     <div class="box span6">
         <div class="box-header" data-original-title="">
             <h2><i class="halflings-icon white plus"></i><span class="break"></span>Добавить подразделение</h2>
