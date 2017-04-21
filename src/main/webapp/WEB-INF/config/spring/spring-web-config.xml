@@ -33,7 +33,6 @@
     <context:component-scan base-package="ru.kolaer.permit.controller" />
 
     <mvc:resources mapping="/resources/**" location="/resources/" />
-    <mvc:view-controller path="/" view-name="forward:index" />
 
     <mvc:annotation-driven />
 
