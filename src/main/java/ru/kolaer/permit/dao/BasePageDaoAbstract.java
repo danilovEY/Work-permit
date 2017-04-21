@@ -107,7 +107,7 @@ public abstract class BasePageDaoAbstract<T extends BaseEntity> implements BaseP
         final List<T> resultList = typedQuery.getResultList();
 
         return new Page<>(number,
-                count,
+                (count / pageSize) + 1,
                 pageSize,
                 Optional.ofNullable(resultList).orElse(Collections.emptyList()));
     }
