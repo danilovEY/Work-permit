@@ -1,0 +1,9 @@
+<dataset>
+    <Departments id="1" name="department" abbreviated_name="dep"/>
+
+    <Posts id="1" name="post" abbreviated_name="p" rang="1" type_rang="Группа"/>
+
+    <Employees id="1" initials="TEST1" birthday="2017-01-01" personnel_number="17242222" department_id="1" post_id="1"/>
+    <Employees id="1" initials="TEST2" birthday="2017-01-01" personnel_number="17241111" department_id="1" post_id="1"/>
+    <Employees id="1" initials="TEST3" birthday="2017-01-01" personnel_number="17243333" department_id="1" post_id="1"/>
+</dataset>
