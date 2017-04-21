@@ -32,10 +32,9 @@
             <div id="sidebar-left" class="span2">
                 <div class="nav-collapse sidebar-nav">
                     <ul class="nav nav-tabs nav-stacked main-menu">
-                        <li>
-                            <a href="<@spring.url relativeUrl="/"/>"><i class="icon-home"></i><span class="hidden-tablet"> Главная</span></a>
-                        </li>
-                        <li><a href="<@spring.url relativeUrl="/employees"/>"><i class="icon-home"></i><span class="hidden-tablet"> Сотрудники</span></a></li>
+                        <li><a href="<@spring.url relativeUrl="/"/>"><i class="icon-home"></i><span class="hidden-tablet"> Главная</span></a></li>
+                        <li><a href="<@spring.url relativeUrl="/posts"/>"><i class="icon-user"></i><span class="hidden-tablet"> Дожности</span></a></li>
+                        <li><a href="<@spring.url relativeUrl="/employees"/>"><i class="icon-user"></i><span class="hidden-tablet"> Сотрудники</span></a></li>
                     </ul>
                 </div>
             </div>
