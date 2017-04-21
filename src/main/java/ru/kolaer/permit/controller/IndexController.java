@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @RequestMapping("/")
-public class MainController {
+public class IndexController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView getIndexPage() {
