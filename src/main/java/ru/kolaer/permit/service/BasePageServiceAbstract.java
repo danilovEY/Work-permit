@@ -25,7 +25,7 @@ public abstract class BasePageServiceAbstract<T extends BaseEntity> implements B
 
     @Override
     public Page<T> getAll(@NonNull Integer number, @NonNull Integer pageSize) {
-        return null;
+        return this.dao.findAll(number, pageSize);
     }
 
     @Override
