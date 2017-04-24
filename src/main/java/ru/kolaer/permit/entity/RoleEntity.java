@@ -18,11 +18,15 @@ import javax.persistence.Table;
 @NoArgsConstructor
 public class RoleEntity extends BaseEntity {
 
-    public RoleEntity(Integer id, String role) {
+    public RoleEntity(Integer id, Integer employeeId, String role) {
         this.id = id;
+        this.employeeId = employeeId;
         this.role = role;
     }
 
-    @Column(name = "role", length = 20, unique = true)
+    @Column(name = "employee_id")
+    private Integer employeeId;
+
+    @Column(name = "role", length = 20)
     private String role;
 }

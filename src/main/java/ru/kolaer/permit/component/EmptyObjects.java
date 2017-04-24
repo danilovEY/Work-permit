@@ -40,7 +40,7 @@ public final class EmptyObjects {
     };
 
     public static final EmployeeEntity DEFAULT_EMPLOYEE =
-            new EmployeeEntity(-1, "", new Date(0), -1, "", "", DEFAULT_DEPARTMENT, DEFAULT_POST){
+            new EmployeeEntity(-1, "", new Date(0), -1, "", "", "", "", DEFAULT_DEPARTMENT, DEFAULT_POST){
                 @Override
                 public void setId(Integer id) {throw new UnsupportedOperationException("Employee entity object is empty! You can't write value to empty objects.");}
                 @Override
@@ -55,21 +55,7 @@ public final class EmptyObjects {
                 public void setPost(PostEntity post) {throw new UnsupportedOperationException("Employee entity object is empty! You can't write value to empty objects.");}
     };
 
-    public static final AccountEntity DEFAULT_ACCOUNT =
-            new AccountEntity(-1, "", "", Collections.emptyList(), DEFAULT_EMPLOYEE) {
-                @Override
-                public void setId(Integer id) {throw new UnsupportedOperationException("Account entity object is empty! You can't write value to empty objects.");}
-                @Override
-                public void setUsername(String username) {throw new UnsupportedOperationException("Account entity object is empty! You can't write value to empty objects.");}
-                @Override
-                public void setPassword(String password){throw new UnsupportedOperationException("Account entity object is empty! You can't write value to empty objects.");}
-                @Override
-                public void setRoles(List<RoleEntity> roles){throw new UnsupportedOperationException("Account entity object is empty! You can't write value to empty objects.");}
-                @Override
-                public void setEmployee(EmployeeEntity employee){throw new UnsupportedOperationException("Account entity object is empty! You can't write value to empty objects.");}
-            };
-
-    public static final RoleEntity DEFAULT_ROLE = new RoleEntity(-1, "") {
+    public static final RoleEntity DEFAULT_ROLE = new RoleEntity(-1, -1, "") {
         @Override
         public void setId(Integer id) {throw new UnsupportedOperationException("Role entity object is empty! You can't write value to empty objects.");}
         @Override

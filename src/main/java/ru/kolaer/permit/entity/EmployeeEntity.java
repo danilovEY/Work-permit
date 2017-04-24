@@ -18,7 +18,7 @@ import java.util.Date;
 public class EmployeeEntity extends BaseEntity {
 
     public EmployeeEntity(Integer id, String initials, Date birthday, Integer personnelNumber,
-                          String email, String workPhone, DepartmentEntity department,
+                          String email, String workPhone, String username, String password, DepartmentEntity department,
                           PostEntity post) {
         this.id = id;
         this.initials = initials;
@@ -26,6 +26,8 @@ public class EmployeeEntity extends BaseEntity {
         this.personnelNumber = personnelNumber;
         this.email = email;
         this.workPhone = workPhone;
+        this.username = username;
+        this.password = password;
         this.department = department;
         this.post = post;
     }
@@ -46,6 +48,12 @@ public class EmployeeEntity extends BaseEntity {
 
     @Column(name = "work_home", length = 100)
     private String workPhone;
+
+    @Column(name = "username", unique = true, nullable = false,length = 100)
+    private String username;
+
+    @Column(name = "password", nullable = false, length = 100)
+    private String password;
 
     @ManyToOne
     @JoinColumn(name = "department_id", nullable = false)

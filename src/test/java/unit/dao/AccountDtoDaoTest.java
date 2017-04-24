@@ -3,31 +3,28 @@ package unit.dao;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.kolaer.permit.dao.AccountDtoDao;
 import ru.kolaer.permit.dao.EmployeePageDao;
+import ru.kolaer.permit.dto.AccountDto;
 import ru.kolaer.permit.dto.Page;
 import ru.kolaer.permit.entity.EmployeeEntity;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
  * Created by danilovey on 18.04.2017.
  */
 @DatabaseSetup("/test-config/db/employees.xml")
-public class EmployeePageDaoTest extends BaseTestDao {
+public class AccountDtoDaoTest extends BaseTestDao {
 
     @Autowired
-    private EmployeePageDao employeePageDao;
+    private AccountDtoDao accountDtoDao;
 
     @Test
     public void findFirstEmployee(){
-        final EmployeeEntity account = employeePageDao.findById(1);
-        assertTrue(account.getId() > 0);
-    }
-
-    @Test
-    public void findPageEmployee(){
-        final Page<EmployeeEntity> account = employeePageDao.findAll(1, 15);
-        assertTrue(account.getData().size() > 0);
+        final AccountDto user1 = accountDtoDao.findAccountByUsername("user1");
+        assertNotNull(user1);
     }
 
 }

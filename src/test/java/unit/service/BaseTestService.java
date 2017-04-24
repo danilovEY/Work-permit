@@ -10,7 +10,6 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @ContextHierarchy({
-        @ContextConfiguration(classes = {AccountPageServiceConfig.class}),
         @ContextConfiguration({"/test-config/spring/test-spring-core-config.xml"})
 })
 public abstract class BaseTestService {
