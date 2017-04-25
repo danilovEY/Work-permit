@@ -111,4 +111,20 @@ public abstract class BasePageDaoAbstract<T extends BaseEntity> implements BaseP
                 pageSize,
                 Optional.ofNullable(resultList).orElse(Collections.emptyList()));
     }
+
+    @Override
+    public T delete(T entity) {
+        this.sessionFactory.getCurrentSession().delete(entity);
+        entity.setId(null);
+        return entity;
+    }
+
+    @Override
+    public List<T> deleteAll(List<T> entities) {
+        final Session currentSession = this.sessionFactory.getCurrentSession();
+        final List<T> results = this.batchForeach(entities, this.batchSize, currentSession, currentSession::delete);
+
+        results.forEach(e -> e.setId(null));
+        return results;
+    }
 }

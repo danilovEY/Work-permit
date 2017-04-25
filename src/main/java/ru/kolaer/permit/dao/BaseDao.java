@@ -20,6 +20,9 @@ public interface BaseDao<T extends BaseEntity> {
     List<T> findAll();
     T findById(@NonNull Integer id);
 
+    T delete(T entity);
+    List<T> deleteAll(List<T> entities);
+
     Class<T> getEntityClass();
 
     T getEmptyEntity();

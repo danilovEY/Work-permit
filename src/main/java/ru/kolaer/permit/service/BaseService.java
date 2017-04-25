@@ -23,4 +23,7 @@ public interface BaseService<T extends BaseEntity> {
     List<T> getAll();
     T getById(@NonNull Integer id);
 
+    T delete(T entity);
+    List<T> deleteAll(List<T> entities);
+
 }

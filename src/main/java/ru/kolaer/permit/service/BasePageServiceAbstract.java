@@ -128,4 +128,16 @@ public abstract class BasePageServiceAbstract<T extends BaseEntity> implements B
     public List<Exception> getExceptions() {
         return this.exceptions;
     }
+
+    @Override
+    public T delete(T entity) {
+        if(entity.getId() == null)
+            return entity;
+        return this.dao.delete(entity);
+    }
+
+    @Override
+    public List<T> deleteAll(List<T> entities) {
+        return this.dao.deleteAll(entities);
+    }
 }

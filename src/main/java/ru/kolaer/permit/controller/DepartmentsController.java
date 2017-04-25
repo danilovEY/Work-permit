@@ -50,4 +50,18 @@ public class DepartmentsController {
         return "redirect:/departments";
     }
 
+    @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+            produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public String updateDepartment(DepartmentEntity departmentEntity) {
+        this.departmentPageService.update(departmentEntity);
+        return "redirect:/departments";
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+            produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public String removeDepartment(DepartmentEntity departmentEntity) {
+        this.departmentPageService.delete(departmentEntity);
+        return "redirect:/departments";
+    }
+
 }
