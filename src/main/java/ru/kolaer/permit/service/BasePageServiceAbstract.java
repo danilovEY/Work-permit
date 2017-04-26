@@ -25,7 +25,7 @@ public abstract class BasePageServiceAbstract<T extends BaseEntity> implements B
 
     @Override
     public Page<T> getAll(@NonNull Integer number, @NonNull Integer pageSize) {
-        return this.dao.findAll(number, pageSize);
+        return this.dao.findAll(number, pageSize, true);
     }
 
     @Override
@@ -109,14 +109,14 @@ public abstract class BasePageServiceAbstract<T extends BaseEntity> implements B
 
     @Override
     public List<T> getAll() {
-        return this.dao.findAll();
+        return this.dao.findAll(true);
     }
 
     @Override
     public T getById(@NonNull Integer id) {
         return id < 1
                 ? this.dao.getEmptyEntity()
-                : this.dao.findById(id);
+                : this.dao.findById(id, true);
     }
 
     protected void addException(Exception ex) {

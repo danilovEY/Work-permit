@@ -34,6 +34,9 @@ public class DepartmentEntity extends BaseEntity {
     @Column(name = "abbreviated_name", length = 100)
     private String abbreviatedName = "";
 
+    @Column(name = "removed", nullable = false)
+    private Boolean removed = Boolean.FALSE;
+
     @OneToMany(mappedBy = "department")
     private List<EmployeeEntity> employees = new ArrayList<>();
 

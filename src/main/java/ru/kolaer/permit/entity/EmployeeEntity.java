@@ -55,6 +55,9 @@ public class EmployeeEntity extends BaseEntity {
     @Column(name = "password", nullable = false, length = 100)
     private String password;
 
+    @Column(name = "removed", nullable = false)
+    private Boolean removed;
+
     @ManyToOne
     @JoinColumn(name = "department_id", nullable = false)
     private DepartmentEntity department;

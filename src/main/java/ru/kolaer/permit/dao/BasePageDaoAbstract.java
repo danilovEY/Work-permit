@@ -13,6 +13,8 @@ import ru.kolaer.permit.entity.BaseEntity;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -62,13 +64,21 @@ public abstract class BasePageDaoAbstract<T extends BaseEntity> implements BaseP
 
     @Override
     @Transactional(readOnly = true)
-    public List<T> findAll() {
+    public List<T> findAll(boolean findRemoved) {
         final Session currentSession = this.sessionFactory.getCurrentSession();
-        final CriteriaQuery<T> query = currentSession.getCriteriaBuilder()
+        final CriteriaBuilder criteriaBuilder = currentSession.getCriteriaBuilder();
+        final CriteriaQuery<T> query = criteriaBuilder
                 .createQuery(this.getEntityClass());
 
+        final Root<T> from = query.from(this.getEntityClass());
+
+        CriteriaQuery<T> select = query.select(from);
+
+        if(!findRemoved)
+            select = select.where(criteriaBuilder.equal(from.get("removed"), false));
+
         final List<T> resultList = currentSession
-                .createQuery(query.select(query.from(this.getEntityClass())))
+                .createQuery(select)
                 .getResultList();
 
         return Optional.ofNullable(resultList).orElse(Collections.emptyList());
@@ -76,27 +86,50 @@ public abstract class BasePageDaoAbstract<T extends BaseEntity> implements BaseP
 
     @Override
     @Transactional(readOnly = true)
-    public T findById(@NonNull Integer id) {
-        return Optional
-                .ofNullable(this.sessionFactory.getCurrentSession().find(this.getEntityClass(), id))
-                .orElse(this.getEmptyEntity());
+    public T findById(@NonNull Integer id, boolean findRemoved) {
+        final Session currentSession = this.sessionFactory.getCurrentSession();
+        final CriteriaBuilder criteriaBuilder = currentSession.getCriteriaBuilder();
+        final CriteriaQuery<T> query = criteriaBuilder
+                .createQuery(this.getEntityClass());
+
+        final Root<T> from = query.from(this.getEntityClass());
+
+        final CriteriaQuery<T> select = query.select(from);
+        Predicate byId = criteriaBuilder.equal(from.get("id"), id);
+
+        if(!findRemoved)
+            byId = criteriaBuilder.and(byId, criteriaBuilder.equal(from.get("removed"), false));
+
+        final T result = currentSession.createQuery(select.where(byId)).uniqueResult();
+
+        return Optional.ofNullable(result).orElse(this.getEmptyEntity());
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Page<T> findAll(@NonNull Integer number, @NonNull Integer pageSize) {
+    public Page<T> findAll(@NonNull Integer number, @NonNull Integer pageSize, boolean findRemoved) {
         final Session currentSession = this.sessionFactory.getCurrentSession();
         final CriteriaBuilder criteriaBuilder = currentSession.getCriteriaBuilder();
         final CriteriaQuery<Long> countQuery = criteriaBuilder.createQuery(Long.class);
+        final Root<T> fromCount = countQuery.from(this.getEntityClass());
+        CriteriaQuery<Long> selectCount = countQuery.select(criteriaBuilder.count(fromCount.get("id")));
+
+        if(!findRemoved)
+            selectCount = selectCount.where(criteriaBuilder.equal(fromCount.get("removed"), false));
 
         final Long count = currentSession
-                .createQuery(countQuery.select(criteriaBuilder.count(countQuery.from(this.getEntityClass()).get("id"))))
+                .createQuery(selectCount)
                 .getSingleResult();
 
         final CriteriaQuery<T> selectQuery = criteriaBuilder.createQuery(this.getEntityClass());
+        final Root<T> fromSelect = selectQuery.from(this.getEntityClass());
+        CriteriaQuery<T> select = selectQuery.select(fromSelect);
+
+        if(!findRemoved)
+            select = select.where(criteriaBuilder.equal(fromSelect.get("removed"), true));
 
         TypedQuery<T> typedQuery = currentSession
-                .createQuery(selectQuery.select(selectQuery.from(this.getEntityClass())));
+                .createQuery(selectQuery);
 
         if(number > 0) {
             typedQuery = typedQuery

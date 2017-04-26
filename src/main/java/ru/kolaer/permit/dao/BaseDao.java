@@ -17,8 +17,8 @@ public interface BaseDao<T extends BaseEntity> {
     T update(@NonNull T entity);
     List<T> updateAll(@NonNull List<T> entity);
 
-    List<T> findAll();
-    T findById(@NonNull Integer id);
+    List<T> findAll(boolean findRemoved);
+    T findById(@NonNull Integer id, boolean findRemoved);
 
     T delete(T entity);
     List<T> deleteAll(List<T> entities);
