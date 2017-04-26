@@ -21,4 +21,5 @@ public class DepartmentPageDaoImpl extends BasePageDaoAbstract<DepartmentEntity>
     public Class<DepartmentEntity> getEntityClass() {
         return DepartmentEntity.class;
     }
+
 }

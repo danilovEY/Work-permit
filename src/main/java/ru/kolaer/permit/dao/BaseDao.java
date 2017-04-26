@@ -20,8 +20,8 @@ public interface BaseDao<T extends BaseEntity> {
     List<T> findAll(boolean findRemoved);
     T findById(@NonNull Integer id, boolean findRemoved);
 
-    T delete(T entity);
-    List<T> deleteAll(List<T> entities);
+    T delete(T entity, boolean setRemoved);
+    List<T> deleteAll(List<T> entities, boolean setRemoved);
 
     Class<T> getEntityClass();
 

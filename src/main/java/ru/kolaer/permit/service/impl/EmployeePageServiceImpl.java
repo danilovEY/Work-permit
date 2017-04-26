@@ -40,4 +40,14 @@ public class EmployeePageServiceImpl extends BasePageServiceAbstract<EmployeeEnt
         return this.employeePageDao.findById(id, false);
     }
 
+    @Override
+    public EmployeeEntity delete(EmployeeEntity entity) {
+        return this.employeePageDao.delete(entity, true);
+    }
+
+    @Override
+    public List<EmployeeEntity> deleteAll(List<EmployeeEntity> entities) {
+        return this.employeePageDao.deleteAll(entities, true);
+    }
+
 }

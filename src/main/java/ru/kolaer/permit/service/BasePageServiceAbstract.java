@@ -133,11 +133,11 @@ public abstract class BasePageServiceAbstract<T extends BaseEntity> implements B
     public T delete(T entity) {
         if(entity.getId() == null)
             return entity;
-        return this.dao.delete(entity);
+        return this.dao.delete(entity, false);
     }
 
     @Override
     public List<T> deleteAll(List<T> entities) {
-        return this.dao.deleteAll(entities);
+        return this.dao.deleteAll(entities, false);
     }
 }

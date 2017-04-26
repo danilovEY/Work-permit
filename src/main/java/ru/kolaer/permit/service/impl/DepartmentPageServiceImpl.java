@@ -36,4 +36,14 @@ public class DepartmentPageServiceImpl extends BasePageServiceAbstract<Departmen
     public DepartmentEntity getById(@NonNull Integer id) {
         return this.departmentPageDao.findById(id, false);
     }
+
+    @Override
+    public DepartmentEntity delete(DepartmentEntity entity) {
+        return this.departmentPageDao.delete(entity, true);
+    }
+
+    @Override
+    public List<DepartmentEntity> deleteAll(List<DepartmentEntity> entities) {
+        return this.departmentPageDao.deleteAll(entities, true);
+    }
 }

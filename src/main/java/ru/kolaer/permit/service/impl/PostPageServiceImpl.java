@@ -39,4 +39,15 @@ public class PostPageServiceImpl extends BasePageServiceAbstract<PostEntity> imp
     public PostEntity getById(@NonNull Integer id) {
         return this.postPageDao.findById(id, false);
     }
+
+
+    @Override
+    public PostEntity delete(PostEntity entity) {
+        return this.postPageDao.delete(entity, true);
+    }
+
+    @Override
+    public List<PostEntity> deleteAll(List<PostEntity> entities) {
+        return this.postPageDao.deleteAll(entities, true);
+    }
 }

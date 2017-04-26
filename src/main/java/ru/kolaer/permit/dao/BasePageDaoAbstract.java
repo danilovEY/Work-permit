@@ -11,13 +11,11 @@ import ru.kolaer.permit.dto.Page;
 import ru.kolaer.permit.entity.BaseEntity;
 
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Created by danilovey on 18.04.2017.
@@ -129,7 +127,7 @@ public abstract class BasePageDaoAbstract<T extends BaseEntity> implements BaseP
             select = select.where(criteriaBuilder.equal(fromSelect.get("removed"), true));
 
         TypedQuery<T> typedQuery = currentSession
-                .createQuery(selectQuery);
+                .createQuery(select);
 
         if(number > 0) {
             typedQuery = typedQuery
@@ -146,16 +144,41 @@ public abstract class BasePageDaoAbstract<T extends BaseEntity> implements BaseP
     }
 
     @Override
-    public T delete(T entity) {
-        this.sessionFactory.getCurrentSession().delete(entity);
+    public T delete(T entity, boolean setRemoved) {
+        if(!setRemoved) {
+            this.sessionFactory.getCurrentSession().delete(entity);
+        } else {
+            final Session currentSession = this.sessionFactory.getCurrentSession();
+            final CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+            final CriteriaUpdate<T> criteriaUpdate = builder.createCriteriaUpdate(this.getEntityClass());
+            final Root<T> from = criteriaUpdate.from(this.getEntityClass());
+            final CriteriaUpdate<T> where = criteriaUpdate
+                    .set("removed", true)
+                    .where(builder.equal(from.get("id"), entity.getId()));
+            currentSession.createQuery(where).executeUpdate();
+        }
         entity.setId(null);
         return entity;
     }
 
     @Override
-    public List<T> deleteAll(List<T> entities) {
+    public List<T> deleteAll(List<T> entities, boolean setRemoved) {
         final Session currentSession = this.sessionFactory.getCurrentSession();
-        final List<T> results = this.batchForeach(entities, this.batchSize, currentSession, currentSession::delete);
+
+        List<T> results;
+
+        if(!setRemoved) {
+            results = this.batchForeach(entities, this.batchSize, currentSession, currentSession::delete);
+        } else {
+            final CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+            final CriteriaUpdate<T> criteriaUpdate = builder.createCriteriaUpdate(this.getEntityClass());
+            final Root<T> from = criteriaUpdate.from(this.getEntityClass());
+            final CriteriaUpdate<T> where = criteriaUpdate
+                    .set("removed", true)
+                    .where(from.get("id").in(entities.stream().map(BaseEntity::getId).collect(Collectors.toList())));
+            currentSession.createQuery(where).executeUpdate();
+            results = entities;
+        }
 
         results.forEach(e -> e.setId(null));
         return results;
