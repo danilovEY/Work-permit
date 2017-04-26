@@ -117,28 +117,28 @@
                 <div class="control-group">
                     <label class="control-label" for="name">Наименование: </label>
                     <div class="controls">
-                        <input type="text" class="span6 name" id="name" name="name">
+                        <input type="text" class="span12 name" id="name" name="name">
                     </div>
                 </div>
 
                 <div class="control-group">
                     <label class="control-label" for="abbreviatedName">Сокращенное наименование: </label>
                     <div class="controls">
-                        <input type="text" class="span6 abbreviatedName" id="abbreviatedName" name="abbreviatedName">
+                        <input type="text" class="span12 abbreviatedName" id="abbreviatedName" name="abbreviatedName">
                     </div>
                 </div>
 
                 <div class="control-group">
                     <label class="control-label" for="rang">Номер группы: </label>
                     <div class="controls">
-                        <input type="text" class="span6 rang" id="rang" name="rang">
+                        <input type="text" class="span12 rang" id="rang" name="rang">
                     </div>
                 </div>
 
                 <div class="control-group">
                     <label class="control-label" for="typeRang">Наименование группы: </label>
                     <div class="controls">
-                        <input type="text" class="span6 typeRang" id="typeRang" name="typeRang">
+                        <input type="text" class="span12 typeRang" id="typeRang" name="typeRang">
                     </div>
                 </div>
 

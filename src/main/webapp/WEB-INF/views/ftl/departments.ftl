@@ -97,19 +97,17 @@
         <div class="box-header" data-original-title="">
             <h2><i class="halflings-icon white plus"></i><span class="break"></span>Добавить подразделение</h2>
         </div>
-        <div class="box-content" style="display: block;">
+        <div class="box-content">
             <form class="form-inline" method="post" action="<@spring.url relativeUrl="/departments/add"/>">
                 <div class="control-group">
                     <label class="control-label" for="name">Наименование: </label>
                     <div class="controls">
-                        <input type="text" class="span6 name" id="name" name="name">
+                        <input type="text" class="span12" id="name" name="name"/>
                     </div>
-                </div>
 
-                <div class="control-group">
                     <label class="control-label" for="abbreviatedName">Сокращенное наименование: </label>
                     <div class="controls">
-                        <input type="text" class="span6 abbreviatedName" id="abbreviatedName" name="abbreviatedName">
+                        <input type="text" class="span12" id="abbreviatedName" name="abbreviatedName"/>
                     </div>
                 </div>
 
