@@ -18,6 +18,9 @@
                             <i class="icon-bell"></i>
                         </a>
                     </li>
+                    <a class="btn" href="#">
+                        <i class="halflings-icon white user"></i> Иванов Иван Иванович
+                    </a>
                 </ul>
             </div>
         </div>

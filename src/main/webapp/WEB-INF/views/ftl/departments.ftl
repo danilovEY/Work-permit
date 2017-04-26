@@ -39,6 +39,9 @@
                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                             colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Сокращенное наименование
                         </th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                            colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Действия
+                        </th>
                     </tr>
                     </thead>
                     <tbody role="alert" aria-live="polite" aria-relevant="all">
@@ -47,11 +50,21 @@
                             <tr class="odd">
                                 <td class="center">${dep.name}</td>
                                 <td class="center">${dep.abbreviatedName}</td>
+                                <td class="center">
+                                    <a class="btn btn-info" href="#">
+                                        <i class="halflings-icon white edit"></i>
+                                    </a>
+                                </td>
                             </tr>
                             <#else>
                             <tr class="even">
                                 <td class="center">${dep.name}</td>
                                 <td class="center">${dep.abbreviatedName}</td>
+                                <td class="center">
+                                    <a class="btn btn-info" href="#">
+                                        <i class="halflings-icon white edit"></i>
+                                    </a>
+                                </td>
                             </tr>
                             </#if>
                         </#list>
