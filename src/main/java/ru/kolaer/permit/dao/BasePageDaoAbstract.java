@@ -124,7 +124,7 @@ public abstract class BasePageDaoAbstract<T extends BaseEntity> implements BaseP
         CriteriaQuery<T> select = selectQuery.select(fromSelect);
 
         if(!findRemoved)
-            select = select.where(criteriaBuilder.equal(fromSelect.get("removed"), true));
+            select = select.where(criteriaBuilder.equal(fromSelect.get("removed"), false));
 
         TypedQuery<T> typedQuery = currentSession
                 .createQuery(select);
@@ -144,6 +144,7 @@ public abstract class BasePageDaoAbstract<T extends BaseEntity> implements BaseP
     }
 
     @Override
+    @Transactional
     public T delete(T entity, boolean setRemoved) {
         if(!setRemoved) {
             this.sessionFactory.getCurrentSession().delete(entity);
@@ -162,6 +163,7 @@ public abstract class BasePageDaoAbstract<T extends BaseEntity> implements BaseP
     }
 
     @Override
+    @Transactional
     public List<T> deleteAll(List<T> entities, boolean setRemoved) {
         final Session currentSession = this.sessionFactory.getCurrentSession();
 
