@@ -45,8 +45,8 @@
 
 <script src="<@spring.url relativeUrl="/resources/js/jquery.sparkline.min.js"/>"></script>
 
-<script src="<@spring.url relativeUrl="/resources/js/counter.js"/>"></script>
+<#-- <script src="<@spring.url relativeUrl="/resources/js/counter.js"/>"></script>
 
 <script src="<@spring.url relativeUrl="/resources/js/retina.js"/>"></script>
 
-<script src="<@spring.url relativeUrl="/resources/js/custom.js"/>"></script>
+<script src="<@spring.url relativeUrl="/resources/js/custom.js"/>"></script> -->

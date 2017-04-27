@@ -3,6 +3,7 @@ package ru.kolaer.permit.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,4 +41,14 @@ public class DepartmentEntity extends BaseEntity {
     @OneToMany(mappedBy = "department")
     private List<EmployeeEntity> employees = new ArrayList<>();
 
+    @Override
+    public String toString() {
+        return "DepartmentEntity{" +
+                "name='" + name + '\'' +
+                ", id='" + id + '\'' +
+                ", abbreviatedName='" + abbreviatedName + '\'' +
+                ", removed=" + removed +
+                ", employees=" + employees +
+                '}';
+    }
 }

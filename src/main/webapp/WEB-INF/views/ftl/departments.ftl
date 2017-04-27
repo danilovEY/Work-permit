@@ -34,13 +34,13 @@
                     <thead>
                     <tr role="row">
                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                            colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">ID
+                        </th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                             colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Наименование
                         </th>
                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                             colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Сокращенное наименование
-                        </th>
-                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                            colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Действия
                         </th>
                     </tr>
                     </thead>
@@ -48,23 +48,15 @@
                         <#list departmentPage.data as dep>
                             <#if dep_index % 2 == 0>
                             <tr class="odd">
-                                <td class="center">${dep.name}</td>
-                                <td class="center">${dep.abbreviatedName}</td>
-                                <td class="center">
-                                    <a class="btn btn-info" href="#">
-                                        <i class="halflings-icon white edit"></i>
-                                    </a>
-                                </td>
+                                <td class="center" id="row-id-${dep.id}">${dep.id}</td>
+                                <td class="center" id="row-name-${dep.id}">${dep.name}</td>
+                                <td class="center" id="row-abb-${dep.id}">${dep.abbreviatedName}</td>
                             </tr>
                             <#else>
                             <tr class="even">
-                                <td class="center">${dep.name}</td>
-                                <td class="center">${dep.abbreviatedName}</td>
-                                <td class="center">
-                                    <a class="btn btn-info" href="#">
-                                        <i class="halflings-icon white edit"></i>
-                                    </a>
-                                </td>
+                                <td class="center" id="row-id-${dep.id}">${dep.id}</td>
+                                <td class="center" id="row-name-${dep.id}">${dep.name}</td>
+                                <td class="center" id="row-abb-${dep.id}">${dep.abbreviatedName}</td>
                             </tr>
                             </#if>
                         </#list>
@@ -106,7 +98,7 @@
     </div><!--/span-->
 </div>
 <div class="row-fluid">
-    <div class="box span6">
+    <div class="box span4">
         <div class="box-header" data-original-title="">
             <h2><i class="halflings-icon white plus"></i><span class="break"></span>Добавить подразделение</h2>
         </div>
@@ -131,7 +123,73 @@
             </form>
         </div>
     </div>
+
+    <div class="box span4">
+        <div class="box-header" data-original-title="">
+            <h2><i class="halflings-icon white trash"></i><span class="break"></span>Удалить подразделение</h2>
+        </div>
+        <div class="box-content">
+            <form class="form-inline" method="post" action="<@spring.url relativeUrl="/departments/delete"/>">
+                <div class="control-group">
+                    <label class="control-label" for="selectError">Наименование</label>
+                    <div class="controls">
+                        <select id="selectError" name="id" data-rel="chosen">
+                            <#list departmentPage.data as dep>
+                                <option value="${dep.id}">${dep.name}</option>
+                            </#list>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Удалить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="box span4">
+        <div class="box-header" data-original-title="">
+            <h2><i class="halflings-icon white trash"></i><span class="break"></span>Обновить подразделение</h2>
+        </div>
+        <div class="box-content">
+            <div class="control-group">
+                <label class="control-label" for="selectError">Наименование</label>
+                <div class="controls">
+                    <select id="selectError" name="id" data-rel="chosen" onchange="run(this.value)">
+                        <#list departmentPage.data as dep>
+                            <option value="${dep.id}">${dep.name}</option>
+                        </#list>
+                    </select>
+                </div>
+            </div>
+
+            <label class="control-label" for="id">ID: </label>
+            <div class="controls">
+                <input type="text" class="span12" id="idUpdate" name="id" readonly/>
+            </div>
+
+            <label class="control-label" for="name">Наименование: </label>
+            <div class="controls">
+                <input type="text" class="span12" id="nameUpdate" name="name"/>
+            </div>
+
+            <label class="control-label" for="abbreviatedName">Сокращенное наименование: </label>
+            <div class="controls">
+                <input type="text" class="span12" id="abbreviatedNameUpdate" name="abbreviatedName"/>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+    function run(value) {
+        document.getElementById("idUpdate").value = document.getElementById("row-id-" + value).innerHTML;
+        document.getElementById("nameUpdate").value = document.getElementById("row-name-" + value).innerHTML;
+        document.getElementById("abbreviatedNameUpdate").value = document.getElementById("row-abb-" + value).innerHTML;
+    }
+</script>
+
 </@base.override>
 
 <@base.template/>
