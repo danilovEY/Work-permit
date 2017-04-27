@@ -49,7 +49,7 @@
 
                         <label class="remember" for="remember">
                             <div class="checker" id="uniform-remember">
-                                <span><input type="checkbox" name="remember" id="remember"></span>
+                                <span><input type="checkbox" name="remember-me" id="remember-me"></span>
                             </div>Запомнить меня</label>
 
                         <div class="button-login">

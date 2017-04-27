@@ -25,7 +25,7 @@
                              default-target-url="/"
                              authentication-failure-url="/login?error=true&amp;access=true"
                              always-use-default-target="true"/>
-        <security:remember-me key="remember" token-validity-seconds="1209600"/>
+        <security:remember-me key="uniqueAndSecret" token-validity-seconds="1209600"/>
 
         <security:csrf disabled="true"/>
         <security:http-basic />
