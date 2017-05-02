@@ -51,4 +51,20 @@ public class PostsController {
         return "redirect:/posts";
     }
 
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+            produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public String updateDepartment(PostEntity postEntity) {
+        this.postPageService.update(postEntity);
+        return "redirect:/posts";
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+            produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public String removeDepartment(PostEntity postEntity) {
+        this.postPageService.delete(postEntity);
+        return "redirect:/posts";
+    }
+
+
 }

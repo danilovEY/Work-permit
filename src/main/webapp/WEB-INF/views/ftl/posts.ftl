@@ -54,19 +54,19 @@
                         <#list postPage.data as post>
                             <#if post_index % 2 == 0>
                                 <tr class="odd">
-                                    <td class="center">${post.id}</td>
-                                    <td class="center">${post.name}</td>
-                                    <td class="center">${post.abbreviatedName}</td>
-                                    <td class="center">${post.rang!""}</td>
-                                    <td class="center">${post.typeRang!""}</td>
+                                    <td class="center" id="row-id-${post.id}">${post.id}</td>
+                                    <td class="center" id="row-name-${post.id}">${post.name}</td>
+                                    <td class="center" id="row-abb-${post.id}">${post.abbreviatedName}</td>
+                                    <td class="center" id="row-rang-${post.id}">${post.rang!""}</td>
+                                    <td class="center" id="row-type-${post.id}">${post.typeRang!""}</td>
                                 </tr>
                             <#else>
                                 <tr class="even">
-                                    <td class="center">${post.id}</td>
-                                    <td class="center">${post.name}</td>
-                                    <td class="center">${post.abbreviatedName}</td>
-                                    <td class="center">${post.rang!""}</td>
-                                    <td class="center">${post.typeRang!""}</td>
+                                    <td class="center" id="row-id-${post.id}">${post.id}</td>
+                                    <td class="center" id="row-name-${post.id}">${post.name}</td>
+                                    <td class="center" id="row-abb-${post.id}">${post.abbreviatedName}</td>
+                                    <td class="center" id="row-rang-${post.id}">${post.rang!""}</td>
+                                    <td class="center" id="row-type-${post.id}">${post.typeRang!""}</td>
                                 </tr>
                             </#if>
                         </#list>
@@ -107,12 +107,13 @@
         </div>
     </div>
 </div>
+
 <div class="row-fluid">
-    <div class="box span6">
+    <div class="box span4">
         <div class="box-header" data-original-title="">
             <h2><i class="halflings-icon white plus"></i><span class="break"></span>Добавить должность</h2>
         </div>
-        <div class="box-content" style="display: block;">
+        <div class="box-content">
             <form class="form-inline" method="post" action="<@spring.url relativeUrl="/posts/add"/>">
                 <div class="control-group">
                     <label class="control-label" for="name">Наименование: </label>
@@ -144,12 +145,104 @@
 
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">Добавить</button>
-                    <button type="reset" class="btn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="box span4">
+        <div class="box-header" data-original-title="">
+            <h2><i class="halflings-icon white refresh"></i><span class="break"></span>Обновить должность</h2>
+        </div>
+        <div class="box-content">
+            <form class="form-inline" method="post" action="<@spring.url relativeUrl="/posts/update"/>">
+                <div class="control-group">
+                    <label class="control-label" for="selectError">Наименование</label>
+                    <div class="controls">
+                        <select id="selectError" name="id" data-rel="chosen" onchange="run(this.value)">
+                            <option value="-1">Подразделения...</option>
+                            <#list postPage.data as post>
+                                <option value="${post.id}">${post.name}</option>
+                            </#list>
+                        </select>
+                    </div>
+                </div>
+
+                <label class="control-label" for="id">ID: </label>
+                <div class="controls">
+                    <input type="text" class="span12" id="idUpdate" name="id" readonly/>
+                </div>
+
+                <label class="control-label" for="name">Наименование: </label>
+                <div class="controls">
+                    <input type="text" class="span12" id="nameUpdate" name="name"/>
+                </div>
+
+                <label class="control-label" for="abbreviatedName">Сокращенное наименование: </label>
+                <div class="controls">
+                    <input type="text" class="span12" id="abbreviatedNameUpdate" name="abbreviatedName"/>
+                </div>
+
+                <label class="control-label" for="rang">Номер группы: </label>
+                <div class="controls">
+                    <input type="text" class="span12 rang" id="rangUpdate" name="rang">
+                </div>
+
+                <label class="control-label" for="typeRang">Наименование группы: </label>
+                <div class="controls">
+                    <input type="text" class="span12 typeRang" id="typeRangUpdate" name="typeRang">
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Обновить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="box span4">
+        <div class="box-header" data-original-title="">
+            <h2><i class="halflings-icon white trash"></i><span class="break"></span>Удалить должность</h2>
+        </div>
+        <div class="box-content">
+            <form class="form-inline" method="post" action="<@spring.url relativeUrl="/posts/delete"/>">
+                <div class="control-group">
+                    <label class="control-label" for="selectError">Наименование</label>
+                    <div class="controls">
+                        <select id="selectError" name="id" data-rel="chosen">
+                            <#list postPage.data as post>
+                                <option value="${post.id}">${post.name}</option>
+                            </#list>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Удалить</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+    function run(value) {
+        if(value != -1) {
+            document.getElementById("idUpdate").value = document.getElementById("row-id-" + value).innerHTML;
+            document.getElementById("nameUpdate").value = document.getElementById("row-name-" + value).innerHTML;
+            document.getElementById("abbreviatedNameUpdate").value = document.getElementById("row-abb-" + value).innerHTML;
+            document.getElementById("rangUpdate").value = document.getElementById("row-rang-" + value).innerHTML;
+            document.getElementById("typeRangUpdate").value = document.getElementById("row-type-" + value).innerHTML;
+        } else {
+            document.getElementById("idUpdate").value = "";
+            document.getElementById("nameUpdate").value = "";
+            document.getElementById("abbreviatedNameUpdate").value = "";
+            document.getElementById("rangUpdate").value = "";
+            document.getElementById("typeRangUpdate").value = "";
+        }
+    }
+</script>
+
 </@base.override>
 
 <@base.template/>
