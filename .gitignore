@@ -1,7 +1,7 @@
 /*
 !*.md
 !gradlew*
-!/etc
+!/config
 !/src
 !build.gradle
 !settings.gradle

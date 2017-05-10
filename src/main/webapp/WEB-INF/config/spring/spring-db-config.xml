@@ -39,5 +39,5 @@
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
-    <context:property-placeholder location="file:${permit.home}etc/database.properties"/>
+    <context:property-placeholder location="file:${permit.home}config/database.properties"/>
 </beans>
