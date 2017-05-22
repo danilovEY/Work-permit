@@ -8,6 +8,9 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd ">
 
+    <context:property-placeholder location="file:${permit.home}/config/database.properties,file:${permit.home}/config/common.properties"
+                                  ignore-unresolvable="true"/>
+
     <import resource="spring-security-config.xml"/>
     <import resource="spring-db-config.xml"/>
 

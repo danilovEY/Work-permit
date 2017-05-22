@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import ru.kolaer.permit.component.EmptyObjects;
 import ru.kolaer.permit.dao.AccountDtoDao;
 import ru.kolaer.permit.dto.AccountDto;
 import ru.kolaer.permit.entity.RoleEntity;
@@ -26,6 +27,9 @@ public class AccountDtoDaoImpl implements AccountDtoDao {
                 .createQuery("SELECT id, username, password FROM EmployeeEntity WHERE id = :id")
                 .setParameter("id", idEmployee)
                 .uniqueResult();
+
+        if(values == null)
+            return null;
 
         final AccountDto account = new AccountDto();
         account.setEmployeeId(Integer.valueOf(values[0].toString()));
@@ -49,6 +53,9 @@ public class AccountDtoDaoImpl implements AccountDtoDao {
                 .createQuery("SELECT id, username, password FROM EmployeeEntity WHERE username = :username")
                 .setParameter("username", username)
                 .uniqueResult();
+
+        if(values == null)
+            return null;
 
         final AccountDto account = new AccountDto();
         account.setEmployeeId(Integer.valueOf(values[0].toString()));
