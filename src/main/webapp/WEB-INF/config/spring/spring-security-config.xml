@@ -18,6 +18,14 @@
 
     <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 
+    <bean id="roleNameMap" class="ru.kolaer.permit.dto.RoleNameDto">
+        <property name="roleNameMap">
+            <map>
+                <entry key="ROLE_DEFAULT" value="Базавая роль" />
+                <entry key="ROLE_USER" value="Пользователь" />
+            </map>
+        </property>
+    </bean>
 
     <security:http pattern="/resources/**" security="none"/>
 
@@ -33,7 +41,7 @@
                              default-target-url="/"
                              authentication-failure-url="/login?error=true&amp;access=true"
                              always-use-default-target="true"/>
-        <security:remember-me key="uniqueAndSecret" token-validity-seconds="1209600"/>
+        <security:remember-me key="remember-me" token-validity-seconds="1209600"/>
 
         <security:csrf disabled="true"/>
         <security:http-basic />

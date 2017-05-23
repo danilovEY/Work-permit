@@ -47,17 +47,16 @@
                         </div>
                         <div class="clearfix"></div>
 
-                        <label class="remember" for="remember">
-                            <div class="checker" id="uniform-remember">
+                        <label class="remember" for="remember-me">
+                            <div class="checker" id="remember-me">
                                 <span><input type="checkbox" name="remember-me" id="remember-me"></span>
-                            </div>Запомнить меня</label>
+                            </div>Запомнить меня
+                        </label>
 
                         <div class="button-login">
                             <button type="submit" class="btn btn-primary">Войти</button>
                         </div>
                         <div class="clearfix"></div>
-
-                        <hr>
                     <#if error>
                         <h3>Забыли пароль?</h3>
                         <p>

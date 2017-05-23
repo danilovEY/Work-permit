@@ -352,12 +352,12 @@ function template_functions(){
 		score : 4 //default stars
 	});
 
-	/* ---------- Uploadify ---------- */
+	/* ---------- Uploadify ---------- 
 	$('#file_upload').uploadify({
 		'swf'      : 'misc/uploadify.swf',
 		'uploader' : 'misc/uploadify.php'
 		// Put your options here
-	});
+	});*/
 
 	/* ---------- Fullscreen ---------- */
 	$('#toggle-fullscreen').button().click(function () {

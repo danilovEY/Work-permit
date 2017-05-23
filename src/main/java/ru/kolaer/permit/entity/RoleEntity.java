@@ -24,9 +24,9 @@ public class RoleEntity extends BaseEntity {
         this.role = role;
     }
 
-    @Column(name = "employee_id")
+    @Column(name = "employee_id", nullable = false)
     private Integer employeeId;
 
-    @Column(name = "role", length = 20)
+    @Column(name = "role", length = 20, nullable = false)
     private String role;
 }

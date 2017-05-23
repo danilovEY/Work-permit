@@ -1,4 +1,5 @@
 <#-- @ftlvariable name="rolePage" type="ru.kolaer.permit.dto.Page<ru.kolaer.permit.entity.FullRoleEntity>" -->
+<#-- @ftlvariable name="roleNameMap" type="java.util.Map<java.lang.String, java.lang.String>" -->
 
 
 <#import "layout/baseTemplate.ftl" as base>
@@ -11,38 +12,38 @@
             <h2><i class="icon-group white"></i><span class="break"></span>Список должностей</h2>
         </div>
         <div class="box-content" style="display: block;">
-            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper" role="grid">
+            <div id="role_table_wrapper" class="dataTables_wrapper" role="grid">
                 <div class="row-fluid">
                     <div class="span6">
-                        <div id="DataTables_Table_0_length" class="dataTables_length">
+                        <div id="role_table_length" class="dataTables_length">
                             <label>
-                                <select size="1" name="DataTables_Table_0_length" aria-controls="DataTables_Table_0">
+                                <select size="1" name="role_table_length" aria-controls="role_table">
                                     <option value="${rolePage.pageSize}" selected="selected">${rolePage.pageSize}</option>
                                 </select> records per page
                             </label>
                         </div>
                     </div>
                     <div class="span6">
-                        <div class="dataTables_filter" id="DataTables_Table_0_filter">
-                            <label>Search: <input type="text" aria-controls="DataTables_Table_0"></label>
+                        <div class="dataTables_filter" id="role_table_filter">
+                            <label>Search: <input type="text" aria-controls="role_table"></label>
                         </div>
                     </div>
                 </div>
-                <table class="table table-striped table-bordered bootstrap-datatable datatable dataTable" id="DataTables_Table_0"
-                       aria-describedby="DataTables_Table_0_info">
+                <table class="table table-striped table-bordered bootstrap-datatable datatable dataTable" id="role_table"
+                       aria-describedby="role_table_info">
                     <thead>
                     <tr role="row">
-                        <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                        <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="role_table" rowspan="1"
                             colspan="1" aria-sort="ascending" aria-label="Username: activate to sort column descending"
                             style="width: 157px;">ID
                         </th>
-                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="role_table" rowspan="1"
                             colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Табельный номер
                         </th>
-                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="role_table" rowspan="1"
                             colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Ф.И.О.
                         </th>
-                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="role_table" rowspan="1"
                             colspan="1" aria-label="Actions: activate to sort column ascending" style="width: 268px;">Роль
                         </th>
                     </tr>
@@ -54,14 +55,14 @@
                                     <td class="center" id="row-id-${role.id}">${role.id}</td>
                                     <td class="center" id="row-pn-${role.id}">${role.employee.personnelNumber}</td>
                                     <td class="center" id="row-in-${role.id}">${role.employee.initials}</td>
-                                    <td class="center" id="row-role-${role.id}">${role.role}</td>
+                                    <td class="center" id="row-role-${role.id}">${roleNameMap[role.role]}</td>
                                 </tr>
                             <#else>
                                 <tr class="even">
                                     <td class="center" id="row-id-${role.id}">${role.id}</td>
                                     <td class="center" id="row-pn-${role.id}">${role.employee.personnelNumber}</td>
                                     <td class="center" id="row-in-${role.id}">${role.employee.initials}</td>
-                                    <td class="center" id="row-role-${role.id}">${role.role}</td>
+                                    <td class="center" id="row-role-${role.id}">${roleNameMap[role.role]}</td>
                                 </tr>
                             </#if>
                         </#list>
@@ -70,7 +71,7 @@
 
                 <div class="row-fluid">
                     <div class="span12">
-                        <div class="dataTables_info" id="DataTables_Table_0_info">
+                        <div class="dataTables_info" id="role_table_info">
                             Страница ${rolePage.number} из ${rolePage.total} по ${rolePage.pageSize} ролей.
                         </div>
                     </div>
@@ -103,7 +104,7 @@
     </div>
 </div>
 
-<#-- <div class="row-fluid">
+<div class="row-fluid">
     <div class="box span4">
         <div class="box-header" data-original-title="">
             <h2><i class="halflings-icon white plus"></i><span class="break"></span>Добавить роль</h2>
@@ -111,30 +112,23 @@
         <div class="box-content">
             <form class="form-inline" method="post" action="<@spring.url relativeUrl="/roles/add"/>">
                 <div class="control-group">
-                    <label class="control-label" for="name">Наименование: </label>
+                    <label class="control-label" for="selectRoles">Роль: </label>
                     <div class="controls">
-                        <input type="text" class="span12 name" id="name" name="name">
+                        <select id="selectRoles" name="role" data-rel="chosen">
+                            <option value="-1">Роли...</option>
+                            <#if roleNameMap?has_content>
+                                <#list roleNameMap?values as role>
+                                    <option>${role}</option>
+                                </#list>
+                            </#if>
+                        </select>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label" for="abbreviatedName">Сокращенное наименование: </label>
+                    <label class="control-label" for="personnelNumber">Табельный номер: </label>
                     <div class="controls">
-                        <input type="text" class="span12 abbreviatedName" id="abbreviatedName" name="abbreviatedName">
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <label class="control-label" for="rang">Номер группы: </label>
-                    <div class="controls">
-                        <input type="text" class="span12 rang" id="rang" name="rang">
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <label class="control-label" for="typeRang">Наименование группы: </label>
-                    <div class="controls">
-                        <input type="text" class="span12 typeRang" id="typeRang" name="typeRang">
+                        <input type="text" class="span12 personnelNumber" id="personnelNumber" name="employee.personnelNumber">
                     </div>
                 </div>
 
@@ -147,45 +141,48 @@
 
     <div class="box span4">
         <div class="box-header" data-original-title="">
-            <h2><i class="halflings-icon white refresh"></i><span class="break"></span>Обновить должность</h2>
+            <h2><i class="halflings-icon white refresh"></i><span class="break"></span>Обновить роль</h2>
         </div>
         <div class="box-content">
-            <form class="form-inline" method="post" action="<@spring.url relativeUrl="/posts/update"/>">
+            <form class="form-inline" method="post" action="<@spring.url relativeUrl="/roles/update"/>">
                 <div class="control-group">
-                    <label class="control-label" for="selectError">Наименование</label>
+                    <label class="control-label" for="selectRowRoles">Роль: </label>
                     <div class="controls">
-                        <select id="selectError" name="id" data-rel="chosen" onchange="run(this.value)">
-                            <option value="-1">Подразделения...</option>
-                            <#list rolePage.data as post>
-                                <option value="${post.id}">${post.role}</option>
+                        <select id="selectRowRoles" name="roles" data-rel="chosen" onchange="run(this.value)">
+                            <option value="-1">Роли...</option>
+                            <#list rolePage.data as role>
+                                <option value="${role.id}">(${role.employee.personnelNumber}) ${role.employee.initials} - ${roleNameMap[role.role]}</option>
                             </#list>
                         </select>
                     </div>
                 </div>
 
-                <label class="control-label" for="id">ID: </label>
-                <div class="controls">
-                    <input type="text" class="span12" id="idUpdate" name="id" readonly/>
+                <div class="control-group">
+                    <label class="control-label" for="idUpdate">ID: </label>
+                    <div class="controls">
+                        <input type="text" class="span12 idUpdate" id="idUpdate" name="idUpdate" readonly="true">
+                    </div>
                 </div>
 
-                <label class="control-label" for="name">Наименование: </label>
-                <div class="controls">
-                    <input type="text" class="span12" id="nameUpdate" name="name"/>
+                <div class="control-group">
+                    <label class="control-label" for="updatePersonnelNumber">Табельный номер: </label>
+                    <div class="controls">
+                        <input type="text" class="span12 updatePersonnelNumber" id="updatePersonnelNumber" name="personnelNumber">
+                    </div>
                 </div>
 
-                <label class="control-label" for="abbreviatedName">Сокращенное наименование: </label>
-                <div class="controls">
-                    <input type="text" class="span12" id="abbreviatedNameUpdate" name="abbreviatedName"/>
-                </div>
-
-                <label class="control-label" for="rang">Номер группы: </label>
-                <div class="controls">
-                    <input type="text" class="span12 rang" id="rangUpdate" name="rang">
-                </div>
-
-                <label class="control-label" for="typeRang">Наименование группы: </label>
-                <div class="controls">
-                    <input type="text" class="span12 typeRang" id="typeRangUpdate" name="typeRang">
+                <div class="control-group">
+                    <label class="control-label" for="updateRole">Роль: </label>
+                    <div class="controls">
+                        <select id="updateRole" name="roles" data-rel="chosen">
+                            <option value="-1">Роли...</option>
+                            <#if roleNameMap?has_content>
+                                <#list roleNameMap?keys as key>
+                                    <option value="${roleNameMap[key]}">${roleNameMap[key]}</option>
+                                </#list>
+                            </#if>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="form-actions">
@@ -195,18 +192,19 @@
         </div>
     </div>
 
-    <div class="box span4">
+    <#-- <div class="box span4">
         <div class="box-header" data-original-title="">
-            <h2><i class="halflings-icon white trash"></i><span class="break"></span>Удалить должность</h2>
+            <h2><i class="halflings-icon white trash"></i><span class="break"></span>Удалить роль</h2>
         </div>
         <div class="box-content">
-            <form class="form-inline" method="post" action="<@spring.url relativeUrl="/posts/delete"/>">
+            <form class="form-inline" method="post" action="<@spring.url relativeUrl="/roles/delete"/>">
                 <div class="control-group">
-                    <label class="control-label" for="selectError">Наименование</label>
+                    <label class="control-label" for="name">Роль: </label>
                     <div class="controls">
-                        <select id="selectError" name="id" data-rel="chosen">
-                            <#list rolePage.data as post>
-                                <option value="${post.id}">${post.role}</option>
+                        <select id="selectRoles" name="roles" data-rel="chosen" onchange="run(this.value)">
+                            <option value="-1">Роли...</option>
+                            <#list rolePage.data as role>
+                                <option value="${role.id}">(${role.employee.personnelNumber}) ${role.employee.initials} - ${role.role}</option>
                             </#list>
                         </select>
                     </div>
@@ -217,26 +215,22 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div> -->
 </div>
 
 <script>
     function run(value) {
         if(value != -1) {
             document.getElementById("idUpdate").value = document.getElementById("row-id-" + value).innerHTML;
-            document.getElementById("nameUpdate").value = document.getElementById("row-name-" + value).innerHTML;
-            document.getElementById("abbreviatedNameUpdate").value = document.getElementById("row-abb-" + value).innerHTML;
-            document.getElementById("rangUpdate").value = document.getElementById("row-rang-" + value).innerHTML;
-            document.getElementById("typeRangUpdate").value = document.getElementById("row-type-" + value).innerHTML;
+            document.getElementById("updateRole").value = document.getElementById("row-role-" + value).innerHTML;
+            document.getElementById("updatePersonnelNumber").value = document.getElementById("row-pn-" + value).innerHTML.replace("&nbsp;", "");
         } else {
             document.getElementById("idUpdate").value = "";
-            document.getElementById("nameUpdate").value = "";
-            document.getElementById("abbreviatedNameUpdate").value = "";
-            document.getElementById("rangUpdate").value = "";
-            document.getElementById("typeRangUpdate").value = "";
+            document.getElementById("updateRole").value = "-1";
+            document.getElementById("updatePersonnelNumber").value = "";
         }
     }
-</script> -->
+</script>
 
 </@base.override>
 

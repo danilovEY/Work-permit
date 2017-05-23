@@ -50,4 +50,13 @@ public class EmployeePageServiceImpl extends BasePageServiceAbstract<EmployeeEnt
         return this.employeePageDao.deleteAll(entities, true);
     }
 
+    @Override
+    public EmployeeEntity getByPersonnelNumber(Integer personnelNumber) {
+        return this.employeePageDao.findByPersonnelNumber(personnelNumber);
+    }
+
+    @Override
+    public Integer getIdByPersonnelNumber(Integer personnelNumber) {
+        return this.employeePageDao.findIdByPersonnelNumber(personnelNumber);
+    }
 }

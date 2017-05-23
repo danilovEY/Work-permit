@@ -11,4 +11,8 @@ public interface EmployeePageDao extends BasePageDao<EmployeeEntity> {
     default EmployeeEntity getEmptyEntity() {
         return EmptyObjects.DEFAULT_EMPLOYEE;
     }
+
+    EmployeeEntity findByPersonnelNumber(Integer personnelNumber);
+
+    Integer findIdByPersonnelNumber(Integer personnelNumber);
 }

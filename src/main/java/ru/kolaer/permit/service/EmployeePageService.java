@@ -7,4 +7,7 @@ import ru.kolaer.permit.entity.EmployeeEntity;
  */
 public interface EmployeePageService extends BasePageService<EmployeeEntity> {
 
+    EmployeeEntity getByPersonnelNumber(Integer personnelNumber);
+
+    Integer getIdByPersonnelNumber(Integer personnelNumber);
 }

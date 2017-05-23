@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ru.kolaer.permit.dto.Page;
+import ru.kolaer.permit.dto.RoleNameDto;
+import ru.kolaer.permit.entity.EmployeeEntity;
 import ru.kolaer.permit.entity.FullRoleEntity;
+import ru.kolaer.permit.service.EmployeePageService;
 import ru.kolaer.permit.service.FullRolePageService;
 
 /**
@@ -21,10 +24,16 @@ import ru.kolaer.permit.service.FullRolePageService;
 public class RolesController {
 
     private final FullRolePageService fullRolePageService;
+    private final RoleNameDto roleNameDto;
+    private final EmployeePageService employeePageService;
 
     @Autowired
-    public RolesController(FullRolePageService fullRolePageService) {
+    public RolesController(FullRolePageService fullRolePageService,
+                           RoleNameDto roleNameDto,
+                           EmployeePageService employeePageService) {
         this.fullRolePageService = fullRolePageService;
+        this.roleNameDto = roleNameDto;
+        this.employeePageService = employeePageService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -35,6 +44,7 @@ public class RolesController {
 
         final ModelAndView page = new ModelAndView("roles");
         page.addObject("rolePage", rolesEntities);
+        page.addObject("roleNameMap", this.roleNameDto.getRoleNameMap());
         return page;
     }
 
@@ -43,7 +53,14 @@ public class RolesController {
     public String addDepartment(FullRoleEntity roleEntity) {
         roleEntity.setId(null);
 
-        this.fullRolePageService.add(roleEntity);
+        if(roleEntity.getEmployee() != null
+                && roleEntity.getEmployee().getPersonnelNumber() != null
+                && roleEntity.getEmployee().getPersonnelNumber() > 0) {
+            final Integer employeeId = this.employeePageService
+                    .getIdByPersonnelNumber(roleEntity.getEmployee().getPersonnelNumber());
+            roleEntity.getEmployee().setId(employeeId);
+            this.fullRolePageService.add(roleEntity);
+        }
 
         return "redirect:/roles";
     }
@@ -51,6 +68,7 @@ public class RolesController {
     @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public String updateDepartment(FullRoleEntity roleEntity) {
+
         this.fullRolePageService.update(roleEntity);
         return "redirect:/roles";
     }
