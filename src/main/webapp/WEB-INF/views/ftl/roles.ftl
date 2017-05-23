@@ -160,21 +160,21 @@
                 <div class="control-group">
                     <label class="control-label" for="idUpdate">ID: </label>
                     <div class="controls">
-                        <input type="text" class="span12 idUpdate" id="idUpdate" name="idUpdate" readonly="true">
+                        <input type="text" class="span12 idUpdate" id="idUpdate" name="id" readonly="true">
                     </div>
                 </div>
 
                 <div class="control-group">
                     <label class="control-label" for="updatePersonnelNumber">Табельный номер: </label>
                     <div class="controls">
-                        <input type="text" class="span12 updatePersonnelNumber" id="updatePersonnelNumber" name="personnelNumber">
+                        <input type="text" class="span12 updatePersonnelNumber" id="updatePersonnelNumber" name="employee.personnelNumber">
                     </div>
                 </div>
 
                 <div class="control-group">
                     <label class="control-label" for="updateRole">Роль: </label>
                     <div class="controls">
-                        <select id="updateRole" name="roles" data-rel="chosen">
+                        <select id="updateRole" name="role" data-rel="chosen">
                             <option value="-1">Роли...</option>
                             <#if roleNameMap?has_content>
                                 <#list roleNameMap?keys as key>

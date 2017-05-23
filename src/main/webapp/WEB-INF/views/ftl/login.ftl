@@ -48,9 +48,7 @@
                         <div class="clearfix"></div>
 
                         <label class="remember" for="remember-me">
-                            <div class="checker" id="remember-me">
-                                <span><input type="checkbox" name="remember-me" id="remember-me"></span>
-                            </div>Запомнить меня
+                            <input type="checkbox" name="remember-me" id="remember-me">Запомнить меня
                         </label>
 
                         <div class="button-login">

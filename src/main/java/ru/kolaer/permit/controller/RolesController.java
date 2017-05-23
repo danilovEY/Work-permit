@@ -15,6 +15,8 @@ import ru.kolaer.permit.entity.FullRoleEntity;
 import ru.kolaer.permit.service.EmployeePageService;
 import ru.kolaer.permit.service.FullRolePageService;
 
+import java.util.Map;
+
 /**
  * Created by danilovey on 20.04.2017.
  */
@@ -59,6 +61,9 @@ public class RolesController {
             final Integer employeeId = this.employeePageService
                     .getIdByPersonnelNumber(roleEntity.getEmployee().getPersonnelNumber());
             roleEntity.getEmployee().setId(employeeId);
+            this.roleNameDto.getRoleNameMap().entrySet().stream()
+                    .filter(e -> e.getValue().equals(roleEntity.getRole()))
+                    .findFirst().ifPresent(e -> roleEntity.setRole(e.getKey()));
             this.fullRolePageService.add(roleEntity);
         }
 
@@ -68,8 +73,17 @@ public class RolesController {
     @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public String updateDepartment(FullRoleEntity roleEntity) {
-
-        this.fullRolePageService.update(roleEntity);
+        if(roleEntity.getEmployee() != null
+                && roleEntity.getEmployee().getPersonnelNumber() != null
+                && roleEntity.getEmployee().getPersonnelNumber() > 0) {
+            final Integer employeeId = this.employeePageService
+                    .getIdByPersonnelNumber(roleEntity.getEmployee().getPersonnelNumber());
+            roleEntity.getEmployee().setId(employeeId);
+            this.roleNameDto.getRoleNameMap().entrySet().stream()
+                    .filter(e -> e.getValue().equals(roleEntity.getRole()))
+                    .findFirst().ifPresent(e -> roleEntity.setRole(e.getKey()));
+            this.fullRolePageService.update(roleEntity);
+        }
         return "redirect:/roles";
     }
 
