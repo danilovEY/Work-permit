@@ -148,19 +148,12 @@
                 <div class="control-group">
                     <label class="control-label" for="selectRowRoles">Роль: </label>
                     <div class="controls">
-                        <select id="selectRowRoles" name="roles" data-rel="chosen" onchange="run(this.value)">
+                        <select id="selectRowRoles" name="id" data-rel="chosen" onchange="run(this.value)">
                             <option value="-1">Роли...</option>
                             <#list rolePage.data as role>
                                 <option value="${role.id}">(${role.employee.personnelNumber}) ${role.employee.initials} - ${roleNameMap[role.role]}</option>
                             </#list>
                         </select>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <label class="control-label" for="idUpdate">ID: </label>
-                    <div class="controls">
-                        <input type="text" class="span12 idUpdate" id="idUpdate" name="id" readonly="true">
                     </div>
                 </div>
 
@@ -192,7 +185,7 @@
         </div>
     </div>
 
-    <#-- <div class="box span4">
+     <div class="box span4">
         <div class="box-header" data-original-title="">
             <h2><i class="halflings-icon white trash"></i><span class="break"></span>Удалить роль</h2>
         </div>
@@ -201,7 +194,7 @@
                 <div class="control-group">
                     <label class="control-label" for="name">Роль: </label>
                     <div class="controls">
-                        <select id="selectRoles" name="roles" data-rel="chosen" onchange="run(this.value)">
+                        <select id="selectRoles" name="id" data-rel="chosen" onchange="run(this.value)">
                             <option value="-1">Роли...</option>
                             <#list rolePage.data as role>
                                 <option value="${role.id}">(${role.employee.personnelNumber}) ${role.employee.initials} - ${role.role}</option>
@@ -215,7 +208,7 @@
                 </div>
             </form>
         </div>
-    </div> -->
+    </div>
 </div>
 
 <script>
