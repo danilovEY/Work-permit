@@ -72,4 +72,6 @@ public final class EmptyObjects {
         @Override
         public void setEmployee(EmployeeEntity employee) {throw new UnsupportedOperationException("Full Role entity object is empty! You can't write value to empty objects.");}
     };
+
+    public static final PermitEntity DEFAULT_PERMIT = new PermitEntity();
 }

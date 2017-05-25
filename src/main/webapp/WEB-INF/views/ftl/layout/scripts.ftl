@@ -49,4 +49,4 @@
 
 <script src="<@spring.url relativeUrl="/resources/js/retina.js"/>"></script>
 
-<#--<script src="<@spring.url relativeUrl="/resources/js/custom.js"/>"></script>-->
+<script src="<@spring.url relativeUrl="/resources/js/custom.js"/>"></script>
