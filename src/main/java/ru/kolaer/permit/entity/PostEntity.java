@@ -42,9 +42,6 @@ public class PostEntity extends BaseEntity {
     @Column(name = "type_rang", length = 10)
     private String typeRang;
 
-    @Column(name = "removed", nullable = false)
-    private Boolean removed = Boolean.FALSE;
-
     @OneToMany(mappedBy = "post")
     private List<EmployeeEntity> employees = new ArrayList<>();
 }

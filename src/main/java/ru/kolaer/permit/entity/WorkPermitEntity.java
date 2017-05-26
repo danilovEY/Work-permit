@@ -20,26 +20,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class PermitEntity extends BaseEntity {
+public class WorkPermitEntity extends BaseEntity {
     @Column(length = 20)
     private String serialNumber;
-
-    /**Руководитель*/
-    @ManyToOne
-    @JoinColumn(name = "supervisor_id", nullable = false)
-    private EmployeeEntity ResponsibleSupervisor;
-
-    /**Исполнитель*/
-    @ManyToOne
-    @JoinColumn(name = "executor_id", nullable = false)
-    private EmployeeEntity ResponsibleExecutor;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "executors_permit",
-            joinColumns = @JoinColumn( name="permit_id"),
-            inverseJoinColumns = @JoinColumn( name="executor_id"))
-    @Fetch(value = FetchMode.SUBSELECT)
-    private List<EmployeeEntity> executors;
 
     /**Выдан*/
     @Column(name = "write_word")
@@ -115,25 +98,9 @@ public class PermitEntity extends BaseEntity {
     @Column
     private String adaptations;
 
-    /**Мероприятия*/
-    @OneToMany(mappedBy = "permit", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    private List<WorkEvent> workEvents;
-
-    /**Разрешения на подготовку места*/
-    /*@OneToMany
-    @JoinTable(name = "executors_prepared",
-            joinColumns = @JoinColumn( name="prepared_id"),
-            inverseJoinColumns = @JoinColumn( name="executor_id"))
-    private List<EmployeeEntity> preparedExecutors;*/
-
     @Column
     @Enumerated(EnumType.STRING)
     private StatusPermit status;
-
-    /**Кто выдал наряд*/
-    @ManyToOne
-    @JoinColumn(name = "writer_id", nullable = false)
-    private EmployeeEntity writer;
 
     /**Продление работ*/
     @Temporal(TemporalType.TIMESTAMP)

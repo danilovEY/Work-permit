@@ -1,4 +1,4 @@
-<#-- @ftlvariable name="permitPage" type="ru.kolaer.permit.dto.Page<ru.kolaer.permit.entity.PermitEntity>" -->
+<#-- @ftlvariable name="permitPage" type="ru.kolaer.permit.dto.Page<ru.kolaer.permit.entity.ShortPermitEntity>" -->
 
 <#import "../layout/baseTemplate.ftl" as base>
 <#import "/spring.ftl" as spring>
@@ -27,7 +27,7 @@
                         </div>
                     </div>
                 </div>
-                <table class="table table-striped table-bordered bootstrap-datatable datatable dataTable" id="DataTables_Table_0"
+                <table class="table table-striped table-bordered bootstrap-datatable" id="DataTables_Table_0"
                        aria-describedby="DataTables_Table_0_info">
                     <thead>
                     <tr role="row">
@@ -47,9 +47,6 @@
                             colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Окончание работ
                         </th>
                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                            colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Цех
-                        </th>
-                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                             colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Выдающий
                         </th>
                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
@@ -57,6 +54,9 @@
                         </th>
                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                             colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Статус
+                        </th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                            colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Действие
                         </th>
                     </tr>
                     </thead>
@@ -69,10 +69,14 @@
                                 <td class="center">${permit.name}</td>
                                 <td class="center">${permit.startWork}</td>
                                 <td class="center">${permit.endWork}</td>
-                                <td class="center">${permit.department.abbreviatedName}</td>
                                 <td class="center">${permit.writer.initials}</td>
                                 <td class="center">${permit.responsibleSupervisor.initials}</td>
                                 <td class="center">${permit.status}</td>
+                                <td class="center">
+                                    <a class="btn btn-success" href="<@spring.url relativeUrl="/permit/edit/work?id=${permit.id}"/>">
+                                        <i class="halflings-icon white edit"></i>
+                                    </a>
+                                </td>
                             </tr>
                             <#else>
                             <tr class="even">
@@ -81,10 +85,14 @@
                                 <td class="center">${permit.name}</td>
                                 <td class="center">${permit.startWork}</td>
                                 <td class="center">${permit.endWork}</td>
-                                <td class="center">${permit.department.abbreviatedName}</td>
                                 <td class="center">${permit.writer.initials}</td>
                                 <td class="center">${permit.responsibleSupervisor.initials}</td>
                                 <td class="center">${permit.status}</td>
+                                <td class="center">
+                                    <a class="btn btn-success" href="<@spring.url relativeUrl="/permit/edit/work?id=${permit.id}"/>">
+                                        <i class="halflings-icon white edit"></i>
+                                    </a>
+                                </td>
                             </tr>
                             </#if>
                         </#list>

@@ -13,9 +13,9 @@
 <!-- start: CSS -->
 <link id="bootstrap-style" href="<@spring.url relativeUrl="/resources/css/bootstrap.min.css"/>" rel="stylesheet">
 <link href="<@spring.url relativeUrl="/resources/css/bootstrap-responsive.min.css"/>" rel="stylesheet">
+<link href="<@spring.url relativeUrl="/resources/css/bootstrap-datetimepicker.min.css"/>" rel="stylesheet">
 <link id="base-style" href="<@spring.url relativeUrl="/resources/css/style.css"/>" rel="stylesheet">
 <link id="base-style-responsive" href="<@spring.url relativeUrl="/resources/css/style-responsive.css"/>" rel="stylesheet">
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,cyrillic-ext,latin-ext' rel='stylesheet' type='text/css'>
 <!-- end: CSS -->
 
 <!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -30,3 +30,6 @@
 
 <!-- start: Favicon -->
 <link rel="shortcut icon" href="<@spring.url relativeUrl="/resources/img/favicon.ico"/>">
+
+<script src="<@spring.url relativeUrl="/resources/js/jquery-1.9.1.min.js"/>"></script>
+<script src="<@spring.url relativeUrl="/resources/js/bootstrap.min.js"/>"></script>

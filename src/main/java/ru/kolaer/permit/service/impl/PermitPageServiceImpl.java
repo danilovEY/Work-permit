@@ -1,11 +1,9 @@
 package ru.kolaer.permit.service.impl;
 
 import org.springframework.stereotype.Service;
-import ru.kolaer.permit.dao.BasePageDao;
 import ru.kolaer.permit.dao.PermitPageDao;
 import ru.kolaer.permit.dto.Page;
-import ru.kolaer.permit.dto.ShortPermitDto;
-import ru.kolaer.permit.entity.PermitEntity;
+import ru.kolaer.permit.entity.*;
 import ru.kolaer.permit.service.BasePageServiceAbstract;
 import ru.kolaer.permit.service.PermitPageService;
 
@@ -25,23 +23,30 @@ public class PermitPageServiceImpl extends BasePageServiceAbstract<PermitEntity>
     }
 
     @Override
-    public Page<ShortPermitDto> getShortAll(Integer number, Integer pageSize) {
-        final Page<PermitEntity> all = this.dao.findAll(number, pageSize, false);
+    public Page<ShortPermitEntity> getShortAll(Integer number, Integer pageSize) {
+        final Page<ShortPermitEntity> all = this.dao.findShortAll(number, pageSize, false);
 
-        final Page<ShortPermitDto> shortPermitDtoPage =
-                new Page<ShortPermitDto>(all.getNumber(),
-                        all.getTotal(),
-                        all.getPageSize(),
-                        all.getData().stream().map(this::convertToShort).collect(Collectors.toList()));
-
-        return shortPermitDtoPage;
+        return all;
     }
 
-    private ShortPermitDto convertToShort(PermitEntity permitEntity) {
-        ShortPermitDto shortPermitDto = new ShortPermitDto();
-        shortPermitDto.setId(permitEntity.getId());
-        shortPermitDto.setName(permitEntity.getName());
-        return shortPermitDto;
+    @Override
+    public WorkPermitEntity getWorkById(Integer id) {
+        return this.dao.findWorkById(id);
+    }
+
+    @Override
+    public EventPermitEntity getEventById(Integer id) {
+        return this.dao.findEventById(id);
+    }
+
+    @Override
+    public PeoplePermitEntity getPeopleById(Integer id) {
+        return this.dao.findPeopleById(id);
+    }
+
+    @Override
+    public WorkPermitEntity update(WorkPermitEntity workPermitEntity) {
+        return this.dao.update(workPermitEntity);
     }
 
 }

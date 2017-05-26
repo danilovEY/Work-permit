@@ -6,6 +6,7 @@ import ru.kolaer.permit.TypeEvent;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Danilov on 24.05.2017.
@@ -20,18 +21,20 @@ import java.util.Date;
 @ToString
 public class WorkEvent extends BaseEntity {
 
-    @Column
+    @Column(nullable = false)
     private String name;
 
-    @Column
+    @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date limitDate;
 
-    @OneToOne
-    @JoinColumn(name = "employee_id")
-    private EmployeeEntity employeeEntity;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "work_event_employee",
+            joinColumns = @JoinColumn( name="event_id"),
+            inverseJoinColumns = @JoinColumn( name="employee_id"))
+    private List<EmployeeEntity> employeesEntity;
 
-    @Column
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private TypeEvent typeEvent;
 

@@ -20,13 +20,13 @@ public class EmployeePageDaoTest extends BaseTestDao {
 
     @Test
     public void findFirstEmployee(){
-        final EmployeeEntity account = employeePageDao.findById(1);
+        final EmployeeEntity account = employeePageDao.findById(1, false);
         assertTrue(account.getId() > 0);
     }
 
     @Test
     public void findPageEmployee(){
-        final Page<EmployeeEntity> account = employeePageDao.findAll(1, 15);
+        final Page<EmployeeEntity> account = employeePageDao.findAll(1, 15, false);
         assertTrue(account.getData().size() > 0);
     }
 

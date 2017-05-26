@@ -34,6 +34,10 @@
         <security:intercept-url pattern="/departments" access="isAuthenticated()"/>
         <security:intercept-url pattern="/posts" access="isAuthenticated()"/>
         <security:intercept-url pattern="/employees" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/permit/edit/work" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/permit/edit/event" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/permit/edit/people" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/permit/view" access="isAuthenticated()"/>
         <security:intercept-url pattern="/login" access="permitAll()"/>
         <security:intercept-url pattern="/logout" access="isAuthenticated()"/>
 
