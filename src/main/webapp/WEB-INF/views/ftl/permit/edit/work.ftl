@@ -19,6 +19,7 @@
                 <li class=""><a href="<@spring.url relativeUrl="/permit/edit/people?id=${workPermitEntity.id}"/>">Люди</a></li>
             </ul>
             <form class="form-inline" method="post" action="<@spring.url relativeUrl="/permit/update/work"/>">
+                <input type="hidden" name="id" value="${workPermitEntity.id!""}">
                 <div id="myTabContent" class="tab-content">
                     <#-- FIRST_TAB -->
                     <div class="tab-pane active" id="work_tab">
@@ -29,6 +30,17 @@
                                     <h2><i class="halflings-icon white th"></i><span class="break"></span>Описание</h2>
                                 </div>
                                 <div class="box-content">
+                                    <div class="control-group">
+                                        <label class="control-label" for="serialNumber">Уникальный номер наряда:</label>
+                                        <div class="controls">
+                                            <#if workPermitEntity.serialNumber?has_content>
+                                                <input class="span12 uneditable-input" id="serialNumber" type="text" name="serialNumber" value="${workPermitEntity.serialNumber}">
+                                            <#else>
+                                                <input class="span12" id="serialNumber" type="text" name="serialNumber" value="">
+                                            </#if>
+                                        </div>
+                                    </div>
+
                                     <div class="control-group">
                                         <label class="control-label" for="permitName">На выполнение работ:</label>
                                         <div class="controls">
@@ -82,7 +94,7 @@
                                         <label class="control-label" for="endWorkDatePicker">Конец работ:</label>
                                         <div class="controls">
                                             <div id="endWorkDatePicker" class="input-append date span12">
-                                                <input class="span11" data-format="dd.MM.yyyy hh:mm:ss" type="text" name="endWork" value="${workPermitEntity.endWork?string["dd.MM.yyyy hh:mm"]!""}"/>
+                                                <input class="span11" data-format="dd.MM.yyyy hh:mm" type="text" name="endWork" value="${workPermitEntity.endWork?string["dd.MM.yyyy hh:mm"]!""}"/>
                                                 <span class="add-on">
                                                     <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
                                                 </span>

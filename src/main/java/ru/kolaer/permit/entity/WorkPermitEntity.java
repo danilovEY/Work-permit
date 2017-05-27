@@ -3,6 +3,7 @@ package ru.kolaer.permit.entity;
 import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -41,11 +42,13 @@ public class WorkPermitEntity extends BaseEntity {
     private String comment;
 
     /**Начало работ*/
+    @DateTimeFormat(pattern = "dd.MM.yyyy hh:mm")
     @Temporal(TemporalType.TIMESTAMP)
     @Column
     private Date startWork;
 
     /**Конец работ*/
+    @DateTimeFormat(pattern = "dd.MM.yyyy hh:mm")
     @Temporal(TemporalType.TIMESTAMP)
     @Column
     private Date endWork;

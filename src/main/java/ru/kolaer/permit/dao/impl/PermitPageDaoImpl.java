@@ -97,6 +97,7 @@ public class PermitPageDaoImpl extends BasePageDaoAbstract<PermitEntity> impleme
     }
 
     @Override
+    @Transactional
     public WorkPermitEntity update(WorkPermitEntity workPermitEntity) {
         this.sessionFactory.getCurrentSession().update(workPermitEntity);
         return workPermitEntity;

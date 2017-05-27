@@ -5,7 +5,6 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -79,10 +78,6 @@ public class PermitEntity extends BaseEntity {
     @Column
     private String conditionWork;
 
-    /**Опасные факторы*/
-    @Column
-    private String dangerousFactors;
-
     //Системы обеспечения безопасности - BEGIN
 
     /**Удерживающие системы*/
@@ -126,9 +121,10 @@ public class PermitEntity extends BaseEntity {
             inverseJoinColumns = @JoinColumn( name="executor_id"))
     private List<EmployeeEntity> preparedExecutors;*/
 
-    @Column
-    @Enumerated(EnumType.STRING)
-    private StatusPermit status;
+    /**Мероприятия*/
+    @OneToMany(mappedBy = "permit", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<PermitStatusHistoryEntity> permitStatusHistories;
 
     /**Кто выдал наряд*/
     @ManyToOne

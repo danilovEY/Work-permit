@@ -1,4 +1,5 @@
 <#-- @ftlvariable name="permitPage" type="ru.kolaer.permit.dto.Page<ru.kolaer.permit.entity.ShortPermitEntity>" -->
+<#-- @ftlvariable name="permitStatus" type="java.util.Map<java.lang.Integer, ru.kolaer.permit.entity.PermitStatusHistoryEntity>" -->
 
 <#import "../layout/baseTemplate.ftl" as base>
 <#import "/spring.ftl" as spring>
@@ -65,13 +66,13 @@
                             <#if permit_index % 2 == 0>
                             <tr class="odd">
                                 <td class="center" id="row-id-${permit.id}">${permit.id}</td>
-                                <td class="center">${permit.serialNumber}</td>
-                                <td class="center">${permit.name}</td>
-                                <td class="center">${permit.startWork}</td>
-                                <td class="center">${permit.endWork}</td>
-                                <td class="center">${permit.writer.initials}</td>
-                                <td class="center">${permit.responsibleSupervisor.initials}</td>
-                                <td class="center">${permit.status}</td>
+                                <td class="center">${permit.serialNumber!""}</td>
+                                <td class="center">${permit.name!""}</td>
+                                <td class="center">${permit.startWork!""}</td>
+                                <td class="center">${permit.endWork!""}</td>
+                                <td class="center">${permit.writer.initials!""}</td>
+                                <td class="center">${permit.responsibleSupervisor.initials!""}</td>
+                                <td class="center">${permitStatus[permit.id].status!""}</td>
                                 <td class="center">
                                     <a class="btn btn-success" href="<@spring.url relativeUrl="/permit/edit/work?id=${permit.id}"/>">
                                         <i class="halflings-icon white edit"></i>
@@ -81,13 +82,13 @@
                             <#else>
                             <tr class="even">
                                 <td class="center" id="row-id-${permit.id}">${permit.id}</td>
-                                <td class="center">${permit.serialNumber}</td>
-                                <td class="center">${permit.name}</td>
-                                <td class="center">${permit.startWork}</td>
-                                <td class="center">${permit.endWork}</td>
-                                <td class="center">${permit.writer.initials}</td>
-                                <td class="center">${permit.responsibleSupervisor.initials}</td>
-                                <td class="center">${permit.status}</td>
+                                <td class="center">${permit.serialNumber!""}</td>
+                                <td class="center">${permit.name!""}</td>
+                                <td class="center">${permit.startWork!""}</td>
+                                <td class="center">${permit.endWork!""}</td>
+                                <td class="center">${permit.writer.initials!""}</td>
+                                <td class="center">${permit.responsibleSupervisor.initials!""}</td>
+                                <td class="center">${permitStatus[permit.id].status!""}</td>
                                 <td class="center">
                                     <a class="btn btn-success" href="<@spring.url relativeUrl="/permit/edit/work?id=${permit.id}"/>">
                                         <i class="halflings-icon white edit"></i>
