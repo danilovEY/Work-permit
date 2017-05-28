@@ -23,7 +23,11 @@
 
                 <label class="control-label" for="rang">Номер группы: </label>
                 <div class="controls">
-                    <input type="number" class="span12 rang" id="rangUpdate" name="rang" min="0" data-bind="value:replyNumber" value="${post.rang!""}"/>
+                    <#if post.rang?has_content>
+                        <input type="number" class="span12 rang" id="rangUpdate" name="rang" data-bind="value:replyNumber" value="${post.rang?c}"/>
+                    <#else>
+                        <input type="number" class="span12 rang" id="rangUpdate" name="rang" data-bind="value:replyNumber"/>
+                    </#if>
                 </div>
 
                 <label class="control-label" for="typeRang">Наименование группы: </label>

@@ -18,12 +18,12 @@ import java.util.Collections;
 @Controller
 @RequestMapping("/department")
 @Slf4j
-public class DepartmentsController {
+public class DepartmentController {
 
     private final DepartmentPageService departmentPageService;
 
     @Autowired
-    public DepartmentsController(DepartmentPageService departmentPageService) {
+    public DepartmentController(DepartmentPageService departmentPageService) {
         this.departmentPageService = departmentPageService;
     }
 
