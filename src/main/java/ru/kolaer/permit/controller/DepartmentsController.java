@@ -16,7 +16,7 @@ import java.util.Collections;
  * Created by danilovey on 20.04.2017.
  */
 @Controller
-@RequestMapping("/departments")
+@RequestMapping("/department")
 @Slf4j
 public class DepartmentsController {
 
@@ -33,8 +33,23 @@ public class DepartmentsController {
 
         final Page<DepartmentEntity> departmentPage = this.departmentPageService.getAll(number, pageSize);
 
-        final ModelAndView modelAndView = new ModelAndView("departments");
+        final ModelAndView modelAndView = new ModelAndView("/department/view");
         modelAndView.addObject("departmentPage", departmentPage);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "edit", method = RequestMethod.GET)
+    public ModelAndView editDepartment(@RequestParam("id") Integer id) {
+        final DepartmentEntity dep = this.departmentPageService.getById(id);
+
+        final ModelAndView modelAndView = new ModelAndView("/department/edit");
+        modelAndView.addObject("department", dep);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public ModelAndView addDepartmentView() {
+        final ModelAndView modelAndView = new ModelAndView("/department/add");
         modelAndView.addObject("department", new DepartmentEntity());
         return modelAndView;
     }
@@ -47,21 +62,22 @@ public class DepartmentsController {
 
         this.departmentPageService.add(departmentEntity);
 
-        return "redirect:/departments";
+        return "redirect:/department";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public String updateDepartment(DepartmentEntity departmentEntity) {
         this.departmentPageService.update(departmentEntity);
-        return "redirect:/departments";
+        return "redirect:/department";
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-            produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    public String removeDepartment(DepartmentEntity departmentEntity) {
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public String removeDepartment(@RequestParam("id") Integer id) {
+        DepartmentEntity departmentEntity = new DepartmentEntity();
+        departmentEntity.setId(id);
         this.departmentPageService.delete(departmentEntity);
-        return "redirect:/departments";
+        return "redirect:/department";
     }
 
 }

@@ -34,8 +34,8 @@
                     <ul class="nav nav-tabs nav-stacked main-menu">
                         <li><a href="<@spring.url relativeUrl="/"/>"><i class="icon-home"></i><span class="hidden-tablet"> Главная</span></a></li>
                         <li><a href="<@spring.url relativeUrl="/permit/view"/>"><i class="icon-home"></i><span class="hidden-tablet"> Наряды</span></a></li>
-                        <li><a href="<@spring.url relativeUrl="/departments"/>"><i class="icon-th-large"></i><span class="hidden-tablet"> Подразделения</span></a></li>
-                        <li><a href="<@spring.url relativeUrl="/posts"/>"><i class="icon-th"></i><span class="hidden-tablet"> Дожности</span></a></li>
+                        <li><a href="<@spring.url relativeUrl="/department"/>"><i class="icon-th-large"></i><span class="hidden-tablet"> Подразделения</span></a></li>
+                        <li><a href="<@spring.url relativeUrl="/post"/>"><i class="icon-th"></i><span class="hidden-tablet"> Дожности</span></a></li>
                         <li><a href="<@spring.url relativeUrl="/employees"/>"><i class="icon-user"></i><span class="hidden-tablet"> Сотрудники</span></a></li>
                         <li><a href="<@spring.url relativeUrl="/roles"/>"><i class="icon-group"></i><span class="hidden-tablet"> Роли</span></a></li>
                     </ul>
