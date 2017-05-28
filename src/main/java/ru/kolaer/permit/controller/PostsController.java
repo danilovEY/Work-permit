@@ -18,7 +18,7 @@ import java.util.Collections;
  * Created by danilovey on 20.04.2017.
  */
 @Controller
-@RequestMapping("/posts")
+@RequestMapping("/post")
 @Slf4j
 public class PostsController {
 
@@ -35,9 +35,25 @@ public class PostsController {
 
         final Page<PostEntity> employeePage = this.postPageService.getAll(number, pageSize);
 
-        final ModelAndView page = new ModelAndView("posts");
+        final ModelAndView page = new ModelAndView("/post/view");
         page.addObject("postPage", employeePage);
         return page;
+    }
+
+    @RequestMapping(value = "edit", method = RequestMethod.GET)
+    public ModelAndView editPost(@RequestParam("id") Integer id) {
+        final PostEntity dep = this.postPageService.getById(id);
+
+        final ModelAndView modelAndView = new ModelAndView("/post/edit");
+        modelAndView.addObject("post", dep);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public ModelAndView addPostView() {
+        final ModelAndView modelAndView = new ModelAndView("/post/add");
+        modelAndView.addObject("post", new PostEntity());
+        return modelAndView;
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
@@ -48,22 +64,23 @@ public class PostsController {
 
         this.postPageService.add(postEntity);
 
-        return "redirect:/posts";
+        return "redirect:/post";
     }
-
 
     @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public String updateDepartment(PostEntity postEntity) {
         this.postPageService.update(postEntity);
-        return "redirect:/posts";
+        return "redirect:/post";
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-            produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    public String removeDepartment(PostEntity postEntity) {
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public String removeDepartment(@RequestParam("id") Integer id) {
+        final PostEntity postEntity = new PostEntity();
+        postEntity.setId(id);
+
         this.postPageService.delete(postEntity);
-        return "redirect:/posts";
+        return "redirect:/post";
     }
 
 
