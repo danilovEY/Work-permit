@@ -3,6 +3,7 @@ package ru.kolaer.permit.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -35,6 +36,7 @@ public class EmployeeEntity extends BaseEntity {
     @Column(name = "initials", length = 100, nullable = false)
     private String initials;
 
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "birthday", nullable = false)
     private Date birthday;
@@ -46,7 +48,7 @@ public class EmployeeEntity extends BaseEntity {
     @Column(name = "email", length = 100)
     private String email;
 
-    @Column(name = "work_home", length = 100)
+    @Column(name = "work_phone", length = 100)
     private String workPhone;
 
     @Column(name = "username", unique = true, nullable = false,length = 100)
