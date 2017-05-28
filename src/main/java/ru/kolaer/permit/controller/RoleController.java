@@ -15,24 +15,24 @@ import ru.kolaer.permit.entity.FullRoleEntity;
 import ru.kolaer.permit.service.EmployeePageService;
 import ru.kolaer.permit.service.FullRolePageService;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  * Created by danilovey on 20.04.2017.
  */
 @Controller
-@RequestMapping("/roles")
+@RequestMapping("/role")
 @Slf4j
-public class RolesController {
+public class RoleController {
 
     private final FullRolePageService fullRolePageService;
     private final RoleNameDto roleNameDto;
     private final EmployeePageService employeePageService;
 
     @Autowired
-    public RolesController(FullRolePageService fullRolePageService,
-                           RoleNameDto roleNameDto,
-                           EmployeePageService employeePageService) {
+    public RoleController(FullRolePageService fullRolePageService,
+                          RoleNameDto roleNameDto,
+                          EmployeePageService employeePageService) {
         this.fullRolePageService = fullRolePageService;
         this.roleNameDto = roleNameDto;
         this.employeePageService = employeePageService;
@@ -44,9 +44,33 @@ public class RolesController {
 
         final Page<FullRoleEntity> rolesEntities = this.fullRolePageService.getAll(number, pageSize);
 
-        final ModelAndView page = new ModelAndView("roles");
+        final ModelAndView page = new ModelAndView("/role/view");
         page.addObject("rolePage", rolesEntities);
         page.addObject("roleNameMap", this.roleNameDto.getRoleNameMap());
+        return page;
+    }
+
+    @RequestMapping(value = "edit", method = RequestMethod.GET)
+    public ModelAndView editRoleView(@RequestParam(value = "id") Integer id){
+        final FullRoleEntity role = this.fullRolePageService.getById(id);
+        final List<EmployeeEntity> employeeEntities = this.employeePageService.getAll();
+
+        final ModelAndView page = new ModelAndView("/role/edit");
+        page.addObject("role", role);
+        page.addObject("roleNameMap", this.roleNameDto.getRoleNameMap());
+        page.addObject("employees", employeeEntities);
+        return page;
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public ModelAndView addEmployeeView() {
+        final FullRoleEntity role = new FullRoleEntity();
+        final List<EmployeeEntity> employeeEntities = this.employeePageService.getAll();
+
+        final ModelAndView page = new ModelAndView("/role/add");
+        page.addObject("role", role);
+        page.addObject("roleNameMap", this.roleNameDto.getRoleNameMap());
+        page.addObject("employees", employeeEntities);
         return page;
     }
 
@@ -55,43 +79,25 @@ public class RolesController {
     public String addDepartment(FullRoleEntity roleEntity) {
         roleEntity.setId(null);
 
-        if(roleEntity.getEmployee() != null
-                && roleEntity.getEmployee().getPersonnelNumber() != null
-                && roleEntity.getEmployee().getPersonnelNumber() > 0) {
-            final Integer employeeId = this.employeePageService
-                    .getIdByPersonnelNumber(roleEntity.getEmployee().getPersonnelNumber());
-            roleEntity.getEmployee().setId(employeeId);
-            this.roleNameDto.getRoleNameMap().entrySet().stream()
-                    .filter(e -> e.getValue().equals(roleEntity.getRole()))
-                    .findFirst().ifPresent(e -> roleEntity.setRole(e.getKey()));
-            this.fullRolePageService.add(roleEntity);
-        }
+        this.fullRolePageService.add(roleEntity);
 
-        return "redirect:/roles";
+        return "redirect:/role";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public String updateDepartment(FullRoleEntity roleEntity) {
-        if(roleEntity.getEmployee() != null
-                && roleEntity.getEmployee().getPersonnelNumber() != null
-                && roleEntity.getEmployee().getPersonnelNumber() > 0) {
-            final Integer employeeId = this.employeePageService
-                    .getIdByPersonnelNumber(roleEntity.getEmployee().getPersonnelNumber());
-            roleEntity.getEmployee().setId(employeeId);
-            this.roleNameDto.getRoleNameMap().entrySet().stream()
-                    .filter(e -> e.getValue().equals(roleEntity.getRole()))
-                    .findFirst().ifPresent(e -> roleEntity.setRole(e.getKey()));
-            this.fullRolePageService.update(roleEntity);
-        }
-        return "redirect:/roles";
+        this.fullRolePageService.update(roleEntity);
+        return "redirect:/role";
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-            produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    public String removeDepartment(FullRoleEntity roleEntity) {
-        this.fullRolePageService.delete(roleEntity);
-        return "redirect:/roles";
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public String removeDepartment(@RequestParam("id") Integer id) {
+        final FullRoleEntity fullRoleEntity = new FullRoleEntity();
+        fullRoleEntity.setId(id);
+
+        this.fullRolePageService.delete(fullRoleEntity);
+        return "redirect:/role";
     }
 
 

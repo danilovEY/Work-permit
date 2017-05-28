@@ -25,4 +25,9 @@ public class FullRolePageServiceImpl extends BasePageServiceAbstract<FullRoleEnt
     public List<FullRoleEntity> getRolesByIdEmployee(Integer idEmp) {
         return this.dao.findRolesByIdEmployee(idEmp);
     }
+
+    @Override
+    public FullRoleEntity delete(FullRoleEntity entity) {
+        return this.dao.delete(entity, false);
+    }
 }
