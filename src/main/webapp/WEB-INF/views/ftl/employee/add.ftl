@@ -23,7 +23,7 @@
                 <div class="control-group">
                     <label class="control-label" for="personnelNumber">Табельный номер: </label>
                     <div class="controls">
-                        <input type="number" class="span12" id="personnelNumber" name="personnelNumber" min="0" data-bind="value:replyNumber" value="${employee.personnelNumber!0?c}"/>
+                        <input type="number" class="span12" id="personnelNumber" name="personnelNumber" min="0" data-bind="value:replyNumber" value="${(employee.personnelNumber!0)?c}"/>
                     </div>
                 </div>
 
@@ -38,7 +38,7 @@
                     <label class="control-label" for="birthdayDatePicker">Дата рождения:</label>
                     <div class="controls">
                         <div id="birthdayDatePicker" class="input-append date span12">
-                            <input class="span11" data-format="dd.MM.yyyy" type="text" name="birthday" value="${employee.birthday!dateNow?string["dd.MM.yyyy"]}"/>
+                            <input class="span11" data-format="dd.MM.yyyy" type="text" name="birthday" value="${(employee.birthday!dateNow)?string["dd.MM.yyyy"]}"/>
                             <span class="add-on">
                                 <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
                             </span>
@@ -67,7 +67,7 @@
                             <option disabled selected value> Должности... </option>
                             <#if posts?has_content>
                                 <#list posts as post>
-                                    <option value="${post.id}">${post.name} ${post.rang} ${post.typeRang}</option>
+                                    <option value="${post.id}">${post.name} ${post.rang!""} ${post.typeRang!""}</option>
                                 </#list>
                             </#if>
                         </select>
