@@ -40,11 +40,9 @@ public class PermitController {
                         .map(ShortPermitEntity::getId)
                         .collect(Collectors.toList()));
 
-
-
         final ModelAndView view = new ModelAndView("/permit/view");
         view.addObject("permitPage", all);
-        view.addObject("permitStatus", lastStatusByIdPermitRange.stream().collect(Collectors.toMap(PermitStatusHistoryEntity::getPermitId, p -> p)));
+        view.addObject("permitStatus", lastStatusByIdPermitRange);
         return view;
     }
 

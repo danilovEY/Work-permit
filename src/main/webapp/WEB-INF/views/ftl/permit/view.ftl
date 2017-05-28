@@ -1,5 +1,6 @@
 <#-- @ftlvariable name="permitPage" type="ru.kolaer.permit.dto.Page<ru.kolaer.permit.entity.ShortPermitEntity>" -->
-<#-- @ftlvariable name="permitStatus" type="java.util.Map<java.lang.Integer, ru.kolaer.permit.entity.PermitStatusHistoryEntity>" -->
+<#-- @ftlvariable name="permitStatus" type="java.util.List<ru.kolaer.permit.entity.PermitStatusHistoryEntity>" -->
+
 
 <#import "../layout/baseTemplate.ftl" as base>
 <#import "/spring.ftl" as spring>
@@ -72,9 +73,14 @@
                                 <td class="center">${permit.endWork!""}</td>
                                 <td class="center">${permit.writer.initials!""}</td>
                                 <td class="center">${permit.responsibleSupervisor.initials!""}</td>
-                                <td class="center">${permitStatus[permit.id].status!""}</td>
+                                <#list permitStatus as val>
+                                    <#if val.permitId == permit.id>
+                                        <td class="center">${val.status!""}</td>
+                                        <#break>
+                                    </#if>
+                                </#list>
                                 <td class="center">
-                                    <a class="btn btn-success" href="<@spring.url relativeUrl="/permit/edit/work?id=${permit.id}"/>">
+                                    <a class="btn btn-success" title="Редактировать" href="<@spring.url relativeUrl="/permit/edit/work?id=${permit.id}"/>">
                                         <i class="halflings-icon white edit"></i>
                                     </a>
                                 </td>
@@ -88,9 +94,14 @@
                                 <td class="center">${permit.endWork!""}</td>
                                 <td class="center">${permit.writer.initials!""}</td>
                                 <td class="center">${permit.responsibleSupervisor.initials!""}</td>
-                                <td class="center">${permitStatus[permit.id].status!""}</td>
+                                <#list permitStatus as val>
+                                    <#if val.permitId == permit.id>
+                                        <td class="center">${val.status!""}</td>
+                                        <#break>
+                                    </#if>
+                                </#list>
                                 <td class="center">
-                                    <a class="btn btn-success" href="<@spring.url relativeUrl="/permit/edit/work?id=${permit.id}"/>">
+                                    <a class="btn btn-success" title="Редактировать" href="<@spring.url relativeUrl="/permit/edit/work?id=${permit.id}"/>">
                                         <i class="halflings-icon white edit"></i>
                                     </a>
                                 </td>

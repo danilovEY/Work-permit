@@ -63,10 +63,6 @@ public class ShortPermitEntity extends BaseEntity {
     @Column
     private String contentWork;
 
-    @Column
-    @Enumerated(EnumType.STRING)
-    private StatusPermit status;
-
     /**Кто выдал наряд*/
     @ManyToOne
     @JoinColumn(name = "writer_id", nullable = false)

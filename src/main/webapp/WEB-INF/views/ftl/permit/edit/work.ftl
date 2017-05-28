@@ -34,7 +34,7 @@
                                         <label class="control-label" for="serialNumber">Уникальный номер наряда:</label>
                                         <div class="controls">
                                             <#if workPermitEntity.serialNumber?has_content>
-                                                <input class="span12 uneditable-input" id="serialNumber" type="text" name="serialNumber" value="${workPermitEntity.serialNumber}">
+                                                <input class="span12" id="serialNumber" type="text" name="serialNumber" value="${workPermitEntity.serialNumber}" readonly>
                                             <#else>
                                                 <input class="span12" id="serialNumber" type="text" name="serialNumber" value="">
                                             </#if>
@@ -182,7 +182,7 @@
 
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">Сохранить</button>
-                    <button type="reset" class="btn">Отмена</button>
+                    <button type="reset" class="btn" onclick="window.location.href='<@spring.url relativeUrl="/permit/view"/>'">Отмена</button>
                 </div>
             </form>
         </div>

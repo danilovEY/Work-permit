@@ -149,7 +149,7 @@
 
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">Сохранить</button>
-                    <button type="reset" class="btn">Отмена</button>
+                    <button type="reset" class="btn" onclick="window.location.href='<@spring.url relativeUrl="/permit/view"/>'">Отмена</button>
                 </div>
             </form>
         </div>

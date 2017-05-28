@@ -14,8 +14,6 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode(callSuper = false)
 public class PermitStatusHistoryEntity extends BaseEntity {
 
     @Column
@@ -38,4 +36,35 @@ public class PermitStatusHistoryEntity extends BaseEntity {
     @JoinColumn(name = "permit_id")
     private PermitEntity permit;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PermitStatusHistoryEntity that = (PermitStatusHistoryEntity) o;
+
+        if (status != that.status) return false;
+        if (employee != null ? !employee.equals(that.employee) : that.employee != null) return false;
+        if (statusDate != null ? !statusDate.equals(that.statusDate) : that.statusDate != null) return false;
+        return permitId != null ? permitId.equals(that.permitId) : that.permitId == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = status != null ? status.hashCode() : 0;
+        result = 31 * result + (employee != null ? employee.hashCode() : 0);
+        result = 31 * result + (statusDate != null ? statusDate.hashCode() : 0);
+        result = 31 * result + (permitId != null ? permitId.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "PermitStatusHistoryEntity{" +
+                "status=" + status +
+                ", employee=" + employee +
+                ", statusDate=" + statusDate +
+                ", permitId=" + permitId +
+                '}';
+    }
 }
