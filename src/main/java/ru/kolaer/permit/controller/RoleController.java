@@ -2,6 +2,7 @@ package ru.kolaer.permit.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,16 +24,18 @@ import java.util.List;
 @Controller
 @RequestMapping("/role")
 @Slf4j
-public class RoleController {
+public class RoleController extends BaseController {
 
     private final FullRolePageService fullRolePageService;
     private final RoleNameDto roleNameDto;
     private final EmployeePageService employeePageService;
 
     @Autowired
-    public RoleController(FullRolePageService fullRolePageService,
+    public RoleController(@Value("${default.login}") String defaultLogin,
+                          FullRolePageService fullRolePageService,
                           RoleNameDto roleNameDto,
                           EmployeePageService employeePageService) {
+        super(defaultLogin, employeePageService);
         this.fullRolePageService = fullRolePageService;
         this.roleNameDto = roleNameDto;
         this.employeePageService = employeePageService;
@@ -44,7 +47,7 @@ public class RoleController {
 
         final Page<FullRoleEntity> rolesEntities = this.fullRolePageService.getAll(number, pageSize);
 
-        final ModelAndView page = new ModelAndView("/role/view");
+        final ModelAndView page = this.createDefaultView("/role/view");
         page.addObject("rolePage", rolesEntities);
         page.addObject("roleNameMap", this.roleNameDto.getRoleNameMap());
         return page;
@@ -55,7 +58,7 @@ public class RoleController {
         final FullRoleEntity role = this.fullRolePageService.getById(id);
         final List<EmployeeEntity> employeeEntities = this.employeePageService.getAll();
 
-        final ModelAndView page = new ModelAndView("/role/edit");
+        final ModelAndView page = this.createDefaultView("/role/edit");
         page.addObject("role", role);
         page.addObject("roleNameMap", this.roleNameDto.getRoleNameMap());
         page.addObject("employees", employeeEntities);
@@ -67,7 +70,7 @@ public class RoleController {
         final FullRoleEntity role = new FullRoleEntity();
         final List<EmployeeEntity> employeeEntities = this.employeePageService.getAll();
 
-        final ModelAndView page = new ModelAndView("/role/add");
+        final ModelAndView page = this.createDefaultView("/role/add");
         page.addObject("role", role);
         page.addObject("roleNameMap", this.roleNameDto.getRoleNameMap());
         page.addObject("employees", employeeEntities);

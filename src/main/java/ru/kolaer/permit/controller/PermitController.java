@@ -1,5 +1,6 @@
 package ru.kolaer.permit.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ru.kolaer.permit.dto.Page;
 import ru.kolaer.permit.entity.*;
+import ru.kolaer.permit.service.EmployeePageService;
 import ru.kolaer.permit.service.PermitPageService;
 import ru.kolaer.permit.service.PermitStatusHistoryPageService;
 
@@ -19,13 +21,16 @@ import java.util.stream.Collectors;
  */
 @Controller
 @RequestMapping("/permit")
-public class PermitController {
+public class PermitController extends BaseController{
 
     private final PermitPageService permitPageService;
     private final PermitStatusHistoryPageService permitStatusHistoryPageService;
 
-    public PermitController(PermitPageService permitPageService,
-                            PermitStatusHistoryPageService permitStatusHistoryPageService) {
+    public PermitController(@Value("${default.login}") String defaultLogin,
+                            PermitPageService permitPageService,
+                            PermitStatusHistoryPageService permitStatusHistoryPageService,
+                            EmployeePageService employeePageService) {
+        super(defaultLogin, employeePageService);
         this.permitPageService = permitPageService;
         this.permitStatusHistoryPageService = permitStatusHistoryPageService;
     }
@@ -40,7 +45,7 @@ public class PermitController {
                         .map(ShortPermitEntity::getId)
                         .collect(Collectors.toList()));
 
-        final ModelAndView view = new ModelAndView("/permit/view");
+        final ModelAndView view = this.createDefaultView("/permit/view");
         view.addObject("permitPage", all);
         view.addObject("permitStatus", lastStatusByIdPermitRange);
         return view;
@@ -58,7 +63,7 @@ public class PermitController {
     public ModelAndView getWorkEditPage(@RequestParam(value = "id") Integer id) {
         final WorkPermitEntity workPermitEntity= this.permitPageService.getWorkById(id);
 
-        final ModelAndView view = new ModelAndView("/permit/edit/work");
+        final ModelAndView view = this.createDefaultView("/permit/edit/work");
         view.addObject("workPermitEntity", workPermitEntity);
         return view;
     }
@@ -67,7 +72,7 @@ public class PermitController {
     public ModelAndView getEventEditPage(@RequestParam(value = "id") Integer id) {
         final EventPermitEntity eventPermitEntity = this.permitPageService.getEventById(id);
 
-        final ModelAndView view = new ModelAndView("/permit/edit/event");
+        final ModelAndView view = this.createDefaultView("/permit/edit/event");
         view.addObject("eventPermitEntity", eventPermitEntity);
         return view;
     }
@@ -76,7 +81,7 @@ public class PermitController {
     public ModelAndView getPeopleEditPage(@RequestParam(value = "id") Integer id) {
         final PeoplePermitEntity peoplePermitEntity = this.permitPageService.getPeopleById(id);
 
-        final ModelAndView view = new ModelAndView("/permit/edit/people");
+        final ModelAndView view = this.createDefaultView("/permit/edit/people");
         view.addObject("peoplePermitEntity", peoplePermitEntity);
         return view;
     }

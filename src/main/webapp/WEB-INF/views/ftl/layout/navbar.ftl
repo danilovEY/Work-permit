@@ -1,3 +1,5 @@
+<#-- @ftlvariable name="authEmployee" type="ru.kolaer.permit.entity.EmployeeEntity" -->
+
 <#import "/spring.ftl" as spring>
 
 <div class="navbar">
@@ -18,9 +20,20 @@
                             <i class="icon-bell"></i>
                         </a>
                     </li>
-                    <a class="btn" href="#">
-                        <i class="halflings-icon white user"></i> Иванов Иван Иванович
-                    </a>
+
+                    <li class="dropdown">
+                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="halflings-icon white user"></i> ${authEmployee.initials!"Ваш аккаунт"}
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-menu-title">
+                                <span>Ваш аккаунт</span>
+                            </li>
+                            <#--<li><a href="#"><i class="halflings-icon user"></i> Profile</a></li>-->
+                            <li><a href="<@spring.url relativeUrl="/logout"/>"><i class="halflings-icon off"></i> Выход</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>

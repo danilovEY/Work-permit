@@ -2,6 +2,7 @@ package ru.kolaer.permit.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ru.kolaer.permit.dto.Page;
 import ru.kolaer.permit.entity.PostEntity;
+import ru.kolaer.permit.service.EmployeePageService;
 import ru.kolaer.permit.service.PostPageService;
 
 import java.util.Collections;
@@ -20,12 +22,15 @@ import java.util.Collections;
 @Controller
 @RequestMapping("/post")
 @Slf4j
-public class PostsController {
+public class PostsController extends BaseController {
 
     private final PostPageService postPageService;
 
     @Autowired
-    public PostsController(PostPageService postPageService) {
+    public PostsController(@Value("${default.login}") String defaultLogin,
+                           PostPageService postPageService,
+                           EmployeePageService employeePageService) {
+        super(defaultLogin, employeePageService);
         this.postPageService = postPageService;
     }
 
@@ -35,7 +40,7 @@ public class PostsController {
 
         final Page<PostEntity> employeePage = this.postPageService.getAll(number, pageSize);
 
-        final ModelAndView page = new ModelAndView("/post/view");
+        final ModelAndView page = this.createDefaultView("/post/view");
         page.addObject("postPage", employeePage);
         return page;
     }
@@ -44,14 +49,14 @@ public class PostsController {
     public ModelAndView editPost(@RequestParam("id") Integer id) {
         final PostEntity dep = this.postPageService.getById(id);
 
-        final ModelAndView modelAndView = new ModelAndView("/post/edit");
+        final ModelAndView modelAndView = this.createDefaultView("/post/edit");
         modelAndView.addObject("post", dep);
         return modelAndView;
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView addPostView() {
-        final ModelAndView modelAndView = new ModelAndView("/post/add");
+        final ModelAndView modelAndView = this.createDefaultView("/post/add");
         modelAndView.addObject("post", new PostEntity());
         return modelAndView;
     }

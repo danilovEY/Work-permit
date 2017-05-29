@@ -2,6 +2,7 @@ package ru.kolaer.permit.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -25,16 +26,18 @@ import java.util.List;
 @Controller
 @RequestMapping("/employee")
 @Slf4j
-public class EmployeeController {
+public class EmployeeController extends BaseController {
 
     private final EmployeePageService employeePageService;
     private final DepartmentPageService departmentPageService;
     private final PostPageService postPageService;
 
     @Autowired
-    public EmployeeController(EmployeePageService employeePageService,
+    public EmployeeController(@Value("${default.login}") String defaultLogin,
+                              EmployeePageService employeePageService,
                               DepartmentPageService departmentPageService,
                               PostPageService postPageService) {
+        super(defaultLogin, employeePageService);
         this.employeePageService = employeePageService;
         this.departmentPageService = departmentPageService;
         this.postPageService = postPageService;
@@ -46,7 +49,7 @@ public class EmployeeController {
 
         final Page<EmployeeEntity> employeePage = this.employeePageService.getAll(number, pageSize);
 
-        final ModelAndView page = new ModelAndView("/employee/view");
+        final ModelAndView page = this.createDefaultView("/employee/view");
         page.addObject("employeesPage", employeePage);
         return page;
     }
@@ -57,7 +60,7 @@ public class EmployeeController {
         final List<DepartmentEntity> departmentEntities = this.departmentPageService.getAll();
         final List<PostEntity> postEntities = this.postPageService.getAll();
 
-        final ModelAndView page = new ModelAndView("/employee/edit");
+        final ModelAndView page = this.createDefaultView("/employee/edit");
         page.addObject("employee", employee);
         page.addObject("posts", postEntities);
         page.addObject("departments", departmentEntities);
@@ -70,7 +73,7 @@ public class EmployeeController {
         final List<DepartmentEntity> departmentEntities = this.departmentPageService.getAll();
         final List<PostEntity> postEntities = this.postPageService.getAll();
 
-        final ModelAndView page = new ModelAndView("/employee/add");
+        final ModelAndView page = this.createDefaultView("/employee/add");
         page.addObject("employee", employee);
         page.addObject("posts", postEntities);
         page.addObject("departments", departmentEntities);

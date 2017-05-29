@@ -56,6 +56,11 @@ public class EmployeePageServiceImpl extends BasePageServiceAbstract<EmployeeEnt
     }
 
     @Override
+    public EmployeeEntity getByUsername(String username) {
+        return this.employeePageDao.findByUsername(username);
+    }
+
+    @Override
     public Integer getIdByPersonnelNumber(Integer personnelNumber) {
         return this.employeePageDao.findIdByPersonnelNumber(personnelNumber);
     }

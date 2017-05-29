@@ -2,6 +2,7 @@ package ru.kolaer.permit.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ru.kolaer.permit.dto.Page;
 import ru.kolaer.permit.entity.DepartmentEntity;
 import ru.kolaer.permit.service.DepartmentPageService;
+import ru.kolaer.permit.service.EmployeePageService;
 
 import java.util.Collections;
 
@@ -18,12 +20,15 @@ import java.util.Collections;
 @Controller
 @RequestMapping("/department")
 @Slf4j
-public class DepartmentController {
+public class DepartmentController extends BaseController {
 
     private final DepartmentPageService departmentPageService;
 
     @Autowired
-    public DepartmentController(DepartmentPageService departmentPageService) {
+    public DepartmentController(@Value("${default.login}") String defaultLogin,
+                                DepartmentPageService departmentPageService,
+                                EmployeePageService employeePageService) {
+        super(defaultLogin, employeePageService);
         this.departmentPageService = departmentPageService;
     }
 
@@ -33,7 +38,7 @@ public class DepartmentController {
 
         final Page<DepartmentEntity> departmentPage = this.departmentPageService.getAll(number, pageSize);
 
-        final ModelAndView modelAndView = new ModelAndView("/department/view");
+        final ModelAndView modelAndView = this.createDefaultView("/department/view");
         modelAndView.addObject("departmentPage", departmentPage);
         return modelAndView;
     }
@@ -42,14 +47,14 @@ public class DepartmentController {
     public ModelAndView editDepartment(@RequestParam("id") Integer id) {
         final DepartmentEntity dep = this.departmentPageService.getById(id);
 
-        final ModelAndView modelAndView = new ModelAndView("/department/edit");
+        final ModelAndView modelAndView = this.createDefaultView("/department/edit");
         modelAndView.addObject("department", dep);
         return modelAndView;
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView addDepartmentView() {
-        final ModelAndView modelAndView = new ModelAndView("/department/add");
+        final ModelAndView modelAndView = this.createDefaultView("/department/add");
         modelAndView.addObject("department", new DepartmentEntity());
         return modelAndView;
     }

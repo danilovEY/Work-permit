@@ -30,16 +30,9 @@
     <security:http pattern="/resources/**" security="none"/>
 
     <security:http auto-config="true" use-expressions="true">
-        <security:intercept-url pattern="/index" access="isAuthenticated()"/>
-        <security:intercept-url pattern="/departments" access="isAuthenticated()"/>
-        <security:intercept-url pattern="/posts" access="isAuthenticated()"/>
-        <security:intercept-url pattern="/employees" access="isAuthenticated()"/>
-        <security:intercept-url pattern="/permit/edit/work" access="isAuthenticated()"/>
-        <security:intercept-url pattern="/permit/edit/event" access="isAuthenticated()"/>
-        <security:intercept-url pattern="/permit/edit/people" access="isAuthenticated()"/>
-        <security:intercept-url pattern="/permit/view" access="isAuthenticated()"/>
         <security:intercept-url pattern="/login" access="permitAll()"/>
-        <security:intercept-url pattern="/logout" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/*" access="isAuthenticated()"/>
+
 
         <security:form-login login-page="/login"
                              default-target-url="/"

@@ -39,4 +39,13 @@ public class EmployeePageDaoImpl extends BasePageDaoAbstract<EmployeeEntity> imp
                 .setParameter("personnelNumber", personnelNumber)
                 .uniqueResult();
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public EmployeeEntity findByUsername(String username) {
+        return this.sessionFactory.getCurrentSession()
+                .createQuery("FROM EmployeeEntity WHERE username = :username", EmployeeEntity.class)
+                .setParameter("username", username)
+                .uniqueResult();
+    }
 }
