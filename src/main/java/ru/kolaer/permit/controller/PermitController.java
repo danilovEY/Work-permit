@@ -30,7 +30,7 @@ public class PermitController {
         this.permitStatusHistoryPageService = permitStatusHistoryPageService;
     }
 
-    @RequestMapping(value = "view", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public ModelAndView getIndexPage(@RequestParam(value = "page", defaultValue = "1") Integer number,
                                      @RequestParam(value = "pagesize", defaultValue = "15") Integer pageSize) {
         final Page<ShortPermitEntity> all = this.permitPageService.getShortAll(number, pageSize);
