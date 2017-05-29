@@ -69,8 +69,8 @@
                                 <td class="center" id="row-id-${permit.id}">${permit.id}</td>
                                 <td class="center">${permit.serialNumber!""}</td>
                                 <td class="center">${permit.name!""}</td>
-                                <td class="center">${permit.startWork!""}</td>
-                                <td class="center">${permit.endWork!""}</td>
+                                <td class="center">${(permit.startWork!"")?string["dd.MM.yyyy hh:mm"]}</td>
+                                <td class="center">${(permit.endWork!"")?string["dd.MM.yyyy hh:mm"]}</td>
                                 <td class="center">${permit.writer.initials!""}</td>
                                 <td class="center">${permit.responsibleSupervisor.initials!""}</td>
                                 <#list permitStatus as val>
@@ -90,8 +90,8 @@
                                 <td class="center" id="row-id-${permit.id}">${permit.id}</td>
                                 <td class="center">${permit.serialNumber!""}</td>
                                 <td class="center">${permit.name!""}</td>
-                                <td class="center">${permit.startWork!""}</td>
-                                <td class="center">${permit.endWork!""}</td>
+                                <td class="center">${(permit.startWork!"")?string["dd.MM.yyyy hh:mm"]}</td>
+                                <td class="center">${(permit.endWork!"")?string["dd.MM.yyyy hh:mm"]}</td>
                                 <td class="center">${permit.writer.initials!""}</td>
                                 <td class="center">${permit.responsibleSupervisor.initials!""}</td>
                                 <#list permitStatus as val>
