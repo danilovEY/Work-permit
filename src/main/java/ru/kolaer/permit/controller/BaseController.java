@@ -1,9 +1,7 @@
 package ru.kolaer.permit.controller;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import ru.kolaer.permit.component.EmptyObjects;
 import ru.kolaer.permit.entity.EmployeeEntity;
@@ -16,7 +14,7 @@ import java.util.Date;
  */
 public abstract class BaseController {
 
-    private final EmployeePageService employeePageService;
+    final EmployeePageService employeePageService;
     private final EmployeeEntity defaultEmployee;
 
     private final String adminName;

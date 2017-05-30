@@ -14,4 +14,8 @@ public interface PermitPageDao extends BasePageDao<PermitEntity> {
     PeoplePermitEntity findPeopleById(Integer id);
 
     WorkPermitEntity update(WorkPermitEntity workPermitEntity);
+    PeoplePermitEntity update(PeoplePermitEntity peoplePermitEntity);
+    EventPermitEntity update(EventPermitEntity eventPermitEntity);
+
+    void deleteExecutor(Integer id, Integer executor);
 }

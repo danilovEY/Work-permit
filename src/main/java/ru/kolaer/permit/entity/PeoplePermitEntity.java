@@ -20,9 +20,6 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class PeoplePermitEntity extends BaseEntity {
-    @Column(length = 20)
-    private String serialNumber;
-
     /**Руководитель*/
     @ManyToOne
     @JoinColumn(name = "supervisor_id")
@@ -39,10 +36,6 @@ public class PeoplePermitEntity extends BaseEntity {
             inverseJoinColumns = @JoinColumn( name="executor_id"))
     @Fetch(value = FetchMode.SUBSELECT)
     private List<EmployeeEntity> executors;
-
-    @Column
-    @Enumerated(EnumType.STRING)
-    private StatusPermit status;
 
     /**Кто выдал наряд*/
     @ManyToOne

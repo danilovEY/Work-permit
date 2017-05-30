@@ -81,7 +81,11 @@
                                 <td class="center">${(permit.startWork!"")?string["dd.MM.yyyy hh:mm"]}</td>
                                 <td class="center">${(permit.endWork!"")?string["dd.MM.yyyy hh:mm"]}</td>
                                 <td class="center">${permit.writer.initials!""}</td>
-                                <td class="center">${permit.responsibleSupervisor.initials!""}</td>
+                                <#if permit.responsibleSupervisor?has_content>
+                                    <td class="center">${permit.responsibleSupervisor.initials!""}</td>
+                                <#else>
+                                    <td class="center"></td>
+                                </#if>
                                 <#list permitStatus as val>
                                     <#if val.permitId == permit.id>
                                         <td class="center">${val.status!""}</td>
@@ -102,7 +106,11 @@
                                 <td class="center">${(permit.startWork!"")?string["dd.MM.yyyy hh:mm"]}</td>
                                 <td class="center">${(permit.endWork!"")?string["dd.MM.yyyy hh:mm"]}</td>
                                 <td class="center">${permit.writer.initials!""}</td>
-                                <td class="center">${permit.responsibleSupervisor.initials!""}</td>
+                                <#if permit.responsibleSupervisor?has_content>
+                                    <td class="center">${permit.responsibleSupervisor.initials!""}</td>
+                                <#else>
+                                    <td class="center"></td>
+                                </#if>
                                 <#list permitStatus as val>
                                     <#if val.permitId == permit.id>
                                         <td class="center">${val.status!""}</td>

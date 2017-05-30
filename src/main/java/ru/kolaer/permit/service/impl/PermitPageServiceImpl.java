@@ -49,4 +49,19 @@ public class PermitPageServiceImpl extends BasePageServiceAbstract<PermitEntity>
         return this.dao.update(workPermitEntity);
     }
 
+    @Override
+    public PeoplePermitEntity update(PeoplePermitEntity peoplePermitEntity) {
+        return this.dao.update(peoplePermitEntity);
+    }
+
+    @Override
+    public EventPermitEntity update(EventPermitEntity eventPermitEntity) {
+        return this.dao.update(eventPermitEntity);
+    }
+
+    @Override
+    public void deleteExecutor(Integer id, Integer executor) {
+        this.dao.deleteExecutor(id, executor);
+    }
+
 }

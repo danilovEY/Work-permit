@@ -16,6 +16,7 @@ import ru.kolaer.permit.service.PermitStatusHistoryPageService;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -61,11 +62,35 @@ public class PermitController extends BaseController{
         return "redirect:/permit/edit/work?id=" + updatable.getId();
     }
 
+    @RequestMapping(value = "update/people", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+            produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public String updateWorkPage(PeoplePermitEntity peoplePermitEntity) {
+        final PeoplePermitEntity updatable = this.permitPageService.update(peoplePermitEntity);
+
+        return "redirect:/permit/edit/people?id=" + updatable.getId();
+    }
+
+    @RequestMapping(value = "update/event", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+            produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public String updateWorkPage(EventPermitEntity eventPermitEntity) {
+        final EventPermitEntity updatable = this.permitPageService.update(eventPermitEntity);
+
+        return "redirect:/permit/edit/event?id=" + updatable.getId();
+    }
+
     @RequestMapping(value = "add/work", method = RequestMethod.GET)
     public ModelAndView getWorkAddPage() {
         final ModelAndView view = this.createDefaultView("/permit/add/work");
         view.addObject("workPermitEntity", new WorkPermitEntity());
         return view;
+    }
+
+    @RequestMapping(value = "delete/executor", method = RequestMethod.GET)
+    public String deleteExecutor(@RequestParam("id")Integer id,
+                                       @RequestParam("executor")Integer executor) {
+        this.permitPageService.deleteExecutor(id, executor);
+
+        return "redirect:/permit/edit/people?id=" + id;
     }
 
     @RequestMapping(value = "add/work", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
@@ -118,6 +143,7 @@ public class PermitController extends BaseController{
 
         final ModelAndView view = this.createDefaultView("/permit/edit/event");
         view.addObject("eventPermitEntity", eventPermitEntity);
+        view.addObject("employees", this.employeePageService.getAll());
         return view;
     }
 
@@ -127,6 +153,7 @@ public class PermitController extends BaseController{
 
         final ModelAndView view = this.createDefaultView("/permit/edit/people");
         view.addObject("peoplePermitEntity", peoplePermitEntity);
+        view.addObject("employees", this.employeePageService.getAll());
         return view;
     }
 

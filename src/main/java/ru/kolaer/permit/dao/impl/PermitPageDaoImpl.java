@@ -102,4 +102,28 @@ public class PermitPageDaoImpl extends BasePageDaoAbstract<PermitEntity> impleme
         this.sessionFactory.getCurrentSession().update(workPermitEntity);
         return workPermitEntity;
     }
+
+    @Override
+    @Transactional
+    public PeoplePermitEntity update(PeoplePermitEntity peoplePermitEntity) {
+        this.sessionFactory.getCurrentSession().update(peoplePermitEntity);
+        return peoplePermitEntity;
+    }
+
+    @Override
+    @Transactional
+    public EventPermitEntity update(EventPermitEntity eventPermitEntity) {
+        this.sessionFactory.getCurrentSession().update(eventPermitEntity);
+        return eventPermitEntity;
+    }
+
+    @Override
+    @Transactional
+    public void deleteExecutor(Integer id, Integer executor) {
+        this.sessionFactory.getCurrentSession()
+                .createNativeQuery("DELETE FROM executors_permit WHERE permit_id = :permit AND executor_id = :executor")
+        .setParameter("permit", id)
+        .setParameter("executor", executor)
+        .executeUpdate();
+    }
 }

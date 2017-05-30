@@ -14,4 +14,8 @@ public interface PermitPageService extends BasePageService<PermitEntity> {
     PeoplePermitEntity getPeopleById(Integer id);
 
     WorkPermitEntity update(WorkPermitEntity workPermitEntity);
+    PeoplePermitEntity update(PeoplePermitEntity peoplePermitEntity);
+    EventPermitEntity update(EventPermitEntity eventPermitEntity);
+
+    void deleteExecutor(Integer id, Integer executor);
 }

@@ -122,7 +122,7 @@ public class PermitEntity extends BaseEntity {
     private List<EmployeeEntity> preparedExecutors;*/
 
     /**Мероприятия*/
-    @OneToMany(mappedBy = "permit", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "permit", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<PermitStatusHistoryEntity> permitStatusHistories;
 

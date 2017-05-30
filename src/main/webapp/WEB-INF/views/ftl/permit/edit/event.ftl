@@ -1,4 +1,5 @@
 <#-- @ftlvariable name="eventPermitEntity" type="ru.kolaer.permit.entity.EventPermitEntity" -->
+<#-- @ftlvariable name="employees" type="java.util.List<ru.kolaer.permit.entity.EmployeeEntity>" -->
 
 <#import "../../layout/baseTemplate.ftl" as base>
 <#import "/spring.ftl" as spring>

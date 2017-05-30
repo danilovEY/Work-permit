@@ -25,14 +25,14 @@ public class PermitStatusHistoryEntity extends BaseEntity {
 
     /**Дата статуса*/
     @Temporal(TemporalType.TIMESTAMP)
-    @Column
+    @Column(nullable = false)
     private Date statusDate;
 
     @Column(name = "permit_id", insertable=false, updatable=false)
     private Integer permitId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "permit_id")
+    @JoinColumn(name = "permit_id", nullable = false)
     private PermitEntity permit;
 
     @Override
