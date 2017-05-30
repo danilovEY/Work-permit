@@ -16,9 +16,8 @@ import java.util.Date;
 @Setter
 public class PermitStatusHistoryEntity extends BaseEntity {
 
-    @Column
-    @Enumerated(EnumType.STRING)
-    private StatusPermit status;
+    @Column(length = 100, nullable = false)
+    private String status;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id")

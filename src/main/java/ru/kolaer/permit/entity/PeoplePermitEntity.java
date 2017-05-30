@@ -25,12 +25,12 @@ public class PeoplePermitEntity extends BaseEntity {
 
     /**Руководитель*/
     @ManyToOne
-    @JoinColumn(name = "supervisor_id", nullable = false)
+    @JoinColumn(name = "supervisor_id")
     private EmployeeEntity ResponsibleSupervisor;
 
     /**Исполнитель*/
     @ManyToOne
-    @JoinColumn(name = "executor_id", nullable = false)
+    @JoinColumn(name = "executor_id")
     private EmployeeEntity ResponsibleExecutor;
 
     @ManyToMany(fetch = FetchType.EAGER)

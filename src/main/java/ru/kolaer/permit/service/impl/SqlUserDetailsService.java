@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import ru.kolaer.permit.dao.AccountDtoDao;
+import ru.kolaer.permit.dao.AccountDao;
 import ru.kolaer.permit.dto.AccountDto;
 import ru.kolaer.permit.entity.RoleEntity;
 
@@ -27,19 +27,19 @@ public class SqlUserDetailsService implements UserDetailsService {
     private final String defaultPass;
 
     private final AccountDto defaultAccount;
-    private final AccountDtoDao accountDtoDao;
+    private final AccountDao accountDao;
     private final PasswordEncoder encoder;
 
     @Autowired
     public SqlUserDetailsService(@Value("${default.user}")boolean isUser,
                                  @Value("${default.login}") String defaultLogin,
                                  @Value("${default.pass}")String defaultPass,
-                                 AccountDtoDao accountDtoDao,
+                                 AccountDao accountDao,
                                  PasswordEncoder encoder) {
         this.isUser = isUser;
         this.defaultLogin = defaultLogin;
         this.defaultPass = defaultPass;
-        this.accountDtoDao = accountDtoDao;
+        this.accountDao = accountDao;
         this.encoder = encoder;
 
         final RoleEntity roleEntity = new RoleEntity();
@@ -53,7 +53,7 @@ public class SqlUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AccountDto account = this.accountDtoDao.findAccountByUsername(username);
+        AccountDto account = this.accountDao.findAccountByUsername(username);
         if(account == null) {
             if(this.isUser) {
                 log.info("SET DEFAULT USER");

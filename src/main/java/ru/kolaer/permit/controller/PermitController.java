@@ -13,6 +13,8 @@ import ru.kolaer.permit.service.EmployeePageService;
 import ru.kolaer.permit.service.PermitPageService;
 import ru.kolaer.permit.service.PermitStatusHistoryPageService;
 
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,6 +59,48 @@ public class PermitController extends BaseController{
         final WorkPermitEntity updatable = this.permitPageService.update(workPermitEntity);
 
         return "redirect:/permit/edit/work?id=" + updatable.getId();
+    }
+
+    @RequestMapping(value = "add/work", method = RequestMethod.GET)
+    public ModelAndView getWorkAddPage() {
+        final ModelAndView view = this.createDefaultView("/permit/add/work");
+        view.addObject("workPermitEntity", new WorkPermitEntity());
+        return view;
+    }
+
+    @RequestMapping(value = "add/work", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+            produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public String addPermitWork(WorkPermitEntity workPermitEntity) {
+        final  PermitEntity permitEntity = new PermitEntity();
+        permitEntity.setSerialNumber(workPermitEntity.getSerialNumber());
+        permitEntity.setName(workPermitEntity.getName());
+        permitEntity.setPlaceWork(workPermitEntity.getPlaceWork());
+        permitEntity.setContentWork(workPermitEntity.getContentWork());
+        permitEntity.setConditionWork(workPermitEntity.getConditionWork());
+        permitEntity.setStartWork(workPermitEntity.getStartWork());
+        permitEntity.setEndWork(workPermitEntity.getEndWork());
+        permitEntity.setMaterials(workPermitEntity.getMaterials());
+        permitEntity.setInstruments(workPermitEntity.getInstruments());
+        permitEntity.setAdaptations(workPermitEntity.getAdaptations());
+        permitEntity.setRetaining(workPermitEntity.getRetaining());
+        permitEntity.setPosition(workPermitEntity.getPosition());
+        permitEntity.setSafety(workPermitEntity.getSafety());
+        permitEntity.setRescue(workPermitEntity.getRescue());
+
+        permitEntity.setWriter(this.getAuthEmployee());
+
+        final PermitStatusHistoryEntity createNewPermit = new PermitStatusHistoryEntity();
+        createNewPermit.setEmployee(permitEntity.getWriter());
+        createNewPermit.setPermit(permitEntity);
+        createNewPermit.setPermitId(permitEntity.getId());
+        createNewPermit.setStatusDate(new Date());
+        createNewPermit.setStatus("Редактирование");
+
+        permitEntity.setPermitStatusHistories(Collections.singletonList(createNewPermit));
+
+        this.permitPageService.add(permitEntity);
+
+        return "redirect:/permit/edit/work?id=" + permitEntity.getId();
     }
 
     @RequestMapping(value = "edit/work", method = RequestMethod.GET)

@@ -41,16 +41,20 @@ public abstract class BaseController {
     }
 
     ModelAndView createDefaultView(String view) {
-        final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        final String username = auth.getName();
-
-        final EmployeeEntity authEmp = !adminName.equals(username)
-                ? this.employeePageService.getByUsername(username)
-                : this.defaultEmployee;
+        final EmployeeEntity authEmp = this.getAuthEmployee();
 
         final ModelAndView modelAndView = new ModelAndView(view);
         modelAndView.addObject("authEmployee", authEmp);
         return modelAndView;
+    }
+
+    EmployeeEntity getAuthEmployee() {
+        final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        final String username = auth.getName();
+
+        return !adminName.equals(username)
+                ? this.employeePageService.getByUsername(username)
+                : this.defaultEmployee;
     }
 
 }

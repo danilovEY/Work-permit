@@ -5,8 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.kolaer.permit.component.EmptyObjects;
-import ru.kolaer.permit.dao.AccountDtoDao;
+import ru.kolaer.permit.dao.AccountDao;
 import ru.kolaer.permit.dto.AccountDto;
 import ru.kolaer.permit.entity.RoleEntity;
 
@@ -17,7 +16,7 @@ import java.util.List;
  */
 @Repository
 @RequiredArgsConstructor
-public class AccountDtoDaoImpl implements AccountDtoDao {
+public class AccountDaoImpl implements AccountDao {
     private final SessionFactory sessionFactory;
 
     @Override

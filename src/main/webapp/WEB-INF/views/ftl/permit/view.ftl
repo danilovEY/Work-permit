@@ -12,23 +12,32 @@
             <h2><i class="halflings-icon white th-large"></i><span class="break"></span>Список нарядов</h2>
         </div>
         <div class="box-content" style="display: block;">
-            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper" role="grid">
-                <div class="row-fluid">
-                    <div class="span6">
-                        <div id="DataTables_Table_0_length" class="dataTables_length">
-                            <label>
-                                <select size="1" name="DataTables_Table_0_length" aria-controls="DataTables_Table_0">
-                                    <option value="${permitPage.pageSize}" selected="selected">${permitPage.pageSize}</option>
-                                </select> records per page
-                            </label>
-                        </div>
-                    </div>
-                    <div class="span6">
-                        <div class="dataTables_filter" id="DataTables_Table_0_filter">
-                            <label>Search: <input type="text" aria-controls="DataTables_Table_0"></label>
-                        </div>
-                    </div>
+
+            <div class="control-group">
+                <div class="pull-right">
+                    <a class="btn btn-info" style="margin-bottom: 10px;" href="<@spring.url relativeUrl="/permit/add/work"/>">
+                        <i class="halflings-icon plus white"></i> Создать наряд
+                    </a>
                 </div>
+            </div>
+
+            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper" role="grid">
+                <#--<div class="row-fluid">-->
+                    <#--<div class="span6">-->
+                        <#--<div id="DataTables_Table_0_length" class="dataTables_length">-->
+                            <#--<label>-->
+                                <#--<select size="1" name="DataTables_Table_0_length" aria-controls="DataTables_Table_0">-->
+                                    <#--<option value="${permitPage.pageSize}" selected="selected">${permitPage.pageSize}</option>-->
+                                <#--</select> records per page-->
+                            <#--</label>-->
+                        <#--</div>-->
+                    <#--</div>-->
+                    <#--<div class="span6">-->
+                        <#--<div class="dataTables_filter" id="DataTables_Table_0_filter">-->
+                            <#--<label>Search: <input type="text" aria-controls="DataTables_Table_0"></label>-->
+                        <#--</div>-->
+                    <#--</div>-->
+                <#--</div>-->
                 <table class="table table-striped table-bordered bootstrap-datatable" id="DataTables_Table_0"
                        aria-describedby="DataTables_Table_0_info">
                     <thead>

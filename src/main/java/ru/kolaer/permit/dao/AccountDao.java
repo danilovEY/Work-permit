@@ -8,7 +8,7 @@ import ru.kolaer.permit.entity.EmployeeEntity;
 /**
  * Created by danilovey on 14.04.2017.
  */
-public interface AccountDtoDao {
+public interface AccountDao {
     AccountDto findAccountByIdEmployee(@NonNull Integer idEmployee);
     AccountDto findAccountByUsername(@NonNull String username);
 }

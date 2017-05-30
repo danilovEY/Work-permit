@@ -20,17 +20,17 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class PermitEntity extends BaseEntity {
-    @Column(length = 20)
+    @Column(length = 20, nullable = false)
     private String serialNumber;
 
     /**Руководитель*/
     @ManyToOne
-    @JoinColumn(name = "supervisor_id", nullable = false)
+    @JoinColumn(name = "supervisor_id")
     private EmployeeEntity ResponsibleSupervisor;
 
     /**Исполнитель*/
     @ManyToOne
-    @JoinColumn(name = "executor_id", nullable = false)
+    @JoinColumn(name = "executor_id")
     private EmployeeEntity ResponsibleExecutor;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -49,7 +49,7 @@ public class PermitEntity extends BaseEntity {
     private Date dateLimitPermit;
 
     /**Наименование работ*/
-    @Column
+    @Column(nullable = false)
     private String name;
 
     /**Комметы*/
