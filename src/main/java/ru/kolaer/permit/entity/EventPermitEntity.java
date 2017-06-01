@@ -20,15 +20,8 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class EventPermitEntity extends BaseEntity {
-    @Column(length = 20)
-    private String serialNumber;
-
     /**Мероприятия*/
     @OneToMany(mappedBy = "permit", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private List<WorkEvent> workEvents;
-
-    @Column
-    @Enumerated(EnumType.STRING)
-    private StatusPermit status;
 
 }

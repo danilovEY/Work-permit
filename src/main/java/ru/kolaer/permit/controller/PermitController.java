@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import ru.kolaer.permit.dao.WorkEventDao;
 import ru.kolaer.permit.dto.Page;
 import ru.kolaer.permit.entity.*;
 import ru.kolaer.permit.service.EmployeePageService;
@@ -16,7 +17,6 @@ import ru.kolaer.permit.service.PermitStatusHistoryPageService;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -28,14 +28,17 @@ public class PermitController extends BaseController{
 
     private final PermitPageService permitPageService;
     private final PermitStatusHistoryPageService permitStatusHistoryPageService;
+    private final WorkEventDao workEventDao;
 
     public PermitController(@Value("${default.login}") String defaultLogin,
                             PermitPageService permitPageService,
                             PermitStatusHistoryPageService permitStatusHistoryPageService,
-                            EmployeePageService employeePageService) {
+                            EmployeePageService employeePageService,
+                            WorkEventDao workEventDao) {
         super(defaultLogin, employeePageService);
         this.permitPageService = permitPageService;
         this.permitStatusHistoryPageService = permitStatusHistoryPageService;
+        this.workEventDao = workEventDao;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -139,7 +142,11 @@ public class PermitController extends BaseController{
 
     @RequestMapping(value = "edit/event", method = RequestMethod.GET)
     public ModelAndView getEventEditPage(@RequestParam(value = "id") Integer id) {
-        final EventPermitEntity eventPermitEntity = this.permitPageService.getEventById(id);
+        final List<WorkEvent> workEvents = this.workEventDao.findByIdPermit(id);
+
+        final EventPermitEntity eventPermitEntity = new EventPermitEntity();
+        eventPermitEntity.setId(id);
+        eventPermitEntity.setWorkEvents(workEvents);
 
         final ModelAndView view = this.createDefaultView("/permit/edit/event");
         view.addObject("eventPermitEntity", eventPermitEntity);

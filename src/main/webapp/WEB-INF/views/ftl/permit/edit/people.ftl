@@ -173,9 +173,9 @@
                                         <div class="controls">
                                             <select id="selectExecutors" class="span12" name="executors[${(peoplePermitEntity.executors![])?size}].id" data-rel="chosen">
                                                 <option disabled selected value> Исполнитель работ... </option>
-                                                <#assign haveExecutor = false>
                                                 <#if employees?has_content>
                                                     <#list employees as emp>
+                                                        <#assign haveExecutor = false>
                                                         <#if peoplePermitEntity.executors?has_content>
                                                             <#list peoplePermitEntity.executors as executor>
                                                                 <#if emp.id == executor.id>
@@ -209,7 +209,6 @@
                         </div>
                     </div>
 
-
                 </div>
 
                 <div class="form-actions">
@@ -220,22 +219,6 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    $(function() {
-        $('#beginWorkDatePicker').datetimepicker({
-            language: 'ru',
-            format: 'dd.MM.yyyy hh:mm'
-        });
-    });
-
-    $(function() {
-        $('#endWorkDatePicker').datetimepicker({
-            language: 'ru',
-            format: 'dd.MM.yyyy hh:mm'
-        });
-    });
-</script>
 
 </@base.override>
 

@@ -75,4 +75,5 @@ public final class EmptyObjects {
 
     public static final PermitEntity DEFAULT_PERMIT = new PermitEntity();
     public static final PermitStatusHistoryEntity DEFAULT_STATUS_HISTORY = new PermitStatusHistoryEntity();
+    public static final WorkEvent DEFAULT_WORK_EVENT = new WorkEvent();
 }

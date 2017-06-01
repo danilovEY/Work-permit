@@ -1,6 +1,7 @@
 package ru.kolaer.permit.entity;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import ru.kolaer.permit.TypeEvent;
 
 import javax.persistence.*;
@@ -24,6 +25,7 @@ public class WorkEvent extends BaseEntity {
     @Column(nullable = false)
     private String name;
 
+    @DateTimeFormat(pattern = "dd.MM.yyyy hh:mm")
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date limitDate;
@@ -37,6 +39,9 @@ public class WorkEvent extends BaseEntity {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private TypeEvent typeEvent;
+
+    @Column(name = "permit_id", nullable = false, insertable=false, updatable=false)
+    private Integer permitId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false, name = "permit_id")
