@@ -20,7 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class PermitEntity extends BaseEntity {
-    @Column(length = 20, nullable = false)
+    @Column(length = 20, nullable = false, unique = true)
     private String serialNumber;
 
     /**Руководитель*/

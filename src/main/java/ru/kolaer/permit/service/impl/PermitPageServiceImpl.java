@@ -64,4 +64,8 @@ public class PermitPageServiceImpl extends BasePageServiceAbstract<PermitEntity>
         this.dao.deleteExecutor(id, executor);
     }
 
+    @Override
+    public PermitEntity delete(PermitEntity entity) {
+        return this.dao.delete(entity, true);
+    }
 }

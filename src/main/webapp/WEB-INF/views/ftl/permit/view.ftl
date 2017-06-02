@@ -96,6 +96,9 @@
                                     <a class="btn btn-success" title="Редактировать" href="<@spring.url relativeUrl="/permit/edit/work?id=${permit.id}"/>">
                                         <i class="halflings-icon white edit"></i>
                                     </a>
+                                    <a class="btn btn-danger" title="Удалить" href="<@spring.url relativeUrl="/permit/delete?id=${permit.id}"/>">
+                                        <i class="halflings-icon white trash"></i>
+                                    </a>
                                 </td>
                             </tr>
                             <#else>
@@ -120,6 +123,9 @@
                                 <td class="center">
                                     <a class="btn btn-success" title="Редактировать" href="<@spring.url relativeUrl="/permit/edit/work?id=${permit.id}"/>">
                                         <i class="halflings-icon white edit"></i>
+                                    </a>
+                                    <a class="btn btn-danger" title="Удалить" href="<@spring.url relativeUrl="/permit/delete?id=${permit.id}"/>">
+                                        <i class="halflings-icon white trash"></i>
                                     </a>
                                 </td>
                             </tr>

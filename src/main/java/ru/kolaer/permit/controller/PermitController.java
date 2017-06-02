@@ -96,6 +96,16 @@ public class PermitController extends BaseController{
         return "redirect:/permit/edit/people?id=" + id;
     }
 
+    @RequestMapping(value = "delete", method = RequestMethod.GET)
+    public String deletePermit(@RequestParam("id")Integer id) {
+        final PermitEntity removePermit = new PermitEntity();
+        removePermit.setId(id);
+
+        this.permitPageService.delete(removePermit);
+
+        return "redirect:/permit";
+    }
+
     @RequestMapping(value = "add/work", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public String addPermitWork(WorkPermitEntity workPermitEntity) {
