@@ -22,9 +22,10 @@ public class WorkEventDaoImpl extends BasePageDaoAbstract<WorkEvent> implements 
 
     @Override
     @Transactional(readOnly = true)
-    public List<WorkEvent> findByIdPermit(Integer idPermit) {
+    public List<WorkEvent> findByIdPermit(Integer idPermit, boolean findRemoved) {
         return this.sessionFactory.getCurrentSession()
-                .createQuery("FROM WorkEvent w WHERE w.permit.id = :id", WorkEvent.class)
+                .createQuery("FROM WorkEvent w WHERE w.permit.id = :id AND w.removed = :remove", WorkEvent.class)
+                .setParameter("remove", findRemoved)
                 .setParameter("id", idPermit)
                 .list();
     }

@@ -152,7 +152,7 @@ public class PermitController extends BaseController{
 
     @RequestMapping(value = "edit/event", method = RequestMethod.GET)
     public ModelAndView getEventEditPage(@RequestParam(value = "id") Integer id) {
-        final List<WorkEvent> workEvents = this.workEventDao.findByIdPermit(id);
+        final List<WorkEvent> workEvents = this.workEventDao.findByIdPermit(id, false);
 
         final EventPermitEntity eventPermitEntity = new EventPermitEntity();
         eventPermitEntity.setId(id);

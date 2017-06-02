@@ -24,7 +24,7 @@
                     <div class="tab-pane active" id="event_tab">
                         <div class="row-fluid">
                         <#-- Мероприятия ДО BEGIN -->
-                            <div class="box span8">
+                            <div class="box span12">
                                 <div class="box-header">
                                     <h2><i class="halflings-icon white th"></i><span class="break"></span>До начала производства работ необходимо выполнить следующие мероприятия:</h2>
                                 </div>
@@ -72,7 +72,7 @@
                                                                     <a class="btn btn-success" title="Редактировать" href="<@spring.url relativeUrl="/event/edit?id=${eventBegin.id}"/>">
                                                                         <i class="halflings-icon white edit"></i>
                                                                     </a>
-                                                                    <a class="btn btn-danger" title="Удалить" href="<@spring.url relativeUrl="/permit/delete/"/>">
+                                                                    <a class="btn btn-danger" title="Удалить" href="<@spring.url relativeUrl="/event/delete?id=${eventBegin.id}"/>">
                                                                         <i class="halflings-icon white trash"></i>
                                                                     </a>
                                                                 </td>
@@ -95,7 +95,7 @@
                                                                     <a class="btn btn-success" title="Редактировать" href="<@spring.url relativeUrl="/event/edit?id=${eventBegin.id}"/>">
                                                                         <i class="halflings-icon white edit"></i>
                                                                     </a>
-                                                                    <a class="btn btn-danger" title="Удалить" href="<@spring.url relativeUrl="/permit/delete/"/>">
+                                                                    <a class="btn btn-danger" title="Удалить" href="<@spring.url relativeUrl="/event/delete?id=${eventBegin.id}"/>">
                                                                         <i class="halflings-icon white trash"></i>
                                                                     </a>
                                                                 </td>
@@ -106,6 +106,16 @@
                                             </#if>
                                         </tbody>
                                     </table>
+
+                                    <div class="control-group">
+                                        <div class="pull-right">
+                                            <a class="btn btn-info" style="margin-bottom: 10px;" href="<@spring.url relativeUrl="/event/add?permit=${eventPermitEntity.id}&type=BEGIN"/>">
+                                                <i class="halflings-icon plus white"></i>
+                                                Добавить мероприятие
+                                            </a>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         <#-- Мероприятия ДО END -->
@@ -179,11 +189,10 @@
 
                                     <div class="control-group">
                                         <div class="pull-right">
-                                            <button type="submit" id="saveButton" class="btn btn-info" style="margin-bottom: 10px;">
+                                            <a class="btn btn-info" style="margin-bottom: 10px;" href="<@spring.url relativeUrl="/event/add?permit=${eventPermitEntity.id}&type=PROCESS"/>">
                                                 <i class="halflings-icon plus white"></i>
-                                                Добавить исполнителя
-                                            </button>
-
+                                                Добавить мероприятие
+                                            </a>
                                         </div>
                                     </div>
 
@@ -259,11 +268,10 @@
 
                                     <div class="control-group">
                                         <div class="pull-right">
-                                            <button type="submit" id="saveButton" class="btn btn-info" style="margin-bottom: 10px;">
+                                            <a class="btn btn-info" style="margin-bottom: 10px;" href="<@spring.url relativeUrl="/event/add?permit=${eventPermitEntity.id}&type=SPECIAL"/>">
                                                 <i class="halflings-icon plus white"></i>
-                                                Добавить исполнителя
-                                            </button>
-
+                                                Добавить мероприятие
+                                            </a>
                                         </div>
                                     </div>
 

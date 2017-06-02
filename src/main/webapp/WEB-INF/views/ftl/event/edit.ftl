@@ -9,12 +9,12 @@
 <script src="<@spring.url relativeUrl="/resources/js/bootstrap-datetimepicker.ru.js"/>"></script>
 
 <div class="row-fluid">
-    <form class="form-inline" method="post" action="<@spring.url relativeUrl="/event/update"/>">
     <div class="box span6">
         <div class="box-header">
             <h2><i class="halflings-icon white th"></i><span class="break"></span>Добавить мероприятие</h2>
         </div>
         <div class="box-content">
+            <form class="form-inline" method="post" action="<@spring.url relativeUrl="/event/update"/>">
                 <input type="hidden" name="id" value="${workEvent.id}">
                 <input type="hidden" name="permit.id" value="${workEvent.permitId}">
 
@@ -47,28 +47,28 @@
                 </div>
 
                 <div class="control-group">
+                    <label class="control-label" for="beginLimitDatePicker">Срок выполнения:</label>
+                    <div class="controls">
+                        <div id="beginLimitDatePicker" class="input-append date span12">
+                            <input class="span11" data-format="dd.MM.yyyy hh:mm" type="text" name="limitDate" value="${(workEvent.limitDate!.now)?string["dd.MM.yyyy hh:mm"]}"/>
+                            <span class="add-on">
+                                <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-group">
                     <label class="control-label" for="eventName">Наименование/Описание мероприятий:</label>
                     <div class="controls">
                         <input id="eventName" class="span12" type="text" name="name" value="${workEvent.name}"/>
                     </div>
                 </div>
 
-                <div class="control-group">
-                    <label class="control-label" for="beginLimitDatePicker">Срок выполнения:</label>
-                    <div class="controls">
-                        <div id="beginLimitDatePicker" class="input-append date span12">
-                            <input class="span11" data-format="dd.MM.yyyy hh:mm" type="text" name="limitDate" value="${(workEvent.limitDate!.now)?string["dd.MM.yyyy hh:mm"]}"/>
-                            <span class="add-on">
-                                                    <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
-                                                </span>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">Добавить</button>
+                    <button type="submit" class="btn btn-primary">Обновить</button>
                 </div>
-
+            </form>
         </div>
     </div>
 
@@ -169,8 +169,6 @@
             </div>
         </div>
     </div>
-
-    </form>
 </div>
 
 <script type="text/javascript">
