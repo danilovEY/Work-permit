@@ -6,7 +6,9 @@ import ru.kolaer.permit.entity.PermitStatusHistoryEntity;
 import ru.kolaer.permit.service.BasePageServiceAbstract;
 import ru.kolaer.permit.service.PermitStatusHistoryPageService;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by Danilov on 27.05.2017.
@@ -29,6 +31,9 @@ public class PermitStatusHistoryPageServiceImpl extends BasePageServiceAbstract<
 
     @Override
     public List<PermitStatusHistoryEntity> getLastStatusByIdPermitRange(List<Integer> id) {
+        if(id == null || id.isEmpty())
+            return Collections.emptyList();
+
         return this.dao.findLastStatusByIdPermitRange(id);
     }
 }

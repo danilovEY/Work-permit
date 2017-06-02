@@ -189,14 +189,16 @@
     $(function() {
         $('#beginWorkDatePicker').datetimepicker({
             language: 'ru',
-            format: 'dd.MM.yyyy hh:mm'
+            format: 'dd.MM.yyyy hh:mm',
+            pickSeconds: false
         });
     });
 
     $(function() {
         $('#endWorkDatePicker').datetimepicker({
             language: 'ru',
-            format: 'dd.MM.yyyy hh:mm'
+            format: 'dd.MM.yyyy hh:mm',
+            pickSeconds: false
         });
     });
 </script>
