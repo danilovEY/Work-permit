@@ -75,6 +75,17 @@ public class WorkEventController extends BaseController {
         return "redirect:/event/edit?id=" + updatable.getId();
     }
 
+    @RequestMapping(value = "add/employee", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+            produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public String addEmployeeWorkEvent(WorkEvent workEvent) {
+        final WorkEvent updatable = this.workEventDao.findById(workEvent.getId(), false);
+        updatable.getEmployeesEntity().addAll(workEvent.getEmployeesEntity());
+
+        this.workEventDao.update(updatable);
+
+        return "redirect:/event/edit?id=" + updatable.getId();
+    }
+
 
     @RequestMapping(value = "delete", method = RequestMethod.GET)
     public String deleteEmployeeFromWorkEvent(@RequestParam(value = "id") Integer id) {

@@ -67,6 +67,7 @@
 
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">Обновить</button>
+                    <button type="reset" class="btn" onclick="window.location.href='<@spring.url relativeUrl="/permit/edit/event?id=${workEvent.permitId}"/>'">Назад</button>
                 </div>
             </form>
         </div>
@@ -131,42 +132,44 @@
                 </tbody>
             </table>
 
-            <div class="control-group">
-                <label class="control-label" for="selectExecutors">Исполнитель работ:</label>
-                <div class="controls">
-                    <select id="selectExecutors" class="span12" name="employeesEntity[${(workEvent.employeesEntity![])?size}].id" data-rel="chosen">
-                        <option disabled selected value> Исполнитель работ... </option>
+            <form class="form-inline" method="post" action="<@spring.url relativeUrl="/event/add/employee"/>">
+                <input type="hidden" name="id" value="${workEvent.id}">
+                <div class="control-group">
+                    <label class="control-label" for="selectExecutors">Исполнитель работ:</label>
+                    <div class="controls">
+                        <select id="selectExecutors" class="span12" name="employeesEntity[0].id" data-rel="chosen">
+                            <option disabled selected value> Исполнитель работ... </option>
 
-                        <#if employees?has_content>
-                            <#list employees as emp>
-                                <#assign haveExecutor = false>
-                                <#if workEvent.employeesEntity?has_content>
-                                    <#list workEvent.employeesEntity as executor>
-                                        <#if emp.id == executor.id>
-                                            <#assign haveExecutor = true>
-                                            <#break>
-                                        </#if>
-                                    </#list>
-                                </#if>
+                            <#if employees?has_content>
+                                <#list employees as emp>
+                                    <#assign haveExecutor = false>
+                                    <#if workEvent.employeesEntity?has_content>
+                                        <#list workEvent.employeesEntity as executor>
+                                            <#if emp.id == executor.id>
+                                                <#assign haveExecutor = true>
+                                                <#break>
+                                            </#if>
+                                        </#list>
+                                    </#if>
 
-                                <#if !haveExecutor>
-                                    <option value="${emp.id}">(${emp.personnelNumber?c}) ${emp.initials} - ${emp.department.abbreviatedName}</option>
-                                </#if>
-                            </#list>
-                        </#if>
-                    </select>
+                                    <#if !haveExecutor>
+                                        <option value="${emp.id}">(${emp.personnelNumber?c}) ${emp.initials} - ${emp.department.abbreviatedName}</option>
+                                    </#if>
+                                </#list>
+                            </#if>
+                        </select>
+                    </div>
                 </div>
-            </div>
 
-            <div class="control-group">
-                <div class="pull-right">
-                    <button type="submit" id="saveButton" class="btn btn-info" style="margin-bottom: 10px;">
-                        <i class="halflings-icon plus white"></i>
-                        Добавить исполнителя
-                    </button>
-
+                <div class="control-group">
+                    <div class="pull-right">
+                        <button type="submit" id="saveButton" class="btn btn-info" style="margin-bottom: 10px;">
+                            <i class="halflings-icon plus white"></i>
+                            Добавить исполнителя
+                        </button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

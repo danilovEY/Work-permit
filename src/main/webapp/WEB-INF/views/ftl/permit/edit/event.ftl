@@ -144,6 +144,9 @@
                                             <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                                 colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Ответственные исполнители
                                             </th>
+                                            <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                                colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Действие
+                                            </th>
                                         </tr>
                                         </thead>
                                         <tbody role="alert" aria-live="polite" aria-relevant="all">
@@ -164,6 +167,14 @@
                                                             <#else>
                                                                 <td class="center" id="row-event-name-${eventProcess.id}"></td>
                                                             </#if>
+                                                            <td class="center">
+                                                                <a class="btn btn-success" title="Редактировать" href="<@spring.url relativeUrl="/event/edit?id=${eventProcess.id}"/>">
+                                                                    <i class="halflings-icon white edit"></i>
+                                                                </a>
+                                                                <a class="btn btn-danger" title="Удалить" href="<@spring.url relativeUrl="/event/delete?id=${eventProcess.id}"/>">
+                                                                    <i class="halflings-icon white trash"></i>
+                                                                </a>
+                                                            </td>
                                                         </tr>
                                                         <#else>
                                                         <tr class="even">
@@ -179,6 +190,14 @@
                                                             <#else>
                                                                 <td class="center" id="row-event-name-${eventProcess.id}"></td>
                                                             </#if>
+                                                            <td class="center">
+                                                                <a class="btn btn-success" title="Редактировать" href="<@spring.url relativeUrl="/event/edit?id=${eventProcess.id}"/>">
+                                                                    <i class="halflings-icon white edit"></i>
+                                                                </a>
+                                                                <a class="btn btn-danger" title="Удалить" href="<@spring.url relativeUrl="/event/delete?id=${eventProcess.id}"/>">
+                                                                    <i class="halflings-icon white trash"></i>
+                                                                </a>
+                                                            </td>
                                                         </tr>
                                                         </#if>
                                                     </#if>
@@ -223,41 +242,60 @@
                                             <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                                 colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Ответственные исполнители
                                             </th>
+                                            <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                                colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Действие
+                                            </th>
                                         </tr>
                                         </thead>
                                         <tbody role="alert" aria-live="polite" aria-relevant="all">
                                             <#if eventPermitEntity.workEvents?has_content>
-                                                <#list eventPermitEntity.workEvents as event>
-                                                    <#if event.typeEvent == "SPECIAL">
-                                                        <#if event_index % 2 == 0>
+                                                <#list eventPermitEntity.workEvents as eventSpecial>
+                                                    <#if eventSpecial.typeEvent == "SPECIAL">
+                                                        <#if eventSpecial_index % 2 == 0>
                                                         <tr class="odd">
-                                                            <td class="center" id="row-event-id-${event.id}">${event_index}</td>
-                                                            <td class="center" id="row-event-name-${event.id}">${event.name!""}</td>
-                                                            <td class="center" id="row-event-date-${event.id}">${event.limitDate?string["dd.MM.yyyy hh:mm"]!""}</td>
-                                                            <#if event.employeesEntity?has_content>
-                                                                <td class="center" id="row-event-name-${event.id}">
-                                                                    <#list event.employeesEntity as eventEmp>
+                                                            <td class="center" id="row-event-id-${eventSpecial.id}">${eventSpecial_index}</td>
+                                                            <td class="center" id="row-event-name-${eventSpecial.id}">${eventSpecial.name!""}</td>
+                                                            <td class="center" id="row-event-date-${eventSpecial.id}">${eventSpecial.limitDate?string["dd.MM.yyyy hh:mm"]!""}</td>
+                                                            <#if eventSpecial.employeesEntity?has_content>
+                                                                <td class="center" id="row-event-name-${eventSpecial.id}">
+                                                                    <#list eventSpecial.employeesEntity as eventEmp>
                                                                     ${eventEmp.initials!""}<br/>
                                                                     </#list>
                                                                 </td>
                                                             <#else>
-                                                                <td class="center" id="row-event-name-${event.id}"></td>
+                                                                <td class="center" id="row-event-name-${eventSpecial.id}"></td>
                                                             </#if>
+                                                            <td class="center">
+                                                                <a class="btn btn-success" title="Редактировать" href="<@spring.url relativeUrl="/event/edit?id=${eventSpecial.id}"/>">
+                                                                    <i class="halflings-icon white edit"></i>
+                                                                </a>
+                                                                <a class="btn btn-danger" title="Удалить" href="<@spring.url relativeUrl="/event/delete?id=${eventSpecial.id}"/>">
+                                                                    <i class="halflings-icon white trash"></i>
+                                                                </a>
+                                                            </td>
                                                         </tr>
                                                         <#else>
                                                         <tr class="even">
-                                                            <td class="center" id="row-event-id-${event.id}">${event_index}</td>
-                                                            <td class="center" id="row-event-name-${event.id}">${event.name!""}</td>
-                                                            <td class="center" id="row-event-date-${event.id}">${event.limitDate?string["dd.MM.yyyy hh:mm"]!""}</td>
-                                                            <#if event.employeesEntity?has_content>
-                                                                <td class="center" id="row-event-name-${event.id}">
-                                                                    <#list event.employeesEntity as eventEmp>
+                                                            <td class="center" id="row-event-id-${eventSpecial.id}">${eventSpecial_index}</td>
+                                                            <td class="center" id="row-event-name-${eventSpecial.id}">${eventSpecial.name!""}</td>
+                                                            <td class="center" id="row-event-date-${eventSpecial.id}">${eventSpecial.limitDate?string["dd.MM.yyyy hh:mm"]!""}</td>
+                                                            <#if eventSpecial.employeesEntity?has_content>
+                                                                <td class="center" id="row-event-name-${eventSpecial.id}">
+                                                                    <#list eventSpecial.employeesEntity as eventEmp>
                                                                     ${eventEmp.initials!""}<br/>
                                                                     </#list>
                                                                 </td>
                                                             <#else>
-                                                                <td class="center" id="row-event-name-${event.id}"></td>
+                                                                <td class="center" id="row-event-name-${eventSpecial.id}"></td>
                                                             </#if>
+                                                            <td class="center">
+                                                                <a class="btn btn-success" title="Редактировать" href="<@spring.url relativeUrl="/event/edit?id=${eventSpecial.id}"/>">
+                                                                    <i class="halflings-icon white edit"></i>
+                                                                </a>
+                                                                <a class="btn btn-danger" title="Удалить" href="<@spring.url relativeUrl="/event/delete?id=${eventSpecial.id}"/>">
+                                                                    <i class="halflings-icon white trash"></i>
+                                                                </a>
+                                                            </td>
                                                         </tr>
                                                         </#if>
                                                     </#if>
@@ -284,7 +322,7 @@
                 <form>
                     <div class="form-actions">
                     <#--<button type="submit" class="btn btn-primary">Сохранить</button>-->
-                        <button type="reset" class="btn" onclick="window.location.href='<@spring.url relativeUrl="/permit"/>'">Отмена</button>
+                        <button type="reset" class="btn" onclick="window.location.href='<@spring.url relativeUrl="/permit"/>'">Назад</button>
                     </div>
                 </form>
 
