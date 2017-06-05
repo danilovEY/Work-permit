@@ -90,7 +90,7 @@ public class PermitController extends BaseController{
     }
 
     @RequestMapping(value = "print", method = RequestMethod.GET)
-    public String deleteExecutor(@RequestParam("id")Integer id) {
+    public String printToFile(@RequestParam("id")Integer id) {
         this.permitPageService.printPermitToExcel(id);
 
         return "redirect:/permit";
