@@ -89,6 +89,13 @@ public class PermitController extends BaseController{
         return view;
     }
 
+    @RequestMapping(value = "print", method = RequestMethod.GET)
+    public String deleteExecutor(@RequestParam("id")Integer id) {
+        this.permitPageService.printPermitToExcel(id);
+
+        return "redirect:/permit";
+    }
+
     @RequestMapping(value = "delete/executor", method = RequestMethod.GET)
     public String deleteExecutor(@RequestParam("id")Integer id,
                                        @RequestParam("executor")Integer executor) {

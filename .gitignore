@@ -3,6 +3,7 @@
 !gradlew*
 !/config
 !/src
+!/template
 !build.gradle
 !settings.gradle
 !.gitignore

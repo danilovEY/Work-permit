@@ -20,4 +20,6 @@ public interface PermitPageService extends BasePageService<PermitEntity> {
     void deleteExecutor(Integer id, Integer executor);
 
     boolean existSerialNumber(String serialNumber);
+
+    void printPermitToExcel(Integer id);
 }
