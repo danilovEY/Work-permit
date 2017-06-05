@@ -43,9 +43,6 @@
                     <thead>
                     <tr role="row">
                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                            colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">ID наряда
-                        </th>
-                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                             colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">№ наряда
                         </th>
                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
@@ -75,7 +72,6 @@
                         <#list permitPage.data as permit>
                             <#if permit_index % 2 == 0>
                             <tr class="odd">
-                                <td class="center" id="row-id-${permit.id}">${permit.id}</td>
                                 <td class="center">${permit.serialNumber!""}</td>
                                 <td class="center">${permit.name!""}</td>
                                 <td class="center">${(permit.startWork!"")?string["dd.MM.yyyy hh:mm"]}</td>
@@ -106,7 +102,6 @@
                             </tr>
                             <#else>
                             <tr class="even">
-                                <td class="center" id="row-id-${permit.id}">${permit.id}</td>
                                 <td class="center">${permit.serialNumber!""}</td>
                                 <td class="center">${permit.name!""}</td>
                                 <td class="center">${(permit.startWork!"")?string["dd.MM.yyyy hh:mm"]}</td>
