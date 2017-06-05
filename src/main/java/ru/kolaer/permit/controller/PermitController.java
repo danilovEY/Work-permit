@@ -28,17 +28,14 @@ import java.util.stream.Collectors;
 public class PermitController extends BaseController{
 
     private final PermitPageService permitPageService;
-    private final PermitStatusHistoryPageService permitStatusHistoryPageService;
     private final WorkEventDao workEventDao;
 
     public PermitController(@Value("${default.login}") String defaultLogin,
                             PermitPageService permitPageService,
-                            PermitStatusHistoryPageService permitStatusHistoryPageService,
                             EmployeePageService employeePageService,
                             WorkEventDao workEventDao) {
         super(defaultLogin, employeePageService);
         this.permitPageService = permitPageService;
-        this.permitStatusHistoryPageService = permitStatusHistoryPageService;
         this.workEventDao = workEventDao;
     }
 
@@ -47,14 +44,8 @@ public class PermitController extends BaseController{
                                      @RequestParam(value = "pagesize", defaultValue = "15") Integer pageSize) {
         final Page<ShortPermitEntity> all = this.permitPageService.getShortAll(number, pageSize);
 
-        final List<PermitStatusHistoryEntity> lastStatusByIdPermitRange = this.permitStatusHistoryPageService
-                .getLastStatusByIdPermitRange(all.getData().stream()
-                        .map(ShortPermitEntity::getId)
-                        .collect(Collectors.toList()));
-
         final ModelAndView view = this.createDefaultView("/permit/view");
         view.addObject("permitPage", all);
-        view.addObject("permitStatus", lastStatusByIdPermitRange);
         return view;
     }
 
@@ -144,6 +135,7 @@ public class PermitController extends BaseController{
         permitEntity.setPosition(workPermitEntity.getPosition());
         permitEntity.setSafety(workPermitEntity.getSafety());
         permitEntity.setRescue(workPermitEntity.getRescue());
+        permitEntity.setStatus("Редактирование");
 
         permitEntity.setWriter(this.getAuthEmployee());
 

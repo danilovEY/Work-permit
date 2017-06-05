@@ -114,6 +114,9 @@ public class PermitEntity extends BaseEntity {
     @OneToMany(mappedBy = "permit", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private List<WorkEvent> workEvents;
 
+    @Column(length = 100, nullable = false)
+    private String status;
+
     /**Разрешения на подготовку места*/
     /*@OneToMany
     @JoinTable(name = "executors_prepared",

@@ -1,5 +1,4 @@
 <#-- @ftlvariable name="permitPage" type="ru.kolaer.permit.dto.Page<ru.kolaer.permit.entity.ShortPermitEntity>" -->
-<#-- @ftlvariable name="permitStatus" type="java.util.List<ru.kolaer.permit.entity.PermitStatusHistoryEntity>" -->
 
 
 <#import "../layout/baseTemplate.ftl" as base>
@@ -82,20 +81,24 @@
                                 <#else>
                                     <td class="center"></td>
                                 </#if>
-                                <#list permitStatus as val>
-                                    <#if val.permitId == permit.id>
-                                        <td class="center">${val.status!""}</td>
-                                        <#break>
-                                    </#if>
-                                </#list>
+
+                                <#if permit.status == "Запрос на согласование">
+                                    <td class="center"><span class="label label-warning">${permit.status}</span></td>
+                                <#else>
+                                    <td class="center"><span class="label">${permit.status}</span></td>
+                                </#if>
+
                                 <td class="center">
-                                    <a class="btn btn-success" title="Редактировать" href="<@spring.url relativeUrl="/permit/edit/work?id=${permit.id}"/>">
+                                    <a class="btn btn-info" style="margin-bottom: 4px;" title="Запрос на согласование" href="<@spring.url relativeUrl="/permit/delete?id=${permit.id}"/>">
+                                        <i class="halflings-icon white question-sign"></i>
+                                    </a>
+                                    <a class="btn btn-success" style="margin-bottom: 4px;" title="Редактировать" href="<@spring.url relativeUrl="/permit/edit/work?id=${permit.id}"/>">
                                         <i class="halflings-icon white edit"></i>
                                     </a>
-                                    <a class="btn btn-success" title="Печатать" href="<@spring.url relativeUrl="/permit/print?id=${permit.id}"/>">
+                                    <a class="btn btn-success" style="margin-bottom: 4px;" title="Печатать" href="<@spring.url relativeUrl="/permit/print?id=${permit.id}"/>">
                                         <i class="halflings-icon white print"></i>
                                     </a>
-                                    <a class="btn btn-danger" title="Удалить" href="<@spring.url relativeUrl="/permit/delete?id=${permit.id}"/>">
+                                    <a class="btn btn-danger" style="margin-bottom: 4px;" title="Удалить" href="<@spring.url relativeUrl="/permit/delete?id=${permit.id}"/>">
                                         <i class="halflings-icon white trash"></i>
                                     </a>
                                 </td>
@@ -107,25 +110,30 @@
                                 <td class="center">${(permit.startWork!"")?string["dd.MM.yyyy hh:mm"]}</td>
                                 <td class="center">${(permit.endWork!"")?string["dd.MM.yyyy hh:mm"]}</td>
                                 <td class="center">${permit.writer.initials!""}</td>
+
                                 <#if permit.responsibleSupervisor?has_content>
                                     <td class="center">${permit.responsibleSupervisor.initials!""}</td>
                                 <#else>
                                     <td class="center"></td>
                                 </#if>
-                                <#list permitStatus as val>
-                                    <#if val.permitId == permit.id>
-                                        <td class="center">${val.status!""}</td>
-                                        <#break>
-                                    </#if>
-                                </#list>
+
+                                <#if permit.status == "Запрос на согласование">
+                                    <td class="center"><span class="label label-warning">${permit.status}</span></td>
+                                <#else>
+                                    <td class="center"><span class="label">${permit.status}</span></td>
+                                </#if>
+
                                 <td class="center">
-                                    <a class="btn btn-success" title="Редактировать" href="<@spring.url relativeUrl="/permit/edit/work?id=${permit.id}"/>">
+                                    <a class="btn btn-info" style="margin-bottom: 4px;" title="Запрос на согласование" href="<@spring.url relativeUrl="/permit/delete?id=${permit.id}"/>">
+                                        <i class="halflings-icon white question-sign"></i>
+                                    </a>
+                                    <a class="btn btn-success" style="margin-bottom: 4px;" title="Редактировать" href="<@spring.url relativeUrl="/permit/edit/work?id=${permit.id}"/>">
                                         <i class="halflings-icon white edit"></i>
                                     </a>
-                                    <a class="btn btn-success" title="Печатать" href="<@spring.url relativeUrl="/permit/print?id=${permit.id}"/>">
+                                    <a class="btn btn-success" style="margin-bottom: 4px;" title="Печатать" href="<@spring.url relativeUrl="/permit/print?id=${permit.id}"/>">
                                         <i class="halflings-icon white print"></i>
                                     </a>
-                                    <a class="btn btn-danger" title="Удалить" href="<@spring.url relativeUrl="/permit/delete?id=${permit.id}"/>">
+                                    <a class="btn btn-danger" style="margin-bottom: 4px;" title="Удалить" href="<@spring.url relativeUrl="/permit/delete?id=${permit.id}"/>">
                                         <i class="halflings-icon white trash"></i>
                                     </a>
                                 </td>

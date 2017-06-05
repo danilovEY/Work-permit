@@ -63,6 +63,9 @@ public class ShortPermitEntity extends BaseEntity {
     @Column
     private String contentWork;
 
+    @Column(length = 100, nullable = false)
+    private String status;
+
     /**Кто выдал наряд*/
     @ManyToOne
     @JoinColumn(name = "writer_id", nullable = false)

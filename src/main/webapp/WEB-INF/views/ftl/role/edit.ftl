@@ -59,7 +59,7 @@
 
             <div class="form-actions">
                 <button type="submit" class="btn btn-primary">Обновить</button>
-                <button type="reset" class="btn" onclick="window.location.href='<@spring.url relativeUrl="/role"/>'">Отмена</button>
+                <button type="reset" class="btn" onclick="window.location.href='<@spring.url relativeUrl="/role"/>'">Назад</button>
             </div>
         </form>
     </div>

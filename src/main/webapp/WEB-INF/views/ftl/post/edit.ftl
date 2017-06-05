@@ -44,7 +44,7 @@
 
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">Обновить</button>
-                    <button type="reset" class="btn" onclick="window.location.href='<@spring.url relativeUrl="/post"/>'">Отмена</button>
+                    <button type="reset" class="btn" onclick="window.location.href='<@spring.url relativeUrl="/post"/>'">Назад</button>
                 </div>
             </form>
         </div>
