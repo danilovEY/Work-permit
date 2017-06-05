@@ -1,4 +1,5 @@
 <#-- @ftlvariable name="workPermitEntity" type="ru.kolaer.permit.entity.WorkPermitEntity" -->
+<#-- @ftlvariable name="serialError" type="java.lang.String" -->
 
 <#import "../../layout/baseTemplate.ftl" as base>
 <#import "/spring.ftl" as spring>
@@ -27,16 +28,26 @@
                                     <h2><i class="halflings-icon white th"></i><span class="break"></span>Описание</h2>
                                 </div>
                                 <div class="box-content">
-                                    <div class="control-group">
-                                        <label class="control-label" for="serialNumber">Уникальный номер наряда:</label>
-                                        <div class="controls">
-                                            <#if workPermitEntity.serialNumber?has_content>
-                                                <input class="span12" id="serialNumber" type="text" name="serialNumber" value="${workPermitEntity.serialNumber}" readonly>
-                                            <#else>
-                                                <input class="span12" id="serialNumber" type="text" name="serialNumber" value="">
-                                            </#if>
+                                    <#if serialError?has_content>
+                                        <div class="control-group error">
+                                            <label class="control-label" for="serialNumber">Уникальный номер наряда:</label>
+                                            <div class="controls">
+                                                <input class="span12" id="serialNumber" type="text" name="serialNumber" value="${workPermitEntity.serialNumber}">
+                                                <span class="help-inline">${serialError}</span>
+                                            </div>
                                         </div>
-                                    </div>
+                                    <#else>
+                                        <div class="control-group">
+                                            <label class="control-label" for="serialNumber">Уникальный номер наряда:</label>
+                                            <div class="controls">
+                                                <#if workPermitEntity.serialNumber?has_content>
+                                                    <input class="span12" id="serialNumber" type="text" name="serialNumber" value="${workPermitEntity.serialNumber}" readonly>
+                                                <#else>
+                                                    <input class="span12" id="serialNumber" type="text" name="serialNumber" value="">
+                                                </#if>
+                                            </div>
+                                        </div>
+                                    </#if>
 
                                     <div class="control-group">
                                         <label class="control-label" for="permitName">На выполнение работ:</label>
@@ -178,7 +189,7 @@
 
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">Сохранить и продолжить </button>
-                    <button type="reset" class="btn" onclick="window.location.href='<@spring.url relativeUrl="/permit/view"/>'">Отмена</button>
+                    <button type="reset" class="btn" onclick="window.location.href='<@spring.url relativeUrl="/permit"/>'">Отмена</button>
                 </div>
             </form>
         </div>

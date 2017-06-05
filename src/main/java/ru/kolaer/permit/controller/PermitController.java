@@ -17,6 +17,7 @@ import ru.kolaer.permit.service.PermitStatusHistoryPageService;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -108,7 +109,19 @@ public class PermitController extends BaseController{
 
     @RequestMapping(value = "add/work", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    public String addPermitWork(WorkPermitEntity workPermitEntity) {
+    public ModelAndView addPermitWork(WorkPermitEntity workPermitEntity) {
+
+        if(this.permitPageService.existSerialNumber(workPermitEntity.getSerialNumber())) {
+            final ModelAndView view = this.createDefaultView("/permit/add/work");
+            view.addObject("workPermitEntity", workPermitEntity);
+            if(workPermitEntity.getSerialNumber() == null) {
+                view.addObject("serialError", "Серийный номер не может быть пустым!");
+            } else {
+                view.addObject("serialError", "Серийный номер уже существует");
+            }
+            return view;
+        }
+
         final  PermitEntity permitEntity = new PermitEntity();
         permitEntity.setSerialNumber(workPermitEntity.getSerialNumber());
         permitEntity.setName(workPermitEntity.getName());
@@ -138,7 +151,7 @@ public class PermitController extends BaseController{
 
         this.permitPageService.add(permitEntity);
 
-        return "redirect:/permit/edit/work?id=" + permitEntity.getId();
+        return this.getEventEditPage(permitEntity.getId());
     }
 
     @RequestMapping(value = "edit/work", method = RequestMethod.GET)

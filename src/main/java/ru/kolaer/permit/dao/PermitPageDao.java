@@ -18,4 +18,6 @@ public interface PermitPageDao extends BasePageDao<PermitEntity> {
     EventPermitEntity update(EventPermitEntity eventPermitEntity);
 
     void deleteExecutor(Integer id, Integer executor);
+
+    boolean existSerialNumber(String serialNumber);
 }

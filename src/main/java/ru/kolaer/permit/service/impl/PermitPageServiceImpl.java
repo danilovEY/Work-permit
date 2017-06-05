@@ -65,6 +65,11 @@ public class PermitPageServiceImpl extends BasePageServiceAbstract<PermitEntity>
     }
 
     @Override
+    public boolean existSerialNumber(String serialNumber) {
+        return this.dao.existSerialNumber(serialNumber);
+    }
+
+    @Override
     public PermitEntity delete(PermitEntity entity) {
         return this.dao.delete(entity, true);
     }

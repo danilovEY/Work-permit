@@ -18,4 +18,6 @@ public interface PermitPageService extends BasePageService<PermitEntity> {
     EventPermitEntity update(EventPermitEntity eventPermitEntity);
 
     void deleteExecutor(Integer id, Integer executor);
+
+    boolean existSerialNumber(String serialNumber);
 }
