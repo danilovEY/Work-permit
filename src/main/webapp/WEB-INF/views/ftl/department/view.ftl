@@ -101,7 +101,7 @@
                         <div class="dataTables_paginate paging_bootstrap pagination">
                             <ul>
                                 <#if departmentPage.number != 1 >
-                                    <li class="prev"><a href="<@spring.url relativeUrl="/departments?page=${departmentPage.number-1}"/>">← Previous</a></li>
+                                    <li class="prev"><a href="<@spring.url relativeUrl="/department?page=${departmentPage.number-1}"/>">← Previous</a></li>
                                 <#else>
                                     <li class="prev disabled"><a href="#">← Previous</a></li>
                                 </#if>
@@ -109,11 +109,11 @@
                                     <#if i == departmentPage.number>
                                         <li class="active"><a href="#">${i}</a></li>
                                     <#else>
-                                        <li><a href="<@spring.url relativeUrl="/departments?page=${i}"/>">${i}</a></li>
+                                        <li><a href="<@spring.url relativeUrl="/department?page=${i}"/>">${i}</a></li>
                                     </#if>
                                 </#list>
                                 <#if departmentPage.number != departmentPage.total >
-                                    <li class="next"><a href="<@spring.url relativeUrl="/departments?page=${departmentPage.number+1}"/>">Next → </a></li>
+                                    <li class="next"><a href="<@spring.url relativeUrl="/department?page=${departmentPage.number+1}"/>">Next → </a></li>
                                 <#else>
                                     <li class="next disabled"><a href="#">Next → </a></li>
                                 </#if>
