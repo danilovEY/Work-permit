@@ -22,4 +22,6 @@ public interface PermitPageDao extends BasePageDao<PermitEntity> {
     boolean existSerialNumber(String serialNumber);
 
     boolean setStatus(Integer id, String status);
+
+    String findSerialNumberById(Integer id);
 }

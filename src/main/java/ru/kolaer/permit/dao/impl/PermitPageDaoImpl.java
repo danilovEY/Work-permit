@@ -146,4 +146,14 @@ public class PermitPageDaoImpl extends BasePageDaoAbstract<PermitEntity> impleme
                 .setParameter("status", status)
                 .executeUpdate() > 0;
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public String findSerialNumberById(Integer id) {
+        return this.sessionFactory.getCurrentSession()
+                .createQuery("SELECT p.serialNumber FROM PermitEntity p WHERE p.id = :id", String.class)
+                .setParameter("id", id)
+                .uniqueResultOptional()
+                .orElse("");
+    }
 }

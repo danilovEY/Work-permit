@@ -106,8 +106,8 @@
                                         </a>
                                     </#if>
 
-                                    <a class="btn btn-success" style="margin-bottom: 4px;" title="Печатать" href="<@spring.url relativeUrl="/permit/print?id=${permit.id}"/>">
-                                        <i class="halflings-icon white print"></i>
+                                    <a class="btn btn-success" style="margin-bottom: 4px;" title="Получить бланк" href="<@spring.url relativeUrl="/permit/download/excel?id=${permit.id}"/>">
+                                        <i class="halflings-icon white download-alt"></i>
                                     </a>
                                     <a class="btn btn-danger" style="margin-bottom: 4px;" title="Удалить" href="<@spring.url relativeUrl="/permit/delete?id=${permit.id}"/>">
                                         <i class="halflings-icon white trash"></i>
@@ -147,8 +147,8 @@
                                             <i class="halflings-icon white edit"></i>
                                         </a>
                                     </#if>
-                                    <a class="btn btn-success" style="margin-bottom: 4px;" title="Печатать" href="<@spring.url relativeUrl="/permit/print?id=${permit.id}"/>">
-                                        <i class="halflings-icon white print"></i>
+                                    <a class="btn btn-success" style="margin-bottom: 4px;" title="Получить бланк" href="<@spring.url relativeUrl="/permit/download/excel?id=${permit.id}"/>">
+                                        <i class="halflings-icon white download-alt"></i>
                                     </a>
                                     <a class="btn btn-danger" style="margin-bottom: 4px;" title="Удалить" href="<@spring.url relativeUrl="/permit/delete?id=${permit.id}"/>">
                                         <i class="halflings-icon white trash"></i>

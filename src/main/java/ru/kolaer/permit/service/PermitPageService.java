@@ -26,4 +26,6 @@ public interface PermitPageService extends BasePageService<PermitEntity> {
     boolean setStatus(Integer id, String status, EmployeeEntity whoSetStatus);
 
     File printPermitToExcel(Integer id);
+
+    String getSerialNumber(Integer id);
 }

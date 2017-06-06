@@ -81,12 +81,16 @@ public class PermitController extends BaseController{
         return view;
     }
 
-    @RequestMapping(value = "print", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    public void printToFile(@RequestParam("id")Integer id, HttpServletResponse response) throws IOException {
+    @RequestMapping(value = "download/excel", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public void downloadToExcel(@RequestParam("id")Integer id, HttpServletResponse response) throws IOException {
         final File template = this.permitPageService.printPermitToExcel(id);
         if(template != null) {
+            final String serialNumber = this.permitPageService.getSerialNumber(id);
+
             response.setContentType("application/vnd.ms-excel");
-            response.setHeader("Content-Disposition", "inline; filename=\"" + template.getName() + "\"");
+            response.setHeader("Content-Disposition", "inline; filename=\""
+                    + serialNumber.replaceAll("/", "-")
+                    + ".xlsx" + "\"");
             response.setContentLength((int) template.length());
 
             InputStream inputStream = new BufferedInputStream(new FileInputStream(template));

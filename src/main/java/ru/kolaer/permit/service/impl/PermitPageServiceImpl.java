@@ -354,19 +354,27 @@ public class PermitPageServiceImpl extends BasePageServiceAbstract<PermitEntity>
 
             rowAdd = this.insertEvents(rowNumberForSpecialEvent.get() + rowAdd, specialEvents, permitSheet);
 
+            final File saveTemplate = new File(copyTemplateFilePath);
 
-            final File returnedFile = new File(tempDir.getAbsoluteFile() + "/"
-                    + workPermit.getSerialNumber().replaceAll("/", "-")
-                    + ".xlsx");
-
-            myExcelBook.write(new FileOutputStream(returnedFile));
+            myExcelBook.write(new FileOutputStream(saveTemplate));
             myExcelBook.close();
 
-            return returnedFile;
+            try {
+                saveTemplate.deleteOnExit();
+            } catch (SecurityException ex) {
+                log.error("Can't delete file: {}", saveTemplate.getAbsoluteFile(), ex);
+            }
+
+            return copyTemplateFile;
         } catch (IOException | InvalidFormatException e) {
             log.error("File not read!", e);
             return null;
         }
+    }
+
+    @Override
+    public String getSerialNumber(Integer id) {
+        return this.dao.findSerialNumberById(id);
     }
 
     private int insertEvents(int rowNumber, List<WorkEvent> events, XSSFSheet sheet) {
