@@ -101,10 +101,6 @@ public class WorkPermitEntity extends BaseEntity {
     @Column
     private String adaptations;
 
-    @Column
-    @Enumerated(EnumType.STRING)
-    private StatusPermit status;
-
     /**Продление работ*/
     @Temporal(TemporalType.TIMESTAMP)
     @Column

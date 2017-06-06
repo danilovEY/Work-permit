@@ -162,6 +162,15 @@ public class PermitController extends BaseController{
         return view;
     }
 
+    @RequestMapping(value = "view/work", method = RequestMethod.GET)
+    public ModelAndView getWorkViewPage(@RequestParam(value = "id") Integer id) {
+        final WorkPermitEntity workPermitEntity= this.permitPageService.getWorkById(id);
+
+        final ModelAndView view = this.createDefaultView("/permit/view/work");
+        view.addObject("workPermitEntity", workPermitEntity);
+        return view;
+    }
+
     @RequestMapping(value = "edit/event", method = RequestMethod.GET)
     public ModelAndView getEventEditPage(@RequestParam(value = "id") Integer id) {
         final List<WorkEvent> workEvents = this.workEventDao.findByIdPermit(id, false);
@@ -176,6 +185,19 @@ public class PermitController extends BaseController{
         return view;
     }
 
+    @RequestMapping(value = "view/event", method = RequestMethod.GET)
+    public ModelAndView getEventViewPage(@RequestParam(value = "id") Integer id) {
+        final List<WorkEvent> workEvents = this.workEventDao.findByIdPermit(id, false);
+
+        final EventPermitEntity eventPermitEntity = new EventPermitEntity();
+        eventPermitEntity.setId(id);
+        eventPermitEntity.setWorkEvents(workEvents);
+
+        final ModelAndView view = this.createDefaultView("/permit/view/event");
+        view.addObject("eventPermitEntity", eventPermitEntity);
+        return view;
+    }
+
     @RequestMapping(value = "edit/people", method = RequestMethod.GET)
     public ModelAndView getPeopleEditPage(@RequestParam(value = "id") Integer id) {
         final PeoplePermitEntity peoplePermitEntity = this.permitPageService.getPeopleById(id);
@@ -184,6 +206,22 @@ public class PermitController extends BaseController{
         view.addObject("peoplePermitEntity", peoplePermitEntity);
         view.addObject("employees", this.employeePageService.getAll());
         return view;
+    }
+
+    @RequestMapping(value = "view/people", method = RequestMethod.GET)
+    public ModelAndView getPeopleViewPage(@RequestParam(value = "id") Integer id) {
+        final PeoplePermitEntity peoplePermitEntity = this.permitPageService.getPeopleById(id);
+
+        final ModelAndView view = this.createDefaultView("/permit/view/people");
+        view.addObject("peoplePermitEntity", peoplePermitEntity);
+        return view;
+    }
+
+    @RequestMapping(value = "action/accept", method = RequestMethod.GET)
+    public String setAcceptStatus(@RequestParam(value = "id") Integer id) {
+        this.permitPageService.setStatus(id, "Запрос на согласование", this.getAuthEmployee());
+
+        return "redirect:/permit";
     }
 
 }

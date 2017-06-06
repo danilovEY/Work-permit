@@ -136,4 +136,14 @@ public class PermitPageDaoImpl extends BasePageDaoAbstract<PermitEntity> impleme
                 .uniqueResultOptional()
                 .isPresent();
     }
+
+    @Override
+    @Transactional
+    public boolean setStatus(Integer id, String status) {
+        return this.sessionFactory.getCurrentSession()
+                .createQuery("UPDATE PermitEntity p SET p.status = :status WHERE p.id = :id")
+                .setParameter("id", id)
+                .setParameter("status", status)
+                .executeUpdate() > 0;
+    }
 }

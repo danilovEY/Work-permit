@@ -14,6 +14,7 @@ import ru.kolaer.permit.dto.Page;
 import ru.kolaer.permit.entity.*;
 import ru.kolaer.permit.service.BasePageServiceAbstract;
 import ru.kolaer.permit.service.PermitPageService;
+import ru.kolaer.permit.service.PermitStatusHistoryPageService;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -40,14 +41,17 @@ public class PermitPageServiceImpl extends BasePageServiceAbstract<PermitEntity>
     private final String pathTemplatePermit;
     private final PermitPageDao dao;
     private final WorkEventDao workEventDao;
+    private final PermitStatusHistoryPageService permitStatusHistoryPageService;
 
     public PermitPageServiceImpl(@Value("${permit.template.path}") String pathTemplatePermit,
                                  PermitPageDao dao,
-                                 WorkEventDao workEventDao) {
+                                 WorkEventDao workEventDao,
+                                 PermitStatusHistoryPageService permitStatusHistoryPageService) {
         super(dao);
         this.pathTemplatePermit = pathTemplatePermit;
         this.dao = dao;
         this.workEventDao = workEventDao;
+        this.permitStatusHistoryPageService = permitStatusHistoryPageService;
     }
 
     @Override
@@ -95,6 +99,23 @@ public class PermitPageServiceImpl extends BasePageServiceAbstract<PermitEntity>
     @Override
     public boolean existSerialNumber(String serialNumber) {
         return this.dao.existSerialNumber(serialNumber);
+    }
+
+    @Override
+    public boolean setStatus(Integer id, String status, EmployeeEntity whoSetStatus) {
+        final PermitEntity permitEntity = new PermitEntity();
+        permitEntity.setId(id);
+
+        final PermitStatusHistoryEntity statusHistory = new PermitStatusHistoryEntity();
+        statusHistory.setStatus(status);
+        statusHistory.setStatusDate(new Date());
+        statusHistory.setEmployee(whoSetStatus);
+        statusHistory.setPermitId(permitEntity.getId());
+        statusHistory.setPermit(permitEntity);
+
+        this.permitStatusHistoryPageService.add(statusHistory);
+
+        return this.dao.setStatus(id, status);
     }
 
     @Override
