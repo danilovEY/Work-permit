@@ -62,7 +62,11 @@ public class WorkEventController extends BaseController {
     @RequestMapping(value = "update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public String updateWorkPage(WorkEvent workEvent) {
-        final WorkEvent updatable = this.workEventDao.update(workEvent);
+        final WorkEvent update = this.workEventDao.findById(workEvent.getId(), true);
+        update.setLimitDate(workEvent.getLimitDate());
+        update.setName(workEvent.getName());
+
+        final WorkEvent updatable = this.workEventDao.update(update);
 
         return "redirect:/event/edit?id=" + updatable.getId();
     }
@@ -78,19 +82,20 @@ public class WorkEventController extends BaseController {
     @RequestMapping(value = "add/employee", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public String addEmployeeWorkEvent(WorkEvent workEvent) {
-        final WorkEvent updatable = this.workEventDao.findById(workEvent.getId(), false);
-        updatable.getEmployeesEntity().addAll(workEvent.getEmployeesEntity());
+        if(workEvent.getEmployeesEntity() != null || !workEvent.getEmployeesEntity().isEmpty()) {
+            final WorkEvent updatable = this.workEventDao.findById(workEvent.getId(), true);
+            updatable.getEmployeesEntity().addAll(workEvent.getEmployeesEntity());
 
-        this.workEventDao.update(updatable);
+            this.workEventDao.update(updatable);
+        }
 
-        return "redirect:/event/edit?id=" + updatable.getId();
+        return "redirect:/event/edit?id=" + workEvent.getId();
     }
 
 
     @RequestMapping(value = "delete", method = RequestMethod.GET)
     public String deleteEmployeeFromWorkEvent(@RequestParam(value = "id") Integer id) {
-
-        WorkEvent workEvent = this.workEventDao.findById(id, false);
+        WorkEvent workEvent = this.workEventDao.findById(id, true);
         workEvent.setId(id);
 
         final int permitId = workEvent.getPermitId();

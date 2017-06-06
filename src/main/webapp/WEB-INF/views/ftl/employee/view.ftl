@@ -67,9 +67,9 @@
                         <tr class="odd">
                             <td class="center">${employee.personnelNumber!""}</td>
                             <td class="center">${employee.initials!""}</td>
-                            <td class="center">${employee.birthday!""}</td>
+                            <td class="center">${employee.birthday?string["dd.MM.yyyy"]}</td>
                             <td class="center">${employee.department.abbreviatedName!""}</td>
-                            <td class="center">${employee.post.abbreviatedName!""}</td>
+                            <td class="center">${employee.post.abbreviatedName!""} ${employee.post.rang!""} ${employee.post.typeRang!""}</td>
                             <td class="center">
                                 <a class="btn btn-success" title="Редактировать" href="<@spring.url relativeUrl="/employee/edit?id=${employee.id}"/>">
                                     <i class="halflings-icon white edit"></i>
@@ -83,9 +83,9 @@
                         <tr class="even">
                             <td class="center">${employee.personnelNumber!""}</td>
                             <td class="center">${employee.initials!""}</td>
-                            <td class="center">${employee.birthday!""}</td>
+                            <td class="center">${employee.birthday?string["dd.MM.yyyy"]}</td>
                             <td class="center">${employee.department.abbreviatedName!""}</td>
-                            <td class="center">${employee.post.abbreviatedName!""}</td>
+                            <td class="center">${employee.post.abbreviatedName!""} ${employee.post.rang!""} ${employee.post.typeRang!""}</td>
                             <td class="center">
                                 <a class="btn btn-success" title="Редактировать" href="<@spring.url relativeUrl="/employee/edit?id=${employee.id}"/>">
                                     <i class="halflings-icon white edit"></i>
