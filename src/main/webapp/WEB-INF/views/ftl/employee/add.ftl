@@ -122,7 +122,7 @@
                 </div>
 
                 <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">Обновить</button>
+                    <button type="submit" class="btn btn-primary">Добавить</button>
                     <button type="reset" class="btn" onclick="window.location.href='<@spring.url relativeUrl="/employee"/>'">Отмена</button>
                 </div>
             </form>
