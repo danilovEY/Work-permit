@@ -22,19 +22,19 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class WorkPermitEntity extends BaseEntity {
-    @Column(length = 20)
+    @Column(length = 20, nullable = false)
     private String serialNumber;
 
     /**Выдан*/
-    @Column(name = "write_word")
+    @Column
     private Date dateWritePermit;
 
     /**Годен до*/
-    @Column(name = "limit_word")
+    @Column
     private Date dateLimitPermit;
 
     /**Наименование работ*/
-    @Column
+    @Column(nullable = false)
     private String name;
 
     /**Комметы*/

@@ -20,7 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class ShortPermitEntity extends BaseEntity {
-    @Column(length = 20)
+    @Column(length = 20, nullable = false)
     private String serialNumber;
 
     /**Руководитель*/
@@ -34,15 +34,15 @@ public class ShortPermitEntity extends BaseEntity {
     private EmployeeEntity ResponsibleExecutor;
 
     /**Выдан*/
-    @Column(name = "write_word")
+    @Column
     private Date dateWritePermit;
 
     /**Годен до*/
-    @Column(name = "limit_word")
+    @Column
     private Date dateLimitPermit;
 
     /**Наименование работ*/
-    @Column
+    @Column(nullable = false)
     private String name;
 
     /**Начало работ*/

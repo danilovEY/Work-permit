@@ -41,11 +41,11 @@ public class PermitEntity extends BaseEntity {
     private List<EmployeeEntity> executors;
 
     /**Выдан*/
-    @Column(name = "write_word")
+    @Column(nullable = false)
     private Date dateWritePermit;
 
     /**Годен до*/
-    @Column(name = "limit_word")
+    @Column
     private Date dateLimitPermit;
 
     /**Наименование работ*/
@@ -124,7 +124,6 @@ public class PermitEntity extends BaseEntity {
             inverseJoinColumns = @JoinColumn( name="executor_id"))
     private List<EmployeeEntity> preparedExecutors;*/
 
-    /**Мероприятия*/
     @OneToMany(mappedBy = "permit", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<PermitStatusHistoryEntity> permitStatusHistories;
