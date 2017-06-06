@@ -5,7 +5,8 @@
 <#import "/spring.ftl" as spring>
 
 <#assign EDIT_PERMIT = "Редактирование"/>
-<#assign NEED_REQUEST_PERMIT = "Запрос на согласование"/>
+<#assign NEED_ACCEPT_PERMIT = "Запрос на согласование"/>
+<#assign ACCEPT_PERMIT = "Согласовано"/>
 <#assign CANCELED = "Отменен"/>
 
 <@base.override "body">
@@ -86,10 +87,12 @@
                                     <td class="center"></td>
                                 </#if>
 
-                                <#if permit.status == NEED_REQUEST_PERMIT>
+                                <#if permit.status == NEED_ACCEPT_PERMIT>
                                     <td class="center"><span class="label label-warning">${permit.status}</span></td>
                                 <#elseif permit.status == CANCELED>
                                     <td class="center"><span class="label label-important">${permit.status}</span></td>
+                                <#elseif permit.status == ACCEPT_PERMIT>
+                                    <td class="center"><span class="label label-success">${permit.status}</span></td>
                                 <#else>
                                     <td class="center"><span class="label">${permit.status}</span></td>
                                 </#if>
@@ -104,7 +107,7 @@
                                     </a>
 
                                     <#if permit.status == EDIT_PERMIT>
-                                        <a class="btn btn-info" style="margin-bottom: 4px;" title="Запрос на согласование" href="<@spring.url relativeUrl="/permit/action/accept?id=${permit.id}"/>">
+                                        <a class="btn btn-info" style="margin-bottom: 4px;" title="Запрос на согласование" href="<@spring.url relativeUrl="/permit/action/need/accept?id=${permit.id}"/>">
                                             <i class="halflings-icon white question-sign"></i>
                                         </a>
 
@@ -116,7 +119,10 @@
                                         </a>
                                     </#if>
 
-                                    <#if permit.status == NEED_REQUEST_PERMIT>
+                                    <#if permit.status == NEED_ACCEPT_PERMIT>
+                                        <a class="btn btn-info" style="margin-bottom: 4px;" title="Согласовать" href="<@spring.url relativeUrl="/permit/action/accept?id=${permit.id}"/>">
+                                            <i class="halflings-icon white ok-circle"></i>
+                                        </a>
                                         <a class="btn btn-danger" style="margin-bottom: 4px;" title="Отменить" href="<@spring.url relativeUrl="/permit/cancel?id=${permit.id}"/>">
                                             <i class="halflings-icon white ban-circle"></i>
                                         </a>
@@ -138,10 +144,12 @@
                                     <td class="center"></td>
                                 </#if>
 
-                                <#if permit.status == NEED_REQUEST_PERMIT>
+                                <#if permit.status == NEED_ACCEPT_PERMIT>
                                     <td class="center"><span class="label label-warning">${permit.status}</span></td>
                                 <#elseif permit.status == CANCELED>
                                     <td class="center"><span class="label label-important">${permit.status}</span></td>
+                                <#elseif permit.status == ACCEPT_PERMIT>
+                                    <td class="center"><span class="label label-success">${permit.status}</span></td>
                                 <#else>
                                     <td class="center"><span class="label">${permit.status}</span></td>
                                 </#if>
@@ -156,7 +164,7 @@
                                     </a>
 
                                     <#if permit.status == EDIT_PERMIT>
-                                        <a class="btn btn-info" style="margin-bottom: 4px;" title="Запрос на согласование" href="<@spring.url relativeUrl="/permit/action/accept?id=${permit.id}"/>">
+                                        <a class="btn btn-info" style="margin-bottom: 4px;" title="Запрос на согласование" href="<@spring.url relativeUrl="/permit/action/need/accept?id=${permit.id}"/>">
                                             <i class="halflings-icon white question-sign"></i>
                                         </a>
 
@@ -168,12 +176,14 @@
                                         </a>
                                     </#if>
 
-                                    <#if permit.status == NEED_REQUEST_PERMIT>
+                                    <#if permit.status == NEED_ACCEPT_PERMIT>
+                                        <a class="btn btn-info" style="margin-bottom: 4px;" title="Согласовать" href="<@spring.url relativeUrl="/permit/action/accept?id=${permit.id}"/>">
+                                            <i class="halflings-icon white ok-circle"></i>
+                                        </a>
                                         <a class="btn btn-danger" style="margin-bottom: 4px;" title="Отменить" href="<@spring.url relativeUrl="/permit/cancel?id=${permit.id}"/>">
                                             <i class="halflings-icon white ban-circle"></i>
                                         </a>
                                     </#if>
-
                                 </td>
                             </tr>
                             </#if>
@@ -215,8 +225,6 @@
         </div>
     </div><!--/span-->
 </div>
-
-<s
 
 </@base.override>
 

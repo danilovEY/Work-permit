@@ -237,9 +237,16 @@ public class PermitController extends BaseController{
         return view;
     }
 
+    @RequestMapping(value = "action/need/accept", method = RequestMethod.GET)
+    public String setNeedAcceptStatus(@RequestParam(value = "id") Integer id) {
+        this.permitPageService.setStatus(id, "Запрос на согласование", this.getAuthEmployee());
+
+        return "redirect:/permit";
+    }
+
     @RequestMapping(value = "action/accept", method = RequestMethod.GET)
     public String setAcceptStatus(@RequestParam(value = "id") Integer id) {
-        this.permitPageService.setStatus(id, "Запрос на согласование", this.getAuthEmployee());
+        this.permitPageService.setStatus(id, "Согласовано", this.getAuthEmployee());
 
         return "redirect:/permit";
     }
