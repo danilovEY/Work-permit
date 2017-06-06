@@ -1,8 +1,10 @@
 package ru.kolaer.permit.controller;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,13 +14,12 @@ import ru.kolaer.permit.dto.Page;
 import ru.kolaer.permit.entity.*;
 import ru.kolaer.permit.service.EmployeePageService;
 import ru.kolaer.permit.service.PermitPageService;
-import ru.kolaer.permit.service.PermitStatusHistoryPageService;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Created by danilovey on 13.04.2017.
@@ -80,11 +81,18 @@ public class PermitController extends BaseController{
         return view;
     }
 
-    @RequestMapping(value = "print", method = RequestMethod.GET)
-    public String printToFile(@RequestParam("id")Integer id) {
-        this.permitPageService.printPermitToExcel(id);
+    @RequestMapping(value = "print", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public void printToFile(@RequestParam("id")Integer id, HttpServletResponse response) throws IOException {
+        final File template = this.permitPageService.printPermitToExcel(id);
+        if(template != null) {
+            response.setContentType("application/vnd.ms-excel");
+            response.setHeader("Content-Disposition", "inline; filename=\"" + template.getName() + "\"");
+            response.setContentLength((int) template.length());
 
-        return "redirect:/permit";
+            InputStream inputStream = new BufferedInputStream(new FileInputStream(template));
+
+            FileCopyUtils.copy(inputStream, response.getOutputStream());
+        }
     }
 
     @RequestMapping(value = "delete/executor", method = RequestMethod.GET)

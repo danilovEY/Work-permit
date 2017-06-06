@@ -34,6 +34,7 @@
     </bean>
 
     <context:component-scan base-package="ru.kolaer.permit.controller" />
+    <context:component-scan base-package="ru.kolaer.permit.api" />
 
     <mvc:resources mapping="/resources/**" location="/resources/" />
 

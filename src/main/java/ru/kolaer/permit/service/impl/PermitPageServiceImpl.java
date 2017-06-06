@@ -23,10 +23,8 @@ import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -119,7 +117,7 @@ public class PermitPageServiceImpl extends BasePageServiceAbstract<PermitEntity>
     }
 
     @Override
-    public void printPermitToExcel(Integer id) {
+    public File printPermitToExcel(Integer id) {
         final WorkPermitEntity workPermit = this.getWorkById(id);
         final PeoplePermitEntity peoplePermit = this.getPeopleById(id);
         final List<WorkEvent> workEvents = this.workEventDao.findByIdPermit(id, false);
@@ -130,12 +128,12 @@ public class PermitPageServiceImpl extends BasePageServiceAbstract<PermitEntity>
 
         if(!fileTemplate.exists()) {
             log.error("File template is not exist!");
-            return;
+            return fileTemplate;
         }
 
         final File tempDir = new File(System.getProperty("permit.home") + "/" + "temp");
         if(!tempDir.exists() && !tempDir.mkdir())
-            return;
+            return fileTemplate;
 
         final String copyTemplateFilePath = tempDir.getAbsoluteFile() + "/" + UUID.randomUUID().toString();
         final File copyTemplateFile = new File(copyTemplateFilePath + ".xlsx");
@@ -143,13 +141,13 @@ public class PermitPageServiceImpl extends BasePageServiceAbstract<PermitEntity>
             Files.copy(fileTemplate.toPath(), copyTemplateFile.toPath());
         } catch (IOException e) {
             log.error("File can't copy!", e);
-            return;
+            return fileTemplate;
         }
 
 
         try {
             if(!copyTemplateFile.exists())
-                return;
+                return fileTemplate;
 
             final XSSFWorkbook myExcelBook = new XSSFWorkbook(copyTemplateFile);
             final XSSFSheet permitSheet = myExcelBook.getSheet("Бланк");
@@ -357,10 +355,17 @@ public class PermitPageServiceImpl extends BasePageServiceAbstract<PermitEntity>
             rowAdd = this.insertEvents(rowNumberForSpecialEvent.get() + rowAdd, specialEvents, permitSheet);
 
 
-            myExcelBook.write(new FileOutputStream(copyTemplateFilePath));
+            final File returnedFile = new File(tempDir.getAbsoluteFile() + "/"
+                    + workPermit.getSerialNumber().replaceAll("/", "-")
+                    + ".xlsx");
+
+            myExcelBook.write(new FileOutputStream(returnedFile));
             myExcelBook.close();
+
+            return returnedFile;
         } catch (IOException | InvalidFormatException e) {
             log.error("File not read!", e);
+            return null;
         }
     }
 
