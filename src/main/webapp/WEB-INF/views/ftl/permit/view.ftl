@@ -6,6 +6,7 @@
 
 <#assign EDIT_PERMIT = "Редактирование"/>
 <#assign NEED_REQUEST_PERMIT = "Запрос на согласование"/>
+<#assign CANCELED = "Отменен"/>
 
 <@base.override "body">
 <div class="row-fluid">
@@ -87,6 +88,8 @@
 
                                 <#if permit.status == NEED_REQUEST_PERMIT>
                                     <td class="center"><span class="label label-warning">${permit.status}</span></td>
+                                <#elseif permit.status == CANCELED>
+                                    <td class="center"><span class="label label-important">${permit.status}</span></td>
                                 <#else>
                                     <td class="center"><span class="label">${permit.status}</span></td>
                                 </#if>
@@ -94,6 +97,10 @@
                                 <td class="center">
                                     <a class="btn btn-success" style="margin-bottom: 4px;" title="Просмотр" href="<@spring.url relativeUrl="/permit/view/work?id=${permit.id}"/>">
                                         <i class="halflings-icon white eye-open"></i>
+                                    </a>
+
+                                    <a class="btn btn-success" style="margin-bottom: 4px;" title="Получить бланк" href="<@spring.url relativeUrl="/permit/download/excel?id=${permit.id}"/>">
+                                        <i class="halflings-icon white download-alt"></i>
                                     </a>
 
                                     <#if permit.status == EDIT_PERMIT>
@@ -104,14 +111,17 @@
                                         <a class="btn btn-success" style="margin-bottom: 4px;" title="Редактировать" href="<@spring.url relativeUrl="/permit/edit/work?id=${permit.id}"/>">
                                             <i class="halflings-icon white edit"></i>
                                         </a>
+                                        <a class="btn btn-danger" style="margin-bottom: 4px;" title="Удалить" href="<@spring.url relativeUrl="/permit/delete?id=${permit.id}"/>">
+                                            <i class="halflings-icon white trash"></i>
+                                        </a>
                                     </#if>
 
-                                    <a class="btn btn-success" style="margin-bottom: 4px;" title="Получить бланк" href="<@spring.url relativeUrl="/permit/download/excel?id=${permit.id}"/>">
-                                        <i class="halflings-icon white download-alt"></i>
-                                    </a>
-                                    <a class="btn btn-danger" style="margin-bottom: 4px;" title="Удалить" href="<@spring.url relativeUrl="/permit/delete?id=${permit.id}"/>">
-                                        <i class="halflings-icon white trash"></i>
-                                    </a>
+                                    <#if permit.status == NEED_REQUEST_PERMIT>
+                                        <a class="btn btn-danger" style="margin-bottom: 4px;" title="Отменить" href="<@spring.url relativeUrl="/permit/cancel?id=${permit.id}"/>">
+                                            <i class="halflings-icon white ban-circle"></i>
+                                        </a>
+                                    </#if>
+
                                 </td>
                             </tr>
                             <#else>
@@ -130,6 +140,8 @@
 
                                 <#if permit.status == NEED_REQUEST_PERMIT>
                                     <td class="center"><span class="label label-warning">${permit.status}</span></td>
+                                <#elseif permit.status == CANCELED>
+                                    <td class="center"><span class="label label-important">${permit.status}</span></td>
                                 <#else>
                                     <td class="center"><span class="label">${permit.status}</span></td>
                                 </#if>
@@ -139,20 +151,29 @@
                                         <i class="halflings-icon white eye-open"></i>
                                     </a>
 
+                                    <a class="btn btn-success" style="margin-bottom: 4px;" title="Получить бланк" href="<@spring.url relativeUrl="/permit/download/excel?id=${permit.id}"/>">
+                                        <i class="halflings-icon white download-alt"></i>
+                                    </a>
+
                                     <#if permit.status == EDIT_PERMIT>
                                         <a class="btn btn-info" style="margin-bottom: 4px;" title="Запрос на согласование" href="<@spring.url relativeUrl="/permit/action/accept?id=${permit.id}"/>">
                                             <i class="halflings-icon white question-sign"></i>
                                         </a>
+
                                         <a class="btn btn-success" style="margin-bottom: 4px;" title="Редактировать" href="<@spring.url relativeUrl="/permit/edit/work?id=${permit.id}"/>">
                                             <i class="halflings-icon white edit"></i>
                                         </a>
+                                        <a class="btn btn-danger" style="margin-bottom: 4px;" title="Удалить" href="<@spring.url relativeUrl="/permit/delete?id=${permit.id}"/>">
+                                            <i class="halflings-icon white trash"></i>
+                                        </a>
                                     </#if>
-                                    <a class="btn btn-success" style="margin-bottom: 4px;" title="Получить бланк" href="<@spring.url relativeUrl="/permit/download/excel?id=${permit.id}"/>">
-                                        <i class="halflings-icon white download-alt"></i>
-                                    </a>
-                                    <a class="btn btn-danger" style="margin-bottom: 4px;" title="Удалить" href="<@spring.url relativeUrl="/permit/delete?id=${permit.id}"/>">
-                                        <i class="halflings-icon white trash"></i>
-                                    </a>
+
+                                    <#if permit.status == NEED_REQUEST_PERMIT>
+                                        <a class="btn btn-danger" style="margin-bottom: 4px;" title="Отменить" href="<@spring.url relativeUrl="/permit/cancel?id=${permit.id}"/>">
+                                            <i class="halflings-icon white ban-circle"></i>
+                                        </a>
+                                    </#if>
+
                                 </td>
                             </tr>
                             </#if>

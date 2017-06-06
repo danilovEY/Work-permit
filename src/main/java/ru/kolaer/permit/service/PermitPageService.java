@@ -9,6 +9,10 @@ import java.io.File;
  * Created by Danilov on 24.05.2017.
  */
 public interface PermitPageService extends BasePageService<PermitEntity> {
+    String EDIT_STATUS = "Редактирование";
+    String CANCEL_STATUS = "Отменен";
+    String NEED_REQUEST_STATUS = "Запрос на согласование";
+
     Page<ShortPermitEntity> getShortAll(Integer number, Integer pageSize);
 
     WorkPermitEntity getWorkById(Integer id);
@@ -28,4 +32,6 @@ public interface PermitPageService extends BasePageService<PermitEntity> {
     File printPermitToExcel(Integer id);
 
     String getSerialNumber(Integer id);
+
+    boolean cancel(Integer id, EmployeeEntity whoSetStatus);
 }
