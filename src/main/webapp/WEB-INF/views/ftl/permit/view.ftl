@@ -10,6 +10,8 @@
 <#assign ACCEPT_PERMIT = "Согласовано"/>
 <#assign PERMIT = "Допуск"/>
 <#assign CANCELED = "Отменен"/>
+<#assign WORKING = "В работе"/>
+<#assign OVERDUE = "Просрочен"/>
 
 <@base.override "body">
 <div class="row-fluid">
@@ -106,6 +108,10 @@
                                     <td class="center"><span class="label label-info">${permit.status}</span></td>
                                 <#elseif permit.status == PERMIT>
                                     <td class="center"><span class="label label-success">${permit.status}</span></td>
+                                <#elseif permit.status == WORKING>
+                                    <td class="center"><span class="label label-success">${permit.status}</span></td>
+                                <#elseif permit.status == OVERDUE>
+                                    <td class="center"><span class="label label-important">${permit.status}</span></td>
                                 <#else>
                                     <td class="center"><span class="label">${permit.status}</span></td>
                                 </#if>
@@ -171,6 +177,10 @@
                                     <td class="center"><span class="label label-info">${permit.status}</span></td>
                                 <#elseif permit.status == PERMIT>
                                     <td class="center"><span class="label label-success">${permit.status}</span></td>
+                                <#elseif permit.status == WORKING>
+                                    <td class="center"><span class="label label-success">${permit.status}</span></td>
+                                <#elseif permit.status == OVERDUE>
+                                    <td class="center"><span class="label label-important">${permit.status}</span></td>
                                 <#else>
                                     <td class="center"><span class="label">${permit.status}</span></td>
                                 </#if>

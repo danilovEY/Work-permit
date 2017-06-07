@@ -10,8 +10,11 @@ import java.io.File;
  */
 public interface PermitPageService extends BasePageService<PermitEntity> {
     String EDIT_STATUS = "Редактирование";
-    String CANCEL_STATUS = "Отменен";
+    String CANCELED_STATUS = "Отменен";
     String NEED_REQUEST_STATUS = "Запрос на согласование";
+    String OVERDUE_STATUS = "Просрочен";
+    String WORKING_STATUS = "В работе";
+    String PERMIT_STATUS = "Допуск";
 
     Page<ShortPermitEntity> getShortAll(Integer number, Integer pageSize);
     Page<ShortPermitEntity> getShortAll(Integer number, Integer pageSize, Integer sort);

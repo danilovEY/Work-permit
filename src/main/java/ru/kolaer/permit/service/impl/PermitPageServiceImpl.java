@@ -111,7 +111,7 @@ public class PermitPageServiceImpl extends BasePageServiceAbstract<PermitEntity>
 
     @Override
     public boolean cancel(Integer id, EmployeeEntity whoSetStatus) {
-        return this.setStatus(id, CANCEL_STATUS, whoSetStatus);
+        return this.setStatus(id, CANCELED_STATUS, whoSetStatus);
     }
 
     @Override

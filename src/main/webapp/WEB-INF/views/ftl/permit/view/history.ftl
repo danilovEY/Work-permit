@@ -9,6 +9,8 @@
 <#assign ACCEPT_PERMIT = "Согласовано"/>
 <#assign PERMIT = "Допуск"/>
 <#assign CANCELED = "Отменен"/>
+<#assign WORKING = "В работе"/>
+<#assign OVERDUE = "Просрочен"/>
 
 <@base.override "body">
 
@@ -37,7 +39,9 @@
                                 <ul class="dashboard-list">
                                     <#list statuses as status>
                                         <li>
-                                            <strong>Ф.И.О.:</strong> ${status.employee.initials}<br>
+                                            <#if status.employee?has_content>
+                                                <strong>Ф.И.О.:</strong> ${status.employee.initials}<br>
+                                            </#if>
                                             <strong>Дата изменения:</strong> ${status.statusDate?string["dd.MM.yyyy hh:mm"]}<br>
                                             <strong>Статус:</strong>
                                             <#if status.status == NEED_ACCEPT_PERMIT>
@@ -48,6 +52,10 @@
                                                 <span class="label label-info">${status.status}</span>
                                             <#elseif status.status == PERMIT>
                                                 <span class="label label-success">${status.status}</span>
+                                            <#elseif status.status == WORKING>
+                                               <span class="label label-success">${status.status}</span>
+                                            <#elseif status.status == OVERDUE>
+                                                <span class="label label-important">${status.status}</span>
                                             <#else>
                                                 <span class="label">${status.status}</span>
                                             </#if>

@@ -154,6 +154,16 @@ public class PermitPageDaoImpl extends BasePageDaoAbstract<PermitEntity> impleme
     }
 
     @Override
+    @Transactional
+    public boolean setStatus(List<Integer> ids, String status) {
+        return this.sessionFactory.getCurrentSession()
+                .createQuery("UPDATE PermitEntity p SET p.status = :status WHERE p.id IN(:id)")
+                .setParameterList("id", ids)
+                .setParameter("status", status)
+                .executeUpdate() > 0;
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public String findSerialNumberById(Integer id) {
         return this.sessionFactory.getCurrentSession()
@@ -161,5 +171,23 @@ public class PermitPageDaoImpl extends BasePageDaoAbstract<PermitEntity> impleme
                 .setParameter("id", id)
                 .uniqueResultOptional()
                 .orElse("");
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Integer> findAllByStatusAndOverdue(String status) {
+        return this.sessionFactory.getCurrentSession()
+                .createQuery("SELECT p.id FROM PermitEntity p WHERE p.status = :status AND p.endWork <= CURRENT_DATE()", Integer.class)
+                .setParameter("status", status)
+                .list();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Integer> findAllByStatusAndStartWork(String status) {
+        return this.sessionFactory.getCurrentSession()
+                .createQuery("SELECT p.id FROM PermitEntity p WHERE p.status = :status AND p.startWork <= CURRENT_DATE()", Integer.class)
+                .setParameter("status", status)
+                .list();
     }
 }

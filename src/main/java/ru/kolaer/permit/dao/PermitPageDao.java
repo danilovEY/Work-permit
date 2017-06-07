@@ -3,6 +3,8 @@ package ru.kolaer.permit.dao;
 import ru.kolaer.permit.dto.Page;
 import ru.kolaer.permit.entity.*;
 
+import java.util.List;
+
 /**
  * Created by Danilov on 24.05.2017.
  */
@@ -22,6 +24,11 @@ public interface PermitPageDao extends BasePageDao<PermitEntity> {
     boolean existSerialNumber(String serialNumber);
 
     boolean setStatus(Integer id, String status);
+    boolean setStatus(List<Integer> ids, String status);
 
     String findSerialNumberById(Integer id);
+
+    List<Integer> findAllByStatusAndOverdue(String overdue);
+
+    List<Integer> findAllByStatusAndStartWork(String status);
 }
