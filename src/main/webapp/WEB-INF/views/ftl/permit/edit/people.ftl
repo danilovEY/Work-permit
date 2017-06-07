@@ -18,6 +18,7 @@
                 <li class=""><a href="<@spring.url relativeUrl="/permit/edit/work?id=${peoplePermitEntity.id}"/>">Работа</a></li>
                 <li class=""><a href="<@spring.url relativeUrl="/permit/edit/event?id=${peoplePermitEntity.id}"/>">Условия и мероприятия</a></li>
                 <li class="active"><a href="<@spring.url relativeUrl="/permit/edit/people?id=${peoplePermitEntity.id}"/>">Люди</a></li>
+                <li class=""><a href="<@spring.url relativeUrl="/permit/view/history?id=${peoplePermitEntity.id}"/>">История</a></li>
             </ul>
             <form class="form-inline" method="post" action="<@spring.url relativeUrl="/permit/update/people"/>">
                 <input type="hidden" name="id" value="${peoplePermitEntity.id!""}">

@@ -36,4 +36,9 @@ public class PermitStatusHistoryPageServiceImpl extends BasePageServiceAbstract<
 
         return this.dao.findLastStatusByIdPermitRange(id);
     }
+
+    @Override
+    public List<PermitStatusHistoryEntity> getAllByPermitId(Integer id) {
+        return this.dao.findAllById(id);
+    }
 }

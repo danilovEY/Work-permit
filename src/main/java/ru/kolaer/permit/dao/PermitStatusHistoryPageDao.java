@@ -11,4 +11,6 @@ public interface PermitStatusHistoryPageDao extends BasePageDao<PermitStatusHist
     PermitStatusHistoryEntity findLastStatusByIdPermit(Integer id);
 
     List<PermitStatusHistoryEntity> findLastStatusByIdPermitRange(List<Integer> id);
+
+    List<PermitStatusHistoryEntity> findAllById(Integer id);
 }

@@ -18,6 +18,7 @@
                 <li class=""><a href="<@spring.url relativeUrl="/permit/edit/work?id=${eventPermitEntity.id}"/>">Работа</a></li>
                 <li class="active"><a href="<@spring.url relativeUrl="/permit/edit/event?id=${eventPermitEntity.id}"/>">Условия и мероприятия</a></li>
                 <li class=""><a href="<@spring.url relativeUrl="/permit/edit/people?id=${eventPermitEntity.id}"/>">Люди</a></li>
+                <li class=""><a href="<@spring.url relativeUrl="/permit/view/history?id=${eventPermitEntity.id}"/>">История</a></li>
             </ul>
                 <div id="myTabContent" class="tab-content">
                     <#-- SECOND TAB -->

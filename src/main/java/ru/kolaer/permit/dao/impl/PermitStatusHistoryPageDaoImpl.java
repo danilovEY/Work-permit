@@ -34,8 +34,8 @@ public class PermitStatusHistoryPageDaoImpl extends BasePageDaoAbstract<PermitSt
     @Override
     @Transactional(readOnly = true)
     public PermitStatusHistoryEntity findLastStatusByIdPermit(Integer id) {
-        return (PermitStatusHistoryEntity) this.sessionFactory.getCurrentSession()
-                .createQuery("FROM PermitStatusHistoryEntity p WHERE p.permit.id = :id ORDER BY p.statusDate DESC")
+        return this.sessionFactory.getCurrentSession()
+                .createQuery("FROM PermitStatusHistoryEntity p WHERE p.permit.id = :id ORDER BY p.statusDate DESC", PermitStatusHistoryEntity.class)
                 .setParameter("id", id)
                 .setMaxResults(1)
                 .uniqueResult();
@@ -47,6 +47,15 @@ public class PermitStatusHistoryPageDaoImpl extends BasePageDaoAbstract<PermitSt
         return this.sessionFactory.getCurrentSession()
                 .createQuery("FROM PermitStatusHistoryEntity p WHERE p.permit.id IN(:id) ORDER BY p.statusDate DESC")
                 .setParameterList("id", id)
+                .list();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<PermitStatusHistoryEntity> findAllById(Integer id) {
+        return this.sessionFactory.getCurrentSession()
+                .createQuery("FROM PermitStatusHistoryEntity p WHERE p.permit.id = :id ORDER BY p.statusDate DESC", PermitStatusHistoryEntity.class)
+                .setParameter("id", id)
                 .list();
     }
 }

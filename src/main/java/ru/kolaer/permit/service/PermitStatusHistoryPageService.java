@@ -10,4 +10,6 @@ import java.util.List;
 public interface PermitStatusHistoryPageService extends BasePageService<PermitStatusHistoryEntity> {
     PermitStatusHistoryEntity getLastStatusByIdPermit(Integer id);
     List<PermitStatusHistoryEntity> getLastStatusByIdPermitRange(List<Integer> id);
+
+    List<PermitStatusHistoryEntity> getAllByPermitId(Integer id);
 }

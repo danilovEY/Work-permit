@@ -1,7 +1,6 @@
 package ru.kolaer.permit.controller;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
@@ -14,6 +13,7 @@ import ru.kolaer.permit.dto.Page;
 import ru.kolaer.permit.entity.*;
 import ru.kolaer.permit.service.EmployeePageService;
 import ru.kolaer.permit.service.PermitPageService;
+import ru.kolaer.permit.service.PermitStatusHistoryPageService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -30,14 +30,16 @@ public class PermitController extends BaseController{
 
     private final PermitPageService permitPageService;
     private final WorkEventDao workEventDao;
+    private final PermitStatusHistoryPageService permitStatusHistoryPageService;
 
     public PermitController(@Value("${default.login}") String defaultLogin,
                             PermitPageService permitPageService,
                             EmployeePageService employeePageService,
-                            WorkEventDao workEventDao) {
+                            WorkEventDao workEventDao, PermitStatusHistoryPageService permitStatusHistoryPageService) {
         super(defaultLogin, employeePageService);
         this.permitPageService = permitPageService;
         this.workEventDao = workEventDao;
+        this.permitStatusHistoryPageService = permitStatusHistoryPageService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -234,6 +236,16 @@ public class PermitController extends BaseController{
 
         final ModelAndView view = this.createDefaultView("/permit/view/people");
         view.addObject("peoplePermitEntity", peoplePermitEntity);
+        return view;
+    }
+
+    @RequestMapping(value = "view/history", method = RequestMethod.GET)
+    public ModelAndView getHistoryViewPage(@RequestParam(value = "id") Integer id) {
+        final List<PermitStatusHistoryEntity> statuses = this.permitStatusHistoryPageService.getAllByPermitId(id);
+
+        final ModelAndView view = this.createDefaultView("/permit/view/history");
+        view.addObject("statuses", statuses);
+        view.addObject("permitId", id);
         return view;
     }
 
