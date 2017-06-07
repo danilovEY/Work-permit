@@ -252,6 +252,16 @@ public class PermitController extends BaseController{
         return view;
     }
 
+    @RequestMapping(value = "edit/history", method = RequestMethod.GET)
+    public ModelAndView getHistoryEditPage(@RequestParam(value = "id") Integer id) {
+        final List<PermitStatusHistoryEntity> statuses = this.permitStatusHistoryPageService.getAllByPermitId(id);
+
+        final ModelAndView view = this.createDefaultView("/permit/edit/history");
+        view.addObject("statuses", statuses);
+        view.addObject("permitId", id);
+        return view;
+    }
+
     @RequestMapping(value = "action/need/accept", method = RequestMethod.GET)
     public String setNeedAcceptStatus(@RequestParam(value = "id") Integer id) {
         this.permitPageService.setStatus(id, "Запрос на согласование", this.getAuthEmployee());
