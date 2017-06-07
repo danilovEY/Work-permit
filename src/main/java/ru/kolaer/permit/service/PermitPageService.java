@@ -14,6 +14,7 @@ public interface PermitPageService extends BasePageService<PermitEntity> {
     String NEED_REQUEST_STATUS = "Запрос на согласование";
 
     Page<ShortPermitEntity> getShortAll(Integer number, Integer pageSize);
+    Page<ShortPermitEntity> getShortAll(Integer number, Integer pageSize, Integer sort);
 
     WorkPermitEntity getWorkById(Integer id);
     EventPermitEntity getEventById(Integer id);

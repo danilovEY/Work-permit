@@ -135,7 +135,7 @@ public class PermitEntity extends BaseEntity {
 
     /**Продление работ*/
     @Temporal(TemporalType.TIMESTAMP)
-    @Column
+    @Column(nullable = false)
     private Date extendedPermit;
 
 }

@@ -44,11 +44,13 @@ public class PermitController extends BaseController{
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView getIndexPage(@RequestParam(value = "page", defaultValue = "1") Integer number,
-                                     @RequestParam(value = "pagesize", defaultValue = "15") Integer pageSize) {
-        final Page<ShortPermitEntity> all = this.permitPageService.getShortAll(number, pageSize);
+                                     @RequestParam(value = "pagesize", defaultValue = "15") Integer pageSize,
+                                     @RequestParam(value = "sort", defaultValue = "0") Integer sort) {
+        final Page<ShortPermitEntity> all = this.permitPageService.getShortAll(number, pageSize, sort);
 
         final ModelAndView view = this.createDefaultView("/permit/view");
         view.addObject("permitPage", all);
+        view.addObject("typeSort", sort);
         return view;
     }
 
@@ -160,6 +162,7 @@ public class PermitController extends BaseController{
 
         permitEntity.setWriter(this.getAuthEmployee());
         permitEntity.setDateWritePermit(new Date());
+        permitEntity.setExtendedPermit(new Date());
 
         final PermitStatusHistoryEntity createNewPermit = new PermitStatusHistoryEntity();
         createNewPermit.setEmployee(permitEntity.getWriter());

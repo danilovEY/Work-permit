@@ -1,4 +1,5 @@
 <#-- @ftlvariable name="permitPage" type="ru.kolaer.permit.dto.Page<ru.kolaer.permit.entity.ShortPermitEntity>" -->
+<#-- @ftlvariable name="typeSort" type="java.lang.Integer" -->
 
 
 <#import "../layout/baseTemplate.ftl" as base>
@@ -17,31 +18,37 @@
         </div>
         <div class="box-content" style="display: block;">
 
-            <div class="control-group">
-                <div class="pull-right">
-                    <a class="btn btn-info" style="margin-bottom: 10px;" href="<@spring.url relativeUrl="/permit/add/work"/>">
-                        <i class="halflings-icon plus white"></i> Создать наряд
-                    </a>
-                </div>
-            </div>
-
             <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper" role="grid">
-                <#--<div class="row-fluid">-->
-                    <#--<div class="span6">-->
-                        <#--<div id="DataTables_Table_0_length" class="dataTables_length">-->
-                            <#--<label>-->
-                                <#--<select size="1" name="DataTables_Table_0_length" aria-controls="DataTables_Table_0">-->
-                                    <#--<option value="${permitPage.pageSize}" selected="selected">${permitPage.pageSize}</option>-->
-                                <#--</select> records per page-->
-                            <#--</label>-->
-                        <#--</div>-->
-                    <#--</div>-->
-                    <#--<div class="span6">-->
-                        <#--<div class="dataTables_filter" id="DataTables_Table_0_filter">-->
-                            <#--<label>Search: <input type="text" aria-controls="DataTables_Table_0"></label>-->
-                        <#--</div>-->
-                    <#--</div>-->
-                <#--</div>-->
+                <div class="row-fluid">
+                    <div class="span4">
+                        <div id="sort" class="control-group center">
+                            <label>
+                                Сотрировать по:
+                                 <select size="1" class="span12" name="sort" onchange="self.location='<@spring.url relativeUrl="/permit"/>?sort='+this.selectedIndex">
+                                     <option value="0" <#if typeSort == 0>selected="selected"</#if>>Дате выдачи наряда</option>
+                                     <option value="1" <#if typeSort == 1>selected="selected"</#if>>Дате начала работы</option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <div id="search">
+                            <div class="control-group">
+                                <label class="control-label" for="search">Поиск:</label>
+                                <div class="controls">
+                                    <div class="input-append">
+                                        <input id="search" class="span12" type="text" name="search"><button class="btn btn-primary" style="padding-bottom: 2px;" type="button">Найти</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span2 text-center">
+                        <a class="btn btn-info" style="margin-bottom: 10px;" href="<@spring.url relativeUrl="/permit/add/work"/>">
+                            <i class="halflings-icon plus white"></i> Создать наряд
+                        </a>
+                    </div>
+                </div>
                 <table class="table table-striped table-bordered bootstrap-datatable" id="DataTables_Table_0"
                        aria-describedby="DataTables_Table_0_info">
                     <thead>

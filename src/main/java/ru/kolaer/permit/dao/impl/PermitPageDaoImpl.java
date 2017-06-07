@@ -40,7 +40,7 @@ public class PermitPageDaoImpl extends BasePageDaoAbstract<PermitEntity> impleme
 
     @Override
     @Transactional(readOnly = true)
-    public Page<ShortPermitEntity> findShortAll(Integer number, Integer pageSize, boolean findRemoved) {
+    public Page<ShortPermitEntity> findShortAll(Integer number, Integer pageSize, Integer sort, boolean findRemoved) {
         final Session currentSession = this.sessionFactory.getCurrentSession();
         final CriteriaBuilder criteriaBuilder = currentSession.getCriteriaBuilder();
         final CriteriaQuery<Long> countQuery = criteriaBuilder.createQuery(Long.class);
@@ -60,6 +60,12 @@ public class PermitPageDaoImpl extends BasePageDaoAbstract<PermitEntity> impleme
 
         if(!findRemoved)
             select = select.where(criteriaBuilder.equal(fromSelect.get("removed"), false));
+
+        switch (sort) {
+            case 1: select = select.orderBy(criteriaBuilder.desc(fromSelect.get("startWork"))); break;
+            case 0:
+            default: select = select.orderBy(criteriaBuilder.desc(fromSelect.get("extendedPermit")));
+        }
 
         TypedQuery<ShortPermitEntity> typedQuery = currentSession
                 .createQuery(select);

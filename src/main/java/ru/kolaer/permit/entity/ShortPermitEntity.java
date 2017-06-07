@@ -34,7 +34,7 @@ public class ShortPermitEntity extends BaseEntity {
     private EmployeeEntity ResponsibleExecutor;
 
     /**Выдан*/
-    @Column
+    @Column(nullable = false)
     private Date dateWritePermit;
 
     /**Годен до*/
@@ -73,7 +73,7 @@ public class ShortPermitEntity extends BaseEntity {
 
     /**Продление работ*/
     @Temporal(TemporalType.TIMESTAMP)
-    @Column
+    @Column(nullable = false)
     private Date extendedPermit;
 
 }

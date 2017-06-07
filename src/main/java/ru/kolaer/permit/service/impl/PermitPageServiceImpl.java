@@ -34,9 +34,12 @@ public class PermitPageServiceImpl extends BasePageServiceAbstract<PermitEntity>
 
     @Override
     public Page<ShortPermitEntity> getShortAll(Integer number, Integer pageSize) {
-        final Page<ShortPermitEntity> all = this.dao.findShortAll(number, pageSize, false);
+        return this.getShortAll(number, pageSize, 0);
+    }
 
-        return all;
+    @Override
+    public Page<ShortPermitEntity> getShortAll(Integer number, Integer pageSize, Integer sort) {
+        return this.dao.findShortAll(number, pageSize, sort, false);
     }
 
     @Override
