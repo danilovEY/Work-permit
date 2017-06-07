@@ -8,6 +8,7 @@
 <#assign EDIT_PERMIT = "Редактирование"/>
 <#assign NEED_ACCEPT_PERMIT = "Запрос на согласование"/>
 <#assign ACCEPT_PERMIT = "Согласовано"/>
+<#assign PERMIT = "Допуск"/>
 <#assign CANCELED = "Отменен"/>
 
 <@base.override "body">
@@ -21,14 +22,16 @@
             <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper" role="grid">
                 <div class="row-fluid">
                     <div class="span4">
-                        <div id="sort" class="control-group center">
-                            <label>
-                                Сотрировать по:
-                                 <select size="1" class="span12" name="sort" onchange="self.location='<@spring.url relativeUrl="/permit"/>?sort='+this.selectedIndex">
-                                     <option value="0" <#if typeSort == 0>selected="selected"</#if>>Дате выдачи наряда</option>
-                                     <option value="1" <#if typeSort == 1>selected="selected"</#if>>Дате начала работы</option>
-                                </select>
-                            </label>
+                        <div id="sort">
+                            <div class="control-group">
+                                <label class="control-label" for="sort">Сотрировать по:</label>
+                                <div class="controls">
+                                    <select size="1" class="span12" id="sort" name="sort" onchange="self.location='<@spring.url relativeUrl="/permit"/>?sort='+this.selectedIndex">
+                                        <option value="0" <#if typeSort == 0>selected="selected"</#if>>Дате выдачи наряда</option>
+                                        <option value="1" <#if typeSort == 1>selected="selected"</#if>>Дате начала работы</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="span6">
@@ -36,21 +39,22 @@
                             <div class="control-group">
                                 <label class="control-label" for="search">Поиск:</label>
                                 <div class="controls">
-                                    <div class="input-append">
-                                        <input id="search" class="span12" type="text" name="search"><button class="btn btn-primary" style="padding-bottom: 2px;" type="button">Найти</button>
+                                    <div class="input-append span8">
+                                        <input id="search" type="text" class="span12" name="search"><button class="btn btn-primary" style="padding-bottom: 2px;" type="button">Найти</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="span2 text-center">
-                        <a class="btn btn-info" style="margin-bottom: 10px;" href="<@spring.url relativeUrl="/permit/add/work"/>">
-                            <i class="halflings-icon plus white"></i> Создать наряд
-                        </a>
+                    <div class="span2">
+                        <div class="control-group">
+                            <a class="btn btn-info" style="margin-bottom: 10px;" href="<@spring.url relativeUrl="/permit/add/work"/>">
+                                <i class="halflings-icon plus white"></i> Создать наряд
+                            </a>
+                        </div>
                     </div>
                 </div>
-                <table class="table table-striped table-bordered bootstrap-datatable" id="DataTables_Table_0"
-                       aria-describedby="DataTables_Table_0_info">
+                <table class="table table-striped table-bordered bootstrap-datatable" id="DataTables_Table_0">
                     <thead>
                     <tr role="row">
                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
@@ -99,6 +103,8 @@
                                 <#elseif permit.status == CANCELED>
                                     <td class="center"><span class="label label-important">${permit.status}</span></td>
                                 <#elseif permit.status == ACCEPT_PERMIT>
+                                    <td class="center"><span class="label label-info">${permit.status}</span></td>
+                                <#elseif permit.status == PERMIT>
                                     <td class="center"><span class="label label-success">${permit.status}</span></td>
                                 <#else>
                                     <td class="center"><span class="label">${permit.status}</span></td>
@@ -112,6 +118,12 @@
                                     <a class="btn btn-success" style="margin-bottom: 4px;" title="Получить бланк" href="<@spring.url relativeUrl="/permit/download/excel?id=${permit.id}"/>">
                                         <i class="halflings-icon white download-alt"></i>
                                     </a>
+
+                                    <#if permit.status == ACCEPT_PERMIT>
+                                        <a class="btn btn-info" style="margin-bottom: 4px;" title="Допустить" href="<@spring.url relativeUrl="/permit/action/permit?id=${permit.id}"/>">
+                                            <i class="halflings-icon white ok"></i>
+                                        </a>
+                                    </#if>
 
                                     <#if permit.status == EDIT_PERMIT>
                                         <a class="btn btn-info" style="margin-bottom: 4px;" title="Запрос на согласование" href="<@spring.url relativeUrl="/permit/action/need/accept?id=${permit.id}"/>">
@@ -156,6 +168,8 @@
                                 <#elseif permit.status == CANCELED>
                                     <td class="center"><span class="label label-important">${permit.status}</span></td>
                                 <#elseif permit.status == ACCEPT_PERMIT>
+                                    <td class="center"><span class="label label-info">${permit.status}</span></td>
+                                <#elseif permit.status == PERMIT>
                                     <td class="center"><span class="label label-success">${permit.status}</span></td>
                                 <#else>
                                     <td class="center"><span class="label">${permit.status}</span></td>
@@ -169,6 +183,12 @@
                                     <a class="btn btn-success" style="margin-bottom: 4px;" title="Получить бланк" href="<@spring.url relativeUrl="/permit/download/excel?id=${permit.id}"/>">
                                         <i class="halflings-icon white download-alt"></i>
                                     </a>
+
+                                    <#if permit.status == ACCEPT_PERMIT>
+                                        <a class="btn btn-info" style="margin-bottom: 4px;" title="Допустить" href="<@spring.url relativeUrl="/permit/action/permit?id=${permit.id}"/>">
+                                            <i class="halflings-icon white ok"></i>
+                                        </a>
+                                    </#if>
 
                                     <#if permit.status == EDIT_PERMIT>
                                         <a class="btn btn-info" style="margin-bottom: 4px;" title="Запрос на согласование" href="<@spring.url relativeUrl="/permit/action/need/accept?id=${permit.id}"/>">

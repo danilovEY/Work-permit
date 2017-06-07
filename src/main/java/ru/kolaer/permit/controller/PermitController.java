@@ -266,4 +266,11 @@ public class PermitController extends BaseController{
         return "redirect:/permit";
     }
 
+
+    @RequestMapping(value = "action/permit", method = RequestMethod.GET)
+    public String setPermit(@RequestParam(value = "id") Integer id) {
+        this.permitPageService.setStatus(id, "Допуск", this.getAuthEmployee());
+
+        return "redirect:/permit";
+    }
 }

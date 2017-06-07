@@ -7,6 +7,7 @@
 <#assign EDIT_PERMIT = "Редактирование"/>
 <#assign NEED_ACCEPT_PERMIT = "Запрос на согласование"/>
 <#assign ACCEPT_PERMIT = "Согласовано"/>
+<#assign PERMIT = "Допуск"/>
 <#assign CANCELED = "Отменен"/>
 
 <@base.override "body">
@@ -44,6 +45,8 @@
                                             <#elseif status.status == CANCELED>
                                                 <span class="label label-important">${status.status}</span>
                                             <#elseif status.status == ACCEPT_PERMIT>
+                                                <span class="label label-info">${status.status}</span>
+                                            <#elseif status.status == PERMIT>
                                                 <span class="label label-success">${status.status}</span>
                                             <#else>
                                                 <span class="label">${status.status}</span>
