@@ -16,6 +16,7 @@ public interface PermitPageService extends BasePageService<PermitEntity> {
     String OVERDUE_STATUS = "Просрочен";
     String WORKING_STATUS = "В работе";
     String PERMIT_STATUS = "Допуск";
+    String DELETED_STATUS = "Удален";
 
     Page<ShortPermitEntity> getShortAll(Integer number, Integer pageSize);
     Page<ShortPermitEntity> getShortAll(Integer number, Integer pageSize, Integer sort);
@@ -39,4 +40,6 @@ public interface PermitPageService extends BasePageService<PermitEntity> {
     String getSerialNumber(Integer id);
 
     boolean cancel(Integer id, EmployeeEntity whoSetStatus);
+
+    PermitEntity delete(PermitEntity permitEntity, EmployeeEntity whoDeleted);
 }

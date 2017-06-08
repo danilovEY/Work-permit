@@ -116,7 +116,7 @@ public class PermitController extends BaseController{
         final PermitEntity removePermit = new PermitEntity();
         removePermit.setId(id);
 
-        this.permitPageService.delete(removePermit);
+        this.permitPageService.delete(removePermit, this.getAuthEmployee());
 
         return "redirect:/permit";
     }

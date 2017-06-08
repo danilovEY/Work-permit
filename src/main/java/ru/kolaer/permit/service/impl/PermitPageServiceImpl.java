@@ -115,7 +115,14 @@ public class PermitPageServiceImpl extends BasePageServiceAbstract<PermitEntity>
     }
 
     @Override
-    public PermitEntity delete(PermitEntity entity) {
-        return this.dao.delete(entity, true);
+    public PermitEntity delete(PermitEntity permitEntity, EmployeeEntity whoDeleted) {
+        return this.setStatus(permitEntity.getId(), DELETED_STATUS, whoDeleted)
+                ? this.dao.delete(permitEntity, true)
+                : permitEntity;
+    }
+
+    @Override
+    public PermitEntity delete(PermitEntity permitEntity) {
+        return this.dao.delete(permitEntity, true);
     }
 }

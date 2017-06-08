@@ -14,6 +14,7 @@
 <#assign CANCELED_STATUS = "Отменен"/>
 <#assign WORKING_STATUS = "В работе"/>
 <#assign OVERDUE_STATUS = "Просрочен"/>
+<#assign DELETED_STATUS = "Удален"/>
 
 <#assign ROLE_DB_ADMIN = "hasRole('ROLE_DB_ADMIN')"/>
 <#assign ROLE_USER = "hasRole('ROLE_USER')"/>
@@ -119,6 +120,8 @@
                                     <td class="center"><span class="label label-success">${permit.status}</span></td>
                                 <#elseif permit.status == OVERDUE_STATUS>
                                     <td class="center"><span class="label label-important">${permit.status}</span></td>
+                                <#elseif permit.status == DELETED_STATUS>
+                                    <td class="center"><span class="label label-inverse">${permit.status}</span></td>
                                 <#else>
                                     <td class="center"><span class="label">${permit.status}</span></td>
                                 </#if>
@@ -193,6 +196,8 @@
                                     <td class="center"><span class="label label-success">${permit.status}</span></td>
                                 <#elseif permit.status == OVERDUE_STATUS>
                                     <td class="center"><span class="label label-important">${permit.status}</span></td>
+                                <#elseif permit.status == DELETED_STATUS>
+                                    <td class="center"><span class="label label-inverse">${permit.status}</span></td>
                                 <#else>
                                     <td class="center"><span class="label">${permit.status}</span></td>
                                 </#if>
