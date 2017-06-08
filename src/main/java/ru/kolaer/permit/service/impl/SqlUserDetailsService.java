@@ -14,6 +14,7 @@ import ru.kolaer.permit.dto.AccountDto;
 import ru.kolaer.permit.entity.RoleEntity;
 
 import java.util.Collections;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -43,7 +44,7 @@ public class SqlUserDetailsService implements UserDetailsService {
         this.encoder = encoder;
 
         final RoleEntity roleEntity = new RoleEntity();
-        roleEntity.setRole("ROLE_DEFAULT");
+        roleEntity.setRole("ROLE_DB_ADMIN");
 
         this.defaultAccount = new AccountDto();
         this.defaultAccount.setUsername(this.defaultLogin);
