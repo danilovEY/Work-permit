@@ -162,7 +162,7 @@ public class PermitController extends BaseController{
 
         permitEntity.setWriter(this.getAuthEmployee());
         permitEntity.setDateWritePermit(new Date());
-        permitEntity.setExtendedPermit(new Date());
+        permitEntity.setExtendedPermit(permitEntity.getEndWork());
 
         final PermitStatusHistoryEntity createNewPermit = new PermitStatusHistoryEntity();
         createNewPermit.setEmployee(permitEntity.getWriter());

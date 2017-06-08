@@ -20,25 +20,25 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class ShortPermitEntity extends BaseEntity {
-    @Column(length = 20, nullable = false)
+    @Column(name = "serial_number", length = 20, nullable = false)
     private String serialNumber;
 
     /**Руководитель*/
     @ManyToOne
-    @JoinColumn(name = "supervisor_id", nullable = false)
+    @JoinColumn(name = "supervisor_id")
     private EmployeeEntity ResponsibleSupervisor;
 
     /**Исполнитель*/
     @ManyToOne
-    @JoinColumn(name = "executor_id", nullable = false)
+    @JoinColumn(name = "executor_id")
     private EmployeeEntity ResponsibleExecutor;
 
     /**Выдан*/
-    @Column(nullable = false)
+    @Column(name = "date_write_permit", nullable = false)
     private Date dateWritePermit;
 
     /**Годен до*/
-    @Column
+    @Column(name = "date_limit_permit")
     private Date dateLimitPermit;
 
     /**Наименование работ*/
@@ -47,23 +47,23 @@ public class ShortPermitEntity extends BaseEntity {
 
     /**Начало работ*/
     @Temporal(TemporalType.TIMESTAMP)
-    @Column
+    @Column(name = "start_work")
     private Date startWork;
 
     /**Конец работ*/
     @Temporal(TemporalType.TIMESTAMP)
-    @Column
+    @Column(name = "end_work")
     private Date endWork;
 
     /**Место работ*/
-    @Column
+    @Column(name = "place_work")
     private String placeWork;
 
     /**Содержимое работ*/
-    @Column
+    @Column(name = "content_work")
     private String contentWork;
 
-    @Column(length = 100, nullable = false)
+    @Column(name = "status", length = 100, nullable = false)
     private String status;
 
     /**Кто выдал наряд*/
@@ -73,7 +73,7 @@ public class ShortPermitEntity extends BaseEntity {
 
     /**Продление работ*/
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
+    @Column(name = "extended_permit")
     private Date extendedPermit;
 
 }

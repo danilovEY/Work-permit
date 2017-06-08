@@ -46,7 +46,7 @@
 
         <security:intercept-url pattern="/permit" access="hasRole('ROLE_USER')"/>
         <security:intercept-url pattern="/permit/action/approve" access="hasRole('ROLE_APPROVE')"/>
-        <security:intercept-url pattern="/permit/action/permit" access="hasRole('ROLE_PEMIT')"/>
+        <security:intercept-url pattern="/permit/action/permit" access="hasRole('ROLE_PERMIT')"/>
         <security:intercept-url pattern="/permit/**" access="hasRole('ROLE_USER')"/>
 
         <security:intercept-url pattern="/**" access="isAuthenticated()"/>

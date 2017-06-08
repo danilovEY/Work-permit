@@ -22,88 +22,84 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class WorkPermitEntity extends BaseEntity {
-    @Column(length = 20, nullable = false)
+    @Column(name = "serial_number", length = 20, nullable = false)
     private String serialNumber;
 
     /**Выдан*/
-    @Column
+    @Column(name = "date_write_permit")
     private Date dateWritePermit;
 
     /**Годен до*/
-    @Column
+    @Column(name = "date_limit_permit")
     private Date dateLimitPermit;
 
     /**Наименование работ*/
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
-
-    /**Комметы*/
-    @Column
-    private String comment;
 
     /**Начало работ*/
     @DateTimeFormat(pattern = "dd.MM.yyyy hh:mm")
     @Temporal(TemporalType.TIMESTAMP)
-    @Column
+    @Column(name = "start_work")
     private Date startWork;
 
     /**Конец работ*/
     @DateTimeFormat(pattern = "dd.MM.yyyy hh:mm")
     @Temporal(TemporalType.TIMESTAMP)
-    @Column
+    @Column(name = "end_work")
     private Date endWork;
 
     /**Место работ*/
-    @Column
+    @Column(name = "place_work")
     private String placeWork;
 
     /**Содержимое работ*/
-    @Column
+    @Column(name = "content_work")
     private String contentWork;
 
     /**Условие работ*/
-    @Column
+    @Column(name = "condition_work")
     private String conditionWork;
 
     /**Опасные факторы*/
-    @Column
+    @Column(name = "dangerous_factors")
     private String dangerousFactors;
 
     //Системы обеспечения безопасности - BEGIN
 
     /**Удерживающие системы*/
-    @Column
+    @Column(name = "retaining")
     private String retaining;
 
     /**Системы позиционирования*/
-    @Column
+    @Column(name = "position")
     private String position;
 
     /**Страховочные системы*/
-    @Column
+    @Column(name = "safety")
     private String safety;
 
     /**Эвакуационные и спасательные системы*/
-    @Column
+    @Column(name = "rescue")
     private String rescue;
 
     //Системы обеспечения безопасности - END
 
     /**Материалы*/
-    @Column
+    @Column(name = "materials")
     private String materials;
 
     /**Интсрументы*/
-    @Column
+    @Column(name = "instruments")
     private String instruments;
 
     /**Приспособления */
-    @Column
+    @Column(name = "adaptations")
     private String adaptations;
 
     /**Продление работ*/
     @Temporal(TemporalType.TIMESTAMP)
-    @Column
+    @Column(name = "extended_permit")
     private Date extendedPermit;
 
 }

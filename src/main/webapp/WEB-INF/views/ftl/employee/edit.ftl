@@ -62,8 +62,11 @@
                     <label class="control-label" for="gender">Пол: </label>
                     <div class="controls">
                         <select class="span12" id="gender" name="gender">
-                            <option value="${MALE}" <#if employee.gender == MALE> selected="selected" </#if>>${MALE}</option>
-                            <option value="${FEMALE}" <#if employee.gender == MALE> selected="selected" </#if>>${FEMALE}</option>
+                            <#if !employee.gender?has_content>
+                                <option disabled selected value> Пол... </option>
+                            </#if>
+                            <option value="${MALE}" <#if employee.gender!"" == MALE> selected="selected" </#if>>${MALE}</option>
+                            <option value="${FEMALE}" <#if employee.gender!"" == MALE> selected="selected" </#if>>${FEMALE}</option>
                         </select>
                     </div>
                 </div>

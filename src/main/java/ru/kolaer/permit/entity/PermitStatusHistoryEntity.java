@@ -25,7 +25,7 @@ public class PermitStatusHistoryEntity extends BaseEntity {
 
     /**Дата статуса*/
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
+    @Column(name = "status_date", nullable = false)
     private Date statusDate;
 
     @Column(name = "permit_id", insertable=false, updatable=false)

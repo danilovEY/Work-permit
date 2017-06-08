@@ -57,8 +57,8 @@
                     <div class="controls">
                         <select class="span12" id="gender" name="gender">
                             <option disabled selected value> Пол... </option>
-                            <option value="${MALE}" <#if employee.gender == MALE> selected="selected" </#if>>${MALE}</option>
-                            <option value="${FEMALE}" <#if employee.gender == MALE> selected="selected" </#if>>${FEMALE}</option>
+                            <option value="${MALE}" <#if employee.gender!"" == MALE> selected="selected" </#if>>${MALE}</option>
+                            <option value="${FEMALE}" <#if employee.gender!"" == MALE> selected="selected" </#if>>${FEMALE}</option>
                         </select>
                     </div>
                 </div>

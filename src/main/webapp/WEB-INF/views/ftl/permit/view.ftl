@@ -104,7 +104,7 @@
                                 <td class="center">${permit.serialNumber!""}</td>
                                 <td class="center">${permit.name!""}</td>
                                 <td class="center">${(permit.startWork!"")?string["dd.MM.yyyy hh:mm"]}</td>
-                                <td class="center">${(permit.endWork!"")?string["dd.MM.yyyy hh:mm"]}</td>
+                                <td class="center">${(permit.extendedPermit!"")?string["dd.MM.yyyy hh:mm"]}</td>
                                 <td class="center">${permit.writer.initials!""}</td>
                                 <#if permit.responsibleSupervisor?has_content>
                                     <td class="center">${permit.responsibleSupervisor.initials!""}</td>
@@ -179,7 +179,7 @@
                                 <td class="center">${permit.serialNumber!""}</td>
                                 <td class="center">${permit.name!""}</td>
                                 <td class="center">${(permit.startWork!"")?string["dd.MM.yyyy hh:mm"]}</td>
-                                <td class="center">${(permit.endWork!"")?string["dd.MM.yyyy hh:mm"]}</td>
+                                <td class="center">${(permit.extendedPermit!"")?string["dd.MM.yyyy hh:mm"]}</td>
                                 <td class="center">${permit.writer.initials!""}</td>
 
                                 <#if permit.responsibleSupervisor?has_content>

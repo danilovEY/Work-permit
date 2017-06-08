@@ -22,11 +22,11 @@ import java.util.List;
 @ToString
 public class WorkEvent extends BaseEntity {
 
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @DateTimeFormat(pattern = "dd.MM.yyyy hh:mm")
-    @Column(nullable = false)
+    @Column(name = "limit_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date limitDate;
 
@@ -36,7 +36,7 @@ public class WorkEvent extends BaseEntity {
             inverseJoinColumns = @JoinColumn( name="employee_id"))
     private List<EmployeeEntity> employeesEntity;
 
-    @Column(nullable = false)
+    @Column(name = "type_event", nullable = false)
     @Enumerated(EnumType.STRING)
     private TypeEvent typeEvent;
 

@@ -62,9 +62,10 @@ public class PermitPageDaoImpl extends BasePageDaoAbstract<PermitEntity> impleme
             select = select.where(criteriaBuilder.equal(fromSelect.get("removed"), false));
 
         switch (sort) {
+            case 2: select = select.orderBy(criteriaBuilder.desc(fromSelect.get("extendedPermit"))); break;
             case 1: select = select.orderBy(criteriaBuilder.desc(fromSelect.get("startWork"))); break;
             case 0:
-            default: select = select.orderBy(criteriaBuilder.desc(fromSelect.get("extendedPermit")));
+            default: select = select.orderBy(criteriaBuilder.desc(fromSelect.get("dateWritePermit")));
         }
 
         TypedQuery<ShortPermitEntity> typedQuery = currentSession
@@ -137,7 +138,7 @@ public class PermitPageDaoImpl extends BasePageDaoAbstract<PermitEntity> impleme
     @Transactional(readOnly = true)
     public boolean existSerialNumber(String serialNumber) {
         return this.sessionFactory.getCurrentSession()
-                .createNativeQuery("SELECT id FROM permit WHERE serialNumber = :serialNumber")
+                .createQuery("SELECT id FROM PermitEntity WHERE serialNumber = :serialNumber")
                 .setParameter("serialNumber", serialNumber)
                 .uniqueResultOptional()
                 .isPresent();
@@ -177,7 +178,7 @@ public class PermitPageDaoImpl extends BasePageDaoAbstract<PermitEntity> impleme
     @Transactional(readOnly = true)
     public List<Integer> findAllByStatusAndOverdue(String status) {
         return this.sessionFactory.getCurrentSession()
-                .createQuery("SELECT p.id FROM PermitEntity p WHERE p.status = :status AND p.endWork <= CURRENT_DATE()", Integer.class)
+                .createQuery("SELECT p.id FROM PermitEntity p WHERE p.status = :status AND p.extendedPermit <= CURRENT_DATE()", Integer.class)
                 .setParameter("status", status)
                 .list();
     }
