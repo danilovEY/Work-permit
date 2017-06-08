@@ -21,6 +21,10 @@
 <#assign ROLE_APPROVE = "hasRole('ROLE_APPROVE')"/>
 <#assign ROLE_PERMIT = "hasRole('ROLE_PERMIT')"/>
 
+<@base.override "title">
+<title>Наряды</title>
+</@base.override>
+
 <@base.override "body">
 <div class="row-fluid">
     <div class="box span12">

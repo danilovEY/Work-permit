@@ -4,7 +4,7 @@
 
 <head>
     <#include "layout/head.ftl"/>
-
+    <title>Вход в систему</title>
     <style type="text/css">
         body { background: url(<@spring.url relativeUrl="/resources/img/bg-login.jpg"/>) !important; }
     </style>

@@ -5,6 +5,10 @@
 <#import "../layout/baseTemplate.ftl" as base>
 <#import "/spring.ftl" as spring>
 
+<@base.override "title">
+<title>Редактировать роль</title>
+</@base.override>
+
 <@base.override "body">
 <div class="box span12">
     <div class="box-header" data-original-title="">

@@ -13,6 +13,10 @@
 <#assign OVERDUE = "Просрочен"/>
 <#assign DELETED_STATUS = "Удален"/>
 
+<@base.override "title">
+<title>История</title>
+</@base.override>
+
 <@base.override "body">
 
 <div class="row-fluid">

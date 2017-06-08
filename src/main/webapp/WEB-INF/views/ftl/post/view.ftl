@@ -6,6 +6,10 @@
 <#assign security=JspTaglibs["http://www.springframework.org/security/tags"] />
 <#assign ROLE_DB_ADMIN = "hasRole('ROLE_DB_ADMIN')"/>
 
+<@base.override "title">
+<title>Должности</title>
+</@base.override>
+
 <@base.override "body">
 <div class="row-fluid">
     <div class="box span12">

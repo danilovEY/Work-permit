@@ -4,6 +4,10 @@
 <#import "../layout/baseTemplate.ftl" as base>
 <#import "/spring.ftl" as spring>
 
+<@base.override "title">
+<title>Добавить мероприятие</title>
+</@base.override>
+
 <@base.override "body">
 <script src="<@spring.url relativeUrl="/resources/js/bootstrap-datetimepicker.js"/>"></script>
 <script src="<@spring.url relativeUrl="/resources/js/bootstrap-datetimepicker.ru.js"/>"></script>

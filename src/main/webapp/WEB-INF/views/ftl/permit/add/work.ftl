@@ -6,6 +6,10 @@
 
 <#assign dateNow = .now/>
 
+<@base.override "title">
+<title>Создать наряд</title>
+</@base.override>
+
 <@base.override "body">
 <script src="<@spring.url relativeUrl="/resources/js/bootstrap-datetimepicker.js"/>"></script>
 <script src="<@spring.url relativeUrl="/resources/js/bootstrap-datetimepicker.ru.js"/>"></script>

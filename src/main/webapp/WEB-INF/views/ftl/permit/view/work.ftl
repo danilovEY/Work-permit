@@ -3,6 +3,10 @@
 <#import "../../layout/baseTemplate.ftl" as base>
 <#import "/spring.ftl" as spring>
 
+<@base.override "title">
+<title>Работа</title>
+</@base.override>
+
 <@base.override "body">
 
 <div class="row-fluid">
