@@ -21,8 +21,10 @@
     <bean id="roleNameMap" class="ru.kolaer.permit.dto.RoleNameDto">
         <property name="roleNameMap">
             <map>
-                <entry key="ROLE_DEFAULT" value="Базавая роль" />
+                <entry key="ROLE_DB_ADMIN" value="Администратор базы" />
                 <entry key="ROLE_USER" value="Пользователь" />
+                <entry key="ROLE_APPROVE" value="Согласующий" />
+                <entry key="ROLE_PERMIT" value="Допускающий" />
             </map>
         </property>
     </bean>
@@ -31,6 +33,22 @@
 
     <security:http auto-config="true" use-expressions="true">
         <security:intercept-url pattern="/login" access="permitAll()"/>
+
+        <security:intercept-url pattern="/employee/add" access="hasRole('ROLE_DB_ADMIN')"/>
+        <security:intercept-url pattern="/employee/edit" access="hasRole('ROLE_DB_ADMIN')"/>
+        <security:intercept-url pattern="/department/add" access="hasRole('ROLE_DB_ADMIN')"/>
+        <security:intercept-url pattern="/department/edit" access="hasRole('ROLE_DB_ADMIN')"/>
+        <security:intercept-url pattern="/role/add" access="hasRole('ROLE_DB_ADMIN')"/>
+        <security:intercept-url pattern="/role/edit" access="hasRole('ROLE_DB_ADMIN')"/>
+        <security:intercept-url pattern="/role/view" access="hasRole('ROLE_DB_ADMIN')"/>
+        <security:intercept-url pattern="/post/add" access="hasRole('ROLE_DB_ADMIN')"/>
+        <security:intercept-url pattern="/post/edit" access="hasRole('ROLE_DB_ADMIN')"/>
+
+        <security:intercept-url pattern="/permit" access="hasRole('ROLE_USER')"/>
+        <security:intercept-url pattern="/permit/action/approve" access="hasRole('ROLE_APPROVE')"/>
+        <security:intercept-url pattern="/permit/action/permit" access="hasRole('ROLE_PEMIT')"/>
+        <security:intercept-url pattern="/permit/**" access="hasRole('ROLE_USER')"/>
+
         <security:intercept-url pattern="/**" access="isAuthenticated()"/>
 
 

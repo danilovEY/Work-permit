@@ -262,16 +262,16 @@ public class PermitController extends BaseController{
         return view;
     }
 
-    @RequestMapping(value = "action/need/accept", method = RequestMethod.GET)
-    public String setNeedAcceptStatus(@RequestParam(value = "id") Integer id) {
-        this.permitPageService.setStatus(id, "Запрос на согласование", this.getAuthEmployee());
+    @RequestMapping(value = "action/need/approve", method = RequestMethod.GET)
+    public String setNeedApproveStatus(@RequestParam(value = "id") Integer id) {
+        this.permitPageService.setStatus(id, PermitPageService.NEED_APPROVE_STATUS, this.getAuthEmployee());
 
         return "redirect:/permit";
     }
 
-    @RequestMapping(value = "action/accept", method = RequestMethod.GET)
-    public String setAcceptStatus(@RequestParam(value = "id") Integer id) {
-        this.permitPageService.setStatus(id, "Согласовано", this.getAuthEmployee());
+    @RequestMapping(value = "action/approve", method = RequestMethod.GET)
+    public String setApproveStatus(@RequestParam(value = "id") Integer id) {
+        this.permitPageService.setStatus(id, PermitPageService.APPROVE_STATUS, this.getAuthEmployee());
 
         return "redirect:/permit";
     }
@@ -279,7 +279,7 @@ public class PermitController extends BaseController{
 
     @RequestMapping(value = "action/permit", method = RequestMethod.GET)
     public String setPermit(@RequestParam(value = "id") Integer id) {
-        this.permitPageService.setStatus(id, "Допуск", this.getAuthEmployee());
+        this.permitPageService.setStatus(id, PermitPageService.PERMIT_STATUS, this.getAuthEmployee());
 
         return "redirect:/permit";
     }

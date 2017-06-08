@@ -3,6 +3,9 @@
 <#import "../layout/baseTemplate.ftl" as base>
 <#import "/spring.ftl" as spring>
 
+<#assign security=JspTaglibs["http://www.springframework.org/security/tags"] />
+<#assign ROLE_DB_ADMIN = "hasRole('ROLE_DB_ADMIN')"/>
+
 <@base.override "body">
 <div class="row-fluid">
 <div class="box span12">
@@ -10,14 +13,15 @@
         <h2><i class="halflings-icon white user"></i><span class="break"></span>Список сотрудников</h2>
     </div>
 <div class="box-content" style="display: block;">
-
-    <div class="control-group">
-        <div class="pull-right">
-            <a class="btn btn-info" style="margin-bottom: 10px;" href="<@spring.url relativeUrl="/employee/add"/>">
-                <i class="halflings-icon plus white"></i> Добавить сотрудника
-            </a>
+    <@security.authorize access=ROLE_DB_ADMIN>
+        <div class="control-group">
+            <div class="pull-right">
+                <a class="btn btn-info" style="margin-bottom: 10px;" href="<@spring.url relativeUrl="/employee/add"/>">
+                    <i class="halflings-icon plus white"></i> Добавить сотрудника
+                </a>
+            </div>
         </div>
-    </div>
+    </@security.authorize>
 
     <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper" role="grid">
         <#--<div class="row-fluid">-->
@@ -56,9 +60,11 @@
                 <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                     colspan="1" aria-label="Status: activate to sort column ascending" style="width: 134px;">Должность
                 </th>
-                <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                    colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Действие
-                </th>
+                <@security.authorize access=ROLE_DB_ADMIN>
+                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                        colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Действие
+                    </th>
+                </@security.authorize>
             </tr>
             </thead>
             <tbody role="alert" aria-live="polite" aria-relevant="all">
@@ -70,14 +76,16 @@
                             <td class="center">${employee.birthday?string["dd.MM.yyyy"]}</td>
                             <td class="center">${employee.department.abbreviatedName!""}</td>
                             <td class="center">${employee.post.abbreviatedName!""} ${employee.post.rang!""} ${employee.post.typeRang!""}</td>
-                            <td class="center">
-                                <a class="btn btn-success" title="Редактировать" href="<@spring.url relativeUrl="/employee/edit?id=${employee.id}"/>">
-                                    <i class="halflings-icon white edit"></i>
-                                </a>
-                                <a class="btn btn-danger" title="Удалить" href="<@spring.url relativeUrl="/employee/delete?id=${employee.id}"/>">
-                                    <i class="halflings-icon white trash"></i>
-                                </a>
-                            </td>
+                            <@security.authorize access=ROLE_DB_ADMIN>
+                                <td class="center">
+                                    <a class="btn btn-success" title="Редактировать" href="<@spring.url relativeUrl="/employee/edit?id=${employee.id}"/>">
+                                        <i class="halflings-icon white edit"></i>
+                                    </a>
+                                    <a class="btn btn-danger" title="Удалить" href="<@spring.url relativeUrl="/employee/delete?id=${employee.id}"/>">
+                                        <i class="halflings-icon white trash"></i>
+                                    </a>
+                                </td>
+                            </@security.authorize>
                         </tr>
                     <#else>
                         <tr class="even">
@@ -86,14 +94,16 @@
                             <td class="center">${employee.birthday?string["dd.MM.yyyy"]}</td>
                             <td class="center">${employee.department.abbreviatedName!""}</td>
                             <td class="center">${employee.post.abbreviatedName!""} ${employee.post.rang!""} ${employee.post.typeRang!""}</td>
-                            <td class="center">
-                                <a class="btn btn-success" title="Редактировать" href="<@spring.url relativeUrl="/employee/edit?id=${employee.id}"/>">
-                                    <i class="halflings-icon white edit"></i>
-                                </a>
-                                <a class="btn btn-danger" title="Удалить" href="<@spring.url relativeUrl="/employee/delete?id=${employee.id}"/>">
-                                    <i class="halflings-icon white trash"></i>
-                                </a>
-                            </td>
+                            <@security.authorize access=ROLE_DB_ADMIN>
+                                <td class="center">
+                                    <a class="btn btn-success" title="Редактировать" href="<@spring.url relativeUrl="/employee/edit?id=${employee.id}"/>">
+                                        <i class="halflings-icon white edit"></i>
+                                    </a>
+                                    <a class="btn btn-danger" title="Удалить" href="<@spring.url relativeUrl="/employee/delete?id=${employee.id}"/>">
+                                        <i class="halflings-icon white trash"></i>
+                                    </a>
+                                </td>
+                            </@security.authorize>
                         </tr>
                     </#if>
                 </#list>

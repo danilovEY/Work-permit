@@ -23,6 +23,8 @@
 </head>
 
 <body>
+    <#assign security=JspTaglibs["http://www.springframework.org/security/tags"] />
+
     <#include "navbar.ftl"/>
 
     <div class="container-fluid-full">
@@ -37,7 +39,9 @@
                         <li><a href="<@spring.url relativeUrl="/department"/>"><i class="icon-th-large"></i><span class="hidden-tablet"> Подразделения</span></a></li>
                         <li><a href="<@spring.url relativeUrl="/post"/>"><i class="icon-th"></i><span class="hidden-tablet"> Дожности</span></a></li>
                         <li><a href="<@spring.url relativeUrl="/employee"/>"><i class="icon-user"></i><span class="hidden-tablet"> Сотрудники</span></a></li>
-                        <li><a href="<@spring.url relativeUrl="/role"/>"><i class="icon-group"></i><span class="hidden-tablet"> Роли</span></a></li>
+                        <@security.authorize access="hasRole('ROLE_DB_ADMIN')">
+                            <li><a href="<@spring.url relativeUrl="/role"/>"><i class="icon-group"></i><span class="hidden-tablet"> Роли</span></a></li>
+                        </@security.authorize>
                     </ul>
                 </div>
             </div>

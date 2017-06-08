@@ -11,7 +11,8 @@ import java.io.File;
 public interface PermitPageService extends BasePageService<PermitEntity> {
     String EDIT_STATUS = "Редактирование";
     String CANCELED_STATUS = "Отменен";
-    String NEED_REQUEST_STATUS = "Запрос на согласование";
+    String NEED_APPROVE_STATUS = "Запрос на согласование";
+    String APPROVE_STATUS = "Согласовано";
     String OVERDUE_STATUS = "Просрочен";
     String WORKING_STATUS = "В работе";
     String PERMIT_STATUS = "Допуск";
