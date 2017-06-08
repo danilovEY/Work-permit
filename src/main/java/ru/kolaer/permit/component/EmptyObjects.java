@@ -40,7 +40,7 @@ public final class EmptyObjects {
     };
 
     public static final EmployeeEntity DEFAULT_EMPLOYEE =
-            new EmployeeEntity(-1, "", new Date(0), -1, "", "", "", "", DEFAULT_DEPARTMENT, DEFAULT_POST){
+            new EmployeeEntity(-1, "", new Date(0), -1, "", "", "", "", "", DEFAULT_DEPARTMENT, DEFAULT_POST){
                 @Override
                 public void setId(Integer id) {throw new UnsupportedOperationException("Employee entity object is empty! You can't write value to empty objects.");}
                 @Override

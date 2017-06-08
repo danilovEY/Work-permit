@@ -59,6 +59,9 @@
                     colspan="1" aria-label="Actions: activate to sort column ascending" style="width: 268px;">Дата рождения
                 </th>
                 <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                    colspan="1" aria-label="Actions: activate to sort column ascending" style="width: 268px;">Пол
+                </th>
+                <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                     colspan="1" aria-label="Role: activate to sort column ascending" style="width: 126px;">Подразделение
                 </th>
                 <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
@@ -78,6 +81,7 @@
                             <td class="center">${employee.personnelNumber!""}</td>
                             <td class="center">${employee.initials!""}</td>
                             <td class="center">${employee.birthday?string["dd.MM.yyyy"]}</td>
+                            <td class="center">${employee.gender!""}</td>
                             <td class="center">${employee.department.abbreviatedName!""}</td>
                             <td class="center">${employee.post.abbreviatedName!""} ${employee.post.rang!""} ${employee.post.typeRang!""}</td>
                             <@security.authorize access=ROLE_DB_ADMIN>
@@ -96,6 +100,7 @@
                             <td class="center">${employee.personnelNumber!""}</td>
                             <td class="center">${employee.initials!""}</td>
                             <td class="center">${employee.birthday?string["dd.MM.yyyy"]}</td>
+                            <td class="center">${employee.gender!""}</td>
                             <td class="center">${employee.department.abbreviatedName!""}</td>
                             <td class="center">${employee.post.abbreviatedName!""} ${employee.post.rang!""} ${employee.post.typeRang!""}</td>
                             <@security.authorize access=ROLE_DB_ADMIN>

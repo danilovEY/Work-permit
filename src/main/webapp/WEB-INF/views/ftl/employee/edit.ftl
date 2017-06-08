@@ -7,6 +7,8 @@
 <#import "/spring.ftl" as spring>
 
 <#assign dateNow = .now>
+<#assign MALE = "Мужчина">
+<#assign FEMALE = "Женщина">
 
 <@base.override "title">
 <title>Редактировать сотрудника: ${employee.personnelNumber}</title>
@@ -53,6 +55,16 @@
                                 <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
                             </span>
                         </div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="gender">Пол: </label>
+                    <div class="controls">
+                        <select class="span12" id="gender" name="gender">
+                            <option value="${MALE}" <#if employee.gender == MALE> selected="selected" </#if>>${MALE}</option>
+                            <option value="${FEMALE}" <#if employee.gender == MALE> selected="selected" </#if>>${FEMALE}</option>
+                        </select>
                     </div>
                 </div>
 

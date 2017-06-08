@@ -19,7 +19,7 @@ import java.util.Date;
 public class EmployeeEntity extends BaseEntity {
 
     public EmployeeEntity(Integer id, String initials, Date birthday, Integer personnelNumber,
-                          String email, String workPhone, String username, String password, DepartmentEntity department,
+                          String email, String workPhone, String gender, String username, String password, DepartmentEntity department,
                           PostEntity post) {
         this.id = id;
         this.initials = initials;
@@ -27,6 +27,7 @@ public class EmployeeEntity extends BaseEntity {
         this.personnelNumber = personnelNumber;
         this.email = email;
         this.workPhone = workPhone;
+        this.gender = gender;
         this.username = username;
         this.password = password;
         this.department = department;
@@ -50,6 +51,9 @@ public class EmployeeEntity extends BaseEntity {
 
     @Column(name = "work_phone", length = 100)
     private String workPhone;
+
+    @Column(name = "gender", length = 7)
+    private String gender;
 
     @Column(name = "username", unique = true, nullable = false,length = 100)
     private String username;
