@@ -134,4 +134,24 @@ public class PermitEntity extends BaseEntity {
     @Column(name = "extended_permit")
     private Date extendedPermit;
 
+    /**Наряд получил*/
+    @ManyToOne
+    @JoinColumn(name = "accepted_id")
+    private EmployeeEntity accepted;
+
+    /**Наряд иструктаж провел*/
+    @ManyToOne
+    @JoinColumn(name = "briefing_held_id")
+    private EmployeeEntity briefingHeld;
+
+    /**Наряд инструктаж получил*/
+    @ManyToOne
+    @JoinColumn(name = "briefing_accept_id")
+    private EmployeeEntity briefingAccept;
+
+    @Column(name = "check_events", nullable = false)
+    private boolean checkEvents;
+
+    @Column(name = "complete", nullable = false)
+    private boolean complete;
 }

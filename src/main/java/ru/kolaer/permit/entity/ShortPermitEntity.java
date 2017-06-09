@@ -3,6 +3,7 @@ package ru.kolaer.permit.entity;
 import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -19,6 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Immutable
 public class ShortPermitEntity extends BaseEntity {
     @Column(name = "serial_number", length = 20, nullable = false)
     private String serialNumber;
@@ -75,5 +77,8 @@ public class ShortPermitEntity extends BaseEntity {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "extended_permit")
     private Date extendedPermit;
+
+    @Column(name = "complete", nullable = false)
+    private boolean complete;
 
 }

@@ -42,4 +42,19 @@ public class PeoplePermitEntity extends BaseEntity {
     @JoinColumn(name = "writer_id", nullable = false)
     private EmployeeEntity writer;
 
+    /**Наряд получил*/
+    @ManyToOne
+    @JoinColumn(name = "accepted_id")
+    private EmployeeEntity accepted;
+
+    /**Наряд иструктаж провел*/
+    @ManyToOne
+    @JoinColumn(name = "briefing_held_id")
+    private EmployeeEntity briefingHeld;
+
+    /**Наряд инструктаж получил*/
+    @ManyToOne
+    @JoinColumn(name = "briefing_accept_id")
+    private EmployeeEntity briefingAccept;
+
 }

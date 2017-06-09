@@ -143,37 +143,8 @@ public class PermitController extends BaseController{
             return view;
         }
 
-        final  PermitEntity permitEntity = new PermitEntity();
-        permitEntity.setSerialNumber(workPermitEntity.getSerialNumber());
-        permitEntity.setName(workPermitEntity.getName());
-        permitEntity.setPlaceWork(workPermitEntity.getPlaceWork());
-        permitEntity.setContentWork(workPermitEntity.getContentWork());
-        permitEntity.setConditionWork(workPermitEntity.getConditionWork());
-        permitEntity.setStartWork(workPermitEntity.getStartWork());
-        permitEntity.setEndWork(workPermitEntity.getEndWork());
-        permitEntity.setMaterials(workPermitEntity.getMaterials());
-        permitEntity.setInstruments(workPermitEntity.getInstruments());
-        permitEntity.setAdaptations(workPermitEntity.getAdaptations());
-        permitEntity.setRetaining(workPermitEntity.getRetaining());
-        permitEntity.setPosition(workPermitEntity.getPosition());
-        permitEntity.setSafety(workPermitEntity.getSafety());
-        permitEntity.setRescue(workPermitEntity.getRescue());
-        permitEntity.setStatus("Редактирование");
-
-        permitEntity.setWriter(this.getAuthEmployee());
-        permitEntity.setDateWritePermit(new Date());
-        permitEntity.setExtendedPermit(permitEntity.getEndWork());
-
-        final PermitStatusHistoryEntity createNewPermit = new PermitStatusHistoryEntity();
-        createNewPermit.setEmployee(permitEntity.getWriter());
-        createNewPermit.setPermit(permitEntity);
-        createNewPermit.setPermitId(permitEntity.getId());
-        createNewPermit.setStatusDate(new Date());
-        createNewPermit.setStatus("Редактирование");
-
-        permitEntity.setPermitStatusHistories(Collections.singletonList(createNewPermit));
-
-        this.permitPageService.add(permitEntity);
+        final PermitEntity permitEntity = this.permitPageService.add(workPermitEntity,
+                this.getAuthEmployee());
 
         return this.getEventEditPage(permitEntity.getId());
     }

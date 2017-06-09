@@ -122,6 +122,41 @@ public class PermitPageServiceImpl extends BasePageServiceAbstract<PermitEntity>
     }
 
     @Override
+    public PermitEntity add(WorkPermitEntity workPermitEntity, EmployeeEntity whoWrite) {
+        final  PermitEntity permitEntity = new PermitEntity();
+        permitEntity.setSerialNumber(workPermitEntity.getSerialNumber());
+        permitEntity.setName(workPermitEntity.getName());
+        permitEntity.setPlaceWork(workPermitEntity.getPlaceWork());
+        permitEntity.setContentWork(workPermitEntity.getContentWork());
+        permitEntity.setConditionWork(workPermitEntity.getConditionWork());
+        permitEntity.setStartWork(workPermitEntity.getStartWork());
+        permitEntity.setEndWork(workPermitEntity.getEndWork());
+        permitEntity.setMaterials(workPermitEntity.getMaterials());
+        permitEntity.setInstruments(workPermitEntity.getInstruments());
+        permitEntity.setAdaptations(workPermitEntity.getAdaptations());
+        permitEntity.setRetaining(workPermitEntity.getRetaining());
+        permitEntity.setPosition(workPermitEntity.getPosition());
+        permitEntity.setSafety(workPermitEntity.getSafety());
+        permitEntity.setRescue(workPermitEntity.getRescue());
+        permitEntity.setStatus("Редактирование");
+
+        permitEntity.setWriter(whoWrite);
+        permitEntity.setDateWritePermit(new Date());
+        permitEntity.setExtendedPermit(permitEntity.getEndWork());
+
+        final PermitStatusHistoryEntity createNewPermit = new PermitStatusHistoryEntity();
+        createNewPermit.setEmployee(permitEntity.getWriter());
+        createNewPermit.setPermit(permitEntity);
+        createNewPermit.setPermitId(permitEntity.getId());
+        createNewPermit.setStatusDate(new Date());
+        createNewPermit.setStatus("Редактирование");
+
+        permitEntity.setPermitStatusHistories(Collections.singletonList(createNewPermit));
+
+        return this.add(permitEntity);
+    }
+
+    @Override
     public PermitEntity delete(PermitEntity permitEntity) {
         return this.dao.delete(permitEntity, true);
     }

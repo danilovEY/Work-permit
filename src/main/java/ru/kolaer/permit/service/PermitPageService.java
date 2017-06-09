@@ -42,4 +42,6 @@ public interface PermitPageService extends BasePageService<PermitEntity> {
     boolean cancel(Integer id, EmployeeEntity whoSetStatus);
 
     PermitEntity delete(PermitEntity permitEntity, EmployeeEntity whoDeleted);
+
+    PermitEntity add(WorkPermitEntity workPermitEntity, EmployeeEntity whoWrite);
 }
