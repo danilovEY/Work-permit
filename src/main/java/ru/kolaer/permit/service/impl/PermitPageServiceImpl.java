@@ -58,7 +58,11 @@ public class PermitPageServiceImpl extends BasePageServiceAbstract<PermitEntity>
     }
 
     @Override
-    public WorkPermitEntity update(WorkPermitEntity workPermitEntity) {
+    public WorkPermitEntity update(WorkPermitEntity workPermitEntity, EmployeeEntity whoUpdate) {
+        final WorkPermitEntity origin = this.dao.findWorkById(workPermitEntity.getId());
+        if(!origin.getEndWork().equals(workPermitEntity.getEndWork())){
+            this.setStatus(workPermitEntity.getId(), EXTEND_STATUS, whoUpdate);
+        }
         return this.dao.update(workPermitEntity);
     }
 
@@ -123,6 +127,27 @@ public class PermitPageServiceImpl extends BasePageServiceAbstract<PermitEntity>
 
     @Override
     public PermitEntity add(WorkPermitEntity workPermitEntity, EmployeeEntity whoWrite) {
+        final  PermitEntity permitEntity = this.convertWorkPermitToPermit(workPermitEntity);
+        permitEntity.setStatus(EDIT_STATUS);
+
+        permitEntity.setWriter(whoWrite);
+        permitEntity.setDateWritePermit(new Date());
+        permitEntity.setExtendedPermit(permitEntity.getEndWork());
+
+
+        final PermitStatusHistoryEntity createNewPermit = new PermitStatusHistoryEntity();
+        createNewPermit.setEmployee(permitEntity.getWriter());
+        createNewPermit.setPermit(permitEntity);
+        createNewPermit.setPermitId(permitEntity.getId());
+        createNewPermit.setStatusDate(new Date());
+        createNewPermit.setStatus(EDIT_STATUS);
+
+        permitEntity.setPermitStatusHistories(Collections.singletonList(createNewPermit));
+
+        return this.add(permitEntity);
+    }
+
+    private PermitEntity convertWorkPermitToPermit(WorkPermitEntity workPermitEntity) {
         final  PermitEntity permitEntity = new PermitEntity();
         permitEntity.setSerialNumber(workPermitEntity.getSerialNumber());
         permitEntity.setName(workPermitEntity.getName());
@@ -138,22 +163,10 @@ public class PermitPageServiceImpl extends BasePageServiceAbstract<PermitEntity>
         permitEntity.setPosition(workPermitEntity.getPosition());
         permitEntity.setSafety(workPermitEntity.getSafety());
         permitEntity.setRescue(workPermitEntity.getRescue());
-        permitEntity.setStatus("Редактирование");
+        permitEntity.setDateLimitPermit(workPermitEntity.getDateLimitPermit());
+        permitEntity.setDateWritePermit(workPermitEntity.getDateWritePermit());
 
-        permitEntity.setWriter(whoWrite);
-        permitEntity.setDateWritePermit(new Date());
-        permitEntity.setExtendedPermit(permitEntity.getEndWork());
-
-        final PermitStatusHistoryEntity createNewPermit = new PermitStatusHistoryEntity();
-        createNewPermit.setEmployee(permitEntity.getWriter());
-        createNewPermit.setPermit(permitEntity);
-        createNewPermit.setPermitId(permitEntity.getId());
-        createNewPermit.setStatusDate(new Date());
-        createNewPermit.setStatus("Редактирование");
-
-        permitEntity.setPermitStatusHistories(Collections.singletonList(createNewPermit));
-
-        return this.add(permitEntity);
+        return permitEntity;
     }
 
     @Override

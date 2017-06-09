@@ -57,7 +57,7 @@ public class PermitController extends BaseController{
     @RequestMapping(value = "update/work", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public String updateWorkPage(WorkPermitEntity workPermitEntity) {
-        final WorkPermitEntity updatable = this.permitPageService.update(workPermitEntity);
+        final WorkPermitEntity updatable = this.permitPageService.update(workPermitEntity, this.getAuthEmployee());
 
         return "redirect:/permit/edit/work?id=" + updatable.getId();
     }

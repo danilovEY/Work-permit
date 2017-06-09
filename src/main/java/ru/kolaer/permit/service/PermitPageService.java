@@ -17,6 +17,7 @@ public interface PermitPageService extends BasePageService<PermitEntity> {
     String WORKING_STATUS = "В работе";
     String PERMIT_STATUS = "Допуск";
     String DELETED_STATUS = "Удален";
+    String EXTEND_STATUS = "Продлен";
 
     Page<ShortPermitEntity> getShortAll(Integer number, Integer pageSize);
     Page<ShortPermitEntity> getShortAll(Integer number, Integer pageSize, Integer sort);
@@ -25,7 +26,7 @@ public interface PermitPageService extends BasePageService<PermitEntity> {
     EventPermitEntity getEventById(Integer id);
     PeoplePermitEntity getPeopleById(Integer id);
 
-    WorkPermitEntity update(WorkPermitEntity workPermitEntity);
+    WorkPermitEntity update(WorkPermitEntity workPermitEntity, EmployeeEntity whoUpdate);
     PeoplePermitEntity update(PeoplePermitEntity peoplePermitEntity);
     EventPermitEntity update(EventPermitEntity eventPermitEntity);
 

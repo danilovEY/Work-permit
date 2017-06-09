@@ -3,6 +3,7 @@ package ru.kolaer.permit.entity;
 import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.Immutable;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -21,6 +22,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Immutable
 public class WorkPermitEntity extends BaseEntity {
     @Column(name = "serial_number", length = 20, nullable = false)
     private String serialNumber;
@@ -53,6 +55,9 @@ public class WorkPermitEntity extends BaseEntity {
     @Column(name = "place_work")
     private String placeWork;
 
+    @Column(length = 100, nullable = false)
+    private String status;
+
     /**Содержимое работ*/
     @Column(name = "content_work")
     private String contentWork;
@@ -60,10 +65,6 @@ public class WorkPermitEntity extends BaseEntity {
     /**Условие работ*/
     @Column(name = "condition_work")
     private String conditionWork;
-
-    /**Опасные факторы*/
-    @Column(name = "dangerous_factors")
-    private String dangerousFactors;
 
     //Системы обеспечения безопасности - BEGIN
 
