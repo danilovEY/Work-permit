@@ -48,10 +48,6 @@
                        aria-describedby="DataTables_Table_0_info">
                     <thead>
                     <tr role="row">
-                        <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                            colspan="1" aria-sort="ascending" aria-label="Username: activate to sort column descending"
-                            style="width: 157px;">ID
-                        </th>
                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                             colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Наименование
                         </th>
@@ -75,7 +71,6 @@
                         <#list postPage.data as post>
                             <#if post_index % 2 == 0>
                                 <tr class="odd">
-                                    <td class="center" id="row-id-${post.id}">${post.id}</td>
                                     <td class="center" id="row-name-${post.id}">${post.name}</td>
                                     <td class="center" id="row-abb-${post.id}">${post.abbreviatedName}</td>
                                     <td class="center" id="row-rang-${post.id}">${post.rang!""}</td>
@@ -93,7 +88,6 @@
                                 </tr>
                             <#else>
                                 <tr class="even">
-                                    <td class="center" id="row-id-${post.id}">${post.id}</td>
                                     <td class="center" id="row-name-${post.id}">${post.name}</td>
                                     <td class="center" id="row-abb-${post.id}">${post.abbreviatedName}</td>
                                     <td class="center" id="row-rang-${post.id}">${post.rang!""}</td>
