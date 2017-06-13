@@ -1,5 +1,6 @@
 <#-- @ftlvariable name="permitPage" type="ru.kolaer.permit.dto.Page<ru.kolaer.permit.entity.ShortPermitEntity>" -->
 <#-- @ftlvariable name="typeSort" type="java.lang.Integer" -->
+<#-- @ftlvariable name="search" type="java.lang.String" -->
 
 
 <#import "../layout/baseTemplate.ftl" as base>
@@ -55,10 +56,11 @@
                     <div class="span6">
                         <div id="search">
                             <div class="control-group">
-                                <label class="control-label" for="search">Поиск:</label>
+                                <label class="control-label" for="search-input">Поиск:</label>
                                 <div class="controls">
                                     <div class="input-append span8">
-                                        <input id="search" type="text" class="span12" name="search"><button class="btn btn-primary" style="padding-bottom: 2px;" type="button">Найти</button>
+                                        <input type="text" class="span12" id="search-input" name="search" value="${search!""}">
+                                        <button class="btn btn-primary" style="padding-bottom: 2px;" type="submit" onclick="searchButton()">Найти</button>
                                     </div>
                                 </div>
                             </div>
@@ -316,6 +318,12 @@
         </div>
     </div><!--/span-->
 </div>
+
+<script>
+    function searchButton() {
+        window.location = self.location='<@spring.url relativeUrl="/permit?search="/>' + document.getElementById("search-input").value;
+    }
+</script>
 
 <#list permitPage.data as permit>
     <#if permit.status == EDIT_PERMIT_STATUS>

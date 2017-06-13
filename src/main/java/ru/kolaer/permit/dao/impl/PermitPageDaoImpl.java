@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import ru.kolaer.permit.component.EmptyObjects;
 import ru.kolaer.permit.dao.BasePageDaoAbstract;
 import ru.kolaer.permit.dao.PermitPageDao;
@@ -13,6 +14,7 @@ import ru.kolaer.permit.entity.*;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.Collections;
 import java.util.List;
@@ -39,16 +41,39 @@ public class PermitPageDaoImpl extends BasePageDaoAbstract<PermitEntity> impleme
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Page<ShortPermitEntity> findShortAll(Integer number, Integer pageSize, Integer sort, boolean findRemoved) {
+        return this.findShortAll(number, pageSize, sort, findRemoved, null);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<ShortPermitEntity> findShortAll(Integer number, Integer pageSize, Integer sort, boolean findRemoved, String search) {
         final Session currentSession = this.sessionFactory.getCurrentSession();
         final CriteriaBuilder criteriaBuilder = currentSession.getCriteriaBuilder();
         final CriteriaQuery<Long> countQuery = criteriaBuilder.createQuery(Long.class);
         final Root<ShortPermitEntity> fromCount = countQuery.from(ShortPermitEntity.class);
         CriteriaQuery<Long> selectCount = countQuery.select(criteriaBuilder.count(fromCount.get("id")));
 
-        if(!findRemoved)
-            selectCount = selectCount.where(criteriaBuilder.equal(fromCount.get("removed"), false));
+        Predicate removed = null;
+
+        if(!findRemoved) {
+            removed = criteriaBuilder.equal(fromCount.get("removed"), false);
+        }
+
+        Predicate searchOr = null;
+
+        if(StringUtils.hasText(search)) {
+            searchOr = criteriaBuilder.or(criteriaBuilder.like(fromCount.get("serialNumber"), "%" + search + "%"),
+                    criteriaBuilder.like(fromCount.get("name"), "%" + search + "%"));
+        }
+
+        if(removed != null && searchOr != null) {
+            selectCount = selectCount.where(criteriaBuilder.and(removed, searchOr));
+        } else if(removed != null) {
+            selectCount = selectCount.where(removed);
+        } else if(searchOr != null) {
+            selectCount = selectCount.where(searchOr);
+        }
 
         final Long count = currentSession
                 .createQuery(selectCount)
@@ -58,8 +83,22 @@ public class PermitPageDaoImpl extends BasePageDaoAbstract<PermitEntity> impleme
         final Root<ShortPermitEntity> fromSelect = selectQuery.from(ShortPermitEntity.class);
         CriteriaQuery<ShortPermitEntity> select = selectQuery.select(fromSelect);
 
-        if(!findRemoved)
-            select = select.where(criteriaBuilder.equal(fromSelect.get("removed"), false));
+        if(!findRemoved) {
+            removed = criteriaBuilder.equal(fromCount.get("removed"), false);
+        }
+
+        if(StringUtils.hasText(search)) {
+            searchOr = criteriaBuilder.or(criteriaBuilder.like(fromCount.get("serialNumber"), "%" + search + "%"),
+                    criteriaBuilder.like(fromCount.get("name"), "%" + search + "%"));
+        }
+
+        if(removed != null && searchOr != null) {
+            select = select.where(criteriaBuilder.and(removed, searchOr));
+        } else if(removed != null) {
+            select = select.where(removed);
+        } else if(searchOr != null) {
+            select = select.where(searchOr);
+        }
 
         switch (sort) {
             case 2: select = select.orderBy(criteriaBuilder.desc(fromSelect.get("extendedPermit"))); break;

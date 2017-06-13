@@ -10,6 +10,7 @@ import java.util.List;
  */
 public interface PermitPageDao extends BasePageDao<PermitEntity> {
     Page<ShortPermitEntity> findShortAll(Integer number, Integer pageSize, Integer sort, boolean includeRemoved);
+    Page<ShortPermitEntity> findShortAll(Integer number, Integer pageSize, Integer sort, boolean includeRemoved, String search);
 
     WorkPermitEntity findWorkById(Integer id);
     EventPermitEntity findEventById(Integer id);

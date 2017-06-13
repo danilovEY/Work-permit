@@ -45,12 +45,14 @@ public class PermitController extends BaseController{
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView getIndexPage(@RequestParam(value = "page", defaultValue = "1") Integer number,
                                      @RequestParam(value = "pagesize", defaultValue = "15") Integer pageSize,
-                                     @RequestParam(value = "sort", defaultValue = "0") Integer sort) {
-        final Page<ShortPermitEntity> all = this.permitPageService.getShortAll(number, pageSize, sort);
+                                     @RequestParam(value = "sort", defaultValue = "0") Integer sort,
+                                     @RequestParam(value = "search", defaultValue = "") String search) {
+        final Page<ShortPermitEntity> all = this.permitPageService.getShortAll(number, pageSize, sort, search);
 
         final ModelAndView view = this.createDefaultView("/permit/view");
         view.addObject("permitPage", all);
         view.addObject("typeSort", sort);
+        view.addObject("search", search);
         return view;
     }
 
