@@ -51,9 +51,6 @@
                     <thead>
                     <tr role="row">
                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                            colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">ID
-                        </th>
-                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                             colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Наименование
                         </th>
                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
@@ -70,7 +67,6 @@
                         <#list departmentPage.data as dep>
                             <#if dep_index % 2 == 0>
                             <tr class="odd">
-                                <td class="center" id="row-id-${dep.id}">${dep.id}</td>
                                 <td class="center" id="row-name-${dep.id}">${dep.name}</td>
                                 <td class="center" id="row-abb-${dep.id}">${dep.abbreviatedName}</td>
                                 <@security.authorize access=ROLE_DB_ADMIN>
@@ -86,7 +82,6 @@
                             </tr>
                             <#else>
                             <tr class="even">
-                                <td class="center" id="row-id-${dep.id}">${dep.id}</td>
                                 <td class="center" id="row-name-${dep.id}">${dep.name}</td>
                                 <td class="center" id="row-abb-${dep.id}">${dep.abbreviatedName}</td>
                                 <@security.authorize access=ROLE_DB_ADMIN>

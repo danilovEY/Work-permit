@@ -16,10 +16,7 @@
         </div>
         <div class="box-content">
             <form class="form-inline" method="post" action="<@spring.url relativeUrl="/department/update"/>">
-                <label class="control-label" for="id">ID: </label>
-                <div class="controls">
-                    <input type="text" class="span12" id="idUpdate" name="id" value="${department.id!""}" readonly/>
-                </div>
+                <input type="text" class="span12 hidden" id="idUpdate" name="id" value="${department.id!""}" readonly/>
 
                 <label class="control-label" for="name">Наименование: </label>
                 <div class="controls">
