@@ -65,8 +65,8 @@
                             <#if !employee.gender?has_content>
                                 <option disabled selected value> Пол... </option>
                             </#if>
-                            <option value="${MALE}" <#if employee.gender!"" == MALE> selected="selected" </#if>>${MALE}</option>
-                            <option value="${FEMALE}" <#if employee.gender!"" == MALE> selected="selected" </#if>>${FEMALE}</option>
+                            <option value="${MALE}" <#if employee.gender == MALE> selected="selected" </#if>>${MALE}</option>
+                            <option value="${FEMALE}" <#if employee.gender == FEMALE> selected="selected" </#if>>${FEMALE}</option>
                         </select>
                     </div>
                 </div>

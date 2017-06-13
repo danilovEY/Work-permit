@@ -93,6 +93,10 @@ public class EmployeeController extends BaseController {
             employeeEntity.setUsername(employeeEntity.getPersonnelNumber().toString());
         }
 
+        if(employeeEntity.getGender() == null) {
+            employeeEntity.setGender("");
+        }
+
         this.employeePageService.add(employeeEntity);
 
         return "redirect:/employee";
