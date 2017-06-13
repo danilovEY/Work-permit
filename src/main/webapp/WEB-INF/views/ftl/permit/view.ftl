@@ -15,6 +15,7 @@
 <#assign WORKING_STATUS = "В работе"/>
 <#assign OVERDUE_STATUS = "Просрочен"/>
 <#assign DELETED_STATUS = "Удален"/>
+<#assign END_STATUS = "Завершен"/>
 
 <#assign ROLE_DB_ADMIN = "hasRole('ROLE_DB_ADMIN')"/>
 <#assign ROLE_USER = "hasRole('ROLE_USER')"/>
@@ -126,6 +127,8 @@
                                     <td class="center"><span class="label label-important">${permit.status}</span></td>
                                 <#elseif permit.status == DELETED_STATUS>
                                     <td class="center"><span class="label label-inverse">${permit.status}</span></td>
+                                <#elseif permit.status == END_STATUS>
+                                    <td class="center"><span class="label label-success">${permit.status}</span></td>
                                 <#else>
                                     <td class="center"><span class="label">${permit.status}</span></td>
                                 </#if>
@@ -139,10 +142,16 @@
                                         <i class="halflings-icon white download-alt"></i>
                                     </a>
 
+                                    <#if permit.status == PERMIT_STATUS>
+                                        <a class="btn btn-info" style="margin-bottom: 4px;" title="Завершить наряд" id="end-but-${permit.id}" href="#">
+                                            <i class="halflings-icon white ok"></i>
+                                        </a>
+                                    </#if>
+
                                     <#if permit.status == APPROVE_STATUS>
                                         <@security.authorize access=ROLE_PERMIT>
                                             <a class="btn btn-info" style="margin-bottom: 4px;" title="Допустить" id="permit-but-${permit.id}" href="#">
-                                                <i class="halflings-icon white ok"></i>
+                                                <i class="halflings-icon white thumbs-up"></i>
                                             </a>
                                         </@security.authorize>
                                     </#if>
@@ -200,6 +209,8 @@
                                     <td class="center"><span class="label label-important">${permit.status}</span></td>
                                 <#elseif permit.status == DELETED_STATUS>
                                     <td class="center"><span class="label label-inverse">${permit.status}</span></td>
+                                <#elseif permit.status == END_STATUS>
+                                    <td class="center"><span class="label label-success">${permit.status}</span></td>
                                 <#else>
                                     <td class="center"><span class="label">${permit.status}</span></td>
                                 </#if>
@@ -213,10 +224,16 @@
                                         <i class="halflings-icon white download-alt"></i>
                                     </a>
 
+                                    <#if permit.status == PERMIT_STATUS>
+                                        <a class="btn btn-info" style="margin-bottom: 4px;" title="Завершить наряд" id="end-but-${permit.id}" href="#">
+                                            <i class="halflings-icon white ok"></i>
+                                        </a>
+                                    </#if>
+
                                     <#if permit.status == APPROVE_STATUS>
                                         <@security.authorize access=ROLE_PERMIT>
                                             <a class="btn btn-info" style="margin-bottom: 4px;" title="Допустить" id="permit-but-${permit.id}" href="#">
-                                                <i class="halflings-icon white ok"></i>
+                                                <i class="halflings-icon white thumbs-up"></i>
                                             </a>
                                         </@security.authorize>
                                     </#if>

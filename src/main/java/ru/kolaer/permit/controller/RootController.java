@@ -13,6 +13,6 @@ public class RootController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String getIndex() {
-        return "redirect:/index";
+        return "redirect:/permit";
     }
 }
