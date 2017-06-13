@@ -149,9 +149,11 @@ public class PermitEntity extends BaseEntity {
     @JoinColumn(name = "briefing_accept_id")
     private EmployeeEntity briefingAccept;
 
+    /**Мероприятия проверены*/
     @Column(name = "check_events", nullable = false)
     private boolean checkEvents;
 
+    /**Наряд завершили*/
     @Column(name = "complete", nullable = false)
     private boolean complete;
 }

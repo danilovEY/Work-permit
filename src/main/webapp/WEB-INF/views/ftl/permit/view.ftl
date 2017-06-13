@@ -141,32 +141,30 @@
 
                                     <#if permit.status == APPROVE_STATUS>
                                         <@security.authorize access=ROLE_PERMIT>
-                                            <a class="btn btn-info" style="margin-bottom: 4px;" title="Допустить" href="<@spring.url relativeUrl="/permit/action/permit?id=${permit.id}"/>">
+                                            <a class="btn btn-info" style="margin-bottom: 4px;" title="Допустить" id="permit-but-${permit.id}" href="#">
                                                 <i class="halflings-icon white ok"></i>
                                             </a>
                                         </@security.authorize>
                                     </#if>
 
                                     <#if permit.status == EDIT_PERMIT_STATUS>
-                                        <a class="btn btn-info" style="margin-bottom: 4px;" title="Запрос на согласование" href="<@spring.url relativeUrl="/permit/action/need/approve?id=${permit.id}"/>">
+                                        <a class="btn btn-info" style="margin-bottom: 4px;" title="Запрос на согласование" id="need-approve-but-${permit.id}" href="#">
                                             <i class="halflings-icon white question-sign"></i>
                                         </a>
-
                                         <a class="btn btn-success" style="margin-bottom: 4px;" title="Редактировать" href="<@spring.url relativeUrl="/permit/edit/work?id=${permit.id}"/>">
                                             <i class="halflings-icon white edit"></i>
                                         </a>
-                                        <a class="btn btn-danger" style="margin-bottom: 4px;" title="Удалить" href="<@spring.url relativeUrl="/permit/delete?id=${permit.id}"/>">
+                                        <a class="btn btn-danger" style="margin-bottom: 4px;" title="Удалить" id="delete-but-${permit.id}" href="#">
                                             <i class="halflings-icon white trash"></i>
                                         </a>
                                     </#if>
 
-
                                     <#if permit.status == NEED_APPROVE_PERMIT_STATUS>
                                         <@security.authorize access=ROLE_APPROVE>
-                                            <a class="btn btn-info" style="margin-bottom: 4px;" title="Согласовать" href="<@spring.url relativeUrl="/permit/action/approve?id=${permit.id}"/>">
+                                            <a class="btn btn-info" style="margin-bottom: 4px;" title="Согласовать" id="approve-but-${permit.id}" href="#">
                                                 <i class="halflings-icon white ok-circle"></i>
                                             </a>
-                                            <a class="btn btn-danger" style="margin-bottom: 4px;" title="Отменить" href="<@spring.url relativeUrl="/permit/cancel?id=${permit.id}"/>">
+                                            <a class="btn btn-danger" style="margin-bottom: 4px;" title="Отменить" id="cancel-but-${permit.id}" href="#">
                                                 <i class="halflings-icon white ban-circle"></i>
                                             </a>
                                         </@security.authorize>
@@ -217,31 +215,30 @@
 
                                     <#if permit.status == APPROVE_STATUS>
                                         <@security.authorize access=ROLE_PERMIT>
-                                            <a class="btn btn-info" style="margin-bottom: 4px;" title="Допустить" href="<@spring.url relativeUrl="/permit/action/permit?id=${permit.id}"/>">
+                                            <a class="btn btn-info" style="margin-bottom: 4px;" title="Допустить" id="permit-but-${permit.id}" href="#">
                                                 <i class="halflings-icon white ok"></i>
                                             </a>
                                         </@security.authorize>
                                     </#if>
 
                                     <#if permit.status == EDIT_PERMIT_STATUS>
-                                        <a class="btn btn-info" style="margin-bottom: 4px;" title="Запрос на согласование" href="<@spring.url relativeUrl="/permit/action/need/approve?id=${permit.id}"/>">
+                                        <a class="btn btn-info" style="margin-bottom: 4px;" title="Запрос на согласование" id="need-approve-but-${permit.id}" href="#">
                                             <i class="halflings-icon white question-sign"></i>
                                         </a>
-
                                         <a class="btn btn-success" style="margin-bottom: 4px;" title="Редактировать" href="<@spring.url relativeUrl="/permit/edit/work?id=${permit.id}"/>">
                                             <i class="halflings-icon white edit"></i>
                                         </a>
-                                        <a class="btn btn-danger" style="margin-bottom: 4px;" title="Удалить" href="<@spring.url relativeUrl="/permit/delete?id=${permit.id}"/>">
+                                        <a class="btn btn-danger" style="margin-bottom: 4px;" title="Удалить" id="delete-but-${permit.id}" href="#">
                                             <i class="halflings-icon white trash"></i>
                                         </a>
                                     </#if>
 
                                     <#if permit.status == NEED_APPROVE_PERMIT_STATUS>
                                         <@security.authorize access=ROLE_APPROVE>
-                                            <a class="btn btn-info" style="margin-bottom: 4px;" title="Согласовать" href="<@spring.url relativeUrl="/permit/action/approve?id=${permit.id}"/>">
+                                            <a class="btn btn-info" style="margin-bottom: 4px;" title="Согласовать" id="approve-but-${permit.id}" href="#">
                                                 <i class="halflings-icon white ok-circle"></i>
                                             </a>
-                                            <a class="btn btn-danger" style="margin-bottom: 4px;" title="Отменить" href="<@spring.url relativeUrl="/permit/cancel?id=${permit.id}"/>">
+                                            <a class="btn btn-danger" style="margin-bottom: 4px;" title="Отменить" id="cancel-but-${permit.id}" href="#">
                                                 <i class="halflings-icon white ban-circle"></i>
                                             </a>
                                         </@security.authorize>
@@ -287,6 +284,119 @@
         </div>
     </div><!--/span-->
 </div>
+
+<#list permitPage.data as permit>
+    <#if permit.status == EDIT_PERMIT_STATUS>
+        <#-- Запрос на удаление -->
+        <div class="modal hide fade" id="delete-${permit.id}">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h3>Запрос на удаление</h3>
+            </div>
+            <div class="modal-body">
+                <p>Вы действительно хотите удалить наряд: "${permit.serialNumber}"?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal">Отмена</a>
+                <a href="<@spring.url relativeUrl="/permit/delete?id=${permit.id}"/>" class="btn btn-primary">Удалить</a>
+            </div>
+        </div>
+        <script>
+            $('#delete-but-${permit.id}').click(function(e){
+                e.preventDefault();
+                $('#delete-${permit.id}').modal('show');
+            });
+        </script>
+
+        <#-- Запрос на согласование -->
+        <div class="modal hide fade" id="need-approve-${permit.id}">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h3>Запрос на согласование</h3>
+            </div>
+            <div class="modal-body">
+                <p>Вы действительно хотите отправить наряд "${permit.serialNumber}" на согласование?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal">Отмена</a>
+                <a href="<@spring.url relativeUrl="/permit/action/need/approve?id=${permit.id}"/>" class="btn btn-primary">Подтвердить</a>
+            </div>
+        </div>
+        <script>
+            $('#need-approve-but-${permit.id}').click(function(e){
+                e.preventDefault();
+                $('#need-approve-${permit.id}').modal('show');
+            });
+        </script>
+    </#if>
+
+    <#if permit.status == NEED_APPROVE_PERMIT_STATUS>
+        <#-- Согласование -->
+        <div class="modal hide fade" id="approve-${permit.id}">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h3>Согласование</h3>
+            </div>
+            <div class="modal-body">
+                <p>Вы действительно хотите согласовать наряд: "${permit.serialNumber}"?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal">Отмена</a>
+                <a href="<@spring.url relativeUrl="/permit/action/approve?id=${permit.id}"/>" class="btn btn-primary">Подтвердить</a>
+            </div>
+        </div>
+        <script>
+            $('#approve-but-${permit.id}').click(function(e){
+                e.preventDefault();
+                $('#approve-${permit.id}').modal('show');
+            });
+        </script>
+
+        <#-- Отмена -->
+        <div class="modal hide fade" id="cancel-${permit.id}">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h3>Отмена</h3>
+            </div>
+            <div class="modal-body">
+                <p>Вы действительно хотите отменить наряд: "${permit.serialNumber}"?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal">Отмена</a>
+                <a href="<@spring.url relativeUrl="/permit/action/cancel?id=${permit.id}"/>" class="btn btn-primary">Подтвердить</a>
+            </div>
+        </div>
+        <script>
+            $('#cancel-but-${permit.id}').click(function(e){
+                e.preventDefault();
+                $('#cancel-${permit.id}').modal('show');
+            });
+        </script>
+    </#if>
+
+    <#if permit.status == APPROVE_STATUS>
+        <#-- Допуск -->
+        <div class="modal hide fade" id="permit-${permit.id}">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h3>Допуск</h3>
+            </div>
+            <div class="modal-body">
+                <p>Вы действительно хотите допустить наряд: "${permit.serialNumber}"?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal">Отмена</a>
+                <a href="<@spring.url relativeUrl="/permit/action/permit?id=${permit.id}"/>" class="btn btn-primary">Подтвердить</a>
+            </div>
+        </div>
+        <script>
+            $('#permit-but-${permit.id}').click(function(e){
+                e.preventDefault();
+                $('#permit-${permit.id}').modal('show');
+            });
+        </script>
+    </#if>
+</#list>
 
 </@base.override>
 
