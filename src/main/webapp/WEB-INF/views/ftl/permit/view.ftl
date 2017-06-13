@@ -142,8 +142,8 @@
                                         <i class="halflings-icon white download-alt"></i>
                                     </a>
 
-                                    <#if permit.status == PERMIT_STATUS>
-                                        <a class="btn btn-info" style="margin-bottom: 4px;" title="Завершить наряд" id="end-but-${permit.id}" href="#">
+                                    <#if permit.status == WORKING_STATUS>
+                                        <a class="btn btn-info" style="margin-bottom: 4px;" title="Завершить наряд" id="end-but-${permit.id}" href="<@spring.url relativeUrl="/permit/action/end?id=${permit.id}"/>">
                                             <i class="halflings-icon white ok"></i>
                                         </a>
                                     </#if>
@@ -224,8 +224,8 @@
                                         <i class="halflings-icon white download-alt"></i>
                                     </a>
 
-                                    <#if permit.status == PERMIT_STATUS>
-                                        <a class="btn btn-info" style="margin-bottom: 4px;" title="Завершить наряд" id="end-but-${permit.id}" href="#">
+                                    <#if permit.status == WORKING_STATUS>
+                                        <a class="btn btn-info" style="margin-bottom: 4px;" title="Завершить наряд" id="end-but-${permit.id}" href="<@spring.url relativeUrl="/permit/action/end?id=${permit.id}"/>">
                                             <i class="halflings-icon white ok"></i>
                                         </a>
                                     </#if>

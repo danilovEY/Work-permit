@@ -31,4 +31,6 @@ public interface PermitPageDao extends BasePageDao<PermitEntity> {
     List<Integer> findAllByStatusAndOverdue(String overdue);
 
     List<Integer> findAllByStatusAndStartWork(String status);
+
+    boolean setCompletePermit(Integer id, boolean b);
 }

@@ -147,6 +147,13 @@ public class PermitPageServiceImpl extends BasePageServiceAbstract<PermitEntity>
         return this.add(permitEntity);
     }
 
+    @Override
+    public void endPermit(Integer id, EmployeeEntity authEmployee) {
+        if(this.dao.setCompletePermit(id, true)) {
+            this.setStatus(id, END_STATUS, authEmployee);
+        }
+    }
+
     private PermitEntity convertWorkPermitToPermit(WorkPermitEntity workPermitEntity) {
         final  PermitEntity permitEntity = new PermitEntity();
         permitEntity.setSerialNumber(workPermitEntity.getSerialNumber());

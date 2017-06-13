@@ -191,4 +191,14 @@ public class PermitPageDaoImpl extends BasePageDaoAbstract<PermitEntity> impleme
                 .setParameter("status", status)
                 .list();
     }
+
+    @Override
+    @Transactional
+    public boolean setCompletePermit(Integer id, boolean b) {
+        return this.sessionFactory.getCurrentSession()
+                .createQuery("UPDATE PermitEntity p SET p.complete = :complete WHERE p.id = :id")
+                .setParameter("id", id)
+                .setParameter("complete", b)
+                .executeUpdate() > 0;
+    }
 }

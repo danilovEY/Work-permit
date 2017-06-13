@@ -247,6 +247,13 @@ public class PermitController extends BaseController{
         return "redirect:/permit";
     }
 
+    @RequestMapping(value = "action/end", method = RequestMethod.GET)
+    public String setEndStatus(@RequestParam(value = "id") Integer id) {
+        this.permitPageService.endPermit(id, this.getAuthEmployee());
+
+        return "redirect:/permit";
+    }
+
 
     @RequestMapping(value = "action/permit", method = RequestMethod.GET)
     public String setPermit(@RequestParam(value = "id") Integer id) {

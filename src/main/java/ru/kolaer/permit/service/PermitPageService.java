@@ -18,6 +18,7 @@ public interface PermitPageService extends BasePageService<PermitEntity> {
     String PERMIT_STATUS = "Допуск";
     String DELETED_STATUS = "Удален";
     String EXTEND_STATUS = "Продлен";
+    String END_STATUS = "Завершен";
 
     Page<ShortPermitEntity> getShortAll(Integer number, Integer pageSize);
     Page<ShortPermitEntity> getShortAll(Integer number, Integer pageSize, Integer sort);
@@ -45,4 +46,6 @@ public interface PermitPageService extends BasePageService<PermitEntity> {
     PermitEntity delete(PermitEntity permitEntity, EmployeeEntity whoDeleted);
 
     PermitEntity add(WorkPermitEntity workPermitEntity, EmployeeEntity whoWrite);
+
+    void endPermit(Integer id, EmployeeEntity authEmployee);
 }
