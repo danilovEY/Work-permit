@@ -104,8 +104,20 @@
 
             <div class="row-fluid">
                 <div class="span12">
-                    <div class="dataTables_info" id="role_table_info">
-                        Страница ${rolePage.number} из ${rolePage.total} по ${rolePage.pageSize} ролей.
+                    <div class="dataTables_info" id="DataTables_Table_0_info">
+                        <form class="form-horizontal">
+                            <div class="control-group">
+                                <label class="control-label" for="page-size">Страница ${permitPage.number} из ${permitPage.total} по</label>
+                                <div class="controls">
+                                    <select size="1" id="page-size" name="page-size" onchange="self.location='<@spring.url relativeUrl="/permit"/>?page=1&pagesize='+this.value">
+                                        <option value="15" <#if permitPage.pageSize == 15>selected="selected"</#if>>15</option>
+                                        <option value="30" <#if permitPage.pageSize == 30>selected="selected"</#if>>30</option>
+                                        <option value="100" <#if permitPage.pageSize == 100>selected="selected"</#if>>100</option>
+                                    </select>
+                                    <span class="help-inline">ролей.</span>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div class="span12 center">

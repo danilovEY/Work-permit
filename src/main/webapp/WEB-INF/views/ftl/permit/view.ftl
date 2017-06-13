@@ -41,7 +41,10 @@
                             <div class="control-group">
                                 <label class="control-label" for="sort">Сотрировать по:</label>
                                 <div class="controls">
-                                    <select size="1" class="span12" id="sort" name="sort" onchange="self.location='<@spring.url relativeUrl="/permit"/>?sort='+this.selectedIndex">
+                                    <select size="1" class="span12" id="sort" name="sort" onchange="self.location='<@spring.url relativeUrl="/permit"/>?'
+                                            + 'sort='+this.selectedIndex
+                                            + '<#if RequestParameters.page?has_content>&page=${RequestParameters.page}</#if>'
+                                            + '<#if RequestParameters.pagesize?has_content>&pagesize=${RequestParameters.pagesize}</#if>'">
                                         <option value="0" <#if typeSort == 0>selected="selected"</#if>>Дате выдачи наряда</option>
                                         <option value="1" <#if typeSort == 1>selected="selected"</#if>>Дате начала работы</option>
                                     </select>
@@ -270,7 +273,19 @@
                 <div class="row-fluid">
                     <div class="span12">
                         <div class="dataTables_info" id="DataTables_Table_0_info">
-                            Страница ${permitPage.number} из ${permitPage.total} по ${permitPage.pageSize} нарядов.
+                            <form class="form-horizontal">
+                                <div class="control-group">
+                                    <label class="control-label" for="page-size">Страница ${permitPage.number} из ${permitPage.total} по</label>
+                                    <div class="controls">
+                                        <select size="1" id="page-size" name="page-size" onchange="self.location='<@spring.url relativeUrl="/permit"/>?<#if RequestParameters.sort?has_content>sort=${RequestParameters.sort}</#if>&page=1&pagesize='+this.value">
+                                            <option value="15" <#if permitPage.pageSize == 15>selected="selected"</#if>>15</option>
+                                            <option value="30" <#if permitPage.pageSize == 30>selected="selected"</#if>>30</option>
+                                            <option value="100" <#if permitPage.pageSize == 100>selected="selected"</#if>>100</option>
+                                        </select>
+                                        <span class="help-inline">нарядов.</span>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <div class="span12 center">
