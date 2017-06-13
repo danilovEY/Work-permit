@@ -10,7 +10,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href=""><span>Наряд-допуск</span></a>
+
+            <a class="brand" href="">
+                <div id="image-1" class="masonry-thumb masonry-brick" style="width: 40px;">
+                    <img class="grayscale" src="<@spring.url relativeUrl="/resources/img/aerIcon.png"/>" alt="Sample Image 1"/>
+                </div>
+                <span>Наряд-допуск</span>
+            </a>
 
             <!-- start: Header Menu -->
             <div class="nav-no-collapse header-nav">
