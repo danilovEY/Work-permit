@@ -44,6 +44,7 @@
                                 <div class="controls">
                                     <select size="1" class="span12" id="sort" name="sort" onchange="self.location='<@spring.url relativeUrl="/permit"/>?'
                                             + 'sort='+this.selectedIndex
+                                            + '<#if RequestParameters.search?has_content>&search=${RequestParameters.search}</#if>'
                                             + '<#if RequestParameters.page?has_content>&page=${RequestParameters.page}</#if>'
                                             + '<#if RequestParameters.pagesize?has_content>&pagesize=${RequestParameters.pagesize}</#if>'">
                                         <option value="0" <#if typeSort == 0>selected="selected"</#if>>Дате выдачи наряда</option>
@@ -279,7 +280,9 @@
                                 <div class="control-group">
                                     <label class="control-label" for="page-size">Страница ${permitPage.number} из ${permitPage.total} по</label>
                                     <div class="controls">
-                                        <select size="1" id="page-size" name="page-size" onchange="self.location='<@spring.url relativeUrl="/permit"/>?<#if RequestParameters.sort?has_content>sort=${RequestParameters.sort}</#if>&page=1&pagesize='+this.value">
+                                        <select size="1" id="page-size" name="page-size" onchange="self.location='<@spring.url relativeUrl="/permit"/>?'
+                                                + '<#if RequestParameters.sort?has_content>sort=${RequestParameters.sort}</#if>&page=1&pagesize='+this.value
+                                                + '<#if RequestParameters.search?has_content>&search=${RequestParameters.search}</#if>'">
                                             <option value="15" <#if permitPage.pageSize == 15>selected="selected"</#if>>15</option>
                                             <option value="30" <#if permitPage.pageSize == 30>selected="selected"</#if>>30</option>
                                             <option value="100" <#if permitPage.pageSize == 100>selected="selected"</#if>>100</option>
@@ -321,7 +324,10 @@
 
 <script>
     function searchButton() {
-        window.location = self.location='<@spring.url relativeUrl="/permit?search="/>' + document.getElementById("search-input").value;
+        window.location = self.location='<@spring.url relativeUrl="/permit?search="/>' + document.getElementById("search-input").value
+                + '&page=1'
+                + '<#if RequestParameters.pagesize?has_content>&pagesize=${RequestParameters.pagesize}</#if>'
+                + '<#if RequestParameters.sort?has_content>&sort=${RequestParameters.sort}</#if>';
     }
 </script>
 
