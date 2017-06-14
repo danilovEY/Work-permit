@@ -11,4 +11,6 @@ public interface PostPageDao extends BasePageDao<PostEntity> {
     default PostEntity getEmptyEntity() {
         return EmptyObjects.DEFAULT_POST;
     }
+
+    boolean existPost(PostEntity postEntity);
 }

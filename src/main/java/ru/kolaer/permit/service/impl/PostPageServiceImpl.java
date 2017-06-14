@@ -50,4 +50,9 @@ public class PostPageServiceImpl extends BasePageServiceAbstract<PostEntity> imp
     public List<PostEntity> deleteAll(List<PostEntity> entities) {
         return this.postPageDao.deleteAll(entities, true);
     }
+
+    @Override
+    public boolean existPost(PostEntity postEntity) {
+        return this.postPageDao.existPost(postEntity);
+    }
 }

@@ -7,4 +7,5 @@ import ru.kolaer.permit.entity.PostEntity;
  */
 public interface PostPageService extends BasePageService<PostEntity> {
 
+    boolean existPost(PostEntity postEntity);
 }
