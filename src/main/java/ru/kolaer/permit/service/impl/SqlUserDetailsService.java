@@ -28,6 +28,7 @@ public class SqlUserDetailsService implements UserDetailsService {
     private final String defaultPass;
 
     private final AccountDto defaultAccount;
+
     private final AccountDao accountDao;
     private final PasswordEncoder encoder;
 

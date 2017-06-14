@@ -3,7 +3,6 @@ package ru.kolaer.permit.service.impl;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.kolaer.permit.dao.AccountDao;
 import ru.kolaer.permit.dao.EmployeePageDao;
 import ru.kolaer.permit.dao.RolePageDao;
 import ru.kolaer.permit.dto.Page;
@@ -36,7 +35,7 @@ public class EmployeePageServiceImpl extends BasePageServiceAbstract<EmployeeEnt
         final EmployeeEntity persistEmployee =  super.add(entity);
         if(persistEmployee.getId() != null) {
             final RoleEntity userRole = new RoleEntity();
-            userRole.setEmployeeId(persistEmployee.getId());
+            userRole.setEmployee(persistEmployee);
             userRole.setRole("ROLE_USER");
 
             this.rolePageDao.persist(userRole);

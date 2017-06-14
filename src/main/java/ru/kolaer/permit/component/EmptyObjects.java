@@ -55,16 +55,16 @@ public final class EmptyObjects {
                 public void setPost(PostEntity post) {throw new UnsupportedOperationException("Employee entity object is empty! You can't write value to empty objects.");}
     };
 
-    public static final RoleEntity DEFAULT_ROLE = new RoleEntity(-1, -1, "") {
+    public static final RoleEntity DEFAULT_ROLE = new RoleEntity(-1, DEFAULT_EMPLOYEE, "ROLE_USER") {
         @Override
         public void setId(Integer id) {throw new UnsupportedOperationException("Role entity object is empty! You can't write value to empty objects.");}
         @Override
         public void setRole(String role) {throw new UnsupportedOperationException("Role entity object is empty! You can't write value to empty objects.");}
         @Override
-        public void setEmployeeId(Integer employeeId) {throw new UnsupportedOperationException("Role entity object is empty! You can't write value to empty objects.");}
+        public void setEmployee(EmployeeEntity employee) {throw new UnsupportedOperationException("Role entity object is empty! You can't write value to empty objects.");}
     };
 
-    public static final FullRoleEntity DEFAULT_FULL_ROLE = new FullRoleEntity(-1, DEFAULT_EMPLOYEE, "") {
+    public static final RoleEntity DEFAULT_FULL_ROLE = new RoleEntity(-1, DEFAULT_EMPLOYEE, "") {
         @Override
         public void setId(Integer id) {throw new UnsupportedOperationException("Full Role entity object is empty! You can't write value to empty objects.");}
         @Override

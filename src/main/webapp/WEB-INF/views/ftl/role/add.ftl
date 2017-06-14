@@ -1,4 +1,4 @@
-<#-- @ftlvariable name="role" type="ru.kolaer.permit.entity.FullRoleEntity" -->
+<#-- @ftlvariable name="role" type="ru.kolaer.permit.entity.RoleEntity" -->
 <#-- @ftlvariable name="employees" type="java.util.List<ru.kolaer.permit.entity.EmployeeEntity>" -->
 <#-- @ftlvariable name="roleNameMap" type="java.util.Map<java.lang.String, java.lang.String>" -->
 

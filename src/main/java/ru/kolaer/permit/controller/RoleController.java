@@ -12,9 +12,9 @@ import org.springframework.web.servlet.ModelAndView;
 import ru.kolaer.permit.dto.Page;
 import ru.kolaer.permit.dto.RoleNameDto;
 import ru.kolaer.permit.entity.EmployeeEntity;
-import ru.kolaer.permit.entity.FullRoleEntity;
+import ru.kolaer.permit.entity.RoleEntity;
 import ru.kolaer.permit.service.EmployeePageService;
-import ru.kolaer.permit.service.FullRolePageService;
+import ru.kolaer.permit.service.RolePageService;
 
 import java.util.List;
 
@@ -26,17 +26,17 @@ import java.util.List;
 @Slf4j
 public class RoleController extends BaseController {
 
-    private final FullRolePageService fullRolePageService;
+    private final RolePageService rolePageService;
     private final RoleNameDto roleNameDto;
     private final EmployeePageService employeePageService;
 
     @Autowired
     public RoleController(@Value("${default.login}") String defaultLogin,
-                          FullRolePageService fullRolePageService,
+                          RolePageService rolePageService,
                           RoleNameDto roleNameDto,
                           EmployeePageService employeePageService) {
         super(defaultLogin, employeePageService);
-        this.fullRolePageService = fullRolePageService;
+        this.rolePageService = rolePageService;
         this.roleNameDto = roleNameDto;
         this.employeePageService = employeePageService;
     }
@@ -45,7 +45,7 @@ public class RoleController extends BaseController {
     public ModelAndView getStartPage(@RequestParam(value = "page", defaultValue = "1") Integer number,
                                      @RequestParam(value = "pagesize", defaultValue = "15") Integer pageSize){
 
-        final Page<FullRoleEntity> rolesEntities = this.fullRolePageService.getAll(number, pageSize);
+        final Page<RoleEntity> rolesEntities = this.rolePageService.getAll(number, pageSize);
 
         final ModelAndView page = this.createDefaultView("/role/view");
         page.addObject("rolePage", rolesEntities);
@@ -55,7 +55,7 @@ public class RoleController extends BaseController {
 
     @RequestMapping(value = "edit", method = RequestMethod.GET)
     public ModelAndView editRoleView(@RequestParam(value = "id") Integer id){
-        final FullRoleEntity role = this.fullRolePageService.getById(id);
+        final RoleEntity role = this.rolePageService.getById(id);
         final List<EmployeeEntity> employeeEntities = this.employeePageService.getAll();
 
         final ModelAndView page = this.createDefaultView("/role/edit");
@@ -67,7 +67,7 @@ public class RoleController extends BaseController {
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView addEmployeeView() {
-        final FullRoleEntity role = new FullRoleEntity();
+        final RoleEntity role = new RoleEntity();
         final List<EmployeeEntity> employeeEntities = this.employeePageService.getAll();
 
         final ModelAndView page = this.createDefaultView("/role/add");
@@ -79,27 +79,27 @@ public class RoleController extends BaseController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    public String addDepartment(FullRoleEntity roleEntity) {
+    public String addDepartment(RoleEntity roleEntity) {
         roleEntity.setId(null);
 
-        this.fullRolePageService.add(roleEntity);
+        this.rolePageService.add(roleEntity);
 
         return "redirect:/role";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    public String updateDepartment(FullRoleEntity roleEntity) {
-        this.fullRolePageService.update(roleEntity);
+    public String updateDepartment(RoleEntity roleEntity) {
+        this.rolePageService.update(roleEntity);
         return "redirect:/role";
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String removeDepartment(@RequestParam("id") Integer id) {
-        final FullRoleEntity fullRoleEntity = new FullRoleEntity();
-        fullRoleEntity.setId(id);
+        final RoleEntity roleEntity = new RoleEntity();
+        roleEntity.setId(id);
 
-        this.fullRolePageService.delete(fullRoleEntity);
+        this.rolePageService.delete(roleEntity);
         return "redirect:/role";
     }
 

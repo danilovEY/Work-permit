@@ -4,9 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by danilovey on 14.04.2017.
@@ -18,15 +16,16 @@ import javax.persistence.Table;
 @NoArgsConstructor
 public class RoleEntity extends BaseEntity {
 
-    public RoleEntity(Integer id, Integer employeeId, String role) {
+    public RoleEntity(Integer id, EmployeeEntity employee, String role) {
         this.id = id;
-        this.employeeId = employeeId;
+        this.employee = employee;
         this.role = role;
     }
 
-    @Column(name = "employee_id", nullable = false)
-    private Integer employeeId;
+    @ManyToOne
+    @JoinColumn(name = "employee_id")
+    private EmployeeEntity employee;
 
-    @Column(name = "role", length = 20, nullable = false)
+    @Column(name = "role", length = 20)
     private String role;
 }

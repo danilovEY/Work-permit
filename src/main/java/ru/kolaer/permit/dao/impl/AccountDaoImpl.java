@@ -62,7 +62,7 @@ public class AccountDaoImpl implements AccountDao {
         account.setPassword(values[2].toString());
 
         final List<RoleEntity> roles = this.sessionFactory.getCurrentSession()
-                .createQuery("FROM RoleEntity WHERE employeeId = :employeeId")
+                .createQuery("FROM RoleEntity r WHERE r.employee.id = :employeeId")
                 .setParameter("employeeId", account.getEmployeeId())
                 .list();
 

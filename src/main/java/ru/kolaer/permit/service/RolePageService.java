@@ -1,5 +1,7 @@
 package ru.kolaer.permit.service;
 
+import lombok.NonNull;
+import ru.kolaer.permit.dto.Page;
 import ru.kolaer.permit.entity.RoleEntity;
 
 import java.util.List;
@@ -9,4 +11,5 @@ import java.util.List;
  */
 public interface RolePageService extends BasePageService<RoleEntity> {
     List<RoleEntity> getRolesByIdEmployee(Integer idEmp);
+    Page<RoleEntity> getAll(@NonNull Integer number, @NonNull Integer pageSize, Integer sort);
 }

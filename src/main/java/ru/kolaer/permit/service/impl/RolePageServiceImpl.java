@@ -1,7 +1,9 @@
 package ru.kolaer.permit.service.impl;
 
+import lombok.NonNull;
 import org.springframework.stereotype.Service;
 import ru.kolaer.permit.dao.RolePageDao;
+import ru.kolaer.permit.dto.Page;
 import ru.kolaer.permit.entity.RoleEntity;
 import ru.kolaer.permit.service.BasePageServiceAbstract;
 import ru.kolaer.permit.service.RolePageService;
@@ -24,5 +26,20 @@ public class RolePageServiceImpl extends BasePageServiceAbstract<RoleEntity> imp
     @Override
     public List<RoleEntity> getRolesByIdEmployee(Integer idEmp) {
         return this.dao.findRolesByIdEmployee(idEmp);
+    }
+
+    @Override
+    public Page<RoleEntity> getAll(@NonNull Integer number, @NonNull Integer pageSize, Integer sort) {
+        return this.dao.findAll(number, pageSize, false, sort);
+    }
+
+    @Override
+    public Page<RoleEntity> getAll(@NonNull Integer number, @NonNull Integer pageSize) {
+        return this.dao.findAll(number, pageSize, false, 0);
+    }
+
+    @Override
+    public RoleEntity delete(RoleEntity entity) {
+        return this.dao.delete(entity, false);
     }
 }
