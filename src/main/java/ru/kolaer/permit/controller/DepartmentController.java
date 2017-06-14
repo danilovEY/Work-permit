@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.kolaer.permit.dto.Page;
@@ -61,20 +62,54 @@ public class DepartmentController extends BaseController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    public String addDepartment(DepartmentEntity departmentEntity) {
+    public ModelAndView addDepartment(DepartmentEntity departmentEntity) {
         departmentEntity.setId(null);
         departmentEntity.setEmployees(Collections.emptyList());
 
+        final ModelAndView hasErrorPage = this.checkDepartment(this.createDefaultView("/department/add"),
+                departmentEntity);
+        if(hasErrorPage != null)
+            return hasErrorPage;
+
         this.departmentPageService.add(departmentEntity);
 
-        return "redirect:/department";
+        return this.getStartPage(1, 15);
+    }
+
+    private ModelAndView checkDepartment(ModelAndView modelAndView, DepartmentEntity departmentEntity) {
+        boolean hasErrors = false;
+
+        if(!StringUtils.hasText(departmentEntity.getName())) {
+            hasErrors = true;
+            modelAndView.addObject("nameError", "Наименование не может быть пустым!");
+        } else if(this.departmentPageService.existDepartment(departmentEntity)) {
+            hasErrors = true;
+            modelAndView.addObject("nameError", "Такое наименование уже существует!");
+        }
+
+        if(!StringUtils.hasText(departmentEntity.getAbbreviatedName())) {
+            hasErrors = true;
+            modelAndView.addObject("abbreviatedNameError", "Краткое наименование не может быть пустым!");
+        }
+
+        if(hasErrors) {
+            modelAndView.addObject("department", departmentEntity);
+            return modelAndView;
+        }
+
+        return null;
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    public String updateDepartment(DepartmentEntity departmentEntity) {
+    public ModelAndView updateDepartment(DepartmentEntity departmentEntity) {
+        final ModelAndView hasErrorPage = this.checkDepartment(this.createDefaultView("/department/edit"),
+                departmentEntity);
+        if(hasErrorPage != null)
+            return hasErrorPage;
+
         this.departmentPageService.update(departmentEntity);
-        return "redirect:/department";
+        return this.getStartPage(1, 15);
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)

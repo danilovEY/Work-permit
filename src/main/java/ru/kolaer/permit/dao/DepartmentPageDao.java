@@ -12,4 +12,6 @@ public interface DepartmentPageDao extends BasePageDao<DepartmentEntity> {
     default DepartmentEntity getEmptyEntity() {
         return EmptyObjects.DEFAULT_DEPARTMENT;
     }
+
+    boolean existDepartment(DepartmentEntity department);
 }

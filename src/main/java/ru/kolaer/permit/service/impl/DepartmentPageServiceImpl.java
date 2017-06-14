@@ -46,4 +46,9 @@ public class DepartmentPageServiceImpl extends BasePageServiceAbstract<Departmen
     public List<DepartmentEntity> deleteAll(List<DepartmentEntity> entities) {
         return this.departmentPageDao.deleteAll(entities, true);
     }
+
+    @Override
+    public boolean existDepartment(DepartmentEntity department) {
+        return this.departmentPageDao.existDepartment(department);
+    }
 }
