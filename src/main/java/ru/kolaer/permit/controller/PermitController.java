@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -133,15 +134,33 @@ public class PermitController extends BaseController{
     @RequestMapping(value = "add/work", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public ModelAndView addPermitWork(WorkPermitEntity workPermitEntity) {
+        boolean hasError = false;
 
-        if(this.permitPageService.existSerialNumber(workPermitEntity.getSerialNumber())) {
-            final ModelAndView view = this.createDefaultView("/permit/add/work");
+        final ModelAndView view = this.createDefaultView("/permit/add/work");
+        view.addObject("workPermitEntity", workPermitEntity);
+
+        if(!StringUtils.hasText(workPermitEntity.getSerialNumber())) {
+            hasError = true;
+            view.addObject("serialError", "Серийный номер не может быть пустым!");
+        }
+
+        if(!StringUtils.hasText(workPermitEntity.getName())) {
+            hasError = true;
+            view.addObject("nameError", "Наименование не может быть пустым!");
+        }
+
+        if(workPermitEntity.getStartWork() == null) {
+            hasError = true;
+            view.addObject("startWorkError", "Укажите дату начала работ!");
+        }
+
+        if(workPermitEntity.getEndWork() == null) {
+            hasError = true;
+            view.addObject("endWorkError", "Укажите дату завершения работ!");
+        }
+
+        if(hasError) {
             view.addObject("workPermitEntity", workPermitEntity);
-            if(workPermitEntity.getSerialNumber() == null) {
-                view.addObject("serialError", "Серийный номер не может быть пустым!");
-            } else {
-                view.addObject("serialError", "Серийный номер уже существует");
-            }
             return view;
         }
 

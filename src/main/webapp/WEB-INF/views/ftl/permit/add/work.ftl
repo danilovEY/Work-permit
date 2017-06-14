@@ -1,5 +1,8 @@
 <#-- @ftlvariable name="workPermitEntity" type="ru.kolaer.permit.entity.WorkPermitEntity" -->
 <#-- @ftlvariable name="serialError" type="java.lang.String" -->
+<#-- @ftlvariable name="nameError" type="java.lang.String" -->
+<#-- @ftlvariable name="startWorkError" type="java.lang.String" -->
+<#-- @ftlvariable name="endWorkError" type="java.lang.String" -->
 
 <#import "../../layout/baseTemplate.ftl" as base>
 <#import "/spring.ftl" as spring>
@@ -44,21 +47,28 @@
                                         <div class="control-group">
                                             <label class="control-label" for="serialNumber">Уникальный номер наряда:</label>
                                             <div class="controls">
-                                                <#if workPermitEntity.serialNumber?has_content>
-                                                    <input class="span12" id="serialNumber" type="text" name="serialNumber" value="${workPermitEntity.serialNumber}" readonly>
-                                                <#else>
-                                                    <input class="span12" id="serialNumber" type="text" name="serialNumber" value="">
-                                                </#if>
+                                                <input class="span12" id="serialNumber" type="text" name="serialNumber" value="${workPermitEntity.serialNumber!""}">
                                             </div>
                                         </div>
                                     </#if>
 
-                                    <div class="control-group">
-                                        <label class="control-label" for="permitName">На выполнение работ:</label>
-                                        <div class="controls">
-                                            <input class="span12" id="permitName" type="text" placeholder="Наименование работ…" name="name" value="${workPermitEntity.name!""}">
+                                    <#if nameError?has_content>
+                                        <div class="control-group error">
+                                            <label class="control-label" for="permitName">На выполнение работ:</label>
+                                            <div class="controls">
+                                                <input class="span12" id="permitName" type="text" placeholder="Наименование работ…" name="name" value="${workPermitEntity.name!""}">
+                                                <span class="help-inline">${nameError}</span>
+                                            </div>
                                         </div>
-                                    </div>
+                                    <#else>
+                                        <div class="control-group">
+                                            <label class="control-label" for="permitName">На выполнение работ:</label>
+                                            <div class="controls">
+                                                <input class="span12" id="permitName" type="text" placeholder="Наименование работ…" name="name" value="${workPermitEntity.name!""}">
+                                            </div>
+                                        </div>
+                                    </#if>
+
 
                                     <div class="control-group">
                                         <label class="control-label" for="placeWork">Место выполнения работ:</label>
@@ -90,29 +100,60 @@
                                     <h2><i class="halflings-icon white th"></i><span class="break"></span>Время</h2>
                                 </div>
                                 <div class="box-content">
-                                    <div class="control-group">
-                                        <label class="control-label" for="beginWorkDatePicker">Начало работ:</label>
-                                        <div class="controls">
-                                            <div id="beginWorkDatePicker" class="input-append date span12">
-                                                <input class="span11" data-format="dd.MM.yyyy hh:mm" type="text" name="startWork" value="${(workPermitEntity.startWork!dateNow)?string["dd.MM.yyyy hh:mm"]}"/>
-                                                <span class="add-on">
-                                                    <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
-                                                </span>
+                                    <#if startWorkError?has_content>
+                                        <div class="control-group error">
+                                            <label class="control-label" for="beginWorkDatePicker">Начало работ:</label>
+                                            <div class="controls">
+                                                <div id="beginWorkDatePicker" class="input-append date span12">
+                                                    <input class="span11" data-format="dd.MM.yyyy hh:mm" type="text" name="startWork" value="${(workPermitEntity.startWork!dateNow)?string["dd.MM.yyyy hh:mm"]}"/>
+                                                    <span class="add-on">
+                                                        <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                                                    </span>
+                                                </div>
+                                                <span class="help-inline">${startWorkError}</span>
                                             </div>
                                         </div>
-                                    </div>
+                                    <#else>
+                                        <div class="control-group">
+                                            <label class="control-label" for="beginWorkDatePicker">Начало работ:</label>
+                                            <div class="controls">
+                                                <div id="beginWorkDatePicker" class="input-append date span12">
+                                                    <input class="span11" data-format="dd.MM.yyyy hh:mm" type="text" name="startWork" value="${(workPermitEntity.startWork!dateNow)?string["dd.MM.yyyy hh:mm"]}"/>
+                                                    <span class="add-on">
+                                                    <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                                                </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </#if>
 
-                                    <div class="control-group">
-                                        <label class="control-label" for="endWorkDatePicker">Конец работ:</label>
-                                        <div class="controls">
-                                            <div id="endWorkDatePicker" class="input-append date span12">
-                                                <input class="span11" data-format="dd.MM.yyyy hh:mm" type="text" name="endWork" value="${(workPermitEntity.endWork!dateNow)?string["dd.MM.yyyy hh:mm"]}"/>
-                                                <span class="add-on">
-                                                    <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
-                                                </span>
+                                    <#if endWorkError?has_content>
+                                        <div class="control-group error">
+                                            <label class="control-label" for="endWorkDatePicker">Конец работ:</label>
+                                            <div class="controls">
+                                                <div id="endWorkDatePicker" class="input-append date span12">
+                                                    <input class="span11" data-format="dd.MM.yyyy hh:mm" type="text" name="endWork" value="${(workPermitEntity.endWork!dateNow)?string["dd.MM.yyyy hh:mm"]}"/>
+                                                    <span class="add-on">
+                                                        <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                                                    </span>
+                                                </div>
+                                                <span class="help-inline">${endWorkError}</span>
                                             </div>
                                         </div>
-                                    </div>
+                                    <#else>
+                                        <div class="control-group">
+                                            <label class="control-label" for="endWorkDatePicker">Конец работ:</label>
+                                            <div class="controls">
+                                                <div id="endWorkDatePicker" class="input-append date span12">
+                                                    <input class="span11" data-format="dd.MM.yyyy hh:mm" type="text" name="endWork" value="${(workPermitEntity.endWork!dateNow)?string["dd.MM.yyyy hh:mm"]}"/>
+                                                    <span class="add-on">
+                                                    <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                                                </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </#if>
+
                                 </div>
                             </div>
                             <#-- Время END -->
