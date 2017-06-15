@@ -145,12 +145,16 @@
                                     </a>
 
                                     <a class="btn btn-success" style="margin-bottom: 4px;" title="Получить бланк" href="<@spring.url relativeUrl="/permit/download/excel?id=${permit.id}"/>">
-                                        <i class="halflings-icon white download-alt"></i>
+                                        <i class="halflings-icon white print"></i>
                                     </a>
 
                                     <#if permit.status == WORKING_STATUS>
                                         <a class="btn btn-info" style="margin-bottom: 4px;" title="Завершить наряд" id="end-but-${permit.id}" href="<@spring.url relativeUrl="/permit/action/end?id=${permit.id}"/>">
                                             <i class="halflings-icon white ok"></i>
+                                        </a>
+
+                                        <a class="btn btn-info" style="margin-bottom: 4px;" title="Продлить наряд" id="extend-but-${permit.id}" href="<@spring.url relativeUrl="/permit/action/end?id=${permit.id}"/>">
+                                            <i class="halflings-icon white time"></i>
                                         </a>
                                     </#if>
 
@@ -227,12 +231,16 @@
                                     </a>
 
                                     <a class="btn btn-success" style="margin-bottom: 4px;" title="Получить бланк" href="<@spring.url relativeUrl="/permit/download/excel?id=${permit.id}"/>">
-                                        <i class="halflings-icon white download-alt"></i>
+                                        <i class="halflings-icon white print"></i>
                                     </a>
 
                                     <#if permit.status == WORKING_STATUS>
                                         <a class="btn btn-info" style="margin-bottom: 4px;" title="Завершить наряд" id="end-but-${permit.id}" href="<@spring.url relativeUrl="/permit/action/end?id=${permit.id}"/>">
                                             <i class="halflings-icon white ok"></i>
+                                        </a>
+
+                                        <a class="btn btn-info" style="margin-bottom: 4px;" title="Продлить наряд" id="extend-but-${permit.id}" href="<@spring.url relativeUrl="/permit/action/end?id=${permit.id}"/>">
+                                            <i class="halflings-icon white time"></i>
                                         </a>
                                     </#if>
 
