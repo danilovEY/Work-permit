@@ -1,5 +1,6 @@
 package ru.kolaer.permit.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -10,14 +11,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ru.kolaer.permit.dao.WorkEventDao;
+import ru.kolaer.permit.dto.ExtendedPermitDto;
 import ru.kolaer.permit.dto.Page;
 import ru.kolaer.permit.entity.*;
 import ru.kolaer.permit.service.EmployeePageService;
 import ru.kolaer.permit.service.PermitPageService;
 import ru.kolaer.permit.service.PermitStatusHistoryPageService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.net.URLEncoder;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -27,6 +31,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/permit")
+@Slf4j
 public class PermitController extends BaseController{
 
     private final PermitPageService permitPageService;
@@ -60,7 +65,7 @@ public class PermitController extends BaseController{
     @RequestMapping(value = "update/work", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public String updateWorkPage(WorkPermitEntity workPermitEntity) {
-        final WorkPermitEntity updatable = this.permitPageService.update(workPermitEntity, this.getAuthEmployee());
+        final WorkPermitEntity updatable = this.permitPageService.update(workPermitEntity);
 
         return "redirect:/permit/edit/work?id=" + updatable.getId();
     }
@@ -89,16 +94,30 @@ public class PermitController extends BaseController{
     }
 
     @RequestMapping(value = "download/excel", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    public void downloadToExcel(@RequestParam("id")Integer id, HttpServletResponse response) throws IOException {
+    public void downloadToExcel(@RequestParam("id")Integer id, HttpServletRequest request,
+                                HttpServletResponse response) throws IOException {
         final File template = this.permitPageService.printPermitToExcel(id);
         if(template != null) {
-            final String serialNumber = this.permitPageService.getSerialNumber(id);
+            final String serialNumber = URLEncoder.
+                    encode(this.permitPageService.getSerialNumber(id),"UTF-8")
+                    .replaceAll("/|\\+", "%20");
 
-            response.setContentType("application/vnd.ms-excel");
-            response.setHeader("Content-Disposition", "inline; filename=\""
-                    + serialNumber.replaceAll("/", "-")
-                    + ".xlsx" + "\"");
-            response.setContentLength((int) template.length());
+            String browserType = request.getHeader("User-Agent");
+
+            response.setContentType("application/vnd.ms-excel; charset=UTF-8");
+            response.setCharacterEncoding("UTF-8");
+
+            if(browserType.contains("IE")||browserType.contains("Chrome")) {
+                response.setHeader("Content-Disposition", "attachment; filename="
+                        + serialNumber.replaceAll("/", "-")
+                        + ".xlsx");
+            } else {
+                response.setHeader("Content-Disposition","attachment; filename*=UTF-8''"
+                        + serialNumber.replaceAll("/", "-")
+                        + ".xlsx");
+            }
+
+            response.setContentLength(Long.valueOf(template.length()).intValue());
 
             InputStream inputStream = new BufferedInputStream(new FileInputStream(template));
 
@@ -279,6 +298,16 @@ public class PermitController extends BaseController{
     @RequestMapping(value = "action/permit", method = RequestMethod.GET)
     public String setPermit(@RequestParam(value = "id") Integer id) {
         this.permitPageService.setStatus(id, PermitPageService.PERMIT_STATUS, this.getAuthEmployee());
+
+        return "redirect:/permit";
+    }
+
+    @RequestMapping(value = "action/extend", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+            produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public String updateWorkPage(ExtendedPermitDto extendedPermitDto) {
+        final boolean updatable = this.permitPageService.extendPermit(extendedPermitDto.getId(),
+                extendedPermitDto.getExtendedPermit(),
+                this.getAuthEmployee());
 
         return "redirect:/permit";
     }

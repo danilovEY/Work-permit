@@ -63,12 +63,18 @@ public class PermitPageServiceImpl extends BasePageServiceAbstract<PermitEntity>
     }
 
     @Override
-    public WorkPermitEntity update(WorkPermitEntity workPermitEntity, EmployeeEntity whoUpdate) {
-        final WorkPermitEntity origin = this.dao.findWorkById(workPermitEntity.getId());
-        if(!origin.getEndWork().equals(workPermitEntity.getEndWork())){
-            this.setStatus(workPermitEntity.getId(), EXTEND_STATUS, whoUpdate);
-        }
+    public WorkPermitEntity update(WorkPermitEntity workPermitEntity) {
         return this.dao.update(workPermitEntity);
+    }
+
+    @Override
+    public boolean extendPermit(Integer id, Date extendDate, EmployeeEntity whoExtend) {
+        WorkPermitEntity extendedWork = this.dao.findWorkById(id);
+        extendedWork.setExtendedPermit(extendDate);
+
+        this.dao.update(extendedWork);
+
+        return this.setStatus(id, EXTEND_STATUS, whoExtend);
     }
 
     @Override
@@ -174,8 +180,6 @@ public class PermitPageServiceImpl extends BasePageServiceAbstract<PermitEntity>
         permitEntity.setPosition(workPermitEntity.getPosition());
         permitEntity.setSafety(workPermitEntity.getSafety());
         permitEntity.setRescue(workPermitEntity.getRescue());
-        permitEntity.setDateLimitPermit(workPermitEntity.getDateLimitPermit());
-        permitEntity.setDateWritePermit(workPermitEntity.getDateWritePermit());
 
         return permitEntity;
     }

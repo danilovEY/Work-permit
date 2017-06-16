@@ -4,6 +4,7 @@ import ru.kolaer.permit.dto.Page;
 import ru.kolaer.permit.entity.*;
 
 import java.io.File;
+import java.util.Date;
 
 /**
  * Created by Danilov on 24.05.2017.
@@ -22,19 +23,20 @@ public interface PermitPageService extends BasePageService<PermitEntity> {
 
     Page<ShortPermitEntity> getShortAll(Integer number, Integer pageSize);
     Page<ShortPermitEntity> getShortAll(Integer number, Integer pageSize, Integer sort);
-
     Page<ShortPermitEntity> getShortAll(Integer number, Integer pageSize, Integer sort, String search);
 
     WorkPermitEntity getWorkById(Integer id);
     EventPermitEntity getEventById(Integer id);
     PeoplePermitEntity getPeopleById(Integer id);
 
-    WorkPermitEntity update(WorkPermitEntity workPermitEntity, EmployeeEntity whoUpdate);
+    WorkPermitEntity update(WorkPermitEntity workPermitEntity);
     PeoplePermitEntity update(PeoplePermitEntity peoplePermitEntity);
     EventPermitEntity update(EventPermitEntity eventPermitEntity);
 
+
     void deleteExecutor(Integer id, Integer executor);
 
+    boolean extendPermit(Integer id, Date extendDate, EmployeeEntity whoExtend);
     boolean existSerialNumber(String serialNumber);
 
     boolean setStatus(Integer id, String status, EmployeeEntity whoSetStatus);

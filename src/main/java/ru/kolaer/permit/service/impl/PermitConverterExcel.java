@@ -81,37 +81,14 @@ public class PermitConverterExcel implements PermitConverter<File> {
             final XSSFWorkbook myExcelBook = new XSSFWorkbook(copyTemplateFile);
             final XSSFSheet permitSheet = myExcelBook.getSheet("Бланк");
 
-            final LocalDate dateWritePermit = LocalDateTime
-                    .ofInstant(workPermit.getDateWritePermit().toInstant(), ZoneId.systemDefault())
-                    .toLocalDate();
+            final SimpleDateFormat ruDateFormatter = new SimpleDateFormat("«dd» MMMM yyyy г.", new Locale("ru"));
+            final SimpleDateFormat ruDateWorkFormatter = new SimpleDateFormat("hh час. mm мин. «dd» MMMM yyyy г.", new Locale("ru"));
 
-            final LocalDateTime dateStartWork = LocalDateTime.ofInstant(workPermit.getStartWork().toInstant(),
-                    ZoneId.systemDefault());
-
-            final LocalDateTime dateEndWork = LocalDateTime.ofInstant(workPermit.getEndWork().toInstant(),
-                    ZoneId.systemDefault());
-
-            LocalDate dateLimitPermit = null;
-
-            if(workPermit.getDateLimitPermit() != null)
-                dateLimitPermit = LocalDateTime
-                        .ofInstant(workPermit.getDateWritePermit().toInstant(), ZoneId.systemDefault())
-                        .toLocalDate();
-
-            final DateTimeFormatter ruDateFormatter = DateTimeFormatter.ofPattern("«dd» MMMM yyyy г.")
-                    .withLocale(new Locale("ru"));
-
-            final DateTimeFormatter ruDateWorkFormatter = DateTimeFormatter.ofPattern("hh час. mm мин. «dd» MMMM yyyy г.")
-                    .withLocale(new Locale("ru"));
-
-            final String dateWrite = ruDateFormatter
-                    .format(dateWritePermit);
-
-            final String dateLimit = dateLimitPermit != null ? ruDateFormatter
-                    .format(dateWritePermit) : "«___» _______ 20 _г.";
-
-            final String startWork = ruDateWorkFormatter.format(dateStartWork);
-            final String endWork = ruDateWorkFormatter.format(dateEndWork);
+            final String dateWrite = ruDateFormatter.format(workPermit.getDateWritePermit());
+            final String dateLimit = ruDateFormatter.format(workPermit.getEndWork());// : "«___» _______ 20 _г.";
+            final String startWork = ruDateWorkFormatter.format(workPermit.getStartWork());
+            final String endWork = ruDateWorkFormatter.format(workPermit.getEndWork());
+            final String extendedWork = ruDateWorkFormatter.format(workPermit.getExtendedPermit());
 
             AtomicInteger rowNumberForExecutors = new AtomicInteger(0);
             AtomicInteger rowNumberForBeginEvent = new AtomicInteger(0);
@@ -134,34 +111,26 @@ public class PermitConverterExcel implements PermitConverter<File> {
                         col.setCellValue(colValue = colValue.replaceAll("#date_limit#", dateLimit));
                     }
 
-                    if(peoplePermit.getResponsibleSupervisor() != null) {
-                        if(colValue.contains("#initials_supervisor#")) {
-                            col.setCellValue(colValue = colValue.replaceAll("#initials_supervisor#",
-                                    peoplePermit.getResponsibleSupervisor().getInitials()));
-                        }
+                    if(colValue.contains("#initials_and_post_supervisor#")) {
+                        String initialsAndPost = Optional.ofNullable(peoplePermit.getResponsibleSupervisor()).map(emp ->
+                                emp.getInitials() + ", "
+                                        + emp.getPost().getName() + " "
+                                        + emp.getPost().getRang() + " "
+                                        + emp.getPost().getTypeRang()
+                        ).orElse("");
 
-                        final PostEntity post = peoplePermit.getResponsibleSupervisor()
-                                .getPost();
-
-                        if(colValue.contains("#post_supervisor#")) {
-                            col.setCellValue(colValue = colValue.replaceAll("#post_supervisor#",
-                                    post.getName() + " " + post.getRang() + " " + post.getTypeRang()));
-                        }
+                        col.setCellValue(colValue = colValue.replaceAll("#initials_and_post_supervisor#", initialsAndPost));
                     }
 
-                    if(peoplePermit.getResponsibleExecutor() != null) {
-                        if(colValue.contains("#initials_executor#")) {
-                            col.setCellValue(colValue = colValue.replaceAll("#initials_executor#",
-                                    peoplePermit.getResponsibleExecutor().getInitials()));
-                        }
+                    if(colValue.contains("#initials_and_post_executor#")) {
+                        String initialsAndPost = Optional.ofNullable(peoplePermit.getResponsibleExecutor()).map(emp ->
+                                emp.getInitials() + ", "
+                                        + emp.getPost().getName()
+                                        + " " + emp.getPost().getRang()
+                                        + " " + emp.getPost().getTypeRang()
+                        ).orElse("");
 
-                        final PostEntity post = peoplePermit.getResponsibleExecutor()
-                                .getPost();
-
-                        if(colValue.contains("#post_executor#")) {
-                            col.setCellValue(colValue = colValue.replaceAll("#post_executor#",
-                                    post.getName() + " " + post.getRang() + " " + post.getTypeRang()));
-                        }
+                        col.setCellValue(colValue = colValue.replaceAll("#initials_and_post_executor#", initialsAndPost));
                     }
 
                     if(colValue.contains("#permit_name#")) {
@@ -235,6 +204,32 @@ public class PermitConverterExcel implements PermitConverter<File> {
                         col.setCellValue(colValue = colValue.replaceFirst("#special_event#", ""));
                         rowNumberForSpecialEvent.set(row.getRowNum() + 2);
                     }
+
+                    if(colValue.contains("#permit_writer#")) {
+                        //TODO: add
+                        col.setCellValue(colValue = colValue.replaceAll("#permit_writer#", ""));
+                    }
+
+                    if(colValue.contains("#permit_accept#")) {
+                        //TODO: add
+                        col.setCellValue(colValue = colValue.replaceAll("#permit_accept#", ""));
+                    }
+                    if(colValue.contains("#permit_briefing_held#")) {
+                        //TODO: add
+                        col.setCellValue(colValue = colValue.replaceAll("#permit_briefing_held#", ""));
+                    }
+                    if(colValue.contains("#permit_briefing_accept#")) {
+                        //TODO: add
+                        col.setCellValue(colValue = colValue.replaceAll("#permit_briefing_accept#", ""));
+                    }
+
+                    if(colValue.contains("#permit_extended#")) {
+                        if(workPermit.getEndWork().before(workPermit.getExtendedPermit())) {
+                            col.setCellValue(colValue = colValue.replaceAll("#permit_extended#", extendedWork));
+                        } else {
+                            col.setCellValue(colValue = colValue.replaceAll("#permit_extended#", ""));
+                        }
+                    }
                 });
             });
 
@@ -302,27 +297,37 @@ public class PermitConverterExcel implements PermitConverter<File> {
     }
 
     private int insertEvents(int rowNumber, List<WorkEvent> events, XSSFSheet sheet) {
+
         final int oldRowNumber = rowNumber;
         if(rowNumber > 0 && events.size() > 0) {
             for(int i = 0; i < events.size(); i++ ) {
                 final WorkEvent event = events.get(i);
 
+                if(i + 1 < events.size()) {
+                    log.info("ROW COPY: {}, {}", rowNumber, rowNumber +1);
+                    copyRow(sheet.getWorkbook(), sheet, rowNumber, rowNumber);
+                }
+
+                log.info("ROW GET: {}", rowNumber);
                 final XSSFRow row = sheet.getRow(rowNumber);
-                row.getCell(0).setCellValue(i + 1);
+                if(row == null)
+                    continue;
+                row.getCell(0).setCellValue(rowNumber);
+
+                rowNumber += 1;
+                //TODO: BUG!
+                /*row.getCell(0).setCellValue(i + 1);
                 row.getCell(1).setCellValue(event.getName());
                 row.getCell(5).setCellValue(new SimpleDateFormat("dd.MM.yyyy hh:mm").format(event.getLimitDate()));
                 row.getCell(7).setCellValue(Optional.ofNullable(event.getEmployeesEntity())
                         .orElse(Collections.emptyList()).stream()
-                        .map(emp -> emp.getInitials() + " " + emp.getPost().getName()
+                        .map(emp -> emp.getInitials() + "\n" + emp.getPost().getName()
                                 + " " + emp.getPost().getRang() + " " + emp.getPost().getTypeRang())
-                        .collect(Collectors.joining(", ")));
-
-                if(i + 1 != events.size())
-                    copyRow(sheet.getWorkbook(), sheet, rowNumber, rowNumber++);
+                        .collect(Collectors.joining(", ")));*/
             }
         }
 
-        return rowNumber - oldRowNumber;
+        return rowNumber - oldRowNumber - 1;
     }
 
     private static void copyRow(XSSFWorkbook workbook, XSSFSheet worksheet, int sourceRowNum, int destinationRowNum) {

@@ -22,18 +22,18 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Immutable
 public class WorkPermitEntity extends BaseEntity {
-    @Column(name = "serial_number", length = 20, nullable = false)
+    @Column(name = "serial_number", length = 20, nullable = false, unique = true)
     private String serialNumber;
 
     /**Выдан*/
+    @DateTimeFormat(pattern = "dd.MM.yyyy hh:mm")
     @Column(name = "date_write_permit")
     private Date dateWritePermit;
 
     /**Годен до*/
-    @Column(name = "date_limit_permit")
-    private Date dateLimitPermit;
+    /*@Column(name = "date_limit_permit")
+    private Date dateLimitPermit;*/
 
     /**Наименование работ*/
     @Column(name = "name", nullable = false)
@@ -54,9 +54,6 @@ public class WorkPermitEntity extends BaseEntity {
     /**Место работ*/
     @Column(name = "place_work")
     private String placeWork;
-
-    @Column(length = 100, nullable = false)
-    private String status;
 
     /**Содержимое работ*/
     @Column(name = "content_work")
@@ -99,6 +96,7 @@ public class WorkPermitEntity extends BaseEntity {
     private String adaptations;
 
     /**Продление работ*/
+    @DateTimeFormat(pattern = "dd.MM.yyyy hh:mm")
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "extended_permit")
     private Date extendedPermit;

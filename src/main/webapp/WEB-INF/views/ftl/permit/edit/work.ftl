@@ -24,7 +24,9 @@
                 <li class=""><a href="<@spring.url relativeUrl="/permit/edit/history?id=${workPermitEntity.id}"/>">История</a></li>
             </ul>
             <form class="form-inline" method="post" action="<@spring.url relativeUrl="/permit/update/work"/>">
-                <input type="hidden" name="id" value="${workPermitEntity.id!""}">
+                <input type="hidden" name="id" value="${workPermitEntity.id}">
+                <input class="hidden" data-format="dd.MM.yyyy hh:mm" type="text" name="extendedPermit" value="${workPermitEntity.extendedPermit?string["dd.MM.yyyy hh:mm"]}" readonly/>
+                <input class="hidden" data-format="dd.MM.yyyy hh:mm" type="text" name="dateWritePermit" value="${workPermitEntity.dateWritePermit?string["dd.MM.yyyy hh:mm"]}" readonly/>
                 <div id="myTabContent" class="tab-content">
                     <#-- FIRST_TAB -->
                     <div class="tab-pane active" id="work_tab">
@@ -38,11 +40,7 @@
                                     <div class="control-group">
                                         <label class="control-label" for="serialNumber">Уникальный номер наряда:</label>
                                         <div class="controls">
-                                            <#if workPermitEntity.serialNumber?has_content>
-                                                <input class="span12" id="serialNumber" type="text" name="serialNumber" value="${workPermitEntity.serialNumber}" readonly>
-                                            <#else>
-                                                <input class="span12" id="serialNumber" type="text" name="serialNumber" value="">
-                                            </#if>
+                                            <input class="span12" id="serialNumber" name="serialNumber" type="text" value="${workPermitEntity.serialNumber}" readonly>
                                         </div>
                                     </div>
 
@@ -195,6 +193,13 @@
 </div>
 
 <script type="text/javascript">
+    $(function() {
+        $('#dateWritePermitPicker').datetimepicker({
+            language: 'ru',
+            format: 'dd.MM.yyyy hh:mm'
+        });
+    });
+
     $(function() {
         $('#beginWorkDatePicker').datetimepicker({
             language: 'ru',

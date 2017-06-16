@@ -48,6 +48,9 @@ public abstract class BaseController {
 
     EmployeeEntity getAuthEmployee() {
         final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if(auth == null)
+            return EmptyObjects.DEFAULT_EMPLOYEE;
+
         final String username = auth.getName();
 
         return !adminName.equals(username)

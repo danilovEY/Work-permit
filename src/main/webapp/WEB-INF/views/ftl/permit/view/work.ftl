@@ -77,13 +77,28 @@
                                 </div>
                                 <div class="box-content">
                                     <div class="control-group">
+                                        <label class="control-label" for="dateWritePermit">Дата выдачи:</label>
+                                        <div class="controls">
+                                            <div class="input-append date span12">
+                                                <input class="span11" id="dateWritePermit" data-format="dd.MM.yyyy hh:mm" type="text" name="dateWritePermit" value="${workPermitEntity.dateWritePermit?string["dd.MM.yyyy hh:mm"]!""}" readonly/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <label class="control-label" for="dateWritePermit">Годен до:</label>
+                                        <div class="controls">
+                                            <div class="input-append date span12">
+                                                <input class="span11" id="dateWritePermit" data-format="dd.MM.yyyy hh:mm" type="text" value="${workPermitEntity.extendedPermit?string["dd.MM.yyyy hh:mm"]!""}" readonly/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
                                         <label class="control-label" for="beginWorkDatePicker">Начало работ:</label>
                                         <div class="controls">
                                             <div id="beginWorkDatePicker" class="input-append date span12">
-                                                <input class="span11" data-format="dd.MM.yyyy hh:mm" type="text" name="startWork" value="${workPermitEntity.startWork?string["dd.MM.yyyy hh:mm"]!""}" readonly/>
-                                                <span class="add-on">
-                                                    <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
-                                                </span>
+                                                <input class="span11" data-format="dd.MM.yyyy hh:mm" type="text" value="${workPermitEntity.startWork?string["dd.MM.yyyy hh:mm"]!""}" readonly/>
                                             </div>
                                         </div>
                                     </div>
@@ -92,10 +107,7 @@
                                         <label class="control-label" for="endWorkDatePicker">Конец работ:</label>
                                         <div class="controls">
                                             <div id="endWorkDatePicker" class="input-append date span12">
-                                                <input class="span11" data-format="dd.MM.yyyy hh:mm" type="text" name="endWork" value="${workPermitEntity.endWork?string["dd.MM.yyyy hh:mm"]!""}" readonly/>
-                                                <span class="add-on">
-                                                    <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
-                                                </span>
+                                                <input class="span11" data-format="dd.MM.yyyy hh:mm" type="text" value="${workPermitEntity.endWork?string["dd.MM.yyyy hh:mm"]!""}" readonly/>
                                             </div>
                                         </div>
                                     </div>

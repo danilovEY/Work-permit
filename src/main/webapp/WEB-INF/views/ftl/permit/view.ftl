@@ -110,8 +110,16 @@
                             <tr class="odd">
                                 <td class="center">${permit.serialNumber!""}</td>
                                 <td class="center">${permit.name!""}</td>
-                                <td class="center">${(permit.startWork!"")?string["dd.MM.yyyy hh:mm"]}</td>
-                                <td class="center">${(permit.extendedPermit!"")?string["dd.MM.yyyy hh:mm"]}</td>
+                                <td class="center">
+                                    <#if permit.startWork?has_content>
+                                        ${permit.startWork?string["dd.MM.yyyy hh:mm"]}
+                                    </#if>
+                                </td>
+                                <td class="center">
+                                    <#if permit.extendedPermit?has_content>
+                                        ${permit.extendedPermit?string["dd.MM.yyyy hh:mm"]}
+                                    </#if>
+                                </td>
                                 <td class="center">${permit.writer.initials!""}</td>
                                 <#if permit.responsibleSupervisor?has_content>
                                     <td class="center">${permit.responsibleSupervisor.initials!""}</td>
@@ -153,7 +161,7 @@
                                             <i class="halflings-icon white ok"></i>
                                         </a>
 
-                                        <a class="btn btn-info" style="margin-bottom: 4px;" title="Продлить наряд" id="extend-but-${permit.id}" href="<@spring.url relativeUrl="/permit/action/end?id=${permit.id}"/>">
+                                        <a class="btn btn-info" style="margin-bottom: 4px;" title="Продлить наряд" id="extend-but-${permit.id}" href="#">
                                             <i class="halflings-icon white time"></i>
                                         </a>
                                     </#if>
@@ -195,8 +203,16 @@
                             <tr class="even">
                                 <td class="center">${permit.serialNumber!""}</td>
                                 <td class="center">${permit.name!""}</td>
-                                <td class="center">${(permit.startWork!"")?string["dd.MM.yyyy hh:mm"]}</td>
-                                <td class="center">${(permit.extendedPermit!"")?string["dd.MM.yyyy hh:mm"]}</td>
+                                <td class="center">
+                                    <#if permit.startWork?has_content>
+                                        ${permit.startWork?string["dd.MM.yyyy hh:mm"]}
+                                    </#if>
+                                </td>
+                                <td class="center">
+                                    <#if permit.extendedPermit?has_content>
+                                        ${permit.extendedPermit?string["dd.MM.yyyy hh:mm"]}
+                                    </#if>
+                                </td>
                                 <td class="center">${permit.writer.initials!""}</td>
 
                                 <#if permit.responsibleSupervisor?has_content>
@@ -340,6 +356,50 @@
 </script>
 
 <#list permitPage.data as permit>
+
+    <#if permit.status == WORKING_STATUS>
+        <#-- Запрос на продление -->
+        <div class="modal hide fade" id="extend-${permit.id}">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h3>Продление наряда</h3>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" method="post" action="<@spring.url relativeUrl="/permit/action/extend"/>">
+                    <input class="hidden" name="id" value="${permit.id}" readonly/>
+                    <div class="control-group">
+                        <label class="control-label" for="extendWorkDate">Начало работ:</label>
+                        <div class="controls">
+                            <div id="extendWorkDatePicker" class="input-append date span12">
+                                <input data-format="dd.MM.yyyy hh:mm" id="extendWorkDate" type="text" name="extendedPermit" value="${permit.extendedPermit?string["dd.MM.yyyy hh:mm"]!""}"/>
+                                <span class="add-on">
+                                <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                            </span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal">Отмена</a>
+                <a href="#" class="btn btn-primary">Продлить</a>
+            </div>
+        </div>
+        <script>
+            $(function() {
+                $('#extendWorkDatePicker').datetimepicker({
+                    language: 'ru',
+                    format: 'dd.MM.yyyy hh:mm'
+                });
+            });
+
+            $('#extend-but-${permit.id}').click(function(e){
+                e.preventDefault();
+                $('#extend-${permit.id}').modal('show');
+            });
+        </script>
+    </#if>
+
     <#if permit.status == EDIT_PERMIT_STATUS>
         <#-- Запрос на удаление -->
         <div class="modal hide fade" id="delete-${permit.id}">
