@@ -3,6 +3,8 @@ package ru.kolaer.permit.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.*;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,6 +27,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+
+import static org.apache.poi.ss.usermodel.CellType.*;
+import static org.apache.poi.ss.usermodel.CellType.BLANK;
 
 /**
  * Created by danilovey on 06.06.2017.
@@ -305,7 +310,7 @@ public class PermitConverterExcel implements PermitConverter<File> {
 
                 if(i + 1 < events.size()) {
                     log.info("ROW COPY: {}, {}", rowNumber, rowNumber +1);
-                    copyRow(sheet.getWorkbook(), sheet, rowNumber, rowNumber);
+                    copyRow(sheet.getWorkbook(), sheet, rowNumber, rowNumber + 1);
                 }
 
                 log.info("ROW GET: {}", rowNumber);
@@ -315,15 +320,19 @@ public class PermitConverterExcel implements PermitConverter<File> {
                 row.getCell(0).setCellValue(rowNumber);
 
                 rowNumber += 1;
-                //TODO: BUG!
-                /*row.getCell(0).setCellValue(i + 1);
+                row.getCell(0).setCellValue(i + 1);
                 row.getCell(1).setCellValue(event.getName());
+                row.getCell(2).setCellType(BLANK);
+                row.getCell(3).setCellType(BLANK);
+                row.getCell(4).setCellType(BLANK);
                 row.getCell(5).setCellValue(new SimpleDateFormat("dd.MM.yyyy hh:mm").format(event.getLimitDate()));
+                row.getCell(6).setCellType(BLANK);
                 row.getCell(7).setCellValue(Optional.ofNullable(event.getEmployeesEntity())
                         .orElse(Collections.emptyList()).stream()
                         .map(emp -> emp.getInitials() + "\n" + emp.getPost().getName()
                                 + " " + emp.getPost().getRang() + " " + emp.getPost().getTypeRang())
-                        .collect(Collectors.joining(", ")));*/
+                        .collect(Collectors.joining(", ")));
+                row.getCell(8).setCellType(BLANK);
             }
         }
 
@@ -371,26 +380,26 @@ public class PermitConverterExcel implements PermitConverter<File> {
             }
 
             // Set the cell data type
-            newCell.setCellType(oldCell.getCellType());
+            newCell.setCellType(oldCell.getCellTypeEnum());
 
             // Set the cell data value
-            switch (oldCell.getCellType()) {
-                case Cell.CELL_TYPE_BLANK:
+            switch (oldCell.getCellTypeEnum()) {
+                case BLANK:
                     newCell.setCellValue(oldCell.getStringCellValue());
                     break;
-                case Cell.CELL_TYPE_BOOLEAN:
+                case BOOLEAN:
                     newCell.setCellValue(oldCell.getBooleanCellValue());
                     break;
-                case Cell.CELL_TYPE_ERROR:
+                case ERROR:
                     newCell.setCellErrorValue(oldCell.getErrorCellValue());
                     break;
-                case Cell.CELL_TYPE_FORMULA:
+                case FORMULA:
                     newCell.setCellFormula(oldCell.getCellFormula());
                     break;
-                case Cell.CELL_TYPE_NUMERIC:
+                case NUMERIC:
                     newCell.setCellValue(oldCell.getNumericCellValue());
                     break;
-                case Cell.CELL_TYPE_STRING:
+                case STRING:
                     newCell.setCellValue(oldCell.getRichStringCellValue());
                     break;
             }
