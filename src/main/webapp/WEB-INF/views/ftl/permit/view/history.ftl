@@ -12,6 +12,7 @@
 <#assign WORKING = "В работе"/>
 <#assign OVERDUE = "Просрочен"/>
 <#assign DELETED_STATUS = "Удален"/>
+<#assign END_STATUS = "Завершен"/>
 
 <@base.override "title">
 <title>История</title>
@@ -63,6 +64,8 @@
                                                 <span class="label label-important">${status.status}</span>
                                             <#elseif status.status == DELETED_STATUS>
                                                 <span class="label label-inverse">${status.status}</span>
+                                            <#elseif status.status == END_STATUS>
+                                                <span class="label label-success">${status.status}</span>
                                             <#else>
                                                 <span class="label">${status.status}</span>
                                             </#if>
