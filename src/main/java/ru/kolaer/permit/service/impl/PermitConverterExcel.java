@@ -211,8 +211,14 @@ public class PermitConverterExcel implements PermitConverter<File> {
                     }
 
                     if(colValue.contains("#permit_writer#")) {
-                        //TODO: add
-                        col.setCellValue(colValue = colValue.replaceAll("#permit_writer#", ""));
+                        String initialsAndPost = Optional.ofNullable(peoplePermit.getWriter()).map(emp ->
+                                emp.getInitials() + ", "
+                                        + emp.getPost().getName() + " "
+                                        + emp.getPost().getRang() + " "
+                                        + emp.getPost().getTypeRang() + ", "
+                                        +  dateWrite
+                        ).orElse("");
+                        col.setCellValue(colValue = colValue.replaceAll("#permit_writer#", initialsAndPost));
                     }
 
                     if(colValue.contains("#permit_accept#")) {
@@ -309,11 +315,9 @@ public class PermitConverterExcel implements PermitConverter<File> {
                 final WorkEvent event = events.get(i);
 
                 if(i + 1 < events.size()) {
-                    log.info("ROW COPY: {}, {}", rowNumber, rowNumber +1);
                     copyRow(sheet.getWorkbook(), sheet, rowNumber, rowNumber + 1);
                 }
 
-                log.info("ROW GET: {}", rowNumber);
                 final XSSFRow row = sheet.getRow(rowNumber);
                 if(row == null)
                     continue;
