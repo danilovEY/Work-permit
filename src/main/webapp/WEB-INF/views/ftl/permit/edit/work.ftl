@@ -193,12 +193,6 @@
 </div>
 
 <script type="text/javascript">
-    $(function() {
-        $('#dateWritePermitPicker').datetimepicker({
-            language: 'ru',
-            format: 'dd.MM.yyyy hh:mm'
-        });
-    });
 
     $(function() {
         $('#beginWorkDatePicker').datetimepicker({

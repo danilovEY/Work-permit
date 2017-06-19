@@ -64,6 +64,7 @@ public class PermitPageServiceImpl extends BasePageServiceAbstract<PermitEntity>
 
     @Override
     public WorkPermitEntity update(WorkPermitEntity workPermitEntity) {
+        workPermitEntity.setExtendedPermit(workPermitEntity.getEndWork());
         return this.dao.update(workPermitEntity);
     }
 
@@ -74,7 +75,17 @@ public class PermitPageServiceImpl extends BasePageServiceAbstract<PermitEntity>
 
         this.dao.update(extendedWork);
 
-        return this.setStatus(id, EXTEND_STATUS, whoExtend);
+        final PermitEntity permitEntity = new PermitEntity();
+        permitEntity.setId(id);
+
+        final PermitStatusHistoryEntity statusHistory = new PermitStatusHistoryEntity();
+        statusHistory.setStatus(EXTEND_STATUS);
+        statusHistory.setStatusDate(new Date());
+        statusHistory.setEmployee(whoExtend);
+        statusHistory.setPermitId(permitEntity.getId());
+        statusHistory.setPermit(permitEntity);
+
+        return this.permitStatusHistoryPageService.add(statusHistory).getId() != null;
     }
 
     @Override

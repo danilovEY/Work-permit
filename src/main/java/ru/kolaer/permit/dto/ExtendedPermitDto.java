@@ -1,6 +1,7 @@
 package ru.kolaer.permit.dto;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -10,5 +11,6 @@ import java.util.Date;
 @Data
 public class ExtendedPermitDto {
     private Integer id;
+    @DateTimeFormat(pattern = "dd.MM.yyyy hh:mm")
     private Date extendedPermit;
 }

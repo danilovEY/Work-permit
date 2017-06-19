@@ -28,6 +28,10 @@
 </@base.override>
 
 <@base.override "body">
+
+<script src="<@spring.url relativeUrl="/resources/js/bootstrap-datetimepicker.js"/>"></script>
+<script src="<@spring.url relativeUrl="/resources/js/bootstrap-datetimepicker.ru.js"/>"></script>
+
 <div class="row-fluid">
     <div class="box span12">
         <div class="box-header" data-original-title="">
@@ -255,7 +259,7 @@
                                             <i class="halflings-icon white ok"></i>
                                         </a>
 
-                                        <a class="btn btn-info" style="margin-bottom: 4px;" title="Продлить наряд" id="extend-but-${permit.id}" href="<@spring.url relativeUrl="/permit/action/end?id=${permit.id}"/>">
+                                        <a class="btn btn-info" style="margin-bottom: 4px;" title="Продлить наряд" id="extend-but-${permit.id}" href="#">
                                             <i class="halflings-icon white time"></i>
                                         </a>
                                     </#if>
@@ -360,42 +364,46 @@
     <#if permit.status == WORKING_STATUS>
         <#-- Запрос на продление -->
         <div class="modal hide fade" id="extend-${permit.id}">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">×</button>
-                <h3>Продление наряда</h3>
-            </div>
-            <div class="modal-body">
-                <form class="form-horizontal" method="post" action="<@spring.url relativeUrl="/permit/action/extend"/>">
+            <form class="form-horizontal" method="post" action="<@spring.url relativeUrl="/permit/action/extend"/>">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h3>Продление наряда</h3>
+                </div>
+                <div class="modal-body">
                     <input class="hidden" name="id" value="${permit.id}" readonly/>
                     <div class="control-group">
                         <label class="control-label" for="extendWorkDate">Начало работ:</label>
                         <div class="controls">
-                            <div id="extendWorkDatePicker" class="input-append date span12">
-                                <input data-format="dd.MM.yyyy hh:mm" id="extendWorkDate" type="text" name="extendedPermit" value="${permit.extendedPermit?string["dd.MM.yyyy hh:mm"]!""}"/>
+                            <div id="extendWorkDatePicker-${permit.id}" class="input-append date span12">
+                                <input data-format="dd.MM.yyyy hh:mm" id="extendWorkDate" type="text" name="extendedPermit" value="${permit.extendedPermit?string["dd.MM.yyyy hh:mm"]}"/>
                                 <span class="add-on">
                                 <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
                             </span>
                             </div>
                         </div>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <a href="#" class="btn" data-dismiss="modal">Отмена</a>
-                <a href="#" class="btn btn-primary">Продлить</a>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button href="#" class="btn" data-dismiss="modal">Отмена</button>
+                    <button class="btn btn-primary">Продлить</button>
+                </div>
+            </form>
         </div>
-        <script>
-            $(function() {
-                $('#extendWorkDatePicker').datetimepicker({
-                    language: 'ru',
-                    format: 'dd.MM.yyyy hh:mm'
-                });
+        <style>
+            .bootstrap-datetimepicker-widget{z-index:9999 !important;}
+        </style>
+        <script type="text/javascript">
+           $(function() {
+               $('#extendWorkDatePicker-${permit.id}').datetimepicker({
+                   language: 'ru',
+                   format: 'dd.MM.yyyy hh:mm'
+               });
             });
 
             $('#extend-but-${permit.id}').click(function(e){
                 e.preventDefault();
                 $('#extend-${permit.id}').modal('show');
+
             });
         </script>
     </#if>
