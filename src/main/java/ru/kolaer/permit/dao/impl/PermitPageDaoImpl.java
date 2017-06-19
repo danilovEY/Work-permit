@@ -217,7 +217,7 @@ public class PermitPageDaoImpl extends BasePageDaoAbstract<PermitEntity> impleme
     @Transactional(readOnly = true)
     public List<Integer> findAllByStatusAndOverdue(String status) {
         return this.sessionFactory.getCurrentSession()
-                .createQuery("SELECT p.id FROM PermitEntity p WHERE p.status = :status AND p.extendedPermit <= CURRENT_DATE()", Integer.class)
+                .createQuery("SELECT p.id FROM PermitEntity p WHERE p.status = :status AND p.extendedPermit <= CURRENT_TIMESTAMP()", Integer.class)
                 .setParameter("status", status)
                 .list();
     }
@@ -226,7 +226,7 @@ public class PermitPageDaoImpl extends BasePageDaoAbstract<PermitEntity> impleme
     @Transactional(readOnly = true)
     public List<Integer> findAllByStatusAndStartWork(String status) {
         return this.sessionFactory.getCurrentSession()
-                .createQuery("SELECT p.id FROM PermitEntity p WHERE p.status = :status AND p.startWork <= CURRENT_DATE()", Integer.class)
+                .createQuery("SELECT p.id FROM PermitEntity p WHERE p.status = :status AND p.startWork <= CURRENT_TIMESTAMP()", Integer.class)
                 .setParameter("status", status)
                 .list();
     }
