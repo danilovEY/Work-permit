@@ -23,7 +23,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class WorkPermitEntity extends BaseEntity {
-    @Column(name = "serial_number", length = 20, nullable = false, unique = true)
+    @Column(name = "serial_number", nullable = false, unique = true)
     private String serialNumber;
 
     /**Выдан*/

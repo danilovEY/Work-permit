@@ -143,13 +143,6 @@ public class PermitController extends BaseController{
         return "redirect:/permit";
     }
 
-    @RequestMapping(value = "cancel", method = RequestMethod.GET)
-    public String cancelPermit(@RequestParam("id")Integer id) {
-        this.permitPageService.cancel(id, this.getAuthEmployee());
-
-        return "redirect:/permit";
-    }
-
     @RequestMapping(value = "add/work", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public ModelAndView addPermitWork(WorkPermitEntity workPermitEntity) {
@@ -271,6 +264,13 @@ public class PermitController extends BaseController{
         view.addObject("statuses", statuses);
         view.addObject("permitId", id);
         return view;
+    }
+
+    @RequestMapping(value = "action/cancel", method = RequestMethod.GET)
+    public String cancelPermit(@RequestParam("id")Integer id) {
+        this.permitPageService.cancel(id, this.getAuthEmployee());
+
+        return "redirect:/permit";
     }
 
     @RequestMapping(value = "action/need/approve", method = RequestMethod.GET)

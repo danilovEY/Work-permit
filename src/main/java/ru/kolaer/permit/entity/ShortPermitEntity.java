@@ -22,7 +22,7 @@ import java.util.List;
 @ToString
 @Immutable
 public class ShortPermitEntity extends BaseEntity {
-    @Column(name = "serial_number", length = 20, nullable = false)
+    @Column(name = "serial_number", nullable = false)
     private String serialNumber;
 
     /**Руководитель*/
