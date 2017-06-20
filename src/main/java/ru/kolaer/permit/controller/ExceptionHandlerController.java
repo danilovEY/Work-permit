@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import ru.kolaer.permit.service.EmployeePageService;
+import ru.kolaer.permit.service.NotificationPageService;
 
 /**
  * Created by danilovey on 08.06.2017.
@@ -13,8 +14,9 @@ import ru.kolaer.permit.service.EmployeePageService;
 public class ExceptionHandlerController extends BaseController {
 
     public ExceptionHandlerController(@Value("${default.login}") String defaultLogin,
-                                      EmployeePageService employeePageService) {
-        super(defaultLogin, employeePageService);
+                                      EmployeePageService employeePageService,
+                                      NotificationPageService notification) {
+        super(defaultLogin, employeePageService, notification);
     }
 
     @RequestMapping("/404")

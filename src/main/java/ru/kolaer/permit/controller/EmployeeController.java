@@ -16,6 +16,7 @@ import ru.kolaer.permit.entity.EmployeeEntity;
 import ru.kolaer.permit.entity.PostEntity;
 import ru.kolaer.permit.service.DepartmentPageService;
 import ru.kolaer.permit.service.EmployeePageService;
+import ru.kolaer.permit.service.NotificationPageService;
 import ru.kolaer.permit.service.PostPageService;
 
 import java.util.List;
@@ -36,8 +37,9 @@ public class EmployeeController extends BaseController {
     public EmployeeController(@Value("${default.login}") String defaultLogin,
                               EmployeePageService employeePageService,
                               DepartmentPageService departmentPageService,
-                              PostPageService postPageService) {
-        super(defaultLogin, employeePageService);
+                              PostPageService postPageService,
+                              NotificationPageService notification) {
+        super(defaultLogin, employeePageService, notification);
         this.employeePageService = employeePageService;
         this.departmentPageService = departmentPageService;
         this.postPageService = postPageService;
@@ -82,7 +84,28 @@ public class EmployeeController extends BaseController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    public String addDepartment(EmployeeEntity employeeEntity) {
+    public ModelAndView addDepartment(EmployeeEntity employeeEntity) {
+        final ModelAndView page = this.createDefaultView("/employee/add");
+
+        boolean hasError = false;
+
+        if(employeeEntity.getPost() == null) {
+            hasError = true;
+            page.addObject("nonPostError", "Нужно выбрать должность");
+        }
+
+        if(employeeEntity.getDepartment() == null) {
+            hasError = true;
+            page.addObject("nonDepError", "Нужно выбрать подразделение");
+        }
+
+        if(hasError) {
+            page.addObject("employee", employeeEntity);
+            page.addObject("posts", this.postPageService.getAll());
+            page.addObject("departments", this.departmentPageService.getAll());
+            return page;
+        }
+
         employeeEntity.setId(null);
 
         if(!StringUtils.hasText(employeeEntity.getPassword())){
@@ -99,7 +122,7 @@ public class EmployeeController extends BaseController {
 
         this.employeePageService.add(employeeEntity);
 
-        return "redirect:/employee";
+        return this.getStartPage(1, 15);
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,

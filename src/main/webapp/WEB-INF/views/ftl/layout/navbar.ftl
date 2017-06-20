@@ -1,4 +1,5 @@
 <#-- @ftlvariable name="authEmployee" type="ru.kolaer.permit.entity.EmployeeEntity" -->
+<#-- @ftlvariable name="notifications" type="java.util.List<ru.kolaer.permit.entity.NotificationEntity>" -->
 
 <#import "/spring.ftl" as spring>
 
@@ -22,9 +23,33 @@
             <div class="nav-no-collapse header-nav">
                 <ul class="nav pull-right">
                     <li class="dropdown hidden-phone">
-                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="icon-bell"></i>
-                        </a>
+                            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="icon-bell"></i>
+                                <#if notifications?size != 0>
+                                    <span class="badge red">${notifications?size}</span>
+                                </#if>
+                            </a>
+                            <#if notifications?size != 0>
+                                <ul class="dropdown-menu notifications">
+                                    <li class="dropdown-menu-title">
+                                        <span>У вас ${notifications?size} непрочитанных уведомлений</span>
+                                    <#--<a href="#refresh"><i class="icon-repeat"></i></a>-->
+                                    </li>
+
+                                    <#list notifications as notify>
+                                        <li>
+                                            <a href="#">
+                                                <span class="icon blue"><i class="icon-user"></i></span>
+                                                <span class="message">${notify.message}</span>
+                                                <span class="time">${notify.createDate?string["dd.MM.yyyy HH:mm"]}</span>
+                                            </a>
+                                        </li>
+                                    </#list>
+                                    <li class="dropdown-menu-sub-footer">
+                                        <a>View all notifications</a>
+                                    </li>
+                                </ul>
+                            </#if>
                     </li>
 
                     <li class="dropdown">

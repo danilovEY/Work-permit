@@ -12,6 +12,7 @@ import ru.kolaer.permit.dto.Page;
 import ru.kolaer.permit.entity.DepartmentEntity;
 import ru.kolaer.permit.service.DepartmentPageService;
 import ru.kolaer.permit.service.EmployeePageService;
+import ru.kolaer.permit.service.NotificationPageService;
 
 import java.util.Collections;
 
@@ -28,8 +29,9 @@ public class DepartmentController extends BaseController {
     @Autowired
     public DepartmentController(@Value("${default.login}") String defaultLogin,
                                 DepartmentPageService departmentPageService,
-                                EmployeePageService employeePageService) {
-        super(defaultLogin, employeePageService);
+                                EmployeePageService employeePageService,
+                                NotificationPageService notification) {
+        super(defaultLogin, employeePageService, notification);
         this.departmentPageService = departmentPageService;
     }
 

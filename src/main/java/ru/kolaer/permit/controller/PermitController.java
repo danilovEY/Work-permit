@@ -15,6 +15,7 @@ import ru.kolaer.permit.dto.ExtendedPermitDto;
 import ru.kolaer.permit.dto.Page;
 import ru.kolaer.permit.entity.*;
 import ru.kolaer.permit.service.EmployeePageService;
+import ru.kolaer.permit.service.NotificationPageService;
 import ru.kolaer.permit.service.PermitPageService;
 import ru.kolaer.permit.service.PermitStatusHistoryPageService;
 
@@ -22,8 +23,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -41,8 +40,10 @@ public class PermitController extends BaseController{
     public PermitController(@Value("${default.login}") String defaultLogin,
                             PermitPageService permitPageService,
                             EmployeePageService employeePageService,
-                            WorkEventDao workEventDao, PermitStatusHistoryPageService permitStatusHistoryPageService) {
-        super(defaultLogin, employeePageService);
+                            WorkEventDao workEventDao,
+                            PermitStatusHistoryPageService permitStatusHistoryPageService,
+                            NotificationPageService notification) {
+        super(defaultLogin, employeePageService, notification);
         this.permitPageService = permitPageService;
         this.workEventDao = workEventDao;
         this.permitStatusHistoryPageService = permitStatusHistoryPageService;

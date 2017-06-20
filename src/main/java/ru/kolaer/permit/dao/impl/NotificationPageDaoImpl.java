@@ -2,6 +2,7 @@ package ru.kolaer.permit.dao.impl;
 
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.kolaer.permit.dao.BasePageDaoAbstract;
 import ru.kolaer.permit.dao.NotificationPageDao;
 import ru.kolaer.permit.entity.NotificationEntity;
@@ -19,6 +20,7 @@ public class NotificationPageDaoImpl extends BasePageDaoAbstract<NotificationEnt
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<NotificationEntity> findNotReadableNotifyToEmployeeId(long employeeId) {
         return this.sessionFactory.getCurrentSession()
                 .createQuery("FROM NotificationEntity n WHERE n.to.id = :empId AND n.read = false", NotificationEntity.class)

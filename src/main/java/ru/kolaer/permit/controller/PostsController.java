@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ru.kolaer.permit.dto.Page;
 import ru.kolaer.permit.entity.PostEntity;
 import ru.kolaer.permit.service.EmployeePageService;
+import ru.kolaer.permit.service.NotificationPageService;
 import ru.kolaer.permit.service.PostPageService;
 
 import java.util.Collections;
@@ -30,8 +31,9 @@ public class PostsController extends BaseController {
     @Autowired
     public PostsController(@Value("${default.login}") String defaultLogin,
                            PostPageService postPageService,
-                           EmployeePageService employeePageService) {
-        super(defaultLogin, employeePageService);
+                           EmployeePageService employeePageService,
+                           NotificationPageService notification) {
+        super(defaultLogin, employeePageService, notification);
         this.postPageService = postPageService;
     }
 

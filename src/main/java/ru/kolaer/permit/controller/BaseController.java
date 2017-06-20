@@ -5,9 +5,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 import ru.kolaer.permit.component.EmptyObjects;
 import ru.kolaer.permit.entity.EmployeeEntity;
+import ru.kolaer.permit.entity.NotificationEntity;
 import ru.kolaer.permit.service.EmployeePageService;
+import ru.kolaer.permit.service.NotificationPageService;
 
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Danilov on 29.05.2017.
@@ -15,14 +19,17 @@ import java.util.Date;
 public abstract class BaseController {
 
     final EmployeePageService employeePageService;
+    final NotificationPageService notificationPageService;
     private final EmployeeEntity defaultEmployee;
 
     private final String adminName;
 
     public BaseController(String defaultLogin,
-            EmployeePageService employeePageService) {
+                          EmployeePageService employeePageService,
+                          NotificationPageService notificationPageService) {
         this.employeePageService = employeePageService;
         this.adminName = defaultLogin;
+        this.notificationPageService = notificationPageService;
 
         this.defaultEmployee = new EmployeeEntity();
         this.defaultEmployee.setId(-1L);
@@ -41,7 +48,12 @@ public abstract class BaseController {
     ModelAndView createDefaultView(String view) {
         final EmployeeEntity authEmp = this.getAuthEmployee();
 
+        List<NotificationEntity> notifications = authEmp.getId() > 0
+                ? this.notificationPageService.getNotReadableNotification(authEmp.getId())
+                : Collections.emptyList();
+
         final ModelAndView modelAndView = new ModelAndView(view);
+        modelAndView.addObject("notifications", notifications);
         modelAndView.addObject("authEmployee", authEmp);
         return modelAndView;
     }

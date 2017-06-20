@@ -14,6 +14,7 @@ import ru.kolaer.permit.dto.RoleNameDto;
 import ru.kolaer.permit.entity.EmployeeEntity;
 import ru.kolaer.permit.entity.RoleEntity;
 import ru.kolaer.permit.service.EmployeePageService;
+import ru.kolaer.permit.service.NotificationPageService;
 import ru.kolaer.permit.service.RolePageService;
 
 import java.util.List;
@@ -34,8 +35,9 @@ public class RoleController extends BaseController {
     public RoleController(@Value("${default.login}") String defaultLogin,
                           RolePageService rolePageService,
                           RoleNameDto roleNameDto,
-                          EmployeePageService employeePageService) {
-        super(defaultLogin, employeePageService);
+                          EmployeePageService employeePageService,
+                          NotificationPageService notification) {
+        super(defaultLogin, employeePageService, notification);
         this.rolePageService = rolePageService;
         this.roleNameDto = roleNameDto;
         this.employeePageService = employeePageService;

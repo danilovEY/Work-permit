@@ -12,6 +12,7 @@ import ru.kolaer.permit.dao.WorkEventDao;
 import ru.kolaer.permit.entity.PermitEntity;
 import ru.kolaer.permit.entity.WorkEvent;
 import ru.kolaer.permit.service.EmployeePageService;
+import ru.kolaer.permit.service.NotificationPageService;
 
 import java.util.Collections;
 
@@ -26,8 +27,9 @@ public class WorkEventController extends BaseController {
 
     public WorkEventController(@Value("${default.login}") String defaultLogin,
                                EmployeePageService employeePageService,
-                               WorkEventDao workEventDao) {
-        super(defaultLogin, employeePageService);
+                               WorkEventDao workEventDao,
+                               NotificationPageService notification) {
+        super(defaultLogin, employeePageService, notification);
         this.workEventDao = workEventDao;
     }
 

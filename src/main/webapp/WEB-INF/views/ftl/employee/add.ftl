@@ -1,6 +1,8 @@
 <#-- @ftlvariable name="employee" type="ru.kolaer.permit.entity.EmployeeEntity" -->
 <#-- @ftlvariable name="departments" type="java.util.List<ru.kolaer.permit.entity.DepartmentEntity>" -->
 <#-- @ftlvariable name="posts" type="java.util.List<ru.kolaer.permit.entity.PostEntity>" -->
+<#-- @ftlvariable name="nonPostError" type="java.lang.String" -->
+<#-- @ftlvariable name="nonDepError" type="java.lang.String" -->
 
 
 <#import "../layout/baseTemplate.ftl" as base>
@@ -68,33 +70,68 @@
                     </div>
                 </div>
 
-                <div class="control-group">
-                    <label class="control-label" for="selectDep">Подразделение: </label>
-                    <div class="controls">
-                        <select id="selectDep" name="department.id" data-rel="chosen">
-                            <option disabled selected value> Подразделения... </option>
-                            <#if departments?has_content>
-                                <#list departments as dep>
-                                    <option value="${dep.id}">${dep.name}</option>
-                                </#list>
-                            </#if>
-                        </select>
+                <#if nonDepError?has_content>
+                    <div class="control-group error">
+                        <label class="control-label" for="selectDep">Подразделение: </label>
+                        <div class="controls">
+                            <select id="selectDep" name="department.id" data-rel="chosen">
+                                <option disabled selected value> Подразделения... </option>
+                                <#if departments?has_content>
+                                    <#list departments as dep>
+                                        <option value="${dep.id}">${dep.name}</option>
+                                    </#list>
+                                </#if>
+                            </select>
+                            <span class="help-inline">${nonDepError}</span>
+                        </div>
                     </div>
-                </div>
+                <#else>
+                    <div class="control-group">
+                        <label class="control-label" for="selectDep">Подразделение: </label>
+                        <div class="controls">
+                            <select id="selectDep" name="department.id" data-rel="chosen">
+                                <option disabled selected value> Подразделения... </option>
+                                <#if departments?has_content>
+                                    <#list departments as dep>
+                                        <option value="${dep.id}">${dep.name}</option>
+                                    </#list>
+                                </#if>
+                            </select>
+                        </div>
+                    </div>
+                </#if>
 
-                <div class="control-group">
-                    <label class="control-label" for="selectPost">Должность: </label>
-                    <div class="controls">
-                        <select id="selectPost" name="post.id" data-rel="chosen">
-                            <option disabled selected value> Должности... </option>
-                            <#if posts?has_content>
-                                <#list posts as post>
-                                    <option value="${post.id}">${post.name} ${post.rang!""} ${post.typeRang!""}</option>
-                                </#list>
-                            </#if>
-                        </select>
+                <#if nonPostError?has_content>
+                    <div class="control-group error">
+                        <label class="control-label" for="selectPost">Должность: </label>
+                        <div class="controls">
+                            <select id="selectPost" name="post.id" data-rel="chosen">
+                                <option disabled selected value> Должности... </option>
+                                <#if posts?has_content>
+                                    <#list posts as post>
+                                        <option value="${post.id}">${post.name} ${post.rang!""} ${post.typeRang!""}</option>
+                                    </#list>
+                                </#if>
+                            </select>
+                            <span class="help-inline">${nonPostError}</span>
+                        </div>
                     </div>
-                </div>
+                <#else>
+                    <div class="control-group">
+                        <label class="control-label" for="selectPost">Должность: </label>
+                        <div class="controls">
+                            <select id="selectPost" name="post.id" data-rel="chosen">
+                                <option disabled selected value> Должности... </option>
+                                <#if posts?has_content>
+                                    <#list posts as post>
+                                        <option value="${post.id}">${post.name} ${post.rang!""} ${post.typeRang!""}</option>
+                                    </#list>
+                                </#if>
+                            </select>
+                        </div>
+                    </div>
+                </#if>
+
 
                 <div class="control-group">
                     <label class="control-label" for="name">Рабочие телефоны: </label>
