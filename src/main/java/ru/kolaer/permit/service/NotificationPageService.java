@@ -1,5 +1,7 @@
 package ru.kolaer.permit.service;
 
+import ru.kolaer.permit.dto.NotificationContents;
+import ru.kolaer.permit.dto.NotificationDto;
 import ru.kolaer.permit.entity.NotificationEntity;
 
 import java.util.List;
@@ -9,4 +11,8 @@ import java.util.List;
  */
 public interface NotificationPageService extends BasePageService<NotificationEntity> {
     List<NotificationEntity> getNotReadableNotification(long empId);
+    NotificationContents getNotificationContents(long empId);
+
+    List<NotificationDto> convertToDto(List<NotificationEntity> entities);
+    NotificationDto convertToDto(NotificationEntity entity);
 }

@@ -1,5 +1,5 @@
 <#-- @ftlvariable name="authEmployee" type="ru.kolaer.permit.entity.EmployeeEntity" -->
-<#-- @ftlvariable name="notifications" type="java.util.List<ru.kolaer.permit.entity.NotificationEntity>" -->
+<#-- @ftlvariable name="notificationContents" type="ru.kolaer.permit.dto.NotificationContents" -->
 
 <#import "/spring.ftl" as spring>
 
@@ -24,29 +24,31 @@
                 <ul class="nav pull-right">
                     <li class="dropdown hidden-phone">
                             <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="icon-bell"></i>
-                                <#if notifications?size != 0>
-                                    <span class="badge red">${notifications?size}</span>
+                                <#if notificationContents.count != 0>
+                                    <i class="icon-bell-alt"></i>
+                                    <span class="badge red">${notificationContents.count}</span>
+                                <#else>
+                                    <i class="icon-bell"></i>
                                 </#if>
                             </a>
-                            <#if notifications?size != 0>
+                            <#if notificationContents.count != 0>
                                 <ul class="dropdown-menu notifications">
                                     <li class="dropdown-menu-title">
-                                        <span>У вас ${notifications?size} непрочитанных уведомлений</span>
+                                        <span>Непрочитанных уведомлений (${notificationContents.count})</span>
                                     <#--<a href="#refresh"><i class="icon-repeat"></i></a>-->
                                     </li>
 
-                                    <#list notifications as notify>
+                                    <#list notificationContents.notifications as notify>
                                         <li>
                                             <a href="#">
                                                 <span class="icon blue"><i class="icon-user"></i></span>
                                                 <span class="message">${notify.message}</span>
-                                                <span class="time">${notify.createDate?string["dd.MM.yyyy HH:mm"]}</span>
+                                                <span class="time">${notify.dateString}</span>
                                             </a>
                                         </li>
                                     </#list>
                                     <li class="dropdown-menu-sub-footer">
-                                        <a>View all notifications</a>
+                                        <a href="<@spring.url relativeUrl="/notification"/>">Показать все уведомления</a>
                                     </li>
                                 </ul>
                             </#if>

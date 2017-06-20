@@ -42,6 +42,7 @@
                         <@security.authorize access="hasRole('ROLE_DB_ADMIN')">
                             <li><a href="<@spring.url relativeUrl="/role"/>"><i class="icon-group"></i><span class="hidden-tablet"> Роли</span></a></li>
                         </@security.authorize>
+                        <li><a href="<@spring.url relativeUrl="/notification"/>"><i class="icon-bell-alt"></i><span class="hidden-tablet"> Уведомления</span></a></li>
                     </ul>
                 </div>
             </div>

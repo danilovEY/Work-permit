@@ -21,11 +21,32 @@ public class NotificationPageDaoImpl extends BasePageDaoAbstract<NotificationEnt
 
     @Override
     @Transactional(readOnly = true)
-    public List<NotificationEntity> findNotReadableNotifyToEmployeeId(long employeeId) {
+    public List<NotificationEntity> findAllNotReadableNotifyToEmployeeId(long employeeId) {
         return this.sessionFactory.getCurrentSession()
-                .createQuery("FROM NotificationEntity n WHERE n.to.id = :empId AND n.read = false", NotificationEntity.class)
+                .createQuery("FROM NotificationEntity n WHERE n.to.id = :empId AND n.read = false ORDER BY n.createDate DESC",
+                        NotificationEntity.class)
                 .setParameter("empId", employeeId)
                 .list();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<NotificationEntity> findLimitNotReadableNotifyToEmployeeId(long employeeId, int limit) {
+        return this.sessionFactory.getCurrentSession()
+                .createQuery("FROM NotificationEntity n WHERE n.to.id = :empId AND n.read = false ORDER BY n.createDate DESC",
+                        NotificationEntity.class)
+                .setParameter("empId", employeeId)
+                .setMaxResults(limit)
+                .list();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Long findCountNotReadableNotifyToEmployeeId(long employeeId) {
+        return this.sessionFactory.getCurrentSession()
+                .createQuery("SELECT COUNT(n.id) FROM NotificationEntity n WHERE n.to.id = :empId AND n.read = false", Long.class)
+                .setParameter("empId", employeeId)
+                .uniqueResult();
     }
 
     @Override

@@ -4,6 +4,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 import ru.kolaer.permit.component.EmptyObjects;
+import ru.kolaer.permit.dto.NotificationContents;
 import ru.kolaer.permit.entity.EmployeeEntity;
 import ru.kolaer.permit.entity.NotificationEntity;
 import ru.kolaer.permit.service.EmployeePageService;
@@ -48,12 +49,12 @@ public abstract class BaseController {
     ModelAndView createDefaultView(String view) {
         final EmployeeEntity authEmp = this.getAuthEmployee();
 
-        List<NotificationEntity> notifications = authEmp.getId() > 0
-                ? this.notificationPageService.getNotReadableNotification(authEmp.getId())
-                : Collections.emptyList();
+        NotificationContents notificationContents = this.notificationPageService
+                .getNotificationContents(authEmp.getId());
+
 
         final ModelAndView modelAndView = new ModelAndView(view);
-        modelAndView.addObject("notifications", notifications);
+        modelAndView.addObject("notificationContents", notificationContents);
         modelAndView.addObject("authEmployee", authEmp);
         return modelAndView;
     }
