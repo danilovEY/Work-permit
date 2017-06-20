@@ -45,7 +45,7 @@ public class DepartmentController extends BaseController {
     }
 
     @RequestMapping(value = "edit", method = RequestMethod.GET)
-    public ModelAndView editDepartment(@RequestParam("id") Integer id) {
+    public ModelAndView editDepartment(@RequestParam("id") Long id) {
         final DepartmentEntity dep = this.departmentPageService.getById(id);
 
         final ModelAndView modelAndView = this.createDefaultView("/department/edit");
@@ -113,7 +113,7 @@ public class DepartmentController extends BaseController {
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public String removeDepartment(@RequestParam("id") Integer id) {
+    public String removeDepartment(@RequestParam("id") Long id) {
         DepartmentEntity departmentEntity = new DepartmentEntity();
         departmentEntity.setId(id);
         this.departmentPageService.delete(departmentEntity);

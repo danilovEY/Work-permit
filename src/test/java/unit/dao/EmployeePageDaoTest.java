@@ -20,7 +20,7 @@ public class EmployeePageDaoTest extends BaseTestDao {
 
     @Test
     public void findFirstEmployee(){
-        final EmployeeEntity account = employeePageDao.findById(1, false);
+        final EmployeeEntity account = employeePageDao.findById(1L, false);
         assertTrue(account.getId() > 0);
     }
 

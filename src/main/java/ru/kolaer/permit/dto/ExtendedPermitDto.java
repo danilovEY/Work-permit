@@ -10,7 +10,7 @@ import java.util.Date;
  */
 @Data
 public class ExtendedPermitDto {
-    private Integer id;
+    private Long id;
     @DateTimeFormat(pattern = "dd.MM.yyyy hh:mm")
     private Date extendedPermit;
 }

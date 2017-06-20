@@ -17,7 +17,7 @@ public class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
-    protected Integer id;
+    protected Long id;
 
     @Column(name = "removed", nullable = false)
     private Boolean removed = Boolean.FALSE;

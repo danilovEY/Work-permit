@@ -48,17 +48,17 @@ public class PermitPageServiceImpl extends BasePageServiceAbstract<PermitEntity>
     }
 
     @Override
-    public WorkPermitEntity getWorkById(Integer id) {
+    public WorkPermitEntity getWorkById(Long id) {
         return this.dao.findWorkById(id);
     }
 
     @Override
-    public EventPermitEntity getEventById(Integer id) {
+    public EventPermitEntity getEventById(Long id) {
         return this.dao.findEventById(id);
     }
 
     @Override
-    public PeoplePermitEntity getPeopleById(Integer id) {
+    public PeoplePermitEntity getPeopleById(Long id) {
         return this.dao.findPeopleById(id);
     }
 
@@ -69,7 +69,7 @@ public class PermitPageServiceImpl extends BasePageServiceAbstract<PermitEntity>
     }
 
     @Override
-    public boolean extendPermit(Integer id, Date extendDate, EmployeeEntity whoExtend) {
+    public boolean extendPermit(Long id, Date extendDate, EmployeeEntity whoExtend) {
         WorkPermitEntity extendedWork = this.dao.findWorkById(id);
         extendedWork.setExtendedPermit(extendDate);
 
@@ -99,7 +99,7 @@ public class PermitPageServiceImpl extends BasePageServiceAbstract<PermitEntity>
     }
 
     @Override
-    public void deleteExecutor(Integer id, Integer executor) {
+    public void deleteExecutor(Long id, Long executor) {
         this.dao.deleteExecutor(id, executor);
     }
 
@@ -109,7 +109,7 @@ public class PermitPageServiceImpl extends BasePageServiceAbstract<PermitEntity>
     }
 
     @Override
-    public boolean setStatus(Integer id, String status, EmployeeEntity whoSetStatus) {
+    public boolean setStatus(Long id, String status, EmployeeEntity whoSetStatus) {
         final PermitEntity permitEntity = new PermitEntity();
         permitEntity.setId(id);
 
@@ -126,17 +126,17 @@ public class PermitPageServiceImpl extends BasePageServiceAbstract<PermitEntity>
     }
 
     @Override
-    public File printPermitToExcel(Integer id) {
+    public File printPermitToExcel(Long id) {
         return this.permitConverterExcel.convertPermit(id);
     }
 
     @Override
-    public String getSerialNumber(Integer id) {
+    public String getSerialNumber(Long id) {
         return this.dao.findSerialNumberById(id);
     }
 
     @Override
-    public boolean cancel(Integer id, EmployeeEntity whoSetStatus) {
+    public boolean cancel(Long id, EmployeeEntity whoSetStatus) {
         return this.setStatus(id, CANCELED_STATUS, whoSetStatus);
     }
 
@@ -169,7 +169,7 @@ public class PermitPageServiceImpl extends BasePageServiceAbstract<PermitEntity>
     }
 
     @Override
-    public void endPermit(Integer id, EmployeeEntity authEmployee) {
+    public void endPermit(Long id, EmployeeEntity authEmployee) {
         if(this.dao.setCompletePermit(id, true)) {
             this.setStatus(id, END_STATUS, authEmployee);
         }

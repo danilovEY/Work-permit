@@ -21,7 +21,7 @@ import java.util.List;
 @NoArgsConstructor
 public class PostEntity extends BaseEntity {
 
-    public PostEntity(Integer id, String name, String abbreviatedName, Integer rang, String typeRang, List<EmployeeEntity> employees) {
+    public PostEntity(Long id, String name, String abbreviatedName, Integer rang, String typeRang, List<EmployeeEntity> employees) {
         this.id = id;
         this.name = name;
         this.abbreviatedName = abbreviatedName;

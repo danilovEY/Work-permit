@@ -22,7 +22,7 @@ import java.util.List;
 @NoArgsConstructor
 public class DepartmentEntity extends BaseEntity {
 
-    public DepartmentEntity(Integer id, String name, String abbreviatedName, List<EmployeeEntity> employees) {
+    public DepartmentEntity(Long id, String name, String abbreviatedName, List<EmployeeEntity> employees) {
         this.id = id;
         this.name = name;
         this.abbreviatedName = abbreviatedName;

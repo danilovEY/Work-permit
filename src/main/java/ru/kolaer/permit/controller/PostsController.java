@@ -47,7 +47,7 @@ public class PostsController extends BaseController {
     }
 
     @RequestMapping(value = "edit", method = RequestMethod.GET)
-    public ModelAndView editPost(@RequestParam("id") Integer id) {
+    public ModelAndView editPost(@RequestParam("id") Long id) {
         final PostEntity dep = this.postPageService.getById(id);
 
         final ModelAndView modelAndView = this.createDefaultView("/post/edit");
@@ -92,7 +92,7 @@ public class PostsController extends BaseController {
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public String removeDepartment(@RequestParam("id") Integer id) {
+    public String removeDepartment(@RequestParam("id") Long id) {
         final PostEntity postEntity = new PostEntity();
         postEntity.setId(id);
 

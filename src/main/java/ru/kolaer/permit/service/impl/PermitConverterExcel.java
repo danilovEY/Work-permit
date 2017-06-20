@@ -51,7 +51,7 @@ public class PermitConverterExcel implements PermitConverter<File> {
     }
 
     @Override
-    public File convertPermit(Integer idPermit) {
+    public File convertPermit(Long idPermit) {
         final WorkPermitEntity workPermit = this.permitPageDao.findWorkById(idPermit);
         final PeoplePermitEntity peoplePermit = this.permitPageDao.findPeopleById(idPermit);
         final List<WorkEvent> workEvents = this.workEventDao.findByIdPermit(idPermit, false);

@@ -12,26 +12,26 @@ public interface PermitPageDao extends BasePageDao<PermitEntity> {
     Page<ShortPermitEntity> findShortAll(Integer number, Integer pageSize, Integer sort, boolean includeRemoved);
     Page<ShortPermitEntity> findShortAll(Integer number, Integer pageSize, Integer sort, boolean includeRemoved, String search);
 
-    WorkPermitEntity findWorkById(Integer id);
-    EventPermitEntity findEventById(Integer id);
-    PeoplePermitEntity findPeopleById(Integer id);
+    WorkPermitEntity findWorkById(Long id);
+    EventPermitEntity findEventById(Long id);
+    PeoplePermitEntity findPeopleById(Long id);
 
     WorkPermitEntity update(WorkPermitEntity workPermitEntity);
     PeoplePermitEntity update(PeoplePermitEntity peoplePermitEntity);
     EventPermitEntity update(EventPermitEntity eventPermitEntity);
 
-    void deleteExecutor(Integer id, Integer executor);
+    void deleteExecutor(Long id, Long executor);
 
     boolean existSerialNumber(String serialNumber);
 
-    boolean setStatus(Integer id, String status);
-    boolean setStatus(List<Integer> ids, String status);
+    boolean setStatus(Long id, String status);
+    boolean setStatus(List<Long> ids, String status);
 
-    String findSerialNumberById(Integer id);
+    String findSerialNumberById(Long id);
 
-    List<Integer> findAllByStatusAndOverdue(String overdue);
+    List<Long> findAllByStatusAndOverdue(String overdue);
 
-    List<Integer> findAllByStatusAndStartWork(String status);
+    List<Long> findAllByStatusAndStartWork(String status);
 
-    boolean setCompletePermit(Integer id, boolean b);
+    boolean setCompletePermit(Long id, boolean b);
 }

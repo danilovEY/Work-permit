@@ -94,7 +94,7 @@ public class PermitController extends BaseController{
     }
 
     @RequestMapping(value = "download/excel", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    public void downloadToExcel(@RequestParam("id")Integer id, HttpServletRequest request,
+    public void downloadToExcel(@RequestParam("id")Long id, HttpServletRequest request,
                                 HttpServletResponse response) throws IOException {
         final File template = this.permitPageService.printPermitToExcel(id);
         if(template != null) {
@@ -126,15 +126,15 @@ public class PermitController extends BaseController{
     }
 
     @RequestMapping(value = "delete/executor", method = RequestMethod.GET)
-    public String deleteExecutor(@RequestParam("id")Integer id,
-                                       @RequestParam("executor")Integer executor) {
+    public String deleteExecutor(@RequestParam("id")Long id,
+                                       @RequestParam("executor")Long executor) {
         this.permitPageService.deleteExecutor(id, executor);
 
         return "redirect:/permit/edit/people?id=" + id;
     }
 
     @RequestMapping(value = "delete", method = RequestMethod.GET)
-    public String deletePermit(@RequestParam("id")Integer id) {
+    public String deletePermit(@RequestParam("id")Long id) {
         final PermitEntity removePermit = new PermitEntity();
         removePermit.setId(id);
 
@@ -183,7 +183,7 @@ public class PermitController extends BaseController{
     }
 
     @RequestMapping(value = "edit/work", method = RequestMethod.GET)
-    public ModelAndView getWorkEditPage(@RequestParam(value = "id") Integer id) {
+    public ModelAndView getWorkEditPage(@RequestParam(value = "id") Long id) {
         final WorkPermitEntity workPermitEntity= this.permitPageService.getWorkById(id);
 
         final ModelAndView view = this.createDefaultView("/permit/edit/work");
@@ -192,7 +192,7 @@ public class PermitController extends BaseController{
     }
 
     @RequestMapping(value = "view/work", method = RequestMethod.GET)
-    public ModelAndView getWorkViewPage(@RequestParam(value = "id") Integer id) {
+    public ModelAndView getWorkViewPage(@RequestParam(value = "id") Long id) {
         final WorkPermitEntity workPermitEntity= this.permitPageService.getWorkById(id);
 
         final ModelAndView view = this.createDefaultView("/permit/view/work");
@@ -201,7 +201,7 @@ public class PermitController extends BaseController{
     }
 
     @RequestMapping(value = "edit/event", method = RequestMethod.GET)
-    public ModelAndView getEventEditPage(@RequestParam(value = "id") Integer id) {
+    public ModelAndView getEventEditPage(@RequestParam(value = "id") Long id) {
         final List<WorkEvent> workEvents = this.workEventDao.findByIdPermit(id, false);
 
         final EventPermitEntity eventPermitEntity = new EventPermitEntity();
@@ -215,7 +215,7 @@ public class PermitController extends BaseController{
     }
 
     @RequestMapping(value = "view/event", method = RequestMethod.GET)
-    public ModelAndView getEventViewPage(@RequestParam(value = "id") Integer id) {
+    public ModelAndView getEventViewPage(@RequestParam(value = "id") Long id) {
         final List<WorkEvent> workEvents = this.workEventDao.findByIdPermit(id, false);
 
         final EventPermitEntity eventPermitEntity = new EventPermitEntity();
@@ -228,7 +228,7 @@ public class PermitController extends BaseController{
     }
 
     @RequestMapping(value = "edit/people", method = RequestMethod.GET)
-    public ModelAndView getPeopleEditPage(@RequestParam(value = "id") Integer id) {
+    public ModelAndView getPeopleEditPage(@RequestParam(value = "id") Long id) {
         final PeoplePermitEntity peoplePermitEntity = this.permitPageService.getPeopleById(id);
 
         final ModelAndView view = this.createDefaultView("/permit/edit/people");
@@ -238,7 +238,7 @@ public class PermitController extends BaseController{
     }
 
     @RequestMapping(value = "view/people", method = RequestMethod.GET)
-    public ModelAndView getPeopleViewPage(@RequestParam(value = "id") Integer id) {
+    public ModelAndView getPeopleViewPage(@RequestParam(value = "id") Long id) {
         final PeoplePermitEntity peoplePermitEntity = this.permitPageService.getPeopleById(id);
 
         final ModelAndView view = this.createDefaultView("/permit/view/people");
@@ -247,7 +247,7 @@ public class PermitController extends BaseController{
     }
 
     @RequestMapping(value = "view/history", method = RequestMethod.GET)
-    public ModelAndView getHistoryViewPage(@RequestParam(value = "id") Integer id) {
+    public ModelAndView getHistoryViewPage(@RequestParam(value = "id") Long id) {
         final List<PermitStatusHistoryEntity> statuses = this.permitStatusHistoryPageService.getAllByPermitId(id);
 
         final ModelAndView view = this.createDefaultView("/permit/view/history");
@@ -257,7 +257,7 @@ public class PermitController extends BaseController{
     }
 
     @RequestMapping(value = "edit/history", method = RequestMethod.GET)
-    public ModelAndView getHistoryEditPage(@RequestParam(value = "id") Integer id) {
+    public ModelAndView getHistoryEditPage(@RequestParam(value = "id") Long id) {
         final List<PermitStatusHistoryEntity> statuses = this.permitStatusHistoryPageService.getAllByPermitId(id);
 
         final ModelAndView view = this.createDefaultView("/permit/edit/history");
@@ -267,28 +267,28 @@ public class PermitController extends BaseController{
     }
 
     @RequestMapping(value = "action/cancel", method = RequestMethod.GET)
-    public String cancelPermit(@RequestParam("id")Integer id) {
+    public String cancelPermit(@RequestParam("id")Long id) {
         this.permitPageService.cancel(id, this.getAuthEmployee());
 
         return "redirect:/permit";
     }
 
     @RequestMapping(value = "action/need/approve", method = RequestMethod.GET)
-    public String setNeedApproveStatus(@RequestParam(value = "id") Integer id) {
+    public String setNeedApproveStatus(@RequestParam(value = "id") Long id) {
         this.permitPageService.setStatus(id, PermitPageService.NEED_APPROVE_STATUS, this.getAuthEmployee());
 
         return "redirect:/permit";
     }
 
     @RequestMapping(value = "action/approve", method = RequestMethod.GET)
-    public String setApproveStatus(@RequestParam(value = "id") Integer id) {
+    public String setApproveStatus(@RequestParam(value = "id") Long id) {
         this.permitPageService.setStatus(id, PermitPageService.APPROVE_STATUS, this.getAuthEmployee());
 
         return "redirect:/permit";
     }
 
     @RequestMapping(value = "action/end", method = RequestMethod.GET)
-    public String setEndStatus(@RequestParam(value = "id") Integer id) {
+    public String setEndStatus(@RequestParam(value = "id") Long id) {
         this.permitPageService.endPermit(id, this.getAuthEmployee());
 
         return "redirect:/permit";
@@ -296,7 +296,7 @@ public class PermitController extends BaseController{
 
 
     @RequestMapping(value = "action/permit", method = RequestMethod.GET)
-    public String setPermit(@RequestParam(value = "id") Integer id) {
+    public String setPermit(@RequestParam(value = "id") Long id) {
         this.permitPageService.setStatus(id, PermitPageService.PERMIT_STATUS, this.getAuthEmployee());
 
         return "redirect:/permit";

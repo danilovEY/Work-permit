@@ -55,7 +55,7 @@ public class EmployeePageServiceImpl extends BasePageServiceAbstract<EmployeeEnt
     }
 
     @Override
-    public EmployeeEntity getById(@NonNull Integer id) {
+    public EmployeeEntity getById(@NonNull Long id) {
         return this.employeePageDao.findById(id, false);
     }
 

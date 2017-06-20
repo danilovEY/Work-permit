@@ -36,7 +36,7 @@ public class PostPageServiceImpl extends BasePageServiceAbstract<PostEntity> imp
     }
 
     @Override
-    public PostEntity getById(@NonNull Integer id) {
+    public PostEntity getById(@NonNull Long id) {
         return this.postPageDao.findById(id, false);
     }
 

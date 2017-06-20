@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AccountDto {
-    private Integer employeeId;
+    private Long employeeId;
     private String username;
     private String password;
     private List<RoleEntity> roles = new ArrayList<>();

@@ -29,7 +29,7 @@ public class PostPageDaoImpl extends BasePageDaoAbstract<PostEntity> implements 
     public boolean existPost(PostEntity postEntity) {
         return this.sessionFactory.getCurrentSession()
                 .createQuery("SELECT id FROM PostEntity p WHERE p.name = :name AND p.id <> :id")
-                .setParameter("id", Optional.ofNullable(postEntity.getId()).orElse(-1))
+                .setParameter("id", Optional.ofNullable(postEntity.getId()).orElse(-1L))
                 .setParameter("name", postEntity.getName())
                 .uniqueResultOptional()
                 .isPresent();

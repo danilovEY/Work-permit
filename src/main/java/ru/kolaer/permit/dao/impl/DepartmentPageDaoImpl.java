@@ -30,7 +30,7 @@ public class DepartmentPageDaoImpl extends BasePageDaoAbstract<DepartmentEntity>
     public boolean existDepartment(DepartmentEntity department) {
         return this.sessionFactory.getCurrentSession()
                 .createQuery("SELECT id FROM DepartmentEntity WHERE name = :depName AND id <> :id")
-                .setParameter("id", Optional.ofNullable(department.getId()).orElse(-1))
+                .setParameter("id", Optional.ofNullable(department.getId()).orElse(-1L))
                 .setParameter("depName", department.getName())
                 .uniqueResultOptional()
                 .isPresent();

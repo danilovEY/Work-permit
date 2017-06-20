@@ -22,7 +22,7 @@ public class WorkEventDaoImpl extends BasePageDaoAbstract<WorkEvent> implements 
 
     @Override
     @Transactional(readOnly = true)
-    public List<WorkEvent> findByIdPermit(Integer idPermit, boolean findRemoved) {
+    public List<WorkEvent> findByIdPermit(Long idPermit, boolean findRemoved) {
         return this.sessionFactory.getCurrentSession()
                 .createQuery("FROM WorkEvent w WHERE w.permit.id = :id AND w.removed = :remove", WorkEvent.class)
                 .setParameter("remove", findRemoved)
@@ -32,7 +32,7 @@ public class WorkEventDaoImpl extends BasePageDaoAbstract<WorkEvent> implements 
 
     @Override
     @Transactional
-    public boolean deleteEmployee(Integer idWorkEvent, Integer idEmployee) {
+    public boolean deleteEmployee(Long idWorkEvent, Long idEmployee) {
         return this.sessionFactory.getCurrentSession()
                 .createNativeQuery("DELETE FROM work_event_employee WHERE event_id = :event AND employee_id = :employee")
                 .setParameter("event", idWorkEvent)

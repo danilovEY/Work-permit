@@ -25,7 +25,7 @@ public abstract class BaseController {
         this.adminName = defaultLogin;
 
         this.defaultEmployee = new EmployeeEntity();
-        this.defaultEmployee.setId(-1);
+        this.defaultEmployee.setId(-1L);
         this.defaultEmployee.setInitials(this.adminName);
         this.defaultEmployee.setUsername(this.adminName);
         this.defaultEmployee.setPassword("Смотри в конфигурационном файле");

@@ -16,7 +16,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class RoleEntity extends BaseEntity {
 
-    public RoleEntity(Integer id, EmployeeEntity employee, String role) {
+    public RoleEntity(Long id, EmployeeEntity employee, String role) {
         this.id = id;
         this.employee = employee;
         this.role = role;

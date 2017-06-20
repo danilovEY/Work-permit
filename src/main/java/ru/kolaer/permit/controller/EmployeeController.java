@@ -55,7 +55,7 @@ public class EmployeeController extends BaseController {
     }
 
     @RequestMapping(value = "edit", method = RequestMethod.GET)
-    public ModelAndView editEmployeeView(@RequestParam(value = "id") Integer id){
+    public ModelAndView editEmployeeView(@RequestParam(value = "id") Long id){
         final EmployeeEntity employee = this.employeePageService.getById(id);
         final List<DepartmentEntity> departmentEntities = this.departmentPageService.getAll();
         final List<PostEntity> postEntities = this.postPageService.getAll();
@@ -119,7 +119,7 @@ public class EmployeeController extends BaseController {
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public String removeEmployee(@RequestParam("id") Integer id) {
+    public String removeEmployee(@RequestParam("id") Long id) {
         final EmployeeEntity employeeEntity = new EmployeeEntity();
         employeeEntity.setId(id);
 

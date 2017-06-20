@@ -113,7 +113,7 @@ public abstract class BasePageServiceAbstract<T extends BaseEntity> implements B
     }
 
     @Override
-    public T getById(@NonNull Integer id) {
+    public T getById(@NonNull Long id) {
         return id < 1
                 ? this.dao.getEmptyEntity()
                 : this.dao.findById(id, true);

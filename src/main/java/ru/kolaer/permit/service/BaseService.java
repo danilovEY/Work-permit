@@ -21,7 +21,7 @@ public interface BaseService<T extends BaseEntity> {
     List<T> updateAll(@NonNull List<T> entity);
 
     List<T> getAll();
-    T getById(@NonNull Integer id);
+    T getById(@NonNull Long id);
 
     T delete(T entity);
     List<T> deleteAll(List<T> entities);

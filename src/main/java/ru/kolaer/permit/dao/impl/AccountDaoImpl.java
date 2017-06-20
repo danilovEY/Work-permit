@@ -31,7 +31,7 @@ public class AccountDaoImpl implements AccountDao {
             return null;
 
         final AccountDto account = new AccountDto();
-        account.setEmployeeId(Integer.valueOf(values[0].toString()));
+        account.setEmployeeId(Long.valueOf(values[0].toString()));
         account.setUsername(values[1].toString());
         account.setPassword(values[2].toString());
 
@@ -57,7 +57,7 @@ public class AccountDaoImpl implements AccountDao {
             return null;
 
         final AccountDto account = new AccountDto();
-        account.setEmployeeId(Integer.valueOf(values[0].toString()));
+        account.setEmployeeId(Long.valueOf(values[0].toString()));
         account.setUsername(values[1].toString());
         account.setPassword(values[2].toString());
 

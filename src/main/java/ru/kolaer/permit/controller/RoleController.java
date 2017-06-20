@@ -54,7 +54,7 @@ public class RoleController extends BaseController {
     }
 
     @RequestMapping(value = "edit", method = RequestMethod.GET)
-    public ModelAndView editRoleView(@RequestParam(value = "id") Integer id){
+    public ModelAndView editRoleView(@RequestParam(value = "id") Long id){
         final RoleEntity role = this.rolePageService.getById(id);
         final List<EmployeeEntity> employeeEntities = this.employeePageService.getAll();
 
@@ -95,7 +95,7 @@ public class RoleController extends BaseController {
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public String removeDepartment(@RequestParam("id") Integer id) {
+    public String removeDepartment(@RequestParam("id") Long id) {
         final RoleEntity roleEntity = new RoleEntity();
         roleEntity.setId(id);
 

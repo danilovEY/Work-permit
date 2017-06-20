@@ -25,12 +25,12 @@ public class PermitStatusHistoryPageServiceImpl extends BasePageServiceAbstract<
     }
 
     @Override
-    public PermitStatusHistoryEntity getLastStatusByIdPermit(Integer id) {
+    public PermitStatusHistoryEntity getLastStatusByIdPermit(Long id) {
         return this.dao.findLastStatusByIdPermit(id);
     }
 
     @Override
-    public List<PermitStatusHistoryEntity> getLastStatusByIdPermitRange(List<Integer> id) {
+    public List<PermitStatusHistoryEntity> getLastStatusByIdPermitRange(List<Long> id) {
         if(id == null || id.isEmpty())
             return Collections.emptyList();
 
@@ -38,7 +38,7 @@ public class PermitStatusHistoryPageServiceImpl extends BasePageServiceAbstract<
     }
 
     @Override
-    public List<PermitStatusHistoryEntity> getAllByPermitId(Integer id) {
+    public List<PermitStatusHistoryEntity> getAllByPermitId(Long id) {
         return this.dao.findAllById(id);
     }
 }

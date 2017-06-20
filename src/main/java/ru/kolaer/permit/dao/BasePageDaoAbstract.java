@@ -84,7 +84,7 @@ public abstract class BasePageDaoAbstract<T extends BaseEntity> implements BaseP
 
     @Override
     @Transactional(readOnly = true)
-    public T findById(@NonNull Integer id, boolean findRemoved) {
+    public T findById(@NonNull Long id, boolean findRemoved) {
         final Session currentSession = this.sessionFactory.getCurrentSession();
         final CriteriaBuilder criteriaBuilder = currentSession.getCriteriaBuilder();
         final CriteriaQuery<T> query = criteriaBuilder

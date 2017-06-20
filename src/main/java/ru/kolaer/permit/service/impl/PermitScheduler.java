@@ -29,7 +29,7 @@ public class PermitScheduler {
     }
 
     public void autoSetOverduePermit() {
-        final List<Integer> permitIds = this.permitPageDao.findAllByStatusAndOverdue(PermitPageService.WORKING_STATUS);
+        final List<Long> permitIds = this.permitPageDao.findAllByStatusAndOverdue(PermitPageService.WORKING_STATUS);
 
         log.info("Кол-во просроченных нарядов: {}", permitIds.size());
 
@@ -44,7 +44,7 @@ public class PermitScheduler {
     }
 
     public void autoSetWorkPermit() {
-        final List<Integer> permitIds = this.permitPageDao.findAllByStatusAndStartWork(PermitPageService.PERMIT_STATUS);
+        final List<Long> permitIds = this.permitPageDao.findAllByStatusAndStartWork(PermitPageService.PERMIT_STATUS);
 
         log.info("Кол-во не начатых нарядов: {}", permitIds.size());
 
@@ -58,7 +58,7 @@ public class PermitScheduler {
         }
     }
 
-    private PermitEntity createPermit(Integer id, String status) {
+    private PermitEntity createPermit(Long id, String status) {
         final PermitEntity permitEntity = new PermitEntity();
         permitEntity.setId(id);
         permitEntity.setStatus(status);

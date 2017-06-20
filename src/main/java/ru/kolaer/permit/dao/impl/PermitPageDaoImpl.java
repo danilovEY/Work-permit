@@ -126,19 +126,19 @@ public class PermitPageDaoImpl extends BasePageDaoAbstract<PermitEntity> impleme
 
     @Override
     @Transactional(readOnly = true)
-    public WorkPermitEntity findWorkById(Integer id) {
+    public WorkPermitEntity findWorkById(Long id) {
         return this.sessionFactory.getCurrentSession().get(WorkPermitEntity.class, id);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public EventPermitEntity findEventById(Integer id) {
+    public EventPermitEntity findEventById(Long id) {
         return this.sessionFactory.getCurrentSession().get(EventPermitEntity.class, id);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public PeoplePermitEntity findPeopleById(Integer id) {
+    public PeoplePermitEntity findPeopleById(Long id) {
         return this.sessionFactory.getCurrentSession().get(PeoplePermitEntity.class, id);
     }
 
@@ -165,7 +165,7 @@ public class PermitPageDaoImpl extends BasePageDaoAbstract<PermitEntity> impleme
 
     @Override
     @Transactional
-    public void deleteExecutor(Integer id, Integer executor) {
+    public void deleteExecutor(Long id, Long executor) {
         this.sessionFactory.getCurrentSession()
                 .createNativeQuery("DELETE FROM executors_permit WHERE permit_id = :permit AND executor_id = :executor")
         .setParameter("permit", id)
@@ -185,7 +185,7 @@ public class PermitPageDaoImpl extends BasePageDaoAbstract<PermitEntity> impleme
 
     @Override
     @Transactional
-    public boolean setStatus(Integer id, String status) {
+    public boolean setStatus(Long id, String status) {
         return this.sessionFactory.getCurrentSession()
                 .createQuery("UPDATE PermitEntity p SET p.status = :status WHERE p.id = :id")
                 .setParameter("id", id)
@@ -195,7 +195,7 @@ public class PermitPageDaoImpl extends BasePageDaoAbstract<PermitEntity> impleme
 
     @Override
     @Transactional
-    public boolean setStatus(List<Integer> ids, String status) {
+    public boolean setStatus(List<Long> ids, String status) {
         return this.sessionFactory.getCurrentSession()
                 .createQuery("UPDATE PermitEntity p SET p.status = :status WHERE p.id IN(:id)")
                 .setParameterList("id", ids)
@@ -205,7 +205,7 @@ public class PermitPageDaoImpl extends BasePageDaoAbstract<PermitEntity> impleme
 
     @Override
     @Transactional(readOnly = true)
-    public String findSerialNumberById(Integer id) {
+    public String findSerialNumberById(Long id) {
         return this.sessionFactory.getCurrentSession()
                 .createQuery("SELECT p.serialNumber FROM PermitEntity p WHERE p.id = :id", String.class)
                 .setParameter("id", id)
@@ -215,25 +215,25 @@ public class PermitPageDaoImpl extends BasePageDaoAbstract<PermitEntity> impleme
 
     @Override
     @Transactional(readOnly = true)
-    public List<Integer> findAllByStatusAndOverdue(String status) {
+    public List<Long> findAllByStatusAndOverdue(String status) {
         return this.sessionFactory.getCurrentSession()
-                .createQuery("SELECT p.id FROM PermitEntity p WHERE p.status = :status AND p.extendedPermit <= CURRENT_TIMESTAMP()", Integer.class)
+                .createQuery("SELECT p.id FROM PermitEntity p WHERE p.status = :status AND p.extendedPermit <= CURRENT_TIMESTAMP()", Long.class)
                 .setParameter("status", status)
                 .list();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Integer> findAllByStatusAndStartWork(String status) {
+    public List<Long> findAllByStatusAndStartWork(String status) {
         return this.sessionFactory.getCurrentSession()
-                .createQuery("SELECT p.id FROM PermitEntity p WHERE p.status = :status AND p.startWork <= CURRENT_TIMESTAMP()", Integer.class)
+                .createQuery("SELECT p.id FROM PermitEntity p WHERE p.status = :status AND p.startWork <= CURRENT_TIMESTAMP()", Long.class)
                 .setParameter("status", status)
                 .list();
     }
 
     @Override
     @Transactional
-    public boolean setCompletePermit(Integer id, boolean b) {
+    public boolean setCompletePermit(Long id, boolean b) {
         return this.sessionFactory.getCurrentSession()
                 .createQuery("UPDATE PermitEntity p SET p.complete = :complete WHERE p.id = :id")
                 .setParameter("id", id)

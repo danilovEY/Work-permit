@@ -25,31 +25,31 @@ public interface PermitPageService extends BasePageService<PermitEntity> {
     Page<ShortPermitEntity> getShortAll(Integer number, Integer pageSize, Integer sort);
     Page<ShortPermitEntity> getShortAll(Integer number, Integer pageSize, Integer sort, String search);
 
-    WorkPermitEntity getWorkById(Integer id);
-    EventPermitEntity getEventById(Integer id);
-    PeoplePermitEntity getPeopleById(Integer id);
+    WorkPermitEntity getWorkById(Long id);
+    EventPermitEntity getEventById(Long id);
+    PeoplePermitEntity getPeopleById(Long id);
 
     WorkPermitEntity update(WorkPermitEntity workPermitEntity);
     PeoplePermitEntity update(PeoplePermitEntity peoplePermitEntity);
     EventPermitEntity update(EventPermitEntity eventPermitEntity);
 
 
-    void deleteExecutor(Integer id, Integer executor);
+    void deleteExecutor(Long id, Long executor);
 
-    boolean extendPermit(Integer id, Date extendDate, EmployeeEntity whoExtend);
+    boolean extendPermit(Long id, Date extendDate, EmployeeEntity whoExtend);
     boolean existSerialNumber(String serialNumber);
 
-    boolean setStatus(Integer id, String status, EmployeeEntity whoSetStatus);
+    boolean setStatus(Long id, String status, EmployeeEntity whoSetStatus);
 
-    File printPermitToExcel(Integer id);
+    File printPermitToExcel(Long id);
 
-    String getSerialNumber(Integer id);
+    String getSerialNumber(Long id);
 
-    boolean cancel(Integer id, EmployeeEntity whoSetStatus);
+    boolean cancel(Long id, EmployeeEntity whoSetStatus);
 
     PermitEntity delete(PermitEntity permitEntity, EmployeeEntity whoDeleted);
 
     PermitEntity add(WorkPermitEntity workPermitEntity, EmployeeEntity whoWrite);
 
-    void endPermit(Integer id, EmployeeEntity authEmployee);
+    void endPermit(Long id, EmployeeEntity authEmployee);
 }

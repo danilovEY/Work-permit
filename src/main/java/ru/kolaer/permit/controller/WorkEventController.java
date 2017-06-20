@@ -32,7 +32,7 @@ public class WorkEventController extends BaseController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
-    public ModelAndView getEventEditPage(@RequestParam(value = "permit") Integer idPermit,
+    public ModelAndView getEventEditPage(@RequestParam(value = "permit") Long idPermit,
                                          @RequestParam(value = "type", required = false) String typeEvent) {
         final PermitEntity permitEntity = new PermitEntity();
         permitEntity.setId(idPermit);
@@ -50,7 +50,7 @@ public class WorkEventController extends BaseController {
     }
 
     @RequestMapping(value = "edit", method = RequestMethod.GET)
-    public ModelAndView getEventEditPage(@RequestParam(value = "id") Integer id) {
+    public ModelAndView getEventEditPage(@RequestParam(value = "id") Long id) {
         final WorkEvent workEvent = this.workEventDao.findById(id, false);
 
         final ModelAndView view = this.createDefaultView("/event/edit");
@@ -94,19 +94,19 @@ public class WorkEventController extends BaseController {
 
 
     @RequestMapping(value = "delete", method = RequestMethod.GET)
-    public String deleteEmployeeFromWorkEvent(@RequestParam(value = "id") Integer id) {
+    public String deleteEmployeeFromWorkEvent(@RequestParam(value = "id") Long id) {
         WorkEvent workEvent = this.workEventDao.findById(id, true);
         workEvent.setId(id);
 
-        final int permitId = workEvent.getPermitId();
+        final long permitId = workEvent.getPermitId();
 
         this.workEventDao.delete(workEvent, true);
         return "redirect:/permit/edit/event?id=" + permitId;
     }
 
     @RequestMapping(value = "delete/employee", method = RequestMethod.GET)
-    public String deleteEmployeeFromWorkEvent(@RequestParam(value = "id") Integer id,
-                                                    @RequestParam(value = "employee") Integer idEmployee) {
+    public String deleteEmployeeFromWorkEvent(@RequestParam(value = "id") Long id,
+                                                    @RequestParam(value = "employee") Long idEmployee) {
         this.workEventDao.deleteEmployee(id, idEmployee);
         return "redirect:/event/edit?id=" + id;
     }

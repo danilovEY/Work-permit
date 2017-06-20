@@ -33,7 +33,7 @@ public class PermitStatusHistoryPageDaoImpl extends BasePageDaoAbstract<PermitSt
 
     @Override
     @Transactional(readOnly = true)
-    public PermitStatusHistoryEntity findLastStatusByIdPermit(Integer id) {
+    public PermitStatusHistoryEntity findLastStatusByIdPermit(Long id) {
         return this.sessionFactory.getCurrentSession()
                 .createQuery("FROM PermitStatusHistoryEntity p WHERE p.permit.id = :id ORDER BY p.statusDate DESC", PermitStatusHistoryEntity.class)
                 .setParameter("id", id)
@@ -43,7 +43,7 @@ public class PermitStatusHistoryPageDaoImpl extends BasePageDaoAbstract<PermitSt
 
     @Override
     @Transactional(readOnly = true)
-    public List<PermitStatusHistoryEntity> findLastStatusByIdPermitRange(List<Integer> id) {
+    public List<PermitStatusHistoryEntity> findLastStatusByIdPermitRange(List<Long> id) {
         return this.sessionFactory.getCurrentSession()
                 .createQuery("FROM PermitStatusHistoryEntity p WHERE p.permit.id IN(:id) ORDER BY p.statusDate DESC")
                 .setParameterList("id", id)
@@ -52,7 +52,7 @@ public class PermitStatusHistoryPageDaoImpl extends BasePageDaoAbstract<PermitSt
 
     @Override
     @Transactional(readOnly = true)
-    public List<PermitStatusHistoryEntity> findAllById(Integer id) {
+    public List<PermitStatusHistoryEntity> findAllById(Long id) {
         return this.sessionFactory.getCurrentSession()
                 .createQuery("FROM PermitStatusHistoryEntity p WHERE p.permit.id = :id ORDER BY p.statusDate DESC", PermitStatusHistoryEntity.class)
                 .setParameter("id", id)

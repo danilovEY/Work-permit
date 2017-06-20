@@ -18,7 +18,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class EmployeeEntity extends BaseEntity {
 
-    public EmployeeEntity(Integer id, String initials, Date birthday, Integer personnelNumber,
+    public EmployeeEntity(Long id, String initials, Date birthday, Integer personnelNumber,
                           String email, String workPhone, String gender, String username, String password, DepartmentEntity department,
                           PostEntity post) {
         this.id = id;

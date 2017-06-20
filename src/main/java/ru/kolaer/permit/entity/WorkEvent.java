@@ -41,7 +41,7 @@ public class WorkEvent extends BaseEntity {
     private TypeEvent typeEvent;
 
     @Column(name = "permit_id", nullable = false, insertable=false, updatable=false)
-    private Integer permitId;
+    private Long permitId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false, name = "permit_id")

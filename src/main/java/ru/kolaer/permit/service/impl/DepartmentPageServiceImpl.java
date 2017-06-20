@@ -33,7 +33,7 @@ public class DepartmentPageServiceImpl extends BasePageServiceAbstract<Departmen
     }
 
     @Override
-    public DepartmentEntity getById(@NonNull Integer id) {
+    public DepartmentEntity getById(@NonNull Long id) {
         return this.departmentPageDao.findById(id, false);
     }
 
