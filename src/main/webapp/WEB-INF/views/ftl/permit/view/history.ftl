@@ -1,4 +1,4 @@
-<#-- @ftlvariable name="permit" type="ru.kolaer.permit.entity.ShortPermitEntity" -->
+<#-- @ftlvariable name="permit" type="ru.kolaer.permit.dto.HistoryPermitDto" -->
 <#-- @ftlvariable name="statuses" type="java.util.List<ru.kolaer.permit.entity.PermitStatusHistoryEntity>" -->
 
 <#import "../../layout/baseTemplate.ftl" as base>

@@ -1,5 +1,6 @@
 package ru.kolaer.permit.dao;
 
+import ru.kolaer.permit.dto.HistoryPermitDto;
 import ru.kolaer.permit.dto.Page;
 import ru.kolaer.permit.entity.*;
 
@@ -35,4 +36,6 @@ public interface PermitPageDao extends BasePageDao<PermitEntity> {
     List<Long> findAllByStatusAndStartWork(String status);
 
     boolean setCompletePermit(Long id, boolean b);
+
+    HistoryPermitDto findHistoryPermitDtoById(Long id);
 }

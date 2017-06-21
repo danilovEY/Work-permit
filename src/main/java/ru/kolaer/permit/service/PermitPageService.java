@@ -1,5 +1,6 @@
 package ru.kolaer.permit.service;
 
+import ru.kolaer.permit.dto.HistoryPermitDto;
 import ru.kolaer.permit.dto.Page;
 import ru.kolaer.permit.entity.*;
 
@@ -25,6 +26,7 @@ public interface PermitPageService extends BasePageService<PermitEntity> {
     Page<ShortPermitEntity> getShortAll(Integer number, Integer pageSize, Integer sort);
     Page<ShortPermitEntity> getShortAll(Integer number, Integer pageSize, Integer sort, String search);
 
+    HistoryPermitDto getHistoryPermitDtoId(Long id);
     ShortPermitEntity getShortById(Long id);
     WorkPermitEntity getWorkById(Long id);
     EventPermitEntity getEventById(Long id);

@@ -35,14 +35,14 @@
                                 </#if>
                             </a>
                             <#if notificationContents.count != 0>
-                                <ul class="dropdown-menu notifications">
-                                    <li class="dropdown-menu-title">
+                                <ul class="dropdown-menu notifications" style="width: 700px;">
+                                    <li class="dropdown-menu-title" style="width: 300px;">
                                         <span>Непрочитанных уведомлений (${notificationContents.count})</span>
                                     <#--<a href="#refresh"><i class="icon-repeat"></i></a>-->
                                     </li>
 
                                     <#list notificationContents.notifications as notify>
-                                        <li>
+                                        <li style="width: 300px;">
                                             <#if notify.type == NEED_APPROVE_STATUS>
                                                 <a href="<@spring.url relativeUrl="/notification/redirect?id=${notify.id}"/>">
                                                     <span class="icon yellow" style="padding: 10px;"><i class="icon-question-sign"></i></span>
@@ -60,7 +60,7 @@
                                             </#if>
                                         </li>
                                     </#list>
-                                    <li class="dropdown-menu-sub-footer">
+                                    <li class="dropdown-menu-sub-footer" style="width: 300px;">
                                         <a href="<@spring.url relativeUrl="/notification"/>">Показать все уведомления</a>
                                     </li>
                                 </ul>

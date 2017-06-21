@@ -8,6 +8,7 @@ import org.springframework.util.StringUtils;
 import ru.kolaer.permit.component.EmptyObjects;
 import ru.kolaer.permit.dao.BasePageDaoAbstract;
 import ru.kolaer.permit.dao.PermitPageDao;
+import ru.kolaer.permit.dto.HistoryPermitDto;
 import ru.kolaer.permit.dto.Page;
 import ru.kolaer.permit.entity.*;
 
@@ -245,5 +246,15 @@ public class PermitPageDaoImpl extends BasePageDaoAbstract<PermitEntity> impleme
                 .setParameter("id", id)
                 .setParameter("complete", b)
                 .executeUpdate() > 0;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public HistoryPermitDto findHistoryPermitDtoById(Long id) {
+        return this.sessionFactory.getCurrentSession()
+                .createQuery("SELECT new ru.kolaer.permit.dto.HistoryPermitDto(p.id, p.serialNumber, p.name, p.status, p.extendedPermit) FROM PermitEntity p WHERE p.id = :id",
+                        HistoryPermitDto.class)
+                .setParameter("id", id)
+                .uniqueResult();
     }
 }

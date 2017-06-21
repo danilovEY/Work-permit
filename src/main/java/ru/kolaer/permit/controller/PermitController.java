@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ru.kolaer.permit.dao.AccountDao;
 import ru.kolaer.permit.dao.WorkEventDao;
 import ru.kolaer.permit.dto.ExtendedPermitDto;
+import ru.kolaer.permit.dto.HistoryPermitDto;
 import ru.kolaer.permit.dto.NotificationType;
 import ru.kolaer.permit.dto.Page;
 import ru.kolaer.permit.entity.*;
@@ -258,7 +259,7 @@ public class PermitController extends BaseController{
     public ModelAndView getHistoryViewPage(@RequestParam(value = "id") Long id) {
         final List<PermitStatusHistoryEntity> statuses = this.permitStatusHistoryPageService.getAllByPermitId(id);
 
-        ShortPermitEntity permit = this.permitPageService.getShortById(id);
+        HistoryPermitDto permit = this.permitPageService.getHistoryPermitDtoId(id);
 
         final ModelAndView view = this.createDefaultView("/permit/view/history");
         view.addObject("permit", permit);
@@ -270,7 +271,7 @@ public class PermitController extends BaseController{
     public ModelAndView getHistoryEditPage(@RequestParam(value = "id") Long id) {
         final List<PermitStatusHistoryEntity> statuses = this.permitStatusHistoryPageService.getAllByPermitId(id);
 
-        ShortPermitEntity permit = this.permitPageService.getShortById(id);
+        HistoryPermitDto permit = this.permitPageService.getHistoryPermitDtoId(id);
 
         final ModelAndView view = this.createDefaultView("/permit/edit/history");
         view.addObject("statuses", statuses);
@@ -289,10 +290,12 @@ public class PermitController extends BaseController{
     public String setNeedApproveStatus(@RequestParam(value = "id") Long id) {
         this.permitPageService.setStatus(id, PermitPageService.NEED_APPROVE_STATUS, this.getAuthEmployee());
 
+        HistoryPermitDto permit = this.permitPageService.getHistoryPermitDtoId(id);
+
         this.notifyAllByRole(AccountDao.ROLE_APPROVE,
                 NotificationType.NEED_APPROVE_STATUS,
                 id,
-                "Зарос на согласование");
+                "Зарос на согласование: \"" + permit.getSerialNumber() + "\"");
 
         return "redirect:/permit";
     }
@@ -323,10 +326,12 @@ public class PermitController extends BaseController{
     public String setApproveStatus(@RequestParam(value = "id") Long id) {
         this.permitPageService.setStatus(id, PermitPageService.APPROVE_STATUS, this.getAuthEmployee());
 
+        HistoryPermitDto permit = this.permitPageService.getHistoryPermitDtoId(id);
+
         this.notifyAllByRole(AccountDao.ROLE_PERMIT,
                 NotificationType.APPROVE_STATUS,
                 id,
-                "Зарос на допуск");
+                "Зарос на допуск: \"" + permit.getSerialNumber() + "\"");
 
         return "redirect:/permit";
     }

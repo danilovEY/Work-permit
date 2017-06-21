@@ -3,6 +3,7 @@ package ru.kolaer.permit.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.kolaer.permit.dao.PermitPageDao;
+import ru.kolaer.permit.dto.HistoryPermitDto;
 import ru.kolaer.permit.dto.Page;
 import ru.kolaer.permit.entity.*;
 import ru.kolaer.permit.service.BasePageServiceAbstract;
@@ -45,6 +46,11 @@ public class PermitPageServiceImpl extends BasePageServiceAbstract<PermitEntity>
     @Override
     public Page<ShortPermitEntity> getShortAll(Integer number, Integer pageSize, Integer sort, String search) {
         return this.dao.findShortAll(number, pageSize, sort, false, search);
+    }
+
+    @Override
+    public HistoryPermitDto getHistoryPermitDtoId(Long id) {
+        return this.dao.findHistoryPermitDtoById(id);
     }
 
     @Override
