@@ -62,12 +62,21 @@ public class AccountDaoImpl implements AccountDao {
         account.setPassword(values[2].toString());
 
         final List<RoleEntity> roles = this.sessionFactory.getCurrentSession()
-                .createQuery("FROM RoleEntity r WHERE r.employee.id = :employeeId")
+                .createQuery("FROM RoleEntity r WHERE r.employee.id = :employeeId", RoleEntity.class)
                 .setParameter("employeeId", account.getEmployeeId())
                 .list();
 
         account.setRoles(roles);
 
         return account;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Long> findEmployeeIdByRole(String role) {
+        return this.sessionFactory.getCurrentSession()
+                .createQuery("SELECT r.employee.id FROM RoleEntity r WHERE r.role = :role", Long.class)
+                .setParameter("role", role)
+                .list();
     }
 }

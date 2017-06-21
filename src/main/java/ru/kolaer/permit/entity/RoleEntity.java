@@ -22,10 +22,13 @@ public class RoleEntity extends BaseEntity {
         this.role = role;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "employee_id")
+    @Column(name = "employee_id", nullable = false, updatable = false, insertable = false)
+    private Long employeeId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id", nullable = false)
     private EmployeeEntity employee;
 
-    @Column(name = "role", length = 20)
+    @Column(name = "role", length = 20, nullable = false)
     private String role;
 }

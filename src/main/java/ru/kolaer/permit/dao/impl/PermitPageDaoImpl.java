@@ -126,6 +126,12 @@ public class PermitPageDaoImpl extends BasePageDaoAbstract<PermitEntity> impleme
 
     @Override
     @Transactional(readOnly = true)
+    public ShortPermitEntity findShortById(Long id) {
+        return this.sessionFactory.getCurrentSession().get(ShortPermitEntity.class, id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public WorkPermitEntity findWorkById(Long id) {
         return this.sessionFactory.getCurrentSession().get(WorkPermitEntity.class, id);
     }

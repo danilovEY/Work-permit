@@ -12,6 +12,7 @@ public interface PermitPageDao extends BasePageDao<PermitEntity> {
     Page<ShortPermitEntity> findShortAll(Integer number, Integer pageSize, Integer sort, boolean includeRemoved);
     Page<ShortPermitEntity> findShortAll(Integer number, Integer pageSize, Integer sort, boolean includeRemoved, String search);
 
+    ShortPermitEntity findShortById(Long id);
     WorkPermitEntity findWorkById(Long id);
     EventPermitEntity findEventById(Long id);
     PeoplePermitEntity findPeopleById(Long id);
