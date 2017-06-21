@@ -1,5 +1,6 @@
 package ru.kolaer.permit.dao;
 
+import ru.kolaer.permit.dto.Page;
 import ru.kolaer.permit.entity.NotificationEntity;
 
 import java.util.List;
@@ -11,4 +12,6 @@ public interface NotificationPageDao extends BasePageDao<NotificationEntity> {
     List<NotificationEntity> findAllNotReadableNotifyToEmployeeId(long employeeId);
     List<NotificationEntity> findLimitNotReadableNotifyToEmployeeId(long employeeId, int limit);
     Long findCountNotReadableNotifyToEmployeeId(long employeeId);
+
+    Page<NotificationEntity> findAllByEmployeeId(Integer number, Integer pageSize, Long id);
 }

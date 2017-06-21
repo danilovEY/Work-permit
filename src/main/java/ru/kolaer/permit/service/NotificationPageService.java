@@ -2,6 +2,7 @@ package ru.kolaer.permit.service;
 
 import ru.kolaer.permit.dto.NotificationContents;
 import ru.kolaer.permit.dto.NotificationDto;
+import ru.kolaer.permit.dto.Page;
 import ru.kolaer.permit.entity.NotificationEntity;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface NotificationPageService extends BasePageService<NotificationEnt
 
     List<NotificationDto> convertToDto(List<NotificationEntity> entities);
     NotificationDto convertToDto(NotificationEntity entity);
+
+    Page<NotificationEntity> getByEmployeeId(Integer number, Integer pageSize, Long id);
 }

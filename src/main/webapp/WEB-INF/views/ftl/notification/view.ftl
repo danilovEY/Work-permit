@@ -3,6 +3,9 @@
 <#import "../layout/baseTemplate.ftl" as base>
 <#import "/spring.ftl" as spring>
 
+<#assign NEED_APPROVE_STATUS = "NEED_APPROVE_STATUS"/>
+<#assign APPROVE_STATUS = "APPROVE_STATUS"/>
+
 <@base.override "title">
 <title>Уведомления</title>
 </@base.override>
@@ -33,18 +36,19 @@
                     </thead>
                     <tbody role="alert" aria-live="polite" aria-relevant="all">
                         <#list notifications.data as notify>
-                            <#if notify_index % 2 == 0>
-                            <tr class="success">
-                                <td class="center">${notify.createDate?string["dd.MM.yyyy HH:mm:ss"]}</td>
-                                <td class="center">${notify.message!""}</td>
-                                <td class="center">${notify.eventFromId!""}</td>
-                            </tr>
-                            <#else>
-                            <tr class="even">
-                                <td class="center">${notify.createDate?string["dd.MM.yyyy HH:mm:ss"]}</td>
-                                <td class="center">${notify.message!""}</td>
-                                <td class="center">${notify.eventFromId!""}</td>
-                            </tr>
+                            <#if notify.type == NEED_APPROVE_STATUS>
+                                <tr class="warning">
+                                    <td class="center">${notify.createDate?string["dd.MM.yyyy HH:mm:ss"]}</td>
+                                    <td class="center">${notify.message!""}</td>
+                                    <td class="center"><a href="<@spring.url relativeUrl="/notification/redirect?id="/>${notify.id}">Перейти</a></td>
+                                </tr>
+                            </#if>
+                            <#if notify.type == APPROVE_STATUS>
+                                <tr class="info">
+                                    <td class="center">${notify.createDate?string["dd.MM.yyyy HH:mm:ss"]}</td>
+                                    <td class="center">${notify.message!""}</td>
+                                    <td class="center"><a href="<@spring.url relativeUrl="/notification/redirect?id="/>${notify.id}">Перейти</a></td>
+                                </tr>
                             </#if>
                         </#list>
                     </tbody>

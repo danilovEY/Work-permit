@@ -168,12 +168,18 @@
                                         <a class="btn btn-info" style="margin-bottom: 4px;" title="Продлить наряд" id="extend-but-${permit.id}" href="#">
                                             <i class="halflings-icon white time"></i>
                                         </a>
+                                        <a class="btn btn-danger" style="margin-bottom: 4px;" title="Отменить" id="cancel-but-${permit.id}" href="#">
+                                            <i class="halflings-icon white ban-circle"></i>
+                                        </a>
                                     </#if>
 
                                     <#if permit.status == APPROVE_STATUS>
                                         <@security.authorize access=ROLE_PERMIT>
                                             <a class="btn btn-info" style="margin-bottom: 4px;" title="Допустить" id="permit-but-${permit.id}" href="#">
                                                 <i class="halflings-icon white thumbs-up"></i>
+                                            </a>
+                                            <a class="btn btn-danger" style="margin-bottom: 4px;" title="Отменить" id="cancel-but-${permit.id}" href="#">
+                                                <i class="halflings-icon white ban-circle"></i>
                                             </a>
                                         </@security.authorize>
                                     </#if>
@@ -200,7 +206,6 @@
                                             </a>
                                         </@security.authorize>
                                     </#if>
-
                                 </td>
                             </tr>
                             <#else>
@@ -262,12 +267,18 @@
                                         <a class="btn btn-info" style="margin-bottom: 4px;" title="Продлить наряд" id="extend-but-${permit.id}" href="#">
                                             <i class="halflings-icon white time"></i>
                                         </a>
+                                        <a class="btn btn-danger" style="margin-bottom: 4px;" title="Отменить" id="cancel-but-${permit.id}" href="#">
+                                            <i class="halflings-icon white ban-circle"></i>
+                                        </a>
                                     </#if>
 
                                     <#if permit.status == APPROVE_STATUS>
                                         <@security.authorize access=ROLE_PERMIT>
                                             <a class="btn btn-info" style="margin-bottom: 4px;" title="Допустить" id="permit-but-${permit.id}" href="#">
                                                 <i class="halflings-icon white thumbs-up"></i>
+                                            </a>
+                                            <a class="btn btn-danger" style="margin-bottom: 4px;" title="Отменить" id="cancel-but-${permit.id}" href="#">
+                                                <i class="halflings-icon white ban-circle"></i>
                                             </a>
                                         </@security.authorize>
                                     </#if>
@@ -360,6 +371,31 @@
 </script>
 
 <#list permitPage.data as permit>
+
+    <#if permit.status == WORKING_STATUS
+        || permit.status == NEED_APPROVE_PERMIT_STATUS
+        || permit.status == APPROVE_STATUS>
+        <#-- Отмена -->
+        <div class="modal hide fade" id="cancel-${permit.id}">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h3>Отмена</h3>
+            </div>
+            <div class="modal-body">
+                <p>Вы действительно хотите отменить наряд: "${permit.serialNumber}"?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal">Отмена</a>
+                <a href="<@spring.url relativeUrl="/permit/action/cancel?id=${permit.id}"/>" class="btn btn-primary">Подтвердить</a>
+            </div>
+        </div>
+        <script>
+            $('#cancel-but-${permit.id}').click(function(e){
+                e.preventDefault();
+                $('#cancel-${permit.id}').modal('show');
+            });
+        </script>
+    </#if>
 
     <#if permit.status == WORKING_STATUS>
         <#-- Запрос на продление -->
@@ -471,27 +507,6 @@
             $('#approve-but-${permit.id}').click(function(e){
                 e.preventDefault();
                 $('#approve-${permit.id}').modal('show');
-            });
-        </script>
-
-        <#-- Отмена -->
-        <div class="modal hide fade" id="cancel-${permit.id}">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">×</button>
-                <h3>Отмена</h3>
-            </div>
-            <div class="modal-body">
-                <p>Вы действительно хотите отменить наряд: "${permit.serialNumber}"?</p>
-            </div>
-            <div class="modal-footer">
-                <a href="#" class="btn" data-dismiss="modal">Отмена</a>
-                <a href="<@spring.url relativeUrl="/permit/action/cancel?id=${permit.id}"/>" class="btn btn-primary">Подтвердить</a>
-            </div>
-        </div>
-        <script>
-            $('#cancel-but-${permit.id}').click(function(e){
-                e.preventDefault();
-                $('#cancel-${permit.id}').modal('show');
             });
         </script>
     </#if>

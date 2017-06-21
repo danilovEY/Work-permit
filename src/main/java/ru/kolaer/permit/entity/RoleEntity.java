@@ -25,7 +25,7 @@ public class RoleEntity extends BaseEntity {
     @Column(name = "employee_id", nullable = false, updatable = false, insertable = false)
     private Long employeeId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "employee_id", nullable = false)
     private EmployeeEntity employee;
 

@@ -99,12 +99,18 @@
                                         <a class="btn btn-info" style="margin-bottom: 4px;" title="Продлить наряд" id="extend-but-${permit.id}" href="#">
                                             <i class="halflings-icon white time"></i> Продлить наряд
                                         </a>
+                                        <a class="btn btn-danger" style="margin-bottom: 4px;" title="Отменить" id="cancel-but-${permit.id}" href="#">
+                                            <i class="halflings-icon white ban-circle"></i> Отменить
+                                        </a>
                                     </#if>
 
                                     <#if statuses?first.status == APPROVE_STATUS>
                                         <@security.authorize access=ROLE_PERMIT>
                                             <a class="btn btn-info" style="margin-bottom: 4px;" title="Допустить" id="permit-but-${permit.id}" href="#">
                                                 <i class="halflings-icon white thumbs-up"></i> Допустить
+                                            </a>
+                                            <a class="btn btn-danger" style="margin-bottom: 4px;" title="Отменить" id="cancel-but-${permit.id}" href="#">
+                                                <i class="halflings-icon white ban-circle"></i> Отменить
                                             </a>
                                         </@security.authorize>
                                     </#if>
@@ -146,162 +152,166 @@
     </div>
 </div>
 
-    <#if permit.status == WORKING_STATUS>
-    <#-- Запрос на продление -->
-    <div class="modal hide fade" id="extend-${permit.id}">
-        <form class="form-horizontal" method="post" action="<@spring.url relativeUrl="/permit/action/extend"/>">
+    <#if permit.status == WORKING_STATUS
+    || permit.status == NEED_APPROVE_PERMIT_STATUS
+    || permit.status == APPROVE_STATUS>
+        <#-- Отмена -->
+        <div class="modal hide fade" id="cancel-${permit.id}">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">×</button>
-                <h3>Продление наряда</h3>
+                <h3>Отмена</h3>
             </div>
             <div class="modal-body">
-                <input class="hidden" name="id" value="${permit.id}" readonly/>
-                <div class="control-group">
-                    <label class="control-label" for="extendWorkDate">Начало работ:</label>
-                    <div class="controls">
-                        <div id="extendWorkDatePicker-${permit.id}" class="input-append date span12">
-                            <input data-format="dd.MM.yyyy hh:mm" id="extendWorkDate" type="text" name="extendedPermit" value="${permit.extendedPermit?string["dd.MM.yyyy hh:mm"]}"/>
-                            <span class="add-on">
-                                <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
-                            </span>
+                <p>Вы действительно хотите отменить наряд: "${permit.serialNumber}"?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal">Отмена</a>
+                <a href="<@spring.url relativeUrl="/permit/action/cancel?id=${permit.id}"/>" class="btn btn-primary">Подтвердить</a>
+            </div>
+        </div>
+        <script>
+            $('#cancel-but-${permit.id}').click(function(e){
+                e.preventDefault();
+                $('#cancel-${permit.id}').modal('show');
+            });
+        </script>
+    </#if>
+
+    <#if permit.status == WORKING_STATUS>
+        <#-- Запрос на продление -->
+        <div class="modal hide fade" id="extend-${permit.id}">
+            <form class="form-horizontal" method="post" action="<@spring.url relativeUrl="/permit/action/extend"/>">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h3>Продление наряда</h3>
+                </div>
+                <div class="modal-body">
+                    <input class="hidden" name="id" value="${permit.id}" readonly/>
+                    <div class="control-group">
+                        <label class="control-label" for="extendWorkDate">Начало работ:</label>
+                        <div class="controls">
+                            <div id="extendWorkDatePicker-${permit.id}" class="input-append date span12">
+                                <input data-format="dd.MM.yyyy hh:mm" id="extendWorkDate" type="text" name="extendedPermit" value="${permit.extendedPermit?string["dd.MM.yyyy hh:mm"]}"/>
+                                <span class="add-on">
+                                    <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button href="#" class="btn" data-dismiss="modal">Отмена</button>
-                <button class="btn btn-primary">Продлить</button>
-            </div>
-        </form>
-    </div>
-    <style>
-        .bootstrap-datetimepicker-widget{z-index:9999 !important;}
-    </style>
-    <script type="text/javascript">
-        $(function() {
-            $('#extendWorkDatePicker-${permit.id}').datetimepicker({
-                language: 'ru',
-                format: 'dd.MM.yyyy hh:mm'
+                <div class="modal-footer">
+                    <button href="#" class="btn" data-dismiss="modal">Отмена</button>
+                    <button class="btn btn-primary">Продлить</button>
+                </div>
+            </form>
+        </div>
+        <style>
+            .bootstrap-datetimepicker-widget{z-index:9999 !important;}
+        </style>
+        <script type="text/javascript">
+            $(function() {
+                $('#extendWorkDatePicker-${permit.id}').datetimepicker({
+                    language: 'ru',
+                    format: 'dd.MM.yyyy hh:mm'
+                });
             });
-        });
 
-        $('#extend-but-${permit.id}').click(function(e){
-            e.preventDefault();
-            $('#extend-${permit.id}').modal('show');
+            $('#extend-but-${permit.id}').click(function(e){
+                e.preventDefault();
+                $('#extend-${permit.id}').modal('show');
 
-        });
-    </script>
+            });
+        </script>
     </#if>
 
     <#if permit.status == EDIT_PERMIT_STATUS>
-    <#-- Запрос на удаление -->
-    <div class="modal hide fade" id="delete-${permit.id}">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">×</button>
-            <h3>Запрос на удаление</h3>
+        <#-- Запрос на удаление -->
+        <div class="modal hide fade" id="delete-${permit.id}">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h3>Запрос на удаление</h3>
+            </div>
+            <div class="modal-body">
+                <p>Вы действительно хотите удалить наряд: "${permit.serialNumber}"?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal">Отмена</a>
+                <a href="<@spring.url relativeUrl="/permit/delete?id=${permit.id}"/>" class="btn btn-primary">Удалить</a>
+            </div>
         </div>
-        <div class="modal-body">
-            <p>Вы действительно хотите удалить наряд: "${permit.serialNumber}"?</p>
-        </div>
-        <div class="modal-footer">
-            <a href="#" class="btn" data-dismiss="modal">Отмена</a>
-            <a href="<@spring.url relativeUrl="/permit/delete?id=${permit.id}"/>" class="btn btn-primary">Удалить</a>
-        </div>
-    </div>
-    <script>
-        $('#delete-but-${permit.id}').click(function(e){
-            e.preventDefault();
-            $('#delete-${permit.id}').modal('show');
-        });
-    </script>
+        <script>
+            $('#delete-but-${permit.id}').click(function(e){
+                e.preventDefault();
+                $('#delete-${permit.id}').modal('show');
+            });
+        </script>
 
-    <#-- Запрос на согласование -->
-    <div class="modal hide fade" id="need-approve-${permit.id}">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">×</button>
-            <h3>Запрос на согласование</h3>
+        <#-- Запрос на согласование -->
+        <div class="modal hide fade" id="need-approve-${permit.id}">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h3>Запрос на согласование</h3>
+            </div>
+            <div class="modal-body">
+                <p>Вы действительно хотите отправить наряд "${permit.serialNumber}" на согласование?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal">Отмена</a>
+                <a href="<@spring.url relativeUrl="/permit/action/need/approve?id=${permit.id}"/>" class="btn btn-primary">Подтвердить</a>
+            </div>
         </div>
-        <div class="modal-body">
-            <p>Вы действительно хотите отправить наряд "${permit.serialNumber}" на согласование?</p>
-        </div>
-        <div class="modal-footer">
-            <a href="#" class="btn" data-dismiss="modal">Отмена</a>
-            <a href="<@spring.url relativeUrl="/permit/action/need/approve?id=${permit.id}"/>" class="btn btn-primary">Подтвердить</a>
-        </div>
-    </div>
-    <script>
-        $('#need-approve-but-${permit.id}').click(function(e){
-            e.preventDefault();
-            $('#need-approve-${permit.id}').modal('show');
-        });
-    </script>
+        <script>
+            $('#need-approve-but-${permit.id}').click(function(e){
+                e.preventDefault();
+                $('#need-approve-${permit.id}').modal('show');
+            });
+        </script>
     </#if>
 
     <#if permit.status == NEED_APPROVE_PERMIT_STATUS>
-    <#-- Согласование -->
-    <div class="modal hide fade" id="approve-${permit.id}">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">×</button>
-            <h3>Согласование</h3>
+        <#-- Согласование -->
+        <div class="modal hide fade" id="approve-${permit.id}">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h3>Согласование</h3>
+            </div>
+            <div class="modal-body">
+                <p>Вы действительно хотите согласовать наряд: "${permit.serialNumber}"?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal">Отмена</a>
+                <a href="<@spring.url relativeUrl="/permit/action/approve?id=${permit.id}"/>" class="btn btn-primary">Подтвердить</a>
+            </div>
         </div>
-        <div class="modal-body">
-            <p>Вы действительно хотите согласовать наряд: "${permit.serialNumber}"?</p>
-        </div>
-        <div class="modal-footer">
-            <a href="#" class="btn" data-dismiss="modal">Отмена</a>
-            <a href="<@spring.url relativeUrl="/permit/action/approve?id=${permit.id}"/>" class="btn btn-primary">Подтвердить</a>
-        </div>
-    </div>
-    <script>
-        $('#approve-but-${permit.id}').click(function(e){
-            e.preventDefault();
-            $('#approve-${permit.id}').modal('show');
-        });
-    </script>
-
-    <#-- Отмена -->
-    <div class="modal hide fade" id="cancel-${permit.id}">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">×</button>
-            <h3>Отмена</h3>
-        </div>
-        <div class="modal-body">
-            <p>Вы действительно хотите отменить наряд: "${permit.serialNumber}"?</p>
-        </div>
-        <div class="modal-footer">
-            <a href="#" class="btn" data-dismiss="modal">Отмена</a>
-            <a href="<@spring.url relativeUrl="/permit/action/cancel?id=${permit.id}"/>" class="btn btn-primary">Подтвердить</a>
-        </div>
-    </div>
-    <script>
-        $('#cancel-but-${permit.id}').click(function(e){
-            e.preventDefault();
-            $('#cancel-${permit.id}').modal('show');
-        });
-    </script>
+        <script>
+            $('#approve-but-${permit.id}').click(function(e){
+                e.preventDefault();
+                $('#approve-${permit.id}').modal('show');
+            });
+        </script>
     </#if>
 
     <#if permit.status == APPROVE_STATUS>
-    <#-- Допуск -->
-    <div class="modal hide fade" id="permit-${permit.id}">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">×</button>
-            <h3>Допуск</h3>
+        <#-- Допуск -->
+        <div class="modal hide fade" id="permit-${permit.id}">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h3>Допуск</h3>
+            </div>
+            <div class="modal-body">
+                <p>Вы действительно хотите допустить наряд: "${permit.serialNumber}"?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal">Отмена</a>
+                <a href="<@spring.url relativeUrl="/permit/action/permit?id=${permit.id}"/>" class="btn btn-primary">Подтвердить</a>
+            </div>
         </div>
-        <div class="modal-body">
-            <p>Вы действительно хотите допустить наряд: "${permit.serialNumber}"?</p>
-        </div>
-        <div class="modal-footer">
-            <a href="#" class="btn" data-dismiss="modal">Отмена</a>
-            <a href="<@spring.url relativeUrl="/permit/action/permit?id=${permit.id}"/>" class="btn btn-primary">Подтвердить</a>
-        </div>
-    </div>
-    <script>
-        $('#permit-but-${permit.id}').click(function(e){
-            e.preventDefault();
-            $('#permit-${permit.id}').modal('show');
-        });
-    </script>
+        <script>
+            $('#permit-but-${permit.id}').click(function(e){
+                e.preventDefault();
+                $('#permit-${permit.id}').modal('show');
+            });
+        </script>
     </#if>
 
 </@base.override>

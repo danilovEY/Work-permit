@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.kolaer.permit.dao.NotificationPageDao;
 import ru.kolaer.permit.dto.NotificationContents;
 import ru.kolaer.permit.dto.NotificationDto;
+import ru.kolaer.permit.dto.Page;
 import ru.kolaer.permit.entity.NotificationEntity;
 import ru.kolaer.permit.service.BasePageServiceAbstract;
 import ru.kolaer.permit.service.NotificationPageService;
@@ -68,6 +69,11 @@ public class NotificationPageServiceImpl extends BasePageServiceAbstract<Notific
         notificationDto.setToId(entity.getToId());
         notificationDto.setDateString(this.dateToString(entity.getCreateDate()));
         return notificationDto;
+    }
+
+    @Override
+    public Page<NotificationEntity> getByEmployeeId(Integer number, Integer pageSize, Long id) {
+        return this.notifyDao.findAllByEmployeeId(number, pageSize, id);
     }
 
     private String dateToString(Date date) {

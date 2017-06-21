@@ -27,7 +27,12 @@ public class NotificationController extends BaseController {
     public ModelAndView getStartPage(@RequestParam(value = "page", defaultValue = "1") Integer number,
                                      @RequestParam(value = "pagesize", defaultValue = "15") Integer pageSize){
 
-        final Page<NotificationEntity> notificationPage = this.notificationPageService.getAll(number, pageSize);
+        final Page<NotificationEntity> notificationPage = this.notificationPageService.getByEmployeeId(number, pageSize,
+                this.getAuthEmployee().getId());
+
+        notificationPage.getData().forEach(n -> n.setRead(true));
+
+        this.notificationPageService.updateAll(notificationPage.getData());
 
         final ModelAndView modelAndView = this.createDefaultView("/notification/view");
         modelAndView.addObject("notifications", notificationPage);
