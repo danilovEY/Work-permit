@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import ru.kolaer.permit.dao.AccountDao;
 import ru.kolaer.permit.dao.WorkEventDao;
 import ru.kolaer.permit.dto.ExtendedPermitDto;
+import ru.kolaer.permit.dto.NotificationType;
 import ru.kolaer.permit.dto.Page;
 import ru.kolaer.permit.entity.*;
 import ru.kolaer.permit.service.EmployeePageService;
@@ -23,7 +25,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by danilovey on 13.04.2017.
@@ -35,6 +39,7 @@ public class PermitController extends BaseController{
 
     private final PermitPageService permitPageService;
     private final WorkEventDao workEventDao;
+    private final AccountDao accountDao;
     private final PermitStatusHistoryPageService permitStatusHistoryPageService;
 
     public PermitController(@Value("${default.login}") String defaultLogin,
@@ -42,11 +47,13 @@ public class PermitController extends BaseController{
                             EmployeePageService employeePageService,
                             WorkEventDao workEventDao,
                             PermitStatusHistoryPageService permitStatusHistoryPageService,
-                            NotificationPageService notification) {
+                            NotificationPageService notification,
+                            AccountDao accountDao) {
         super(defaultLogin, employeePageService, notification);
         this.permitPageService = permitPageService;
         this.workEventDao = workEventDao;
         this.permitStatusHistoryPageService = permitStatusHistoryPageService;
+        this.accountDao = accountDao;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -251,9 +258,11 @@ public class PermitController extends BaseController{
     public ModelAndView getHistoryViewPage(@RequestParam(value = "id") Long id) {
         final List<PermitStatusHistoryEntity> statuses = this.permitStatusHistoryPageService.getAllByPermitId(id);
 
+        ShortPermitEntity permit = this.permitPageService.getShortById(id);
+
         final ModelAndView view = this.createDefaultView("/permit/view/history");
+        view.addObject("permit", permit);
         view.addObject("statuses", statuses);
-        view.addObject("permitId", id);
         return view;
     }
 
@@ -261,9 +270,11 @@ public class PermitController extends BaseController{
     public ModelAndView getHistoryEditPage(@RequestParam(value = "id") Long id) {
         final List<PermitStatusHistoryEntity> statuses = this.permitStatusHistoryPageService.getAllByPermitId(id);
 
+        ShortPermitEntity permit = this.permitPageService.getShortById(id);
+
         final ModelAndView view = this.createDefaultView("/permit/edit/history");
         view.addObject("statuses", statuses);
-        view.addObject("permitId", id);
+        view.addObject("permit", permit);
         return view;
     }
 
@@ -278,12 +289,44 @@ public class PermitController extends BaseController{
     public String setNeedApproveStatus(@RequestParam(value = "id") Long id) {
         this.permitPageService.setStatus(id, PermitPageService.NEED_APPROVE_STATUS, this.getAuthEmployee());
 
+        this.notifyAllByRole(AccountDao.ROLE_APPROVE,
+                NotificationType.NEED_APPROVE_STATUS,
+                id,
+                "Зарос на согласование");
+
         return "redirect:/permit";
+    }
+
+    private void notifyAllByRole(String role, NotificationType type, Long fromId, String message) {
+        List<Long> employeeIdByRole = this.accountDao.findEmployeeIdByRole(role);
+
+        List<NotificationEntity> notifications = employeeIdByRole.stream().map(empId -> {
+            EmployeeEntity employeeEntity = new EmployeeEntity();
+            employeeEntity.setId(empId);
+
+            return employeeEntity;
+        }).map(emp -> {
+            NotificationEntity notificationEntity = new NotificationEntity();
+            notificationEntity.setToId(emp.getId());
+            notificationEntity.setTo(emp);
+            notificationEntity.setCreateDate(new Date());
+            notificationEntity.setType(type);
+            notificationEntity.setEventFromId(fromId);
+            notificationEntity.setMessage(message);
+            return notificationEntity;
+        }).collect(Collectors.toList());
+
+        this.notificationPageService.addAll(notifications);
     }
 
     @RequestMapping(value = "action/approve", method = RequestMethod.GET)
     public String setApproveStatus(@RequestParam(value = "id") Long id) {
         this.permitPageService.setStatus(id, PermitPageService.APPROVE_STATUS, this.getAuthEmployee());
+
+        this.notifyAllByRole(AccountDao.ROLE_PERMIT,
+                NotificationType.APPROVE_STATUS,
+                id,
+                "Зарос на допуск");
 
         return "redirect:/permit";
     }

@@ -60,6 +60,7 @@ public class NotificationPageServiceImpl extends BasePageServiceAbstract<Notific
     public NotificationDto convertToDto(NotificationEntity entity) {
         NotificationDto notificationDto = new NotificationDto();
         notificationDto.setId(entity.getId());
+        notificationDto.setType(entity.getType());
         notificationDto.setCreateDate(entity.getCreateDate());
         notificationDto.setEventFromId(entity.getEventFromId());
         notificationDto.setRead(entity.isRead());
@@ -90,20 +91,13 @@ public class NotificationPageServiceImpl extends BasePageServiceAbstract<Notific
         int nowMonth = nowCalendar.get(Calendar.MONTH);
         int nowYear = nowCalendar.get(Calendar.YEAR);
 
-        System.out.println(sourceSecond + " | " + nowSecond);
-        System.out.println(sourceMin + " | " + nowMin);
-        System.out.println(sourceHour + " | " + nowHour);
-        System.out.println(sourceDay + " | " + nowDay);
-        System.out.println(sourceMonth + " | " + nowMonth);
-        System.out.println(sourceYear + " | " + nowYear);
-
         if(nowSecond >= sourceSecond
                 && sourceMin == nowMin
                 && sourceHour == nowHour
                 && sourceDay == nowDay
                 && sourceMonth == nowMonth
                 && sourceYear == nowYear) {
-            return String.valueOf(nowSecond - sourceSecond) + "сек.";
+            return String.valueOf(nowSecond - sourceSecond) + " сек.";
         }
 
         if(nowMin >= sourceMin

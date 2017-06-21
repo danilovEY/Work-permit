@@ -19,7 +19,7 @@
                 <li class="active"><a href="<@spring.url relativeUrl="/permit/view/work?id=${workPermitEntity.id}"/>">Работа</a></li>
                 <li class=""><a href="<@spring.url relativeUrl="/permit/view/event?id=${workPermitEntity.id}"/>">Условия и мероприятия</a></li>
                 <li class=""><a href="<@spring.url relativeUrl="/permit/view/people?id=${workPermitEntity.id}"/>">Люди</a></li>
-                <li class=""><a href="<@spring.url relativeUrl="/permit/view/history?id=${workPermitEntity.id}"/>">История</a></li>
+                <li class=""><a href="<@spring.url relativeUrl="/permit/view/history?id=${workPermitEntity.id}"/>">История и действия</a></li>
             </ul>
             <form class="form-inline">
                 <div id="myTabContent" class="tab-content">

@@ -33,4 +33,19 @@ public class NotificationController extends BaseController {
         modelAndView.addObject("notifications", notificationPage);
         return modelAndView;
     }
+
+    @RequestMapping(value = "/redirect", method = RequestMethod.GET)
+    public String readAndRedirect(@RequestParam(value = "id") Long id){
+        NotificationEntity notification = this.notificationPageService.getById(id);
+
+        notification.setRead(true);
+
+        this.notificationPageService.update(notification);
+
+        switch (notification.getType()) {
+            case NEED_APPROVE_STATUS:
+            case APPROVE_STATUS: return "redirect:/permit/view/history?id=" + notification.getEventFromId().toString();
+            default: return "redirect:/notification";
+        }
+    }
 }

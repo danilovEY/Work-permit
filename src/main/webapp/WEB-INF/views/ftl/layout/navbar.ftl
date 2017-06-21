@@ -3,6 +3,9 @@
 
 <#import "/spring.ftl" as spring>
 
+<#assign NEED_APPROVE_STATUS = "NEED_APPROVE_STATUS"/>
+<#assign APPROVE_STATUS = "APPROVE_STATUS"/>
+
 <div class="navbar">
     <div class="navbar-inner">
         <div class="container-fluid">
@@ -40,11 +43,21 @@
 
                                     <#list notificationContents.notifications as notify>
                                         <li>
-                                            <a href="#">
-                                                <span class="icon blue"><i class="icon-user"></i></span>
-                                                <span class="message">${notify.message}</span>
-                                                <span class="time">${notify.dateString}</span>
-                                            </a>
+                                            <#if notify.type == NEED_APPROVE_STATUS>
+                                                <a href="<@spring.url relativeUrl="/notification/redirect?id=${notify.id}"/>">
+                                                    <span class="icon yellow" style="padding: 10px;"><i class="icon-question-sign"></i></span>
+                                                    <span class="message">${notify.message}</span>
+                                                    <span class="time">${notify.dateString}</span>
+                                                </a>
+                                            </#if>
+
+                                            <#if notify.type == APPROVE_STATUS>
+                                                <a href="<@spring.url relativeUrl="/notification/redirect?id=${notify.id}"/>">
+                                                    <span class="icon green" style="padding: 10px;"><i class="icon-thumbs-up"></i></span>
+                                                    <span class="message">${notify.message}</span>
+                                                    <span class="time">${notify.dateString}</span>
+                                                </a>
+                                            </#if>
                                         </li>
                                     </#list>
                                     <li class="dropdown-menu-sub-footer">
