@@ -25,6 +25,7 @@ public interface PermitPageService extends BasePageService<PermitEntity> {
     Page<ShortPermitEntity> getShortAll(Integer number, Integer pageSize, Integer sort);
     Page<ShortPermitEntity> getShortAll(Integer number, Integer pageSize, Integer sort, String search);
 
+    ShortPermitEntity getShortById(Long id);
     WorkPermitEntity getWorkById(Long id);
     EventPermitEntity getEventById(Long id);
     PeoplePermitEntity getPeopleById(Long id);

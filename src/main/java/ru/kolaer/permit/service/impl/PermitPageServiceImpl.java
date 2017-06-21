@@ -48,6 +48,11 @@ public class PermitPageServiceImpl extends BasePageServiceAbstract<PermitEntity>
     }
 
     @Override
+    public ShortPermitEntity getShortById(Long id) {
+        return this.dao.findShortById(id);
+    }
+
+    @Override
     public WorkPermitEntity getWorkById(Long id) {
         return this.dao.findWorkById(id);
     }
