@@ -106,7 +106,8 @@ public class PermitConverterExcel implements PermitConverter<File> {
                     String colValue = col.getStringCellValue();
 
                     if (colValue.contains("#serial_number#")) {
-                        col.setCellValue(colValue = colValue.replaceAll("#serial_number#", workPermit.getSerialNumber()));
+                        col.setCellValue(colValue = colValue.replaceAll("#serial_number#",
+                                getNotNullString(workPermit.getSerialNumber())));
                     }
 
                     if (colValue.contains("#date_write#")) {
@@ -130,11 +131,13 @@ public class PermitConverterExcel implements PermitConverter<File> {
                     }
 
                     if (colValue.contains("#permit_name#")) {
-                        col.setCellValue(colValue = colValue.replaceAll("#permit_name#", workPermit.getName()));
+                        col.setCellValue(colValue = colValue.replaceAll("#permit_name#",
+                                getNotNullString(workPermit.getName())));
                     }
 
                     if (colValue.contains("#permit_place#")) {
-                        col.setCellValue(colValue = colValue.replaceAll("#permit_place#", workPermit.getPlaceWork()));
+                        col.setCellValue(colValue = colValue.replaceAll("#permit_place#",
+                                getNotNullString(workPermit.getPlaceWork())));
                     }
 
                     if (colValue.contains("#executors#")) {
@@ -143,11 +146,13 @@ public class PermitConverterExcel implements PermitConverter<File> {
                     }
 
                     if (colValue.contains("#content_work#")) {
-                        col.setCellValue(colValue = colValue.replaceAll("#content_work#", workPermit.getContentWork()));
+                        col.setCellValue(colValue = colValue.replaceAll("#content_work#",
+                                getNotNullString(workPermit.getContentWork())));
                     }
 
                     if (colValue.contains("#condition_work#")) {
-                        col.setCellValue(colValue = colValue.replaceAll("#condition_work#", workPermit.getConditionWork()));
+                        col.setCellValue(colValue = colValue.replaceAll("#condition_work#",
+                                getNotNullString(workPermit.getConditionWork())));
                     }
 
                     if (colValue.contains("#start_work#")) {
@@ -159,31 +164,38 @@ public class PermitConverterExcel implements PermitConverter<File> {
                     }
 
                     if (colValue.contains("#retaining_system#")) {
-                        col.setCellValue(colValue = colValue.replaceAll("#retaining_system#", workPermit.getRetaining()));
+                        col.setCellValue(colValue = colValue.replaceAll("#retaining_system#",
+                                getNotNullString(workPermit.getRetaining())));
                     }
 
                     if (colValue.contains("#position_system#")) {
-                        col.setCellValue(colValue = colValue.replaceAll("#position_system#", workPermit.getPosition()));
+                        col.setCellValue(colValue = colValue.replaceAll("#position_system#",
+                                getNotNullString(workPermit.getPosition())));
                     }
 
                     if (colValue.contains("#safety_system#")) {
-                        col.setCellValue(colValue = colValue.replaceAll("#safety_system#", workPermit.getSafety()));
+                        col.setCellValue(colValue = colValue.replaceAll("#safety_system#",
+                                getNotNullString(workPermit.getSafety())));
                     }
 
                     if (colValue.contains("#rescue_system#")) {
-                        col.setCellValue(colValue = colValue.replaceAll("#rescue_system#", workPermit.getRescue()));
+                        col.setCellValue(colValue = colValue.replaceAll("#rescue_system#",
+                                getNotNullString(workPermit.getRescue())));
                     }
 
                     if (colValue.contains("#materials#")) {
-                        col.setCellValue(colValue = colValue.replaceAll("#materials#", workPermit.getMaterials()));
+                        col.setCellValue(colValue = colValue.replaceAll("#materials#",
+                                getNotNullString(workPermit.getMaterials())));
                     }
 
                     if (colValue.contains("#instruments#")) {
-                        col.setCellValue(colValue = colValue.replaceAll("#instruments#", workPermit.getInstruments()));
+                        col.setCellValue(colValue = colValue.replaceAll("#instruments#",
+                                getNotNullString(workPermit.getInstruments())));
                     }
 
                     if (colValue.contains("#adaptations#")) {
-                        col.setCellValue(colValue = colValue.replaceAll("#adaptations#", workPermit.getAdaptations()));
+                        col.setCellValue(colValue = colValue.replaceAll("#adaptations#",
+                                getNotNullString(workPermit.getAdaptations())));
                     }
 
                     if (colValue.contains("#begin_event#")) {
@@ -202,12 +214,8 @@ public class PermitConverterExcel implements PermitConverter<File> {
                     }
 
                     if (colValue.contains("#permit_writer#")) {
-                        String initialsAndPost = Optional.ofNullable(peoplePermit.getWriter()).map(emp ->
-                                emp.getInitials() + ", "
-                                        + emp.getPost().getName() + " "
-                                        + employeeToString(emp) + ", "
-                                        + dateWrite
-                        ).orElse(" ");
+                        String initialsAndPost = employeeToString(peoplePermit.getWriter()) + ", "
+                                        + dateWrite;
                         col.setCellValue(colValue = colValue.replaceAll("#permit_writer#", initialsAndPost));
                     }
 
@@ -370,12 +378,19 @@ public class PermitConverterExcel implements PermitConverter<File> {
                 });
             }
         } else {
-            sheet.getRow(rowNumber).cellIterator().forEachRemaining(cell -> {
-                cell.setCellType(BLANK);
-            });
+            Optional.ofNullable(sheet.getRow(rowNumber))
+                    .map(XSSFRow::cellIterator)
+                    .ifPresent(cellIterator ->
+                            cellIterator.forEachRemaining(cell -> cell.setCellType(BLANK)));
         }
 
         return rowNumber - oldRowNumber + 1;
+    }
+
+    private String getNotNullString(String str) {
+        return Optional.ofNullable(str)
+                .filter(s ->  !s.isEmpty())
+                .orElse(" ");
     }
 
     private String employeeToString(EmployeeEntity employeeEntity) {
