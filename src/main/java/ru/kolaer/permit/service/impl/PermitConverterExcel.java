@@ -3,6 +3,7 @@ package ru.kolaer.permit.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellCopyPolicy;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -80,7 +81,7 @@ public class PermitConverterExcel implements PermitConverter<File> {
 
 
         try {
-            if(!copyTemplateFile.exists())
+            if (!copyTemplateFile.exists())
                 return fileTemplate;
 
             final XSSFWorkbook myExcelBook = new XSSFWorkbook(copyTemplateFile);
@@ -104,164 +105,171 @@ public class PermitConverterExcel implements PermitConverter<File> {
                 row.forEach(col -> {
                     String colValue = col.getStringCellValue();
 
-                    if(colValue.contains("#serial_number#")) {
+                    if (colValue.contains("#serial_number#")) {
                         col.setCellValue(colValue = colValue.replaceAll("#serial_number#", workPermit.getSerialNumber()));
                     }
 
-                    if(colValue.contains("#date_write#")) {
+                    if (colValue.contains("#date_write#")) {
                         col.setCellValue(colValue = colValue.replaceAll("#date_write#", dateWrite));
                     }
 
-                    if(colValue.contains("#date_limit#")) {
+                    if (colValue.contains("#date_limit#")) {
                         col.setCellValue(colValue = colValue.replaceAll("#date_limit#", dateLimit));
                     }
 
-                    if(colValue.contains("#initials_and_post_supervisor#")) {
-                        String initialsAndPost = Optional.ofNullable(peoplePermit.getResponsibleSupervisor()).map(emp ->
-                                emp.getInitials() + ", "
-                                        + emp.getPost().getName() + " "
-                                        + emp.getPost().getRang() + " "
-                                        + emp.getPost().getTypeRang()
-                        ).orElse("");
+                    if (colValue.contains("#initials_and_post_supervisor#")) {
+                        String initialsAndPost = employeeToString(peoplePermit.getResponsibleSupervisor());
 
                         col.setCellValue(colValue = colValue.replaceAll("#initials_and_post_supervisor#", initialsAndPost));
                     }
 
-                    if(colValue.contains("#initials_and_post_executor#")) {
-                        String initialsAndPost = Optional.ofNullable(peoplePermit.getResponsibleExecutor()).map(emp ->
-                                emp.getInitials() + ", "
-                                        + emp.getPost().getName()
-                                        + " " + emp.getPost().getRang()
-                                        + " " + emp.getPost().getTypeRang()
-                        ).orElse("");
+                    if (colValue.contains("#initials_and_post_executor#")) {
+                        String initialsAndPost = employeeToString(peoplePermit.getResponsibleExecutor());
 
                         col.setCellValue(colValue = colValue.replaceAll("#initials_and_post_executor#", initialsAndPost));
                     }
 
-                    if(colValue.contains("#permit_name#")) {
+                    if (colValue.contains("#permit_name#")) {
                         col.setCellValue(colValue = colValue.replaceAll("#permit_name#", workPermit.getName()));
                     }
 
-                    if(colValue.contains("#permit_place#")) {
+                    if (colValue.contains("#permit_place#")) {
                         col.setCellValue(colValue = colValue.replaceAll("#permit_place#", workPermit.getPlaceWork()));
                     }
 
-                    if(colValue.contains("#executors#")) {
-                        col.setCellValue(colValue = colValue.replaceFirst("#executors#", ""));
+                    if (colValue.contains("#executors#")) {
+                        col.setCellValue(colValue = colValue.replaceFirst("#executors#", " "));
                         rowNumberForExecutors.set(row.getRowNum() + 2);
                     }
 
-                    if(colValue.contains("#content_work#")) {
+                    if (colValue.contains("#content_work#")) {
                         col.setCellValue(colValue = colValue.replaceAll("#content_work#", workPermit.getContentWork()));
                     }
 
-                    if(colValue.contains("#condition_work#")) {
+                    if (colValue.contains("#condition_work#")) {
                         col.setCellValue(colValue = colValue.replaceAll("#condition_work#", workPermit.getConditionWork()));
                     }
 
-                    if(colValue.contains("#start_work#")) {
+                    if (colValue.contains("#start_work#")) {
                         col.setCellValue(colValue = colValue.replaceAll("#start_work#", startWork));
                     }
 
-                    if(colValue.contains("#end_work#")) {
+                    if (colValue.contains("#end_work#")) {
                         col.setCellValue(colValue = colValue.replaceAll("#end_work#", endWork));
                     }
 
-                    if(colValue.contains("#retaining_system#")) {
+                    if (colValue.contains("#retaining_system#")) {
                         col.setCellValue(colValue = colValue.replaceAll("#retaining_system#", workPermit.getRetaining()));
                     }
 
-                    if(colValue.contains("#position_system#")) {
+                    if (colValue.contains("#position_system#")) {
                         col.setCellValue(colValue = colValue.replaceAll("#position_system#", workPermit.getPosition()));
                     }
 
-                    if(colValue.contains("#safety_system#")) {
+                    if (colValue.contains("#safety_system#")) {
                         col.setCellValue(colValue = colValue.replaceAll("#safety_system#", workPermit.getSafety()));
                     }
 
-                    if(colValue.contains("#rescue_system#")) {
+                    if (colValue.contains("#rescue_system#")) {
                         col.setCellValue(colValue = colValue.replaceAll("#rescue_system#", workPermit.getRescue()));
                     }
 
-                    if(colValue.contains("#materials#")) {
+                    if (colValue.contains("#materials#")) {
                         col.setCellValue(colValue = colValue.replaceAll("#materials#", workPermit.getMaterials()));
                     }
 
-                    if(colValue.contains("#instruments#")) {
+                    if (colValue.contains("#instruments#")) {
                         col.setCellValue(colValue = colValue.replaceAll("#instruments#", workPermit.getInstruments()));
                     }
 
-                    if(colValue.contains("#adaptations#")) {
+                    if (colValue.contains("#adaptations#")) {
                         col.setCellValue(colValue = colValue.replaceAll("#adaptations#", workPermit.getAdaptations()));
                     }
 
-                    if(colValue.contains("#begin_event#")) {
-                        col.setCellValue(colValue = colValue.replaceFirst("#begin_event#", ""));
+                    if (colValue.contains("#begin_event#")) {
+                        col.setCellValue(colValue = colValue.replaceFirst("#begin_event#", " "));
                         rowNumberForBeginEvent.set(row.getRowNum() + 2);
                     }
 
-                    if(colValue.contains("#proc_event#")) {
-                        col.setCellValue(colValue = colValue.replaceFirst("#proc_event#", ""));
+                    if (colValue.contains("#proc_event#")) {
+                        col.setCellValue(colValue = colValue.replaceFirst("#proc_event#", " "));
                         rowNumberForProcEvent.set(row.getRowNum() + 2);
                     }
 
-                    if(colValue.contains("#special_event#")) {
-                        col.setCellValue(colValue = colValue.replaceFirst("#special_event#", ""));
+                    if (colValue.contains("#special_event#")) {
+                        col.setCellValue(colValue = colValue.replaceFirst("#special_event#", " "));
                         rowNumberForSpecialEvent.set(row.getRowNum() + 2);
                     }
 
-                    if(colValue.contains("#permit_writer#")) {
+                    if (colValue.contains("#permit_writer#")) {
                         String initialsAndPost = Optional.ofNullable(peoplePermit.getWriter()).map(emp ->
                                 emp.getInitials() + ", "
                                         + emp.getPost().getName() + " "
-                                        + emp.getPost().getRang() + " "
-                                        + emp.getPost().getTypeRang() + ", "
-                                        +  dateWrite
-                        ).orElse("");
+                                        + employeeToString(emp) + ", "
+                                        + dateWrite
+                        ).orElse(" ");
                         col.setCellValue(colValue = colValue.replaceAll("#permit_writer#", initialsAndPost));
                     }
 
-                    if(colValue.contains("#permit_accept#")) {
+                    if (colValue.contains("#permit_accept#")) {
                         //TODO: add
-                        col.setCellValue(colValue = colValue.replaceAll("#permit_accept#", ""));
+                        col.setCellValue(colValue = colValue.replaceAll("#permit_accept#", " "));
                     }
-                    if(colValue.contains("#permit_briefing_held#")) {
+                    if (colValue.contains("#permit_briefing_held#")) {
                         //TODO: add
-                        col.setCellValue(colValue = colValue.replaceAll("#permit_briefing_held#", ""));
+                        col.setCellValue(colValue = colValue.replaceAll("#permit_briefing_held#", " "));
                     }
-                    if(colValue.contains("#permit_briefing_accept#")) {
+                    if (colValue.contains("#permit_briefing_accept#")) {
                         //TODO: add
-                        col.setCellValue(colValue = colValue.replaceAll("#permit_briefing_accept#", ""));
+                        col.setCellValue(colValue = colValue.replaceAll("#permit_briefing_accept#", " "));
                     }
 
-                    if(colValue.contains("#permit_extended#")) {
-                        if(workPermit.getEndWork().before(workPermit.getExtendedPermit())) {
+                    if (colValue.contains("#permit_extended#")) {
+                        if (workPermit.getEndWork().before(workPermit.getExtendedPermit())) {
                             col.setCellValue(colValue = colValue.replaceAll("#permit_extended#", extendedWork));
                         } else {
-                            col.setCellValue(colValue = colValue.replaceAll("#permit_extended#", ""));
+                            col.setCellValue(colValue = colValue.replaceAll("#permit_extended#", " "));
                         }
+                    }
+
+                    if(col.getStringCellValue().isEmpty()) {
+                        col.setCellType(BLANK);
                     }
                 });
             });
 
             int rowNumberExecutors = rowNumberForExecutors.get();
 
-            if(rowNumberExecutors > 0 && Optional.ofNullable(peoplePermit.getExecutors())
+            if (rowNumberExecutors > 0 && Optional.ofNullable(peoplePermit.getExecutors())
                     .orElse(Collections.emptyList()).size() > 0) {
-                for(int i = 0; i < peoplePermit.getExecutors().size(); i++) {
+                for (int i = 0; i < peoplePermit.getExecutors().size(); i++) {
                     final EmployeeEntity employee = peoplePermit.getExecutors().get(i);
 
-                    permitSheet.getRow(rowNumberExecutors)
-                            .getCell(0)
-                            .setCellValue(employee.getInitials());
 
-                    if(i + 1 != peoplePermit.getExecutors().size()) {
-                        copyRow(myExcelBook, permitSheet, rowNumberExecutors, rowNumberExecutors++);
+                    if (i + 1 < peoplePermit.getExecutors().size()) {
+                        copyRow(myExcelBook, permitSheet, rowNumberExecutors, rowNumberExecutors + 1);
+
                         rowNumberForBeginEvent.incrementAndGet();
                     }
+
+                    XSSFRow row = permitSheet.getRow(rowNumberExecutors);
+                    if (row == null) {
+                        continue;
+                    }
+
+                    row.cellIterator().forEachRemaining(cell -> {
+                        if (cell.getStringCellValue().contains("#value1#")) {
+                            cell.setCellValue(employee.getInitials());
+                        } else {
+                            cell.setCellType(BLANK);
+                        }
+                    });
+
+                    rowNumberExecutors += 1;
+
                 }
             }
-
+            log.info("WORK_EVENT: BEGIN");
             final List<WorkEvent> beginEvents = Optional.ofNullable(workEvents)
                     .orElse(Collections.emptyList())
                     .stream()
@@ -270,7 +278,7 @@ public class PermitConverterExcel implements PermitConverter<File> {
                     .collect(Collectors.toList());
 
             int rowAdd = this.insertEvents(rowNumberForBeginEvent.get(), beginEvents, permitSheet);
-
+            log.info("WORK_EVENT: POC");
             final List<WorkEvent> procEvents = Optional.ofNullable(workEvents)
                     .orElse(Collections.emptyList())
                     .stream()
@@ -279,7 +287,7 @@ public class PermitConverterExcel implements PermitConverter<File> {
                     .collect(Collectors.toList());
 
             rowAdd = this.insertEvents(rowNumberForProcEvent.get() + rowAdd, procEvents, permitSheet);
-
+            log.info("WORK_EVENT: SPEC");
             final List<WorkEvent> specialEvents = Optional.ofNullable(workEvents)
                     .orElse(Collections.emptyList())
                     .stream()
@@ -315,32 +323,69 @@ public class PermitConverterExcel implements PermitConverter<File> {
                 final WorkEvent event = events.get(i);
 
                 if(i + 1 < events.size()) {
+                    log.debug("COPY ROW: {}, {}", rowNumber, rowNumber + 1);
                     copyRow(sheet.getWorkbook(), sheet, rowNumber, rowNumber + 1);
                 }
 
                 final XSSFRow row = sheet.getRow(rowNumber);
                 if(row == null)
                     continue;
-                row.getCell(0).setCellValue(rowNumber);
+
+                log.debug("GET ROW: {}", rowNumber);
 
                 rowNumber += 1;
-                row.getCell(0).setCellValue(i + 1);
-                row.getCell(1).setCellValue(event.getName());
-                row.getCell(2).setCellType(BLANK);
-                row.getCell(3).setCellType(BLANK);
-                row.getCell(4).setCellType(BLANK);
-                row.getCell(5).setCellValue(new SimpleDateFormat("dd.MM.yyyy hh:mm").format(event.getLimitDate()));
-                row.getCell(6).setCellType(BLANK);
-                row.getCell(7).setCellValue(Optional.ofNullable(event.getEmployeesEntity())
-                        .orElse(Collections.emptyList()).stream()
-                        .map(emp -> emp.getInitials() + "\n" + emp.getPost().getName()
-                                + " " + emp.getPost().getRang() + " " + emp.getPost().getTypeRang())
-                        .collect(Collectors.joining(", ")));
-                row.getCell(8).setCellType(BLANK);
+
+                final int index = i + 1;
+
+                row.cellIterator().forEachRemaining(cell -> {
+                    String colValue = cell.getStringCellValue();
+
+                    if (colValue.contains("#value1#")) {
+                        colValue = colValue.replaceAll("#value1#", String.valueOf(index));
+                    }
+
+                    if(cell.getStringCellValue().contains("#value2#")) {
+                        colValue = colValue.replaceAll("#value2#", event.getName());
+                    }
+
+                    if(cell.getStringCellValue().contains("#value3#")) {
+                        colValue = colValue.replaceAll("#value3#",
+                                new SimpleDateFormat("dd.MM.yyyy hh:mm")
+                                        .format(event.getLimitDate()));
+                    }
+
+                    if(cell.getStringCellValue().contains("#value4#")) {
+                        colValue = colValue.replaceAll("#value4#", Optional
+                                .ofNullable(event.getEmployeesEntity())
+                                .orElse(Collections.emptyList()).stream()
+                                .map(this::employeeToString)
+                                .collect(Collectors.joining(";\n")));
+                    }
+
+                    if(colValue.isEmpty()){
+                        cell.setCellType(BLANK);
+                    } else {
+                        cell.setCellValue(colValue);
+                    }
+                });
             }
+        } else {
+            sheet.getRow(rowNumber).cellIterator().forEachRemaining(cell -> {
+                cell.setCellType(BLANK);
+            });
         }
 
-        return rowNumber - oldRowNumber - 1;
+        return rowNumber - oldRowNumber + 1;
+    }
+
+    private String employeeToString(EmployeeEntity employeeEntity) {
+        return Optional.ofNullable(employeeEntity).map(emp ->
+                emp.getInitials() + ", "
+                        + emp.getPost().getName() + " "
+                        + Optional.ofNullable(emp.getPost().getRang())
+                        .map(rang -> rang + " " + emp.getPost().getTypeRang())
+                        .orElse("")
+        ).orElse(" ");
     }
 
     private static void copyRow(XSSFWorkbook workbook, XSSFSheet worksheet, int sourceRowNum, int destinationRowNum) {
@@ -348,10 +393,15 @@ public class PermitConverterExcel implements PermitConverter<File> {
         XSSFRow newRow = worksheet.getRow(destinationRowNum);
         XSSFRow sourceRow = worksheet.getRow(sourceRowNum);
 
+        if(sourceRow == null) {
+            log.error("ROW NULL: {}", sourceRowNum);
+            return;
+        }
+
+        worksheet.shiftRows(destinationRowNum, worksheet.getLastRowNum(), 1);
+
         // If the row exist in destination, push down all rows by 1 else create a new row
-        if (newRow != null) {
-            worksheet.shiftRows(destinationRowNum, worksheet.getLastRowNum(), 1);
-        } else {
+        if (newRow == null) {
             newRow = worksheet.createRow(destinationRowNum);
         }
 

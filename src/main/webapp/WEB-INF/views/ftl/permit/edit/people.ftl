@@ -176,7 +176,7 @@
                                     <div class="control-group">
                                         <label class="control-label" for="selectExecutors">Исполнитель работ:</label>
                                         <div class="controls">
-                                            <select id="selectExecutors" class="span12" name="executors[${(peoplePermitEntity.executors![])?size}].id" data-rel="chosen">
+                                            <select id="selectExecutors" class="span12" name="executors[0].id" data-rel="chosen">
                                                 <option disabled selected value> Исполнитель работ... </option>
                                                 <#if employees?has_content>
                                                     <#list employees as emp>

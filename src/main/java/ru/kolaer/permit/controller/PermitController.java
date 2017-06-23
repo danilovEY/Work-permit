@@ -82,6 +82,13 @@ public class PermitController extends BaseController{
     @RequestMapping(value = "update/people", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public String updateWorkPage(PeoplePermitEntity peoplePermitEntity) {
+        PeoplePermitEntity peopleById = this.permitPageService.getPeopleById(peoplePermitEntity.getId());
+        if(peoplePermitEntity.getExecutors() != null && !peoplePermitEntity.getExecutors().isEmpty()) {
+            peopleById.getExecutors().add(peoplePermitEntity.getExecutors().get(0));
+
+            peoplePermitEntity.setExecutors(peopleById.getExecutors());
+        }
+
         final PeoplePermitEntity updatable = this.permitPageService.update(peoplePermitEntity);
 
         return "redirect:/permit/edit/people?id=" + updatable.getId();
@@ -108,8 +115,8 @@ public class PermitController extends BaseController{
         final File template = this.permitPageService.printPermitToExcel(id);
         if(template != null) {
             final String serialNumber = URLEncoder.
-                    encode(this.permitPageService.getSerialNumber(id),"UTF-8")
-                    .replaceAll("/|\\+", "%20");
+                    encode(this.permitPageService.getSerialNumber(id)
+                            .replaceAll("/|\\+", "_"),"UTF-8");
 
             String browserType = request.getHeader("User-Agent");
 
