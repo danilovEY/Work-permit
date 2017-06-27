@@ -109,7 +109,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="page-size">Страница ${rolePage.number} из ${rolePage.total} по</label>
                                 <div class="controls">
-                                    <select size="1" id="page-size" name="page-size" onchange="self.location='<@spring.url relativeUrl="/permit"/>?page=1&pagesize='+this.value">
+                                    <select size="1" id="page-size" name="page-size" onchange="self.location='<@spring.url relativeUrl="/role"/>?page=1&pagesize='+this.value">
                                         <option value="15" <#if rolePage.pageSize == 15>selected="selected"</#if>>15</option>
                                         <option value="30" <#if rolePage.pageSize == 30>selected="selected"</#if>>30</option>
                                         <option value="100" <#if rolePage.pageSize == 100>selected="selected"</#if>>100</option>

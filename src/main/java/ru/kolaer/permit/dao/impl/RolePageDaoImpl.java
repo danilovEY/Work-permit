@@ -49,7 +49,7 @@ public class RolePageDaoImpl extends BasePageDaoAbstract<RoleEntity> implements 
         final Session currentSession = this.sessionFactory.getCurrentSession();
         final CriteriaBuilder criteriaBuilder = currentSession.getCriteriaBuilder();
         final CriteriaQuery<Long> countQuery = criteriaBuilder.createQuery(Long.class);
-        final Root<RoleEntity> fromCount = countQuery.from(this.getEntityClass());
+        final Root<RoleEntity> fromCount = countQuery.from(RoleEntity.class);
         CriteriaQuery<Long> selectCount = countQuery.select(criteriaBuilder.count(fromCount.get("id")));
 
         if(!findRemoved)
@@ -59,15 +59,15 @@ public class RolePageDaoImpl extends BasePageDaoAbstract<RoleEntity> implements 
                 .createQuery(selectCount)
                 .getSingleResult();
 
-        final CriteriaQuery<RoleEntity> selectQuery = criteriaBuilder.createQuery(this.getEntityClass());
-        final Root<RoleEntity> fromSelect = selectQuery.from(this.getEntityClass());
+        final CriteriaQuery<RoleEntity> selectQuery = criteriaBuilder.createQuery(RoleEntity.class);
+        final Root<RoleEntity> fromSelect = selectQuery.from(RoleEntity.class);
         CriteriaQuery<RoleEntity> select = selectQuery.select(fromSelect);
 
         if(!findRemoved)
             select = select.where(criteriaBuilder.equal(fromSelect.get("removed"), false));
 
         switch (sort) {
-            default: select = select.orderBy(criteriaBuilder.desc(selectQuery.from(EmployeeEntity.class).get("personnelNumber")));
+            default: select = select.orderBy(criteriaBuilder.asc(fromSelect.join("employee").get("personnelNumber")));
         }
 
         TypedQuery<RoleEntity> typedQuery = currentSession

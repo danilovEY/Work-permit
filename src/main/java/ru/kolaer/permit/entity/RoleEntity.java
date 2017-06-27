@@ -1,8 +1,6 @@
 package ru.kolaer.permit.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -14,6 +12,8 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = false)
+@ToString
 public class RoleEntity extends BaseEntity {
 
     public RoleEntity(Long id, EmployeeEntity employee, String role) {

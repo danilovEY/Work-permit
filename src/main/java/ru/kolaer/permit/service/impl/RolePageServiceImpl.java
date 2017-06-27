@@ -30,12 +30,12 @@ public class RolePageServiceImpl extends BasePageServiceAbstract<RoleEntity> imp
 
     @Override
     public Page<RoleEntity> getAll(@NonNull Integer number, @NonNull Integer pageSize, Integer sort) {
-        return this.dao.findAll(number, pageSize, false, sort);
+        return this.dao.findAll(number, pageSize, true, sort);
     }
 
     @Override
     public Page<RoleEntity> getAll(@NonNull Integer number, @NonNull Integer pageSize) {
-        return this.dao.findAll(number, pageSize, false, 0);
+        return this.dao.findAll(number, pageSize, true, 0);
     }
 
     @Override
