@@ -258,6 +258,8 @@ public class PermitConverterExcel implements PermitConverter<File> {
                         copyRow(myExcelBook, permitSheet, rowNumberExecutors, rowNumberExecutors + 1);
 
                         rowNumberForBeginEvent.incrementAndGet();
+                        rowNumberForProcEvent.incrementAndGet();
+                        rowNumberForSpecialEvent.incrementAndGet();
                     }
 
                     XSSFRow row = permitSheet.getRow(rowNumberExecutors);
@@ -319,6 +321,7 @@ public class PermitConverterExcel implements PermitConverter<File> {
                     .filter(event -> !event.getRemoved())
                     .filter(event -> event.getTypeEvent() == TypeEvent.PROCESS)
                     .collect(Collectors.toList());
+            System.out.println("POC: " + (rowNumberForProcEvent.get() + rowAdd));
             rowAdd = this.insertEvents(rowNumberForProcEvent.get() + rowAdd, procEvents, permitSheet);
 
             log.debug("WORK_EVENT: SPEC");
@@ -328,6 +331,7 @@ public class PermitConverterExcel implements PermitConverter<File> {
                     .filter(event -> !event.getRemoved())
                     .filter(event -> event.getTypeEvent() == TypeEvent.SPECIAL)
                     .collect(Collectors.toList());
+            System.out.println("SPEC: " + (rowNumberForSpecialEvent.get() + rowAdd));
             rowAdd = this.insertEvents(rowNumberForSpecialEvent.get() + rowAdd, specialEvents, permitSheet);
 
             final File saveTemplate = new File(copyTemplateFilePath);
@@ -355,10 +359,7 @@ public class PermitConverterExcel implements PermitConverter<File> {
             for(int i = 0; i < events.size(); i++ ) {
                 final WorkEvent event = events.get(i);
 
-                if(i + 1 < events.size()) {
-                    log.debug("COPY ROW: {}, {}", rowNumber, rowNumber + 1);
-                    copyRow(sheet.getWorkbook(), sheet, rowNumber, rowNumber + 1);
-                }
+
 
                 final XSSFRow row = sheet.getRow(rowNumber);
                 if(row == null)
@@ -366,7 +367,12 @@ public class PermitConverterExcel implements PermitConverter<File> {
 
                 log.debug("GET ROW: {}", rowNumber);
 
-                rowNumber += 1;
+                if(i + 1 < events.size()) {
+                    log.debug("COPY ROW: {}, {}", rowNumber, rowNumber + 1);
+                    copyRow(sheet.getWorkbook(), sheet, rowNumber, rowNumber + 1);
+
+                    rowNumber += 1;
+                }
 
                 final int index = i + 1;
 
@@ -408,10 +414,11 @@ public class PermitConverterExcel implements PermitConverter<File> {
                     .map(XSSFRow::cellIterator)
                     .ifPresent(cellIterator ->
                             cellIterator.forEachRemaining(cell -> cell.setCellType(BLANK)));
-            rowNumber -= 1;
+            //rowNumber -= 1;
         }
 
-        return rowNumber - oldRowNumber + 1;
+        return rowNumber - oldRowNumber;
+
     }
 
     private String getNotNullString(String str) {
