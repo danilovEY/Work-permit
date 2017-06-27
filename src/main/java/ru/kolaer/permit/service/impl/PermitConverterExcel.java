@@ -266,43 +266,68 @@ public class PermitConverterExcel implements PermitConverter<File> {
                     }
 
                     row.cellIterator().forEachRemaining(cell -> {
+                        String colValue = Optional.ofNullable(cell.getStringCellValue())
+                                .orElse("");
+
                         if (cell.getStringCellValue().contains("#value1#")) {
-                            cell.setCellValue(employee.getInitials());
-                        } else {
+                            colValue = colValue.replaceAll("#value1#", employee.getInitials());
+                        }
+
+                        if(colValue == null || colValue.isEmpty()){
                             cell.setCellType(BLANK);
+                        } else {
+                            cell.setCellValue(colValue);
                         }
                     });
 
                     rowNumberExecutors += 1;
 
                 }
+            } else {
+                XSSFRow row = permitSheet.getRow(rowNumberExecutors);
+                if (row != null) {
+                    row.cellIterator().forEachRemaining(cell -> {
+                        String colValue = Optional.ofNullable(cell.getStringCellValue())
+                                .orElse("");
+
+                        if (colValue.contains("#value1#")) {
+                            colValue = colValue.replaceAll("#value1#", " ");
+                        }
+
+                        if(colValue == null || colValue.isEmpty()){
+                            cell.setCellType(BLANK);
+                        } else {
+                            cell.setCellValue(colValue);
+                        }
+                    });
+                }
             }
-            log.info("WORK_EVENT: BEGIN");
+
+            log.debug("WORK_EVENT: BEGIN");
             final List<WorkEvent> beginEvents = Optional.ofNullable(workEvents)
                     .orElse(Collections.emptyList())
                     .stream()
                     .filter(event -> !event.getRemoved())
                     .filter(event -> event.getTypeEvent() == TypeEvent.BEGIN)
                     .collect(Collectors.toList());
-
             int rowAdd = this.insertEvents(rowNumberForBeginEvent.get(), beginEvents, permitSheet);
-            log.info("WORK_EVENT: POC");
+
+            log.debug("WORK_EVENT: POC");
             final List<WorkEvent> procEvents = Optional.ofNullable(workEvents)
                     .orElse(Collections.emptyList())
                     .stream()
                     .filter(event -> !event.getRemoved())
                     .filter(event -> event.getTypeEvent() == TypeEvent.PROCESS)
                     .collect(Collectors.toList());
-
             rowAdd = this.insertEvents(rowNumberForProcEvent.get() + rowAdd, procEvents, permitSheet);
-            log.info("WORK_EVENT: SPEC");
+
+            log.debug("WORK_EVENT: SPEC");
             final List<WorkEvent> specialEvents = Optional.ofNullable(workEvents)
                     .orElse(Collections.emptyList())
                     .stream()
                     .filter(event -> !event.getRemoved())
                     .filter(event -> event.getTypeEvent() == TypeEvent.SPECIAL)
                     .collect(Collectors.toList());
-
             rowAdd = this.insertEvents(rowNumberForSpecialEvent.get() + rowAdd, specialEvents, permitSheet);
 
             final File saveTemplate = new File(copyTemplateFilePath);
@@ -346,23 +371,24 @@ public class PermitConverterExcel implements PermitConverter<File> {
                 final int index = i + 1;
 
                 row.cellIterator().forEachRemaining(cell -> {
-                    String colValue = cell.getStringCellValue();
+                    String colValue = Optional.ofNullable(cell.getStringCellValue())
+                            .orElse("");
 
                     if (colValue.contains("#value1#")) {
                         colValue = colValue.replaceAll("#value1#", String.valueOf(index));
                     }
 
-                    if(cell.getStringCellValue().contains("#value2#")) {
+                    if(colValue.contains("#value2#")) {
                         colValue = colValue.replaceAll("#value2#", event.getName());
                     }
 
-                    if(cell.getStringCellValue().contains("#value3#")) {
+                    if(colValue.contains("#value3#")) {
                         colValue = colValue.replaceAll("#value3#",
                                 new SimpleDateFormat("dd.MM.yyyy hh:mm")
                                         .format(event.getLimitDate()));
                     }
 
-                    if(cell.getStringCellValue().contains("#value4#")) {
+                    if(colValue.contains("#value4#")) {
                         colValue = colValue.replaceAll("#value4#", Optional
                                 .ofNullable(event.getEmployeesEntity())
                                 .orElse(Collections.emptyList()).stream()
@@ -382,6 +408,7 @@ public class PermitConverterExcel implements PermitConverter<File> {
                     .map(XSSFRow::cellIterator)
                     .ifPresent(cellIterator ->
                             cellIterator.forEachRemaining(cell -> cell.setCellType(BLANK)));
+            rowNumber -= 1;
         }
 
         return rowNumber - oldRowNumber + 1;
