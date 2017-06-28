@@ -24,8 +24,12 @@ public class AuthController {
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public ModelAndView getLoginPage(@RequestParam(value = "access", defaultValue = "false") Boolean access,
                                      @RequestParam(value = "logout", required = false) String logout,
+                                     @RequestParam(value = "timeout", defaultValue = "false") Boolean timeout,
+                                     @RequestParam(value = "expired", defaultValue = "false") Boolean expired,
                                      @RequestParam(value = "error", defaultValue = "false") Boolean error) {
         final ModelAndView modelAndView = new ModelAndView("login");
+        modelAndView.addObject("timeout", timeout);
+        modelAndView.addObject("expired", expired);
         modelAndView.addObject("access", access);
         modelAndView.addObject("logout", logout != null);
         modelAndView.addObject("error", error);

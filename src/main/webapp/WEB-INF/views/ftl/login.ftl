@@ -18,17 +18,31 @@
                     <#if logout>
                         <div class="alert alert-info">
                             <button type="button" class="close" data-dismiss="alert">×</button>
-                            <strong>Успех!</strong> Успешный выход из системы.
+                            Успешный выход из системы.
                         </div>
-                    <#elseif !access>
+                    </#if>
+                    <#if access>
                         <div class="alert alert-block">
                             <button type="button" class="close" data-dismiss="alert">×</button>
-                            <strong>Внимание!</strong> Необходимо авторизоватся в системе.
+                            Необходимо авторизоватся в системе.
                         </div>
-                    <#elseif error>
+                    </#if>
+                    <#if timeout>
+                        <div class="alert alert-block">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            Время сессии истекло.
+                        </div>
+                    </#if>
+                    <#if expired>
                         <div class="alert alert-error">
                             <button type="button" class="close" data-dismiss="alert">×</button>
-                            <strong>Ошибка!</strong> Не удалось авторизоватся в системе.
+                            Под аккаунтом авторизовались больше <strong>двух</strong> раз.
+                        </div>
+                    </#if>
+                    <#if error>
+                        <div class="alert alert-error">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            Не удалось авторизоватся в системе.
                         </div>
                     </#if>
                 </div>
@@ -47,20 +61,20 @@
                         </div>
                         <div class="clearfix"></div>
 
-                        <label class="remember" for="remember-me">
-                            <input type="checkbox" name="remember-me" id="remember-me">Запомнить меня
-                        </label>
+                        <#--<label class="remember" for="remember-me">-->
+                            <#--<input type="checkbox" name="remember-me" id="remember-me">Запомнить меня-->
+                        <#--</label>-->
 
                         <div class="button-login">
                             <button type="submit" class="btn btn-primary">Войти</button>
                         </div>
                         <div class="clearfix"></div>
-                    <#if error>
-                        <h3>Забыли пароль?</h3>
-                        <p>
-                            No problem, <a href="#">click here</a> to get a new password.
-                        </p>
-                    </#if>
+                    <#--<#if error>-->
+                        <#--<h3>Забыли пароль?</h3>-->
+                        <#--<p>-->
+                            <#--No problem, <a href="#">click here</a> to get a new password.-->
+                        <#--</p>-->
+                    <#--</#if>-->
                     </fieldset>
                     <input type="hidden"
                            name="${_csrf.parameterName}"

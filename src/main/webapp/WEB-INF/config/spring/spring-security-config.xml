@@ -52,17 +52,16 @@
 
         <security:intercept-url pattern="/**" access="isAuthenticated()"/>
 
-
-        <security:form-login login-page="/login"
+        <security:form-login login-page="/login?access=true"
                              default-target-url="/"
                              authentication-failure-url="/login?error=true&amp;access=true"
                              always-use-default-target="true"/>
 
         <security:session-management>
-            <security:concurrency-control max-sessions="2"/>
+            <security:concurrency-control max-sessions="2" expired-url="/login?timeout=true"/>
         </security:session-management>
 
-        <security:logout logout-url="/logout" invalidate-session="true"/>
+        <security:logout invalidate-session="true"/>
     </security:http>
 
 
