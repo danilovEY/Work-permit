@@ -45,23 +45,56 @@
                                     </div>
 
                                     <div class="control-group">
-                                        <label class="control-label" for="permitName">Наряд-допуск принял:</label>
+                                        <label class="control-label" for="permitAccepted">Наряд-допуск принял:</label>
                                         <div class="controls">
-                                            <input class="span12" id="permitName" type="text"/>
+                                            <select id="permitAccepted" class="span12" name="accepted.id" data-rel="chosen">
+                                                <option disabled selected value> Наряд-допуск принял... </option>
+                                                <#if employees?has_content>
+                                                    <#list employees as emp>
+                                                        <#if peoplePermitEntity.accepted?has_content && emp.id == peoplePermitEntity.accepted.id>
+                                                            <option selected="selected" value="${emp.id}">(${emp.personnelNumber?c}) ${emp.initials} - ${emp.department.abbreviatedName}</option>
+                                                        <#else>
+                                                            <option value="${emp.id}">(${emp.personnelNumber?c}) ${emp.initials} - ${emp.department.abbreviatedName}</option>
+                                                        </#if>
+                                                    </#list>
+                                                </#if>
+                                            </select>
                                         </div>
                                     </div>
 
                                     <div class="control-group">
-                                        <label class="control-label" for="permitName">Целевой инструктаж провёл:</label>
+                                        <label class="control-label" for="permitBriefingHeld">Целевой инструктаж провёл:</label>
                                         <div class="controls">
-                                            <input class="span12" id="permitName" type="text"/>
+                                            <select id="permitBriefingHeld" class="span12" name="briefingHeld.id" data-rel="chosen">
+                                                <option disabled selected value> Целевой инструктаж провёл... </option>
+                                                <#if employees?has_content>
+                                                    <#list employees as emp>
+                                                        <#if peoplePermitEntity.briefingHeld?has_content && emp.id == peoplePermitEntity.briefingHeld.id>
+                                                            <option selected="selected" value="${emp.id}">(${emp.personnelNumber?c}) ${emp.initials} - ${emp.department.abbreviatedName}</option>
+                                                        <#else>
+                                                            <option value="${emp.id}">(${emp.personnelNumber?c}) ${emp.initials} - ${emp.department.abbreviatedName}</option>
+                                                        </#if>
+                                                    </#list>
+                                                </#if>
+                                            </select>
                                         </div>
                                     </div>
 
                                     <div class="control-group">
-                                        <label class="control-label" for="permitName">Целевой инструктаж получил:</label>
+                                        <label class="control-label" for="permitBriefingAccept">Целевой инструктаж получил:</label>
                                         <div class="controls">
-                                            <input class="span12" id="permitName" type="text"/>
+                                            <select id="permitBriefingAccept" class="span12" name="briefingAccept.id" data-rel="chosen">
+                                                <option disabled selected value> Целевой инструктаж получил... </option>
+                                                <#if employees?has_content>
+                                                    <#list employees as emp>
+                                                        <#if peoplePermitEntity.briefingAccept?has_content && emp.id == peoplePermitEntity.briefingAccept.id>
+                                                            <option selected="selected" value="${emp.id}">(${emp.personnelNumber?c}) ${emp.initials} - ${emp.department.abbreviatedName}</option>
+                                                        <#else>
+                                                            <option value="${emp.id}">(${emp.personnelNumber?c}) ${emp.initials} - ${emp.department.abbreviatedName}</option>
+                                                        </#if>
+                                                    </#list>
+                                                </#if>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

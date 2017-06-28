@@ -40,23 +40,35 @@
                                     </div>
 
                                     <div class="control-group">
-                                        <label class="control-label" for="permitName">Наряд-допуск принял:</label>
+                                        <label class="control-label" for="accepted">Наряд-допуск принял:</label>
                                         <div class="controls">
-                                            <input class="span12" id="permitName" type="text" readonly/>
+                                            <#if peoplePermitEntity.accepted?has_content>
+                                                <input class="span12" id="accepted" type="text" name="wr" value="${peoplePermitEntity.accepted.initials}" readonly/>
+                                            <#else>
+                                                <input class="span12" id="accepted" type="text" readonly/>
+                                            </#if>
                                         </div>
                                     </div>
 
                                     <div class="control-group">
-                                        <label class="control-label" for="permitName">Целевой инструктаж провёл:</label>
+                                        <label class="control-label" for="briefingHeld">Целевой инструктаж провёл:</label>
                                         <div class="controls">
-                                            <input class="span12" id="permitName" type="text" readonly/>
+                                            <#if peoplePermitEntity.briefingHeld?has_content>
+                                                <input class="span12" id="briefingHeld" type="text" name="wr" value="${peoplePermitEntity.briefingHeld.initials}" readonly/>
+                                            <#else>
+                                                <input class="span12" id="briefingHeld" type="text" readonly/>
+                                            </#if>
                                         </div>
                                     </div>
 
                                     <div class="control-group">
-                                        <label class="control-label" for="permitName">Целевой инструктаж получил:</label>
+                                        <label class="control-label" for="briefingAccept">Целевой инструктаж получил:</label>
                                         <div class="controls">
-                                            <input class="span12" id="permitName" type="text" readonly/>
+                                            <#if peoplePermitEntity.briefingAccept?has_content>
+                                                <input class="span12" id="briefingAccept" type="text" name="wr" value="${peoplePermitEntity.briefingAccept.initials}" readonly/>
+                                            <#else>
+                                                <input class="span12" id="briefingAccept" type="text" readonly/>
+                                            </#if>
                                         </div>
                                     </div>
                                 </div>

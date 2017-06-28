@@ -61,6 +61,8 @@
             <security:concurrency-control max-sessions="2" expired-url="/login?timeout=true"/>
         </security:session-management>
 
+        <security:csrf disabled="true"/>
+
         <security:logout invalidate-session="true"/>
     </security:http>
 
