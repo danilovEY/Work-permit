@@ -211,16 +211,16 @@ public class PermitConverterExcel implements PermitConverter<File> {
                     }
 
                     if (colValue.contains("#permit_accept#")) {
-                        //TODO: add
-                        col.setCellValue(colValue = colValue.replaceAll("#permit_accept#", " "));
+                        String initialsAndPost = employeeToString(peoplePermit.getAccepted());
+                        col.setCellValue(colValue = colValue.replaceAll("#permit_accept#", initialsAndPost));
                     }
                     if (colValue.contains("#permit_briefing_held#")) {
-                        //TODO: add
-                        col.setCellValue(colValue = colValue.replaceAll("#permit_briefing_held#", " "));
+                        String initialsAndPost = employeeToString(peoplePermit.getBriefingHeld());
+                        col.setCellValue(colValue = colValue.replaceAll("#permit_briefing_held#", initialsAndPost));
                     }
                     if (colValue.contains("#permit_briefing_accept#")) {
-                        //TODO: add
-                        col.setCellValue(colValue = colValue.replaceAll("#permit_briefing_accept#", " "));
+                        String initialsAndPost = employeeToString(peoplePermit.getBriefingAccept());
+                        col.setCellValue(colValue = colValue.replaceAll("#permit_briefing_accept#", initialsAndPost));
                     }
 
                     if (colValue.contains("#permit_extended#")) {
