@@ -2,10 +2,9 @@ package ru.kolaer.permit.entity;
 
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
-import ru.kolaer.permit.TypeEvent;
+import ru.kolaer.permit.entity.enums.TypeEvent;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 

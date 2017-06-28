@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import ru.kolaer.permit.TypeEvent;
+import ru.kolaer.permit.entity.enums.TypeEvent;
 import ru.kolaer.permit.dao.WorkEventDao;
 import ru.kolaer.permit.entity.PermitEntity;
 import ru.kolaer.permit.entity.WorkEvent;

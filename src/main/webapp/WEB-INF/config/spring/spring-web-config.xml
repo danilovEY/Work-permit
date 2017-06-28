@@ -14,7 +14,7 @@
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
           p:location="file:${permit.home}/config/common.properties" name="propertiesBean"/>
 
-    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+    <bean id="freemarkerConfig" class="ru.kolaer.permit.spring.component.DefaultFreeMarkerConfigurer">
         <property name="defaultEncoding" value="UTF-8"/>
         <property name="templateLoaderPath" value="/WEB-INF/views/ftl"/>
         <property name="freemarkerSettings">

@@ -28,10 +28,20 @@
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
 
+    <session-config>
+        <session-timeout>10080</session-timeout>
+    </session-config>
+
     <!-- For root context -->
     <listener>
         <listener-class>
             org.springframework.web.context.ContextLoaderListener
+        </listener-class>
+    </listener>
+
+    <listener>
+        <listener-class>
+            org.springframework.security.web.session.HttpSessionEventPublisher
         </listener-class>
     </listener>
 

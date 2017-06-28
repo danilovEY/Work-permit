@@ -1,4 +1,4 @@
-package ru.kolaer.permit;
+package ru.kolaer.permit.entity.enums;
 
 /**
  * Created by Danilov on 24.05.2017.

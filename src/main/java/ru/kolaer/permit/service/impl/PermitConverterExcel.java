@@ -2,15 +2,11 @@ package ru.kolaer.permit.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellCopyPolicy;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import ru.kolaer.permit.TypeEvent;
+import ru.kolaer.permit.entity.enums.TypeEvent;
 import ru.kolaer.permit.dao.PermitPageDao;
 import ru.kolaer.permit.dao.WorkEventDao;
 import ru.kolaer.permit.entity.*;
@@ -21,15 +17,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-import static org.apache.poi.ss.usermodel.CellType.*;
 import static org.apache.poi.ss.usermodel.CellType.BLANK;
 
 /**

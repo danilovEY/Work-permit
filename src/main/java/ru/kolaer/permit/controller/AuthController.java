@@ -32,7 +32,7 @@ public class AuthController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "logout", method = RequestMethod.POST)
+    @RequestMapping(value = "logout", method = RequestMethod.GET)
     public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) {
         Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
         .ifPresent(auth -> new SecurityContextLogoutHandler().logout(request, response, auth));
