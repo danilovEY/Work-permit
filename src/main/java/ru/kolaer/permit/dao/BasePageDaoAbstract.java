@@ -187,4 +187,25 @@ public abstract class BasePageDaoAbstract<T extends BaseEntity> implements BaseP
         results.forEach(e -> e.setId(null));
         return results;
     }
+
+    @Override
+    @Transactional
+    public boolean delete(Long id, boolean setRemoved) {
+        if(!setRemoved) {
+            return this.sessionFactory.getCurrentSession()
+                    .createQuery("DELETE FROM " + getEntityClass().getName() + " WHERE id = :id")
+                    .setParameter("id", id)
+                    .executeUpdate() > 0;
+        } else {
+            final Session currentSession = this.sessionFactory.getCurrentSession();
+            final CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+            final CriteriaUpdate<T> criteriaUpdate = builder.createCriteriaUpdate(this.getEntityClass());
+            final Root<T> from = criteriaUpdate.from(this.getEntityClass());
+            final CriteriaUpdate<T> where = criteriaUpdate
+                    .set("removed", true)
+                    .where(builder.equal(from.get("id"), id));
+            currentSession.createQuery(where).executeUpdate();
+        }
+        return true;
+    }
 }

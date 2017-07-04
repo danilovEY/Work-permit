@@ -21,6 +21,7 @@ public interface BaseDao<T extends BaseEntity> {
     T findById(@NonNull Long id, boolean findRemoved);
 
     T delete(T entity, boolean setRemoved);
+    boolean delete(Long id, boolean setRemoved);
     List<T> deleteAll(List<T> entities, boolean setRemoved);
 
     Class<T> getEntityClass();

@@ -8,5 +8,6 @@ import ru.kolaer.permit.entity.BaseEntity;
  * Created by danilovey on 14.04.2017.
  */
 public interface BasePageService<T extends BaseEntity> extends BaseService<T> {
+    boolean delete(Long idRole);
     Page<T> getAll(@NonNull Integer number, @NonNull Integer pageSize);
 }

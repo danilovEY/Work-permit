@@ -40,6 +40,6 @@ public class AuthController {
     public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) {
         Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
         .ifPresent(auth -> new SecurityContextLogoutHandler().logout(request, response, auth));
-        return new ModelAndView("redirect:/login?logout");
+        return new ModelAndView("redirect:/login");
     }
 }

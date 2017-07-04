@@ -42,4 +42,9 @@ public class RolePageServiceImpl extends BasePageServiceAbstract<RoleEntity> imp
     public RoleEntity delete(RoleEntity entity) {
         return this.dao.delete(entity, false);
     }
+
+    @Override
+    public boolean delete(Long idRole) {
+        return dao.delete(idRole, false);
+    }
 }

@@ -119,6 +119,11 @@ public abstract class BasePageServiceAbstract<T extends BaseEntity> implements B
                 : this.dao.findById(id, true);
     }
 
+    @Override
+    public boolean delete(Long idRole) {
+        return dao.delete(idRole, true);
+    }
+
     protected void addException(Exception ex) {
         this.exceptions.add(ex);
         log.error("Ошибка в сервисе!", ex);

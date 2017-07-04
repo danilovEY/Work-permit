@@ -98,10 +98,7 @@ public class RoleController extends BaseController {
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String removeDepartment(@RequestParam("id") Long id) {
-        final RoleEntity roleEntity = new RoleEntity();
-        roleEntity.setId(id);
-
-        this.rolePageService.delete(roleEntity);
+        this.rolePageService.delete(id);
         return "redirect:/role";
     }
 

@@ -52,7 +52,7 @@
 
         <security:intercept-url pattern="/**" access="isAuthenticated()"/>
 
-        <security:form-login login-page="/login?access=true"
+        <security:form-login login-page="/login"
                              default-target-url="/"
                              authentication-failure-url="/login?error=true&amp;access=true"
                              always-use-default-target="true"/>
