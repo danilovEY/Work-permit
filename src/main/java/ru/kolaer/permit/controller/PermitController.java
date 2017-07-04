@@ -85,9 +85,9 @@ public class PermitController extends BaseController{
         PeoplePermitEntity peopleById = this.permitPageService.getPeopleById(peoplePermitEntity.getId());
         if(peoplePermitEntity.getExecutors() != null && !peoplePermitEntity.getExecutors().isEmpty()) {
             peopleById.getExecutors().add(peoplePermitEntity.getExecutors().get(0));
-
-            peoplePermitEntity.setExecutors(peopleById.getExecutors());
         }
+
+        peoplePermitEntity.setExecutors(peopleById.getExecutors());
 
         final PeoplePermitEntity updatable = this.permitPageService.update(peoplePermitEntity);
 
