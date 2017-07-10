@@ -34,7 +34,7 @@
                     </div>
                 </#if>
 
-                <#if nameError?has_content>
+                <#if abbreviatedNameError?has_content>
                     <div class="control-group error">
                         <label class="control-label" for="abbreviatedName">Сокращенное наименование: </label>
                         <div class="controls">

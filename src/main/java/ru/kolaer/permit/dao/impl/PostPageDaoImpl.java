@@ -28,9 +28,9 @@ public class PostPageDaoImpl extends BasePageDaoAbstract<PostEntity> implements 
     @Transactional(readOnly = true)
     public boolean existPost(PostEntity postEntity) {
         return this.sessionFactory.getCurrentSession()
-                .createQuery("SELECT id FROM PostEntity p WHERE p.name = :name AND p.id <> :id")
+                .createQuery("SELECT id FROM PostEntity p WHERE LOWER(p.name) = :name AND p.id <> :id")
                 .setParameter("id", Optional.ofNullable(postEntity.getId()).orElse(-1L))
-                .setParameter("name", postEntity.getName())
+                .setParameter("name", postEntity.getName().trim().toLowerCase())
                 .uniqueResultOptional()
                 .isPresent();
     }
