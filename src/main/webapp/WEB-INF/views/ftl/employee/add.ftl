@@ -3,6 +3,7 @@
 <#-- @ftlvariable name="posts" type="java.util.List<ru.kolaer.permit.entity.PostEntity>" -->
 <#-- @ftlvariable name="nonPostError" type="java.lang.String" -->
 <#-- @ftlvariable name="nonDepError" type="java.lang.String" -->
+<#-- @ftlvariable name="pNumberError" type="java.lang.String" -->
 
 
 <#import "../layout/baseTemplate.ftl" as base>
@@ -28,12 +29,22 @@
         <div class="box-content">
             <form class="form-inline" method="post" action="<@spring.url relativeUrl="/employee/add"/>">
 
-                <div class="control-group">
-                    <label class="control-label" for="personnelNumber">Табельный номер: </label>
-                    <div class="controls">
-                        <input type="number" class="span12" id="personnelNumber" name="personnelNumber" min="0" data-bind="value:replyNumber" value="${(employee.personnelNumber!0)?c}"/>
+                <#if pNumberError?has_content>
+                    <div class="control-group error">
+                        <label class="control-label" for="personnelNumber">Табельный номер: </label>
+                        <div class="controls">
+                            <input type="number" class="span12" id="personnelNumber" name="personnelNumber" min="0" data-bind="value:replyNumber" value="${(employee.personnelNumber!0)?c}"/>
+                        </div>
+                        <span class="help-inline">${pNumberError}</span>
                     </div>
-                </div>
+                <#else>
+                    <div class="control-group">
+                        <label class="control-label" for="personnelNumber">Табельный номер: </label>
+                        <div class="controls">
+                            <input type="number" class="span12" id="personnelNumber" name="personnelNumber" min="0" data-bind="value:replyNumber" value="${(employee.personnelNumber!0)?c}"/>
+                        </div>
+                    </div>
+                </#if>
 
                 <div class="control-group">
                     <label class="control-label" for="name">Ф.И.О.: </label>

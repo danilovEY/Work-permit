@@ -40,7 +40,7 @@ public final class EmptyObjects {
     };
 
     public static final EmployeeEntity DEFAULT_EMPLOYEE =
-            new EmployeeEntity(-1L, "", new Date(0), -1, "", "", "", "", "", DEFAULT_DEPARTMENT, DEFAULT_POST){
+            new EmployeeEntity(-1L, "", new Date(0), 0L, "", "", "", "", "", DEFAULT_DEPARTMENT, DEFAULT_POST){
                 @Override
                 public void setId(Long id) {throw new UnsupportedOperationException("Employee entity object is empty! You can't write value to empty objects.");}
                 @Override
@@ -48,7 +48,7 @@ public final class EmptyObjects {
                 @Override
                 public void setBirthday(Date birthday) {throw new UnsupportedOperationException("Employee entity object is empty! You can't write value to empty objects.");}
                 @Override
-                public void setPersonnelNumber(Integer personnelNumber) {throw new UnsupportedOperationException("Employee entity object is empty! You can't write value to empty objects.");}
+                public void setPersonnelNumber(Long personnelNumber) {throw new UnsupportedOperationException("Employee entity object is empty! You can't write value to empty objects.");}
                 @Override
                 public void setDepartment(DepartmentEntity department) {throw new UnsupportedOperationException("Employee entity object is empty! You can't write value to empty objects.");}
                 @Override

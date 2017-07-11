@@ -18,7 +18,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class EmployeeEntity extends BaseEntity {
 
-    public EmployeeEntity(Long id, String initials, Date birthday, Integer personnelNumber,
+    public EmployeeEntity(Long id, String initials, Date birthday, Long personnelNumber,
                           String email, String workPhone, String gender, String username, String password, DepartmentEntity department,
                           PostEntity post) {
         this.id = id;
@@ -42,9 +42,8 @@ public class EmployeeEntity extends BaseEntity {
     @Column(name = "birthday", nullable = false)
     private Date birthday;
 
-    @Column(name = "personnel_number", length = 10,
-            unique = true, nullable = false)
-    private Integer personnelNumber;
+    @Column(name = "personnel_number", unique = true, nullable = false)
+    private Long personnelNumber;
 
     @Column(name = "email", length = 100)
     private String email;

@@ -14,7 +14,7 @@ public interface EmployeePageDao extends BasePageDao<EmployeeEntity> {
 
     EmployeeEntity findByPersonnelNumber(Integer personnelNumber);
 
-    Integer findIdByPersonnelNumber(Integer personnelNumber);
+    Long findIdByPersonnelNumber(Long personnelNumber);
 
     EmployeeEntity findByUsername(String username);
 }

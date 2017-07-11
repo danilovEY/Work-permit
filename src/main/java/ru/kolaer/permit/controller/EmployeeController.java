@@ -94,6 +94,17 @@ public class EmployeeController extends BaseController {
             page.addObject("nonPostError", "Нужно выбрать должность");
         }
 
+        if(employeeEntity.getPersonnelNumber() == null
+                || employeeEntity.getPersonnelNumber() < 1) {
+            hasError = true;
+            page.addObject("pNumberError", "Номер должен быть больше 0");
+        } else {
+            if(employeePageService.getIdByPersonnelNumber(employeeEntity.getPersonnelNumber()) != null) {
+                hasError = true;
+                page.addObject("pNumberError", "Такой табельный номер уже существует");
+            }
+        }
+
         if(employeeEntity.getDepartment() == null) {
             hasError = true;
             page.addObject("nonDepError", "Нужно выбрать подразделение");

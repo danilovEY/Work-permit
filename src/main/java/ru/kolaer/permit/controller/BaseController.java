@@ -37,7 +37,7 @@ public abstract class BaseController {
         this.defaultEmployee.setInitials(this.adminName);
         this.defaultEmployee.setUsername(this.adminName);
         this.defaultEmployee.setPassword("Смотри в конфигурационном файле");
-        this.defaultEmployee.setPersonnelNumber(-1);
+        this.defaultEmployee.setPersonnelNumber(0L);
         this.defaultEmployee.setBirthday(new Date());
         this.defaultEmployee.setEmail("test@test.ru");
         this.defaultEmployee.setRemoved(true);

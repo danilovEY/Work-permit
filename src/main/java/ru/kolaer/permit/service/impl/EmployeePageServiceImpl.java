@@ -80,7 +80,7 @@ public class EmployeePageServiceImpl extends BasePageServiceAbstract<EmployeeEnt
     }
 
     @Override
-    public Integer getIdByPersonnelNumber(Integer personnelNumber) {
+    public Long getIdByPersonnelNumber(Long personnelNumber) {
         return this.employeePageDao.findIdByPersonnelNumber(personnelNumber);
     }
 }

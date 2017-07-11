@@ -33,8 +33,8 @@ public class EmployeePageDaoImpl extends BasePageDaoAbstract<EmployeeEntity> imp
 
     @Override
     @Transactional(readOnly = true)
-    public Integer findIdByPersonnelNumber(Integer personnelNumber) {
-        return (Integer) this.sessionFactory.getCurrentSession()
+    public Long findIdByPersonnelNumber(Long personnelNumber) {
+        return (Long) this.sessionFactory.getCurrentSession()
                 .createQuery("SELECT id FROM EmployeeEntity WHERE personnelNumber = :personnelNumber")
                 .setParameter("personnelNumber", personnelNumber)
                 .uniqueResult();
