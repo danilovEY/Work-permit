@@ -116,12 +116,12 @@
                                 <td class="center">${permit.name!""}</td>
                                 <td class="center">
                                     <#if permit.startWork?has_content>
-                                        ${permit.startWork?string["dd.MM.yyyy hh:mm"]}
+                                        ${permit.startWork?string["dd.MM.yyyy HH:mm"]}
                                     </#if>
                                 </td>
                                 <td class="center">
                                     <#if permit.extendedPermit?has_content>
-                                        ${permit.extendedPermit?string["dd.MM.yyyy hh:mm"]}
+                                        ${permit.extendedPermit?string["dd.MM.yyyy HH:mm"]}
                                     </#if>
                                 </td>
                                 <td class="center">${permit.writer.initials!""}</td>
@@ -214,12 +214,12 @@
                                 <td class="center">${permit.name!""}</td>
                                 <td class="center">
                                     <#if permit.startWork?has_content>
-                                        ${permit.startWork?string["dd.MM.yyyy hh:mm"]}
+                                        ${permit.startWork?string["dd.MM.yyyy HH:mm"]}
                                     </#if>
                                 </td>
                                 <td class="center">
                                     <#if permit.extendedPermit?has_content>
-                                        ${permit.extendedPermit?string["dd.MM.yyyy hh:mm"]}
+                                        ${permit.extendedPermit?string["dd.MM.yyyy HH:mm"]}
                                     </#if>
                                 </td>
                                 <td class="center">${permit.writer.initials!""}</td>
@@ -411,7 +411,7 @@
                         <label class="control-label" for="extendWorkDate">Начало работ:</label>
                         <div class="controls">
                             <div id="extendWorkDatePicker-${permit.id}" class="input-append date span12">
-                                <input data-format="dd.MM.yyyy hh:mm" id="extendWorkDate" type="text" name="extendedPermit" value="${permit.extendedPermit?string["dd.MM.yyyy hh:mm"]}"/>
+                                <input data-format="dd.MM.yyyy HH:mm" id="extendWorkDate" type="text" name="extendedPermit" value="${permit.extendedPermit?string["dd.MM.yyyy HH:mm"]}"/>
                                 <span class="add-on">
                                 <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
                             </span>
@@ -432,7 +432,7 @@
            $(function() {
                $('#extendWorkDatePicker-${permit.id}').datetimepicker({
                    language: 'ru',
-                   format: 'dd.MM.yyyy hh:mm'
+                   format: 'dd.MM.yyyy HH:mm'
                });
             });
 

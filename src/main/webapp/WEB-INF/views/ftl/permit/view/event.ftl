@@ -57,7 +57,7 @@
                                                             <tr class="odd">
                                                                 <td class="center" id="row-event-id-${eventBegin.id}">${eventBegin_index + 1}</td>
                                                                 <td class="center" id="row-event-name-${eventBegin.id}">${eventBegin.name!""}</td>
-                                                                <td class="center" id="row-event-date-${eventBegin.id}">${eventBegin.limitDate?string["dd.MM.yyyy hh:mm"]!""}</td>
+                                                                <td class="center" id="row-event-date-${eventBegin.id}">${eventBegin.limitDate?string["dd.MM.yyyy HH:mm"]!""}</td>
                                                                 <#if eventBegin.employeesEntity?has_content>
                                                                     <td class="center" id="row-event-name-${eventBegin.id}">
                                                                         <#list eventBegin.employeesEntity as eventEmp>
@@ -72,7 +72,7 @@
                                                             <tr class="even">
                                                                 <td class="center" id="row-event-id-${eventBegin.id}">${eventBegin_index + 1}</td>
                                                                 <td class="center" id="row-event-name-${eventBegin.id}">${eventBegin.name!""}</td>
-                                                                <td class="center" id="row-event-date-${eventBegin.id}">${eventBegin.limitDate?string["dd.MM.yyyy hh:mm"]!""}</td>
+                                                                <td class="center" id="row-event-date-${eventBegin.id}">${eventBegin.limitDate?string["dd.MM.yyyy HH:mm"]!""}</td>
                                                                 <#if eventBegin.employeesEntity?has_content>
                                                                     <td class="center" id="row-event-name-${eventBegin.id}">
                                                                         <#list eventBegin.employeesEntity as eventEmp>
@@ -127,7 +127,7 @@
                                                         <tr class="odd">
                                                             <td class="center" id="row-event-id-${eventProcess.id}">${eventProcess_index + 1}</td>
                                                             <td class="center" id="row-event-name-${eventProcess.id}">${eventProcess.name!""}</td>
-                                                            <td class="center" id="row-event-date-${eventProcess.id}">${eventProcess.limitDate?string["dd.MM.yyyy hh:mm"]!""}</td>
+                                                            <td class="center" id="row-event-date-${eventProcess.id}">${eventProcess.limitDate?string["dd.MM.yyyy HH:mm"]!""}</td>
                                                             <#if eventProcess.employeesEntity?has_content>
                                                                 <td class="center" id="row-event-name-${eventProcess.id}">
                                                                     <#list eventProcess.employeesEntity as eventEmp>
@@ -142,7 +142,7 @@
                                                         <tr class="even">
                                                             <td class="center" id="row-event-id-${eventProcess.id}">${eventProcess_index + 1}</td>
                                                             <td class="center" id="row-event-name-${eventProcess.id}">${eventProcess.name!""}</td>
-                                                            <td class="center" id="row-event-date-${eventProcess.id}">${eventProcess.limitDate?string["dd.MM.yyyy hh:mm"]!""}</td>
+                                                            <td class="center" id="row-event-date-${eventProcess.id}">${eventProcess.limitDate?string["dd.MM.yyyy HH:mm"]!""}</td>
                                                             <#if eventProcess.employeesEntity?has_content>
                                                                 <td class="center" id="row-event-name-${eventProcess.id}">
                                                                     <#list eventProcess.employeesEntity as eventEmp>
@@ -197,7 +197,7 @@
                                                         <tr class="odd">
                                                             <td class="center" id="row-event-id-${eventSpecial.id}">${eventSpecial_index}</td>
                                                             <td class="center" id="row-event-name-${eventSpecial.id}">${eventSpecial.name!""}</td>
-                                                            <td class="center" id="row-event-date-${eventSpecial.id}">${eventSpecial.limitDate?string["dd.MM.yyyy hh:mm"]!""}</td>
+                                                            <td class="center" id="row-event-date-${eventSpecial.id}">${eventSpecial.limitDate?string["dd.MM.yyyy HH:mm"]!""}</td>
                                                             <#if eventSpecial.employeesEntity?has_content>
                                                                 <td class="center" id="row-event-name-${eventSpecial.id}">
                                                                     <#list eventSpecial.employeesEntity as eventEmp>
@@ -212,7 +212,7 @@
                                                         <tr class="even">
                                                             <td class="center" id="row-event-id-${eventSpecial.id}">${eventSpecial_index}</td>
                                                             <td class="center" id="row-event-name-${eventSpecial.id}">${eventSpecial.name!""}</td>
-                                                            <td class="center" id="row-event-date-${eventSpecial.id}">${eventSpecial.limitDate?string["dd.MM.yyyy hh:mm"]!""}</td>
+                                                            <td class="center" id="row-event-date-${eventSpecial.id}">${eventSpecial.limitDate?string["dd.MM.yyyy HH:mm"]!""}</td>
                                                             <#if eventSpecial.employeesEntity?has_content>
                                                                 <td class="center" id="row-event-name-${eventSpecial.id}">
                                                                     <#list eventSpecial.employeesEntity as eventEmp>

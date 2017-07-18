@@ -55,7 +55,7 @@
                                             <#if status.employee?has_content>
                                                 <strong>Ф.И.О.:</strong> ${status.employee.initials}<br>
                                             </#if>
-                                            <strong>Дата изменения:</strong> ${status.statusDate?string["dd.MM.yyyy hh:mm"]}<br>
+                                            <strong>Дата изменения:</strong> ${status.statusDate?string["dd.MM.yyyy HH:mm"]}<br>
                                             <strong>Статус:</strong>
                                             <#if status.status == NEED_APPROVE_PERMIT_STATUS>
                                                 <span class="label label-warning">${status.status}</span>
@@ -191,7 +191,7 @@
                         <label class="control-label" for="extendWorkDate">Начало работ:</label>
                         <div class="controls">
                             <div id="extendWorkDatePicker-${permit.id}" class="input-append date span12">
-                                <input data-format="dd.MM.yyyy hh:mm" id="extendWorkDate" type="text" name="extendedPermit" value="${permit.extendedPermit?string["dd.MM.yyyy hh:mm"]}"/>
+                                <input data-format="dd.MM.yyyy HH:mm" id="extendWorkDate" type="text" name="extendedPermit" value="${permit.extendedPermit?string["dd.MM.yyyy HH:mm"]}"/>
                                 <span class="add-on">
                                     <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
                                 </span>
@@ -212,7 +212,7 @@
             $(function() {
                 $('#extendWorkDatePicker-${permit.id}').datetimepicker({
                     language: 'ru',
-                    format: 'dd.MM.yyyy hh:mm'
+                    format: 'dd.MM.yyyy HH:mm'
                 });
             });
 

@@ -25,8 +25,8 @@
             </ul>
             <form class="form-inline" method="post" action="<@spring.url relativeUrl="/permit/update/work"/>">
                 <input type="hidden" name="id" value="${workPermitEntity.id}">
-                <input class="hidden" data-format="dd.MM.yyyy hh:mm" type="text" name="extendedPermit" value="${workPermitEntity.extendedPermit?string["dd.MM.yyyy hh:mm"]}" readonly/>
-                <input class="hidden" data-format="dd.MM.yyyy hh:mm" type="text" name="dateWritePermit" value="${workPermitEntity.dateWritePermit?string["dd.MM.yyyy hh:mm"]}" readonly/>
+                <input class="hidden" data-format="dd.MM.yyyy HH:mm" type="text" name="extendedPermit" value="${workPermitEntity.extendedPermit?string["dd.MM.yyyy HH:mm"]}" readonly/>
+                <input class="hidden" data-format="dd.MM.yyyy HH:mm" type="text" name="dateWritePermit" value="${workPermitEntity.dateWritePermit?string["dd.MM.yyyy HH:mm"]}" readonly/>
                 <div id="myTabContent" class="tab-content">
                     <#-- FIRST_TAB -->
                     <div class="tab-pane active" id="work_tab">
@@ -85,7 +85,7 @@
                                         <label class="control-label" for="beginWorkDatePicker">Начало работ:</label>
                                         <div class="controls">
                                             <div id="beginWorkDatePicker" class="input-append date span12">
-                                                <input class="span11" data-format="dd.MM.yyyy hh:mm" type="text" name="startWork" value="${workPermitEntity.startWork?string["dd.MM.yyyy hh:mm"]!""}"/>
+                                                <input class="span11" data-format="dd.MM.yyyy HH:mm" type="text" name="startWork" value="${workPermitEntity.startWork?string["dd.MM.yyyy HH:mm"]!""}"/>
                                                 <span class="add-on">
                                                     <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
                                                 </span>
@@ -97,7 +97,7 @@
                                         <label class="control-label" for="endWorkDatePicker">Конец работ:</label>
                                         <div class="controls">
                                             <div id="endWorkDatePicker" class="input-append date span12">
-                                                <input class="span11" data-format="dd.MM.yyyy hh:mm" type="text" name="endWork" value="${workPermitEntity.endWork?string["dd.MM.yyyy hh:mm"]!""}"/>
+                                                <input class="span11" data-format="dd.MM.yyyy HH:mm" type="text" name="endWork" value="${workPermitEntity.endWork?string["dd.MM.yyyy HH:mm"]!""}"/>
                                                 <span class="add-on">
                                                     <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
                                                 </span>
@@ -197,14 +197,14 @@
     $(function() {
         $('#beginWorkDatePicker').datetimepicker({
             language: 'ru',
-            format: 'dd.MM.yyyy hh:mm'
+            format: 'dd.MM.yyyy HH:mm'
         });
     });
 
     $(function() {
         $('#endWorkDatePicker').datetimepicker({
             language: 'ru',
-            format: 'dd.MM.yyyy hh:mm'
+            format: 'dd.MM.yyyy HH:mm'
         });
     });
 </script>

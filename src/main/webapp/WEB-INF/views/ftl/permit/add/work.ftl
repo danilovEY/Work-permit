@@ -105,7 +105,7 @@
                                             <label class="control-label" for="beginWorkDatePicker">Начало работ:</label>
                                             <div class="controls">
                                                 <div id="beginWorkDatePicker" class="input-append date span12">
-                                                    <input class="span11" data-format="dd.MM.yyyy hh:mm" type="text" name="startWork" value="${(workPermitEntity.startWork!dateNow)?string["dd.MM.yyyy hh:mm"]}"/>
+                                                    <input class="span11" data-format="dd.MM.yyyy hh:mm" type="text" name="startWork" value="${(workPermitEntity.startWork!dateNow)?string["dd.MM.yyyy HH:mm"]}"/>
                                                     <span class="add-on">
                                                         <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
                                                     </span>
@@ -118,7 +118,7 @@
                                             <label class="control-label" for="beginWorkDatePicker">Начало работ:</label>
                                             <div class="controls">
                                                 <div id="beginWorkDatePicker" class="input-append date span12">
-                                                    <input class="span11" data-format="dd.MM.yyyy hh:mm" type="text" name="startWork" value="${(workPermitEntity.startWork!dateNow)?string["dd.MM.yyyy hh:mm"]}"/>
+                                                    <input class="span11" data-format="dd.MM.yyyy hh:mm" type="text" name="startWork" value="${(workPermitEntity.startWork!dateNow)?string["dd.MM.yyyy HH:mm"]}"/>
                                                     <span class="add-on">
                                                     <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
                                                 </span>
@@ -132,7 +132,7 @@
                                             <label class="control-label" for="endWorkDatePicker">Конец работ:</label>
                                             <div class="controls">
                                                 <div id="endWorkDatePicker" class="input-append date span12">
-                                                    <input class="span11" data-format="dd.MM.yyyy hh:mm" type="text" name="endWork" value="${(workPermitEntity.endWork!dateNow)?string["dd.MM.yyyy hh:mm"]}"/>
+                                                    <input class="span11" data-format="dd.MM.yyyy hh:mm" type="text" name="endWork" value="${(workPermitEntity.endWork!dateNow)?string["dd.MM.yyyy HH:mm"]}"/>
                                                     <span class="add-on">
                                                         <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
                                                     </span>
@@ -145,7 +145,7 @@
                                             <label class="control-label" for="endWorkDatePicker">Конец работ:</label>
                                             <div class="controls">
                                                 <div id="endWorkDatePicker" class="input-append date span12">
-                                                    <input class="span11" data-format="dd.MM.yyyy hh:mm" type="text" name="endWork" value="${(workPermitEntity.endWork!dateNow)?string["dd.MM.yyyy hh:mm"]}"/>
+                                                    <input class="span11" data-format="dd.MM.yyyy hh:mm" type="text" name="endWork" value="${(workPermitEntity.endWork!dateNow)?string["dd.MM.yyyy HH:mm"]}"/>
                                                     <span class="add-on">
                                                     <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
                                                 </span>
