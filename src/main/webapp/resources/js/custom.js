@@ -602,7 +602,7 @@ function template_functions(){
 			range: "min",
 			min: 0,
 			max: 100,
-			value: 60,
+			value: 60
 		});
 
 		$( "#sliderVertical-2" ).slider({
@@ -610,7 +610,7 @@ function template_functions(){
 			range: "min",
 			min: 0,
 			max: 100,
-			value: 40,
+			value: 40
 		});
 
 		$( "#sliderVertical-3" ).slider({
@@ -618,7 +618,7 @@ function template_functions(){
 			range: "min",
 			min: 0,
 			max: 100,
-			value: 30,
+			value: 30
 		});
 
 		$( "#sliderVertical-4" ).slider({
@@ -626,7 +626,7 @@ function template_functions(){
 			range: "min",
 			min: 0,
 			max: 100,
-			value: 15,
+			value: 15
 		});
 
 		$( "#sliderVertical-5" ).slider({
@@ -634,7 +634,7 @@ function template_functions(){
 			range: "min",
 			min: 0,
 			max: 100,
-			value: 40,
+			value: 40
 		});
 
 		$( "#sliderVertical-6" ).slider({
@@ -642,7 +642,7 @@ function template_functions(){
 			range: "min",
 			min: 0,
 			max: 100,
-			value: 80,
+			value: 80
 		});
 		
 		$( "#sliderVertical-7" ).slider({
@@ -650,7 +650,7 @@ function template_functions(){
 			range: "min",
 			min: 0,
 			max: 100,
-			value: 60,
+			value: 60
 		});
 
 		$( "#sliderVertical-8" ).slider({
@@ -658,40 +658,40 @@ function template_functions(){
 			range: "min",
 			min: 0,
 			max: 100,
-			value: 40,
-		});
+			value: 40
+        });
 
 		$( "#sliderVertical-9" ).slider({
 			orientation: "vertical",
 			range: "min",
 			min: 0,
 			max: 100,
-			value: 30,
-		});
+			value: 30
+        });
 
 		$( "#sliderVertical-10" ).slider({
 			orientation: "vertical",
 			range: "min",
 			min: 0,
 			max: 100,
-			value: 15,
-		});
+			value: 15
+        });
 
 		$( "#sliderVertical-11" ).slider({
 			orientation: "vertical",
 			range: "min",
 			min: 0,
 			max: 100,
-			value: 40,
-		});
+			value: 40
+        });
 
 		$( "#sliderVertical-12" ).slider({
 			orientation: "vertical",
 			range: "min",
 			min: 0,
 			max: 100,
-			value: 80,
-		});
+			value: 80
+        });
 			
 }
 
@@ -1084,8 +1084,8 @@ function charts() {
 							fill: false, 
 							barWidth: 0.1, 
 							align: "center",
-							lineWidth: 5,
-					}
+							lineWidth: 5
+                    }
 				  }
 				], {
 				   
@@ -1099,8 +1099,8 @@ function charts() {
 						},	
 				   colors: ["rgba(255,255,255,0.8)", "rgba(255,255,255,0.6)", "rgba(255,255,255,0.4)", "rgba(255,255,255,0.2)"],
 				xaxis: {ticks:15, tickDecimals: 0, color: "rgba(255,255,255,0.8)" },
-					yaxis: {ticks:5, tickDecimals: 0, color: "rgba(255,255,255,0.8)" },
-				});
+					yaxis: {ticks:5, tickDecimals: 0, color: "rgba(255,255,255,0.8)" }
+            });
 		
 		/*
 		   [ { data: visitors, label: "Visits"}], {
@@ -1195,8 +1195,8 @@ function charts() {
 						 },
 				   colors: ["#3B5998"],
 					xaxis: {ticks:6, tickDecimals: 0},
-					yaxis: {ticks:3, tickDecimals: 0},
-				 });
+					yaxis: {ticks:3, tickDecimals: 0}
+            });
 
 		function showTooltip(x, y, contents) {
 			$('<div id="tooltip">' + contents + '</div>').css( {
@@ -1264,8 +1264,8 @@ function charts() {
 						 },
 				   colors: ["#1BB2E9"],
 					xaxis: {ticks:6, tickDecimals: 0},
-					yaxis: {ticks:3, tickDecimals: 0},
-				 });
+					yaxis: {ticks:3, tickDecimals: 0}
+            });
 
 		function showTooltip(x, y, contents) {
 			$('<div id="tooltip">' + contents + '</div>').css( {
@@ -1325,18 +1325,18 @@ function charts() {
 							align: "center",
 							lineWidth: 5,
 							fillColor: { colors: [ { opacity: 1 }, { opacity: 0.5 } ] }
-						},
-	            },
+						}
+                },
 				grid: { hoverable: true, 
 						   clickable: true, 
 						   tickColor: "#f6f6f6",
-						   borderWidth: 0,
-						},
+						   borderWidth: 0
+                },
 				colors: ["#CBE968"],
 				xaxis: {ticks:0, tickDecimals: 0, tickFormatter: function(v, a) {return v }},
-				yaxis: {ticks:5, tickDecimals: 0, tickFormatter: function (v) { return v }},
-	
-	        });
+				yaxis: {ticks:5, tickDecimals: 0, tickFormatter: function (v) { return v }}
+
+            });
 	    }
 	
 	    plotWithOptions2();
@@ -1361,12 +1361,12 @@ function charts() {
 				   grid: { hoverable: true, 
 						   clickable: true, 
 						   tickColor: "#eee",
-						   borderWidth: 0,
-						 },
+						   borderWidth: 0
+                   },
 				   colors: ["#b1d3d4"],
 					xaxis: {ticks:11, tickDecimals: 0},
-					yaxis: {ticks:11, tickDecimals: 0},
-				 });
+					yaxis: {ticks:11, tickDecimals: 0}
+            });
 
 		function showTooltip(x, y, contents) {
 			$('<div id="tooltip">' + contents + '</div>').css( {
@@ -1430,8 +1430,8 @@ function charts() {
 			   [ { data: sin, label: "sin(x)/x"}, { data: cos, label: "cos(x)" } ], {
 				   series: {
 					   lines: { show: true,
-								lineWidth: 2,
-							 },
+								lineWidth: 2
+                       },
 					   points: { show: true },
 					   shadowSize: 2
 				   },
@@ -1551,8 +1551,8 @@ function charts() {
 				series: {
 					stack: stack,
 					lines: { show: lines, fill: true, steps: steps },
-					bars: { show: bars, barWidth: 0.6 },
-				},
+					bars: { show: bars, barWidth: 0.6 }
+                },
 				colors: ["#FA5833", "#2FABE9", "#FABB3D"]
 			});
 		}
@@ -1733,9 +1733,9 @@ function charts() {
 			xaxis: { show: false },
 			colors: ["#FA5833"],
 			grid: {	tickColor: "#f9f9f9",
-					borderWidth: 0, 
-			},
-		};
+					borderWidth: 0
+            }
+        };
 		var plot = $.plot($("#serverLoad"), [ getRandomData() ], options);
 		function update() {
 			plot.setData([ getRandomData() ]);
@@ -1757,9 +1757,9 @@ function charts() {
 			xaxis: { show: false, color: "rgba(255,255,255,0.8)" },
 			colors: ["rgba(255,255,255,0.95)"],
 			grid: {	tickColor: "rgba(255,255,255,0.15)",
-					borderWidth: 0, 
-			},
-		};
+					borderWidth: 0
+            }
+        };
 		var plot = $.plot($("#serverLoad2"), [ getRandomData() ], options);
 		function update() {
 			plot.setData([ getRandomData() ]);
@@ -1782,8 +1782,8 @@ function charts() {
 			colors: ["#F4A506"],
 			grid: {	tickColor: "#dddddd",
 					borderWidth: 0 
-			},
-		};
+			}
+        };
 		var plot = $.plot($("#realtimechart"), [ getRandomData() ], options);
 		function update() {
 			plot.setData([ getRandomData() ]);
