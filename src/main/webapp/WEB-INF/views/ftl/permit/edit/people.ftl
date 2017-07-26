@@ -29,13 +29,13 @@
                 <div id="myTabContent" class="tab-content">
                     <#-- THIRD_TAB -->
                     <div class="tab-pane active" id="employee_tab">
-                        <div class="row-fluid">
+                        <#--<div class="row-fluid">-->
                         <#-- Наряд BEGIN -->
-                            <div class="box span6">
-                                <div class="box-header">
-                                    <h2><i class="halflings-icon white th"></i><span class="break"></span>Наряд</h2>
-                                </div>
-                                <div class="box-content">
+                            <#--<div class="box span6">-->
+                                <#--<div class="box-header">-->
+                                    <#--<h2><i class="halflings-icon white th"></i><span class="break"></span>Наряд</h2>-->
+                                <#--</div>-->
+                                <#--<div class="box-content">-->
                                     <div class="control-group">
                                         <label class="control-label" for="permitName">Наряд-допуск выдал:</label>
                                         <div class="controls">
@@ -97,16 +97,16 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
+                                <#--</div>-->
+                            <#--</div>-->
                         <#-- Наряд END -->
 
                         <#-- Ответственные BEGIN -->
-                            <div class="box span6">
-                                <div class="box-header">
-                                    <h2><i class="halflings-icon white th"></i><span class="break"></span>Ответственные</h2>
-                                </div>
-                                <div class="box-content">
+                            <#--<div class="box span6">-->
+                                <#--<div class="box-header">-->
+                                    <#--<h2><i class="halflings-icon white th"></i><span class="break"></span>Ответственные</h2>-->
+                                <#--</div>-->
+                                <#--<div class="box-content">-->
                                     <div class="control-group">
                                         <label class="control-label" for="selectSupervisor">Ответственный руководитель работ:</label>
                                         <div class="controls">
@@ -142,16 +142,16 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
+                                <#--</div>-->
+                            <#--</div>-->
                         <#-- Ответственные END -->
 
                         <#-- Состав BEGIN -->
-                            <div class="box span6">
-                                <div class="box-header">
-                                    <h2><i class="halflings-icon white th"></i><span class="break"></span>Состав исполнителей работ</h2>
-                                </div>
-                                <div class="box-content">
+                            <#--<div class="box span6">-->
+                                <#--<div class="box-header">-->
+                                    <#--<h2><i class="halflings-icon white th"></i><span class="break"></span>Состав исполнителей работ</h2>-->
+                                <#--</div>-->
+                                <#--<div class="box-content">-->
                                     <table class="table table-striped table-bordered bootstrap-datatable" id="DataTables_Table_0"
                                            aria-describedby="DataTables_Table_0_info">
                                         <thead>
@@ -241,10 +241,10 @@
 
                                         </div>
                                     </div>
-                                </div>
-                            </div>
+                                <#--</div>-->
+                            <#--</div>-->
                         <#-- Состав END -->
-                        </div>
+                        <#--</div>-->
                     </div>
 
                 </div>

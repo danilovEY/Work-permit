@@ -38,11 +38,11 @@
                                            aria-describedby="DataTables_Table_0_info">
                                         <thead>
                                         <tr role="row">
+                                            <#--<th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"-->
+                                                <#--colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Номер-->
+                                            <#--</th>-->
                                             <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                                colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Номер
-                                            </th>
-                                            <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                                colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Наименование мероприятий или ссылка на пункт ППР или технологических карт
+                                                colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Наименование мероприятий
                                             </th>
                                             <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                                 colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Срок выполнения
@@ -61,7 +61,7 @@
                                                     <#if eventBegin.typeEvent == "BEGIN">
                                                         <#if eventBegin_index % 2 == 0>
                                                             <tr class="odd">
-                                                                <td class="center" id="row-event-id-${eventBegin.id}">${eventBegin_index + 1}</td>
+                                                                <#--<td class="center" id="row-event-id-${eventBegin.id}">${eventBegin_index + 1}</td>-->
                                                                 <td class="center" id="row-event-name-${eventBegin.id}">${eventBegin.name!""}</td>
                                                                 <td class="center" id="row-event-date-${eventBegin.id}">${eventBegin.limitDate?string["dd.MM.yyyy HH:mm"]!""}</td>
                                                                 <#if eventBegin.employeesEntity?has_content>
@@ -84,7 +84,7 @@
                                                             </tr>
                                                         <#else>
                                                             <tr class="even">
-                                                                <td class="center" id="row-event-id-${eventBegin.id}">${eventBegin_index + 1}</td>
+                                                                <#--<td class="center" id="row-event-id-${eventBegin.id}">${eventBegin_index + 1}</td>-->
                                                                 <td class="center" id="row-event-name-${eventBegin.id}">${eventBegin.name!""}</td>
                                                                 <td class="center" id="row-event-date-${eventBegin.id}">${eventBegin.limitDate?string["dd.MM.yyyy HH:mm"]!""}</td>
                                                                 <#if eventBegin.employeesEntity?has_content>
@@ -137,9 +137,9 @@
                                            aria-describedby="DataTables_Table_0_info">
                                         <thead>
                                         <tr role="row">
-                                            <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                                colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Номер
-                                            </th>
+                                            <#--<th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"-->
+                                                <#--colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Номер-->
+                                            <#--</th>-->
                                             <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                                 colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Наименование мероприятий
                                             </th>
@@ -160,7 +160,7 @@
                                                     <#if eventProcess.typeEvent == "PROCESS">
                                                         <#if eventProcess_index % 2 == 0>
                                                         <tr class="odd">
-                                                            <td class="center" id="row-event-id-${eventProcess.id}">${eventProcess_index + 1}</td>
+                                                            <#--<td class="center" id="row-event-id-${eventProcess.id}">${eventProcess_index + 1}</td>-->
                                                             <td class="center" id="row-event-name-${eventProcess.id}">${eventProcess.name!""}</td>
                                                             <td class="center" id="row-event-date-${eventProcess.id}">${eventProcess.limitDate?string["dd.MM.yyyy HH:mm"]!""}</td>
                                                             <#if eventProcess.employeesEntity?has_content>
@@ -183,7 +183,7 @@
                                                         </tr>
                                                         <#else>
                                                         <tr class="even">
-                                                            <td class="center" id="row-event-id-${eventProcess.id}">${eventProcess_index + 1}</td>
+                                                            <#--<td class="center" id="row-event-id-${eventProcess.id}">${eventProcess_index + 1}</td>-->
                                                             <td class="center" id="row-event-name-${eventProcess.id}">${eventProcess.name!""}</td>
                                                             <td class="center" id="row-event-date-${eventProcess.id}">${eventProcess.limitDate?string["dd.MM.yyyy HH:mm"]!""}</td>
                                                             <#if eventProcess.employeesEntity?has_content>
@@ -235,9 +235,9 @@
                                            aria-describedby="DataTables_Table_0_info">
                                         <thead>
                                         <tr role="row">
-                                            <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                                colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Номер
-                                            </th>
+                                            <#--<th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"-->
+                                                <#--colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Номер-->
+                                            <#--</th>-->
                                             <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                                 colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Наименование условия
                                             </th>
@@ -258,7 +258,7 @@
                                                     <#if eventSpecial.typeEvent == "SPECIAL">
                                                         <#if eventSpecial_index % 2 == 0>
                                                         <tr class="odd">
-                                                            <td class="center" id="row-event-id-${eventSpecial.id}">${eventSpecial_index}</td>
+                                                            <#--<td class="center" id="row-event-id-${eventSpecial.id}">${eventSpecial_index}</td>-->
                                                             <td class="center" id="row-event-name-${eventSpecial.id}">${eventSpecial.name!""}</td>
                                                             <td class="center" id="row-event-date-${eventSpecial.id}">${eventSpecial.limitDate?string["dd.MM.yyyy HH:mm"]!""}</td>
                                                             <#if eventSpecial.employeesEntity?has_content>
@@ -281,7 +281,7 @@
                                                         </tr>
                                                         <#else>
                                                         <tr class="even">
-                                                            <td class="center" id="row-event-id-${eventSpecial.id}">${eventSpecial_index}</td>
+                                                            <#--<td class="center" id="row-event-id-${eventSpecial.id}">${eventSpecial_index}</td>-->
                                                             <td class="center" id="row-event-name-${eventSpecial.id}">${eventSpecial.name!""}</td>
                                                             <td class="center" id="row-event-date-${eventSpecial.id}">${eventSpecial.limitDate?string["dd.MM.yyyy HH:mm"]!""}</td>
                                                             <#if eventSpecial.employeesEntity?has_content>

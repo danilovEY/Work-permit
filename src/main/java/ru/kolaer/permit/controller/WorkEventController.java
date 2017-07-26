@@ -84,7 +84,7 @@ public class WorkEventController extends BaseController {
     @RequestMapping(value = "add/employee", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public String addEmployeeWorkEvent(WorkEvent workEvent) {
-        if(workEvent.getEmployeesEntity() != null || !workEvent.getEmployeesEntity().isEmpty()) {
+        if(workEvent.getEmployeesEntity() != null && !workEvent.getEmployeesEntity().isEmpty()) {
             final WorkEvent updatable = this.workEventDao.findById(workEvent.getId(), true);
             updatable.getEmployeesEntity().addAll(workEvent.getEmployeesEntity());
 
