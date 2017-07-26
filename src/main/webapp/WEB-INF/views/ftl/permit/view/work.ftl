@@ -89,7 +89,7 @@
                                         <label class="control-label" for="dateWritePermit">Годен до:</label>
                                         <div class="controls">
                                             <div class="input-append date span12">
-                                                <input class="span11" id="dateWritePermit" data-format="dd.MM.yyyy HH:mm" type="text" value="${workPermitEntity.extendedPermit?string["dd.MM.yyyy HH:mm"]!""}" readonly/>
+                                                <input class="span11" id="dateWritePermit" data-format="dd.MM.yyyy HH:mm" type="text" value="${workPermitEntity.endWork?string["dd.MM.yyyy HH:mm"]!""}" readonly/>
                                             </div>
                                         </div>
                                     </div>

@@ -39,19 +39,19 @@
                                         </div>
                                     </div>
 
-                                    <div class="control-group">
-                                        <label class="control-label" for="accepted">Наряд-допуск принял:</label>
-                                        <div class="controls">
-                                            <#if peoplePermitEntity.accepted?has_content>
-                                                <input class="span12" id="accepted" type="text" name="wr" value="${peoplePermitEntity.accepted.initials}" readonly/>
-                                            <#else>
-                                                <input class="span12" id="accepted" type="text" readonly/>
-                                            </#if>
-                                        </div>
-                                    </div>
+                                    <#--<div class="control-group">-->
+                                        <#--<label class="control-label" for="accepted">Наряд-допуск принял:</label>-->
+                                        <#--<div class="controls">-->
+                                            <#--<#if peoplePermitEntity.accepted?has_content>-->
+                                                <#--<input class="span12" id="accepted" type="text" name="wr" value="${peoplePermitEntity.accepted.initials}" readonly/>-->
+                                            <#--<#else>-->
+                                                <#--<input class="span12" id="accepted" type="text" readonly/>-->
+                                            <#--</#if>-->
+                                        <#--</div>-->
+                                    <#--</div>-->
 
                                     <div class="control-group">
-                                        <label class="control-label" for="briefingHeld">Целевой инструктаж провёл:</label>
+                                        <label class="control-label" for="briefingHeld">Целевой инструктаж прошел:</label>
                                         <div class="controls">
                                             <#if peoplePermitEntity.briefingHeld?has_content>
                                                 <input class="span12" id="briefingHeld" type="text" name="wr" value="${peoplePermitEntity.briefingHeld.initials}" readonly/>

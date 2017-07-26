@@ -23,7 +23,7 @@
 
                 <input type="hidden" name="permit.id" value="${workEvent.permitId}">
 
-                <div class="control-group">
+                <div class="control-group hidden">
                     <label class="control-label" for="selectType">Тип мероприятия:</label>
                     <div class="controls">
                         <select id="selectType" class="span12" name="typeEvent" data-rel="chosen">

@@ -53,6 +53,7 @@
                                             + '<#if RequestParameters.pagesize?has_content>&pagesize=${RequestParameters.pagesize}</#if>'">
                                         <option value="0" <#if typeSort == 0>selected="selected"</#if>>Дате выдачи наряда</option>
                                         <option value="1" <#if typeSort == 1>selected="selected"</#if>>Дате начала работы</option>
+                                        <option value="2" <#if typeSort == 2>selected="selected"</#if>>Дате окончания работы</option>
                                     </select>
                                 </div>
                             </div>
@@ -100,9 +101,9 @@
                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                             colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Руководитель
                         </th>
-                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                            colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Статус
-                        </th>
+                        <#--<th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"-->
+                            <#--colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Статус-->
+                        <#--</th>-->
                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                             colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 229px;">Действие
                         </th>
@@ -120,8 +121,8 @@
                                     </#if>
                                 </td>
                                 <td class="center">
-                                    <#if permit.extendedPermit?has_content>
-                                        ${permit.extendedPermit?string["dd.MM.yyyy HH:mm"]}
+                                    <#if permit.endWork?has_content>
+                                        ${permit.endWork?string["dd.MM.yyyy HH:mm"]}
                                     </#if>
                                 </td>
                                 <td class="center">${permit.writer.initials!""}</td>
@@ -131,25 +132,25 @@
                                     <td class="center"></td>
                                 </#if>
 
-                                <#if permit.status == NEED_APPROVE_PERMIT_STATUS>
-                                    <td class="center"><span class="label label-warning">${permit.status}</span></td>
-                                <#elseif permit.status == CANCELED_STATUS>
-                                    <td class="center"><span class="label label-important">${permit.status}</span></td>
-                                <#elseif permit.status == APPROVE_STATUS>
-                                    <td class="center"><span class="label label-info">${permit.status}</span></td>
-                                <#elseif permit.status == PERMIT_STATUS>
-                                    <td class="center"><span class="label label-success">${permit.status}</span></td>
-                                <#elseif permit.status == WORKING_STATUS>
-                                    <td class="center"><span class="label label-success">${permit.status}</span></td>
-                                <#elseif permit.status == OVERDUE_STATUS>
-                                    <td class="center"><span class="label label-important">${permit.status}</span></td>
-                                <#elseif permit.status == DELETED_STATUS>
-                                    <td class="center"><span class="label label-inverse">${permit.status}</span></td>
-                                <#elseif permit.status == END_STATUS>
-                                    <td class="center"><span class="label label-success">${permit.status}</span></td>
-                                <#else>
-                                    <td class="center"><span class="label">${permit.status}</span></td>
-                                </#if>
+                                <#--<#if permit.status == NEED_APPROVE_PERMIT_STATUS>-->
+                                    <#--<td class="center"><span class="label label-warning">${permit.status}</span></td>-->
+                                <#--<#elseif permit.status == CANCELED_STATUS>-->
+                                    <#--<td class="center"><span class="label label-important">${permit.status}</span></td>-->
+                                <#--<#elseif permit.status == APPROVE_STATUS>-->
+                                    <#--<td class="center"><span class="label label-info">${permit.status}</span></td>-->
+                                <#--<#elseif permit.status == PERMIT_STATUS>-->
+                                    <#--<td class="center"><span class="label label-success">${permit.status}</span></td>-->
+                                <#--<#elseif permit.status == WORKING_STATUS>-->
+                                    <#--<td class="center"><span class="label label-success">${permit.status}</span></td>-->
+                                <#--<#elseif permit.status == OVERDUE_STATUS>-->
+                                    <#--<td class="center"><span class="label label-important">${permit.status}</span></td>-->
+                                <#--<#elseif permit.status == DELETED_STATUS>-->
+                                    <#--<td class="center"><span class="label label-inverse">${permit.status}</span></td>-->
+                                <#--<#elseif permit.status == END_STATUS>-->
+                                    <#--<td class="center"><span class="label label-success">${permit.status}</span></td>-->
+                                <#--<#else>-->
+                                    <#--<td class="center"><span class="label">${permit.status}</span></td>-->
+                                <#--</#if>-->
 
                                 <td class="center">
                                     <a class="btn btn-success" style="margin-bottom: 4px;" title="Просмотр" href="<@spring.url relativeUrl="/permit/view/work?id=${permit.id}"/>">
@@ -218,8 +219,8 @@
                                     </#if>
                                 </td>
                                 <td class="center">
-                                    <#if permit.extendedPermit?has_content>
-                                        ${permit.extendedPermit?string["dd.MM.yyyy HH:mm"]}
+                                    <#if permit.endWork?has_content>
+                                        ${permit.endWork?string["dd.MM.yyyy HH:mm"]}
                                     </#if>
                                 </td>
                                 <td class="center">${permit.writer.initials!""}</td>
@@ -230,25 +231,25 @@
                                     <td class="center"></td>
                                 </#if>
 
-                                <#if permit.status == NEED_APPROVE_PERMIT_STATUS>
-                                    <td class="center"><span class="label label-warning">${permit.status}</span></td>
-                                <#elseif permit.status == CANCELED_STATUS>
-                                    <td class="center"><span class="label label-important">${permit.status}</span></td>
-                                <#elseif permit.status == APPROVE_STATUS>
-                                    <td class="center"><span class="label label-info">${permit.status}</span></td>
-                                <#elseif permit.status == PERMIT_STATUS>
-                                    <td class="center"><span class="label label-success">${permit.status}</span></td>
-                                <#elseif permit.status == WORKING_STATUS>
-                                    <td class="center"><span class="label label-success">${permit.status}</span></td>
-                                <#elseif permit.status == OVERDUE_STATUS>
-                                    <td class="center"><span class="label label-important">${permit.status}</span></td>
-                                <#elseif permit.status == DELETED_STATUS>
-                                    <td class="center"><span class="label label-inverse">${permit.status}</span></td>
-                                <#elseif permit.status == END_STATUS>
-                                    <td class="center"><span class="label label-success">${permit.status}</span></td>
-                                <#else>
-                                    <td class="center"><span class="label">${permit.status}</span></td>
-                                </#if>
+                                <#--<#if permit.status == NEED_APPROVE_PERMIT_STATUS>-->
+                                    <#--<td class="center"><span class="label label-warning">${permit.status}</span></td>-->
+                                <#--<#elseif permit.status == CANCELED_STATUS>-->
+                                    <#--<td class="center"><span class="label label-important">${permit.status}</span></td>-->
+                                <#--<#elseif permit.status == APPROVE_STATUS>-->
+                                    <#--<td class="center"><span class="label label-info">${permit.status}</span></td>-->
+                                <#--<#elseif permit.status == PERMIT_STATUS>-->
+                                    <#--<td class="center"><span class="label label-success">${permit.status}</span></td>-->
+                                <#--<#elseif permit.status == WORKING_STATUS>-->
+                                    <#--<td class="center"><span class="label label-success">${permit.status}</span></td>-->
+                                <#--<#elseif permit.status == OVERDUE_STATUS>-->
+                                    <#--<td class="center"><span class="label label-important">${permit.status}</span></td>-->
+                                <#--<#elseif permit.status == DELETED_STATUS>-->
+                                    <#--<td class="center"><span class="label label-inverse">${permit.status}</span></td>-->
+                                <#--<#elseif permit.status == END_STATUS>-->
+                                    <#--<td class="center"><span class="label label-success">${permit.status}</span></td>-->
+                                <#--<#else>-->
+                                    <#--<td class="center"><span class="label">${permit.status}</span></td>-->
+                                <#--</#if>-->
 
                                 <td class="center">
                                     <a class="btn btn-success" style="margin-bottom: 4px;" title="Просмотр" href="<@spring.url relativeUrl="/permit/view/work?id=${permit.id}"/>">
@@ -411,7 +412,7 @@
                         <label class="control-label" for="extendWorkDate">Начало работ:</label>
                         <div class="controls">
                             <div id="extendWorkDatePicker-${permit.id}" class="input-append date span12">
-                                <input data-format="dd.MM.yyyy HH:mm" id="extendWorkDate" type="text" name="extendedPermit" value="${permit.extendedPermit?string["dd.MM.yyyy HH:mm"]}"/>
+                                <input data-format="dd.MM.yyyy HH:mm" id="extendWorkDate" type="text" name="endWork" value="${permit.endWork?string["dd.MM.yyyy HH:mm"]}"/>
                                 <span class="add-on">
                                 <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
                             </span>

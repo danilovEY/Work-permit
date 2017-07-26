@@ -102,7 +102,7 @@ public class PermitPageDaoImpl extends BasePageDaoAbstract<PermitEntity> impleme
         }
 
         switch (sort) {
-            case 2: select = select.orderBy(criteriaBuilder.desc(fromSelect.get("extendedPermit"))); break;
+            case 2: select = select.orderBy(criteriaBuilder.desc(fromSelect.get("endWork"))); break;
             case 1: select = select.orderBy(criteriaBuilder.desc(fromSelect.get("startWork"))); break;
             case 0:
             default: select = select.orderBy(criteriaBuilder.desc(fromSelect.get("dateWritePermit")));
@@ -224,7 +224,7 @@ public class PermitPageDaoImpl extends BasePageDaoAbstract<PermitEntity> impleme
     @Transactional(readOnly = true)
     public List<Long> findAllByStatusAndOverdue(String status) {
         return this.sessionFactory.getCurrentSession()
-                .createQuery("SELECT p.id FROM PermitEntity p WHERE p.status = :status AND p.extendedPermit <= CURRENT_TIMESTAMP()", Long.class)
+                .createQuery("SELECT p.id FROM PermitEntity p WHERE p.status = :status AND p.endWork <= CURRENT_TIMESTAMP()", Long.class)
                 .setParameter("status", status)
                 .list();
     }
@@ -252,7 +252,7 @@ public class PermitPageDaoImpl extends BasePageDaoAbstract<PermitEntity> impleme
     @Transactional(readOnly = true)
     public HistoryPermitDto findHistoryPermitDtoById(Long id) {
         return this.sessionFactory.getCurrentSession()
-                .createQuery("SELECT new ru.kolaer.permit.dto.HistoryPermitDto(p.id, p.serialNumber, p.name, p.status, p.extendedPermit) FROM PermitEntity p WHERE p.id = :id",
+                .createQuery("SELECT new ru.kolaer.permit.dto.HistoryPermitDto(p.id, p.serialNumber, p.name, p.status, p.endWork) FROM PermitEntity p WHERE p.id = :id",
                         HistoryPermitDto.class)
                 .setParameter("id", id)
                 .uniqueResult();

@@ -130,14 +130,14 @@ public class PermitEntity extends BaseEntity {
     private EmployeeEntity writer;
 
     /**Продление работ*/
-    @Temporal(TemporalType.TIMESTAMP)
+    /*@Temporal(TemporalType.TIMESTAMP)
     @Column(name = "extended_permit")
-    private Date extendedPermit;
+    private Date extendedPermit;*/
 
     /**Наряд получил*/
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "accepted_id")
-    private EmployeeEntity accepted;
+    private EmployeeEntity accepted;*/
 
     /**Наряд иструктаж провел*/
     @ManyToOne

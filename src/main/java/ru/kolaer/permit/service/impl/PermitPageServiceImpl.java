@@ -164,7 +164,7 @@ public class PermitPageServiceImpl extends BasePageServiceAbstract<PermitEntity>
         permitEntity.setStatus(EDIT_STATUS);
         permitEntity.setWriter(whoWrite);
         permitEntity.setDateWritePermit(new Date());
-        permitEntity.setExtendedPermit(permitEntity.getEndWork());
+        //permitEntity.setExtendedPermit(permitEntity.getEndWork());
 
 
         final PermitStatusHistoryEntity createNewPermit = new PermitStatusHistoryEntity();

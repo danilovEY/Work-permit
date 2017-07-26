@@ -44,26 +44,26 @@
                                         </div>
                                     </div>
 
-                                    <div class="control-group">
-                                        <label class="control-label" for="permitAccepted">Наряд-допуск принял:</label>
-                                        <div class="controls">
-                                            <select id="permitAccepted" class="span12" name="accepted.id" data-rel="chosen">
-                                                <option disabled selected value> Наряд-допуск принял... </option>
-                                                <#if employees?has_content>
-                                                    <#list employees as emp>
-                                                        <#if peoplePermitEntity.accepted?has_content && emp.id == peoplePermitEntity.accepted.id>
-                                                            <option selected="selected" value="${emp.id}">(${emp.personnelNumber?c}) ${emp.initials} - ${emp.department.abbreviatedName}</option>
-                                                        <#else>
-                                                            <option value="${emp.id}">(${emp.personnelNumber?c}) ${emp.initials} - ${emp.department.abbreviatedName}</option>
-                                                        </#if>
-                                                    </#list>
-                                                </#if>
-                                            </select>
-                                        </div>
-                                    </div>
+                                    <#--<div class="control-group">-->
+                                        <#--<label class="control-label" for="permitAccepted">Наряд-допуск принял:</label>-->
+                                        <#--<div class="controls">-->
+                                            <#--<select id="permitAccepted" class="span12" name="accepted.id" data-rel="chosen">-->
+                                                <#--<option disabled selected value> Наряд-допуск принял... </option>-->
+                                                <#--<#if employees?has_content>-->
+                                                    <#--<#list employees as emp>-->
+                                                        <#--<#if peoplePermitEntity.accepted?has_content && emp.id == peoplePermitEntity.accepted.id>-->
+                                                            <#--<option selected="selected" value="${emp.id}">(${emp.personnelNumber?c}) ${emp.initials} - ${emp.department.abbreviatedName}</option>-->
+                                                        <#--<#else>-->
+                                                            <#--<option value="${emp.id}">(${emp.personnelNumber?c}) ${emp.initials} - ${emp.department.abbreviatedName}</option>-->
+                                                        <#--</#if>-->
+                                                    <#--</#list>-->
+                                                <#--</#if>-->
+                                            <#--</select>-->
+                                        <#--</div>-->
+                                    <#--</div>-->
 
                                     <div class="control-group">
-                                        <label class="control-label" for="permitBriefingHeld">Целевой инструктаж провёл:</label>
+                                        <label class="control-label" for="permitBriefingHeld">Целевой инструктаж прошел:</label>
                                         <div class="controls">
                                             <select id="permitBriefingHeld" class="span12" name="briefingHeld.id" data-rel="chosen">
                                                 <option disabled selected value> Целевой инструктаж провёл... </option>

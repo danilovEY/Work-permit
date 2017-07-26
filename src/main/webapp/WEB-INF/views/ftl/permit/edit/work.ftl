@@ -25,7 +25,6 @@
             </ul>
             <form class="form-inline" method="post" action="<@spring.url relativeUrl="/permit/update/work"/>">
                 <input type="hidden" name="id" value="${workPermitEntity.id}">
-                <input class="hidden" data-format="dd.MM.yyyy HH:mm" type="text" name="extendedPermit" value="${workPermitEntity.extendedPermit?string["dd.MM.yyyy HH:mm"]}" readonly/>
                 <input class="hidden" data-format="dd.MM.yyyy HH:mm" type="text" name="dateWritePermit" value="${workPermitEntity.dateWritePermit?string["dd.MM.yyyy HH:mm"]}" readonly/>
                 <div id="myTabContent" class="tab-content">
                     <#-- FIRST_TAB -->
