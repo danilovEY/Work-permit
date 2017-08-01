@@ -186,9 +186,9 @@
                                     </#if>
 
                                     <#if permit.status == EDIT_PERMIT_STATUS>
-                                        <a class="btn btn-info" style="margin-bottom: 4px;" title="Запрос на согласование" id="need-approve-but-${permit.id}" href="#">
-                                            <i class="halflings-icon white question-sign"></i>
-                                        </a>
+                                        <#--<a class="btn btn-info" style="margin-bottom: 4px;" title="Запрос на согласование" id="need-approve-but-${permit.id}" href="#">-->
+                                            <#--<i class="halflings-icon white question-sign"></i>-->
+                                        <#--</a>-->
                                         <a class="btn btn-success" style="margin-bottom: 4px;" title="Редактировать" href="<@spring.url relativeUrl="/permit/edit/work?id=${permit.id}"/>">
                                             <i class="halflings-icon white edit"></i>
                                         </a>
@@ -285,9 +285,9 @@
                                     </#if>
 
                                     <#if permit.status == EDIT_PERMIT_STATUS>
-                                        <a class="btn btn-info" style="margin-bottom: 4px;" title="Запрос на согласование" id="need-approve-but-${permit.id}" href="#">
-                                            <i class="halflings-icon white question-sign"></i>
-                                        </a>
+                                        <#--<a class="btn btn-info" style="margin-bottom: 4px;" title="Запрос на согласование" id="need-approve-but-${permit.id}" href="#">-->
+                                            <#--<i class="halflings-icon white question-sign"></i>-->
+                                        <#--</a>-->
                                         <a class="btn btn-success" style="margin-bottom: 4px;" title="Редактировать" href="<@spring.url relativeUrl="/permit/edit/work?id=${permit.id}"/>">
                                             <i class="halflings-icon white edit"></i>
                                         </a>
